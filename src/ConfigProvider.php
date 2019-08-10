@@ -8,7 +8,7 @@ use Zend\Stdlib\Glob;
 
 class ConfigProvider
 {
-    public function __invoke()
+    public function __invoke(): array
     {
         return Factory::fromFiles(Glob::glob(__DIR__ . '/../config/{,*.}config.php', Glob::GLOB_BRACE));
     }
