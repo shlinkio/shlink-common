@@ -1,0 +1,96 @@
+{
+    "name": "shlinkio/shlink-common",
+    "type": "project",
+    "homepage": "https://shlink.io",
+    "description": "Common tools used by Shlink",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alejandro Celaya Alastrué",
+            "homepage": "https://www.alejandrocelaya.com",
+            "email": "alejandro@alejandrocelaya.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "akrabat/ip-address-middleware": "^1.0",
+        "cakephp/chronos": "^1.2",
+        "cocur/slugify": "^3.2",
+        "doctrine/orm": "^2.6",
+        "endroid/qr-code": "^1.9",
+        "fig/http-message-util": "^1.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "league/plates": "^3.3",
+        "lstrojny/functional-php": "^1.9",
+        "monolog/monolog": "^1.24",
+        "predis/predis": "^1.1",
+        "psr/http-server-middleware": "^1.0",
+        "symfony/lock": "^4.3",
+        "theorchard/monolog-cascade": "^0.5.1",
+        "zendframework/zend-config": "^3.3",
+        "zendframework/zend-diactoros": "^2.1.3",
+        "zendframework/zend-i18n": "^2.9",
+        "zendframework/zend-inputfilter": "^2.10"
+    },
+    "require-dev": {
+        "infection/infection": "^0.13.4",
+        "phpstan/phpstan": "^0.11.12",
+        "phpunit/phpunit": "^8.3",
+        "roave/security-advisories": "dev-master",
+        "shlinkio/php-coding-standard": "~1.2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shlinkio\\Shlink\\Common\\": "src"
+        },
+        "files": [
+            "functions/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ShlinkioTest\\Shlink\\Common\\": "test"
+        }
+    },
+    "scripts": {
+        "ci": [
+            "@cs",
+            "@stan",
+            "@test:ci",
+            "@infect:ci"
+        ],
+
+        "cs": "phpcs",
+        "cs:fix": "phpcbf",
+        "stan": "phpstan analyse src config functions --level=5 -c phpstan.neon",
+
+        "test": "phpdbg -qrr vendor/bin/phpunit --order-by=random --testdox",
+        "test:ci": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml --testdox",
+        "test:pretty": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-html build/coverage-html --testdox",
+
+        "infect": "infection --threads=4 --min-msi=50 --log-verbosity=default --only-covered",
+        "infect:ci": "infection --threads=4 --min-msi=50 --log-verbosity=default --only-covered --coverage=build",
+        "infect:show": "infection --threads=4 --min-msi=50 --log-verbosity=default --only-covered --show-mutations",
+        "infect:show:ci": "infection --threads=4 --min-msi=50 --log-verbosity=default --only-covered --show-mutations --coverage=build",
+
+        "test:infect": [
+            "@test:ci",
+            "@infect:show:ci"
+        ]
+    },
+    "scripts-descriptions": {
+        "ci": "<fg=blue;options=bold>Alias for \"cs\", \"stan\", \"test:ci\" and \"infect:ci\"</>",
+        "cs": "<fg=blue;options=bold>Checks coding styles</>",
+        "cs:fix": "<fg=blue;options=bold>Fixes coding styles, when possible</>",
+        "stan": "<fg=blue;options=bold>Inspects code with phpstan</>",
+        "test": "<fg=blue;options=bold>Runs unit tests with no coverage reports</>",
+        "test:ci": "<fg=blue;options=bold>Runs unit tests generating coverage reports and logs</>",
+        "test:pretty": "<fg=blue;options=bold>Runs unit tests generating coverage reports in html</>",
+        "infect": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing</>",
+        "infect:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs</>",
+        "infect:show": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing and shows applied mutators</>"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -11,6 +11,8 @@ use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\CacheFactory;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
 
+use function Functional\const_function;
+
 class CacheFactoryTest extends TestCase
 {
     /** @var ObjectProphecy */
@@ -29,7 +31,7 @@ class CacheFactoryTest extends TestCase
         array $config,
         string $expectedAdapterClass,
         string $expectedNamespace,
-        ?callable $apcuEnabled = null
+        callable $apcuEnabled
     ): void {
         $factory = new CacheFactory($apcuEnabled);
 
@@ -48,15 +50,16 @@ class CacheFactoryTest extends TestCase
 
     public function provideCacheConfig(): iterable
     {
-        yield 'debug true' => [['debug' => true], Cache\ArrayCache::class, ''];
-        yield 'debug false' => [['debug' => false], Cache\ApcuCache::class, ''];
-        yield 'no debug' => [[], Cache\ApcuCache::class, ''];
+        $withApcu = const_function(true);
+        $withoutApcu = const_function(false);
+
+        yield 'debug true' => [['debug' => true], Cache\ArrayCache::class, '', $withApcu];
+        yield 'debug false' => [['debug' => false], Cache\ApcuCache::class, '', $withApcu];
+        yield 'no debug' => [[], Cache\ApcuCache::class, '', $withApcu];
         yield 'with redis' => [['cache' => [
             'namespace' => $namespace = 'some_namespace',
             'redis' => [],
-        ]], Cache\PredisCache::class, $namespace];
-        yield 'debug false and no apcu' => [['debug' => false], Cache\ArrayCache::class, '', function () {
-            return false;
-        }];
+        ]], Cache\PredisCache::class, $namespace, $withApcu];
+        yield 'debug false and no apcu' => [['debug' => false], Cache\ArrayCache::class, '', $withoutApcu];
     }
 }
