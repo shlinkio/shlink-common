@@ -30,7 +30,8 @@
         "zendframework/zend-config": "^3.3",
         "zendframework/zend-diactoros": "^2.1.3",
         "zendframework/zend-i18n": "^2.9",
-        "zendframework/zend-inputfilter": "^2.10"
+        "zendframework/zend-inputfilter": "^2.10",
+        "zendframework/zend-servicemanager": "^3.4"
     },
     "require-dev": {
         "infection/infection": "^0.13.4",
