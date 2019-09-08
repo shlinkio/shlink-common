@@ -63,10 +63,6 @@ This module provides a set of useful middlewares, all registered as services in 
 
     It should be used when serving an app with a non-blocking IO server (like Swoole or ReactPHP), which persist services between requests.
 
-* `LocaleMiddleware`:
-
-    Sets the locale in the translator, based on the `Accapt-Language` header.
-
 * `IpAddress` (from [akrabat/ip-address-middleware](https://github.com/akrabat/ip-address-middleware) package):
 
     Improves detection of the remote IP address.
@@ -147,10 +143,6 @@ As well as the EntityManager, there are two Connection objects that can be fetch
 * `Shlinkio\Shlink\Common\Doctrine\NoDbNameConnection`: Returns a connection which is the same used by the EntityManager but without setting the database name. Useful to perform operations like creating the database (which would otherwise fail since the database does not exist yet).
 
 ## Logger
-
-*TODO*
-
-## I18n
 
 *TODO*
 
