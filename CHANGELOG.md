@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Added
 
-* First stable release
+* *Nothing*
 
 #### Changed
 
-* *Nothing*
+* * [#7](https://github.com/shlinkio/shlink-common/issues/7) Increased code coverage to 98%
 
 #### Deprecated
 
@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Removed
 
-* [#]() Removed anything related with i18n.
+* [#7](https://github.com/shlinkio/shlink-common/issues/7) Removed anything related with i18n.
 
     * `TranslatorFactory`.
     * `TranslatorExtension`.

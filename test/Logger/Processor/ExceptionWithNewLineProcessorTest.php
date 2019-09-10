@@ -63,5 +63,9 @@ class ExceptionWithNewLineProcessorTest extends TestCase
             ['message' => 'Foo {e} bar'],
             ['message' => 'Foo ' . PHP_EOL . '{e} bar'],
         ];
+        yield [
+            ['message' => 'Foo bar'],
+            ['message' => 'Foo bar'],
+        ];
     }
 }

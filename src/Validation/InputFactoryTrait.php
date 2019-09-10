@@ -9,7 +9,7 @@ use Zend\Validator;
 
 trait InputFactoryTrait
 {
-    private function createInput($name, $required = true): Input
+    private function createInput(string $name, bool $required = true): Input
     {
         $input = new Input($name);
         $input->setRequired($required)

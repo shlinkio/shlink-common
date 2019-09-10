@@ -14,6 +14,9 @@ use const FILEINFO_MIME;
 
 trait ResponseUtilsTrait
 {
+    /**
+     * @deprecated Use generateBinaryResponse method instead
+     */
     private function generateImageResponse(string $imagePath): ResponseInterface
     {
         return $this->generateBinaryResponse($imagePath);
