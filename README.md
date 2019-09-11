@@ -144,8 +144,53 @@ As well as the EntityManager, there are two Connection objects that can be fetch
 
 ## Logger
 
-*TODO*
+A few logger-related commodities are provided by this library.
+
+### LoggerFactory
+
+The `LoggerFactory` class is capable of creating `Monolog\Logger` instances based on the configuration described by [monolog-cascade](https://github.com/theorchard/monolog-cascade), which should be provided under the `logger` config entry.
+
+This factory can create any logger registered in the configuration, but the service names used must follow the `Logger_<name>` pattern, where the `<name>` is the name used under the "loggers" config.
+
+So, given this config:
+
+```php
+<?php
+declare(strict_types=1);
+
+return [
+
+    'logger' => [
+        'formatters' => [
+            // ...
+        ],
+        'handlers' => [
+            // ...
+        ],
+        'processors' => [
+            // ...
+        ],
+        'loggers' => [
+            'foo' => [],
+            'bar' => [],
+        ],
+    ],
+
+];
+```
+
+You should use the `Logger_foo` name to get the `foo` logger, and `Logger_bar` in order to get the `bar` one.
+
+### Other logger utils
+
+Besides the `LoggerFactory`, this module provides these utilities:
+
+* `ExceptionWithNewLineProcessor`: A monolog processor which captures the `{e}` pattern inside log messages, and prepends a new line before it, assuming you are going to replace that with an exception trace.
+* `LoggerAwareDelegatorFactory`: A zend-servicemanager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
 
 ## Utils
 
 * `DottedAccessConfigAbstractFactory`: A zend-servicemanager abstract factory that lets any config param to be fetched as a service by using the `config.foo.bar` notation.
+* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Zend\Paginator\Paginator` objects.
+* `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
+* `IpAddress`: An immutable value object representing an IP address that can be copied into an obfuscated instance which removes the last octet.

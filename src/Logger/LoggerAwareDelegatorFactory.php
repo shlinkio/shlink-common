@@ -11,7 +11,7 @@ class LoggerAwareDelegatorFactory
     public function __invoke(ContainerInterface $container, $name, callable $callback)
     {
         $instance = $callback();
-        if ($instance instanceof Log\LoggerAwareInterface) {
+        if ($instance instanceof Log\LoggerAwareInterface && $container->has(Log\LoggerInterface::class)) {
             $instance->setLogger($container->get(Log\LoggerInterface::class));
         }
 

@@ -29,27 +29,37 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
      * @test
      * @dataProvider provideInstances
      */
-    public function injectsLoggerOnInstanceWhenImplementingLoggerAware($instance, int $expectedCalls): void
-    {
-        $callback = function () use ($instance) {
+    public function injectsLoggerOnInstanceWhenImplementingLoggerAware(
+        object $instance,
+        bool $hasLogger,
+        int $expectedHasLoggerCalls,
+        int $expectedGetLoggerCalls
+    ): void {
+        $callback = static function () use ($instance) {
             return $instance;
         };
         $getLogger = $this->container->get(Log\LoggerInterface::class)->willReturn(new Log\NullLogger());
+        $hasLogger = $this->container->has(Log\LoggerInterface::class)->willReturn($hasLogger);
 
         $result = ($this->delegator)($this->container->reveal(), '', $callback);
 
         $this->assertSame($instance, $result);
-        $getLogger->shouldHaveBeenCalledTimes($expectedCalls);
+        $hasLogger->shouldHaveBeenCalledTimes($expectedHasLoggerCalls);
+        $getLogger->shouldHaveBeenCalledTimes($expectedGetLoggerCalls);
     }
 
     public function provideInstances(): iterable
     {
-        yield 'no logger aware' => [new stdClass(), 0];
-        yield 'logger aware' => [new class implements Log\LoggerAwareInterface {
+        $loggerAware = new class implements Log\LoggerAwareInterface {
             public function setLogger(LoggerInterface $logger): void
             {
                 Assert::assertInstanceOf(Log\NullLogger::class, $logger);
             }
-        }, 1];
+        };
+
+        yield 'no logger aware and no logger registered' => [new stdClass(), false, 0, 0];
+        yield 'no logger aware and logger registered' => [new stdClass(), true, 0, 0];
+        yield 'logger aware and no logger registered' => [$loggerAware, false, 1, 0];
+        yield 'logger aware and logger registered' => [$loggerAware, true, 1, 1];
     }
 }
