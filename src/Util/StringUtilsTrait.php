@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Util;
 
 use Ramsey\Uuid\Uuid;
+
 use function random_int;
-use function sprintf;
 use function strlen;
 
 trait StringUtilsTrait
