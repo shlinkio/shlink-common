@@ -41,4 +41,11 @@ class SluggerFilterTest extends TestCase
         yield 'empty string' => ['', null];
         yield 'not empty string' => ['foo', 'slug'];
     }
+
+    /** @test */
+    public function internalSluggerKeepsCasing(): void
+    {
+        $filter = new SluggerFilter();
+        $this->assertEquals('FoO-baR', $filter->filter('FoO baR'));
+    }
 }
