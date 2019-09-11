@@ -12,7 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Changed
 
-* * [#7](https://github.com/shlinkio/shlink-common/issues/7) Increased code coverage to 98%
+* * [#7](https://github.com/shlinkio/shlink-common/issues/7) Increased code coverage to 98%.
+* * [#1](https://github.com/shlinkio/shlink-common/issues/1) Increased mutation score to 84%.
 
 #### Deprecated
 
