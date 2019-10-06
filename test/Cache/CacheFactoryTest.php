@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
@@ -45,7 +46,7 @@ class CacheFactoryTest extends TestCase
         $this->assertInstanceOf($expectedAdapterClass, $cache);
         $this->assertEquals($expectedNamespace, $cache->getNamespace());
         $getConfig->shouldHaveBeenCalledOnce();
-        $getRedis->shouldHaveBeenCalledTimes($expectedAdapterClass === Cache\PredisCache::class ? 1 :0);
+        $getRedis->shouldHaveBeenCalledTimes($expectedAdapterClass === Cache\PredisCache::class ? 1 : 0);
     }
 
     public function provideCacheConfig(): iterable
