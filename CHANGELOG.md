@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Added
 
-* *Nothing*
+* [#14](https://github.com/shlinkio/shlink-common/issues/14) Created a `HostAndPortValidator` which is capable of validating values such as `example.com` or `example.com:8080`.
 
 #### Changed
 
@@ -35,7 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Changed
 
-* [#7](https://github.com/shlinkio/shlink-common/issues/7) Increased code coverage to 98%.
+* [#2](https://github.com/shlinkio/shlink-common/issues/2) Increased code coverage to 98%.
 * [#1](https://github.com/shlinkio/shlink-common/issues/1) Increased mutation score to 84%.
 
 #### Deprecated
