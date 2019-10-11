@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## 2.1.0 - 2019-10-11
 
 #### Added
 
@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Changed
 
+* [#5](https://github.com/shlinkio/shlink-common/issues/5) Updated to latest [endroid/qr-code](https://github.com/endroid/qr-code) version.
 * Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.
 
 #### Deprecated

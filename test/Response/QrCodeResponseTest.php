@@ -11,12 +11,12 @@ use Shlinkio\Shlink\Common\Response\QrCodeResponse;
 class QrCodeResponseTest extends TestCase
 {
     /** @test */
-    public function providedQrCoideIsSetAsBody()
+    public function providedQrCodeIsSetAsBody(): void
     {
         $qrCode = new QrCode('Hello');
         $resp = new QrCodeResponse($qrCode);
 
         $this->assertEquals($qrCode->getContentType(), $resp->getHeaderLine('Content-Type'));
-        $this->assertEquals($qrCode->get(), (string) $resp->getBody());
+        $this->assertEquals($qrCode->writeString(), (string) $resp->getBody());
     }
 }
