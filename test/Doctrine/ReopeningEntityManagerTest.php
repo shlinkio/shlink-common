@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
-use Doctrine\Common\EventManager;
-use Doctrine\DBAL\Connection;
-use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -20,16 +17,20 @@ class ReopeningEntityManagerTest extends TestCase
     private $decoratorEm;
     /** @var ObjectProphecy */
     private $wrapped;
+    /** @var bool  */
+    private $factoryCallbackCalled = false;
 
     public function setUp(): void
     {
         $this->wrapped = $this->prophesize(EntityManagerInterface::class);
-        $this->wrapped->getConnection()->willReturn($this->prophesize(Connection::class));
-        $this->wrapped->getConfiguration()->willReturn($this->prophesize(Configuration::class));
-        $this->wrapped->getEventManager()->willReturn($this->prophesize(EventManager::class));
-
         $wrappedMock = $this->wrapped->reveal();
-        $this->decoratorEm = new ReopeningEntityManager($wrappedMock, function () use ($wrappedMock) {
+
+        $this->factoryCallbackCalled = false;
+        $callCount = 0;
+
+        $this->decoratorEm = new ReopeningEntityManager(function () use ($wrappedMock, &$callCount) {
+            $callCount++;
+            $this->factoryCallbackCalled = $callCount === 2;
             return $wrappedMock;
         });
     }
@@ -45,11 +46,9 @@ class ReopeningEntityManagerTest extends TestCase
 
         $this->decoratorEm->{$methodName}(new stdClass());
 
+        $this->assertFalse($this->factoryCallbackCalled);
         $method->shouldHaveBeenCalledOnce();
         $isOpen->shouldHaveBeenCalledOnce();
-        $this->wrapped->getConnection()->shouldNotHaveBeenCalled();
-        $this->wrapped->getConfiguration()->shouldNotHaveBeenCalled();
-        $this->wrapped->getEventManager()->shouldNotHaveBeenCalled();
     }
 
     /**
@@ -63,11 +62,9 @@ class ReopeningEntityManagerTest extends TestCase
 
         $this->decoratorEm->{$methodName}(new stdClass());
 
+        $this->assertTrue($this->factoryCallbackCalled);
         $method->shouldHaveBeenCalledOnce();
         $isOpen->shouldHaveBeenCalledOnce();
-        $this->wrapped->getConnection()->shouldHaveBeenCalledOnce();
-        $this->wrapped->getConfiguration()->shouldHaveBeenCalledOnce();
-        $this->wrapped->getEventManager()->shouldHaveBeenCalledOnce();
     }
 
     public function provideMethodNames(): iterable
