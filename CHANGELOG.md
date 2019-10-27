@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.2.0 - 2019-10-27
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* [#17](https://github.com/shlinkio/shlink-common/issues/17) Simplified `ReopeningEntityManager` so that it expects a simpler EM creation function.
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.1.0 - 2019-10-11
 
 #### Added

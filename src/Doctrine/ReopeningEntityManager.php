@@ -10,25 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 class ReopeningEntityManager extends EntityManagerDecorator
 {
     /** @var callable */
-    private $emFactory;
+    private $createEm;
 
-    public function __construct(EntityManagerInterface $wrapped, callable $emFactory)
+    public function __construct(callable $createEm)
     {
-        parent::__construct($wrapped);
-        $this->emFactory = $emFactory;
-    }
-
-    protected function getWrappedEntityManager(): EntityManagerInterface
-    {
-        if (! $this->wrapped->isOpen()) {
-            $this->wrapped = ($this->emFactory)(
-                $this->wrapped->getConnection(),
-                $this->wrapped->getConfiguration(),
-                $this->wrapped->getEventManager()
-            );
-        }
-
-        return $this->wrapped;
+        parent::__construct($createEm());
+        $this->createEm = $createEm;
     }
 
     public function flush($entity = null): void
@@ -54,5 +41,14 @@ class ReopeningEntityManager extends EntityManagerDecorator
     public function merge($object)
     {
         return $this->getWrappedEntityManager()->merge($object);
+    }
+
+    private function getWrappedEntityManager(): EntityManagerInterface
+    {
+        if (! $this->wrapped->isOpen()) {
+            $this->wrapped = ($this->createEm)();
+        }
+
+        return $this->wrapped;
     }
 }
