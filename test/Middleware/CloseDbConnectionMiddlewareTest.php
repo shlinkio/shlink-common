@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
+use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 use Shlinkio\Shlink\Common\Middleware\CloseDbConnectionMiddleware;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
@@ -28,12 +28,14 @@ class CloseDbConnectionMiddlewareTest extends TestCase
     public function setUp(): void
     {
         $this->handler = $this->prophesize(RequestHandlerInterface::class);
-        $this->em = $this->prophesize(EntityManagerInterface::class);
+        $this->em = $this->prophesize(ReopeningEntityManager::class);
         $this->conn = $this->prophesize(Connection::class);
         $this->conn->close()->will(function () {
         });
         $this->em->getConnection()->willReturn($this->conn->reveal());
         $this->em->clear()->will(function () {
+        });
+        $this->em->open()->will(function () {
         });
 
         $this->middleware = new CloseDbConnectionMiddleware($this->em->reveal());
@@ -49,6 +51,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $result = $this->middleware->process($req, $this->handler->reveal());
 
         $this->assertSame($result, $resp);
+        $this->em->open()->shouldHaveBeenCalledOnce();
         $this->em->getConnection()->shouldHaveBeenCalledOnce();
         $this->conn->close()->shouldHaveBeenCalledOnce();
         $this->em->clear()->shouldHaveBeenCalledOnce();
@@ -63,6 +66,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->handler->handle($req)->willThrow($expectedError)
                                     ->shouldBeCalledOnce();
 
+        $this->em->open()->shouldBeCalledOnce();
         $this->em->getConnection()->shouldBeCalledOnce();
         $this->conn->close()->shouldBeCalledOnce();
         $this->em->clear()->shouldBeCalledOnce();

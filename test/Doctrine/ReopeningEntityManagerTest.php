@@ -6,73 +6,39 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
-use stdClass;
 
 class ReopeningEntityManagerTest extends TestCase
 {
-    /** @var ReopeningEntityManager */
-    private $decoratorEm;
-    /** @var ObjectProphecy */
-    private $wrapped;
-    /** @var bool  */
-    private $factoryCallbackCalled = false;
-
-    public function setUp(): void
-    {
-        $this->wrapped = $this->prophesize(EntityManagerInterface::class);
-        $wrappedMock = $this->wrapped->reveal();
-
-        $this->factoryCallbackCalled = false;
-        $callCount = 0;
-
-        $this->decoratorEm = new ReopeningEntityManager(function () use ($wrappedMock, &$callCount) {
-            $callCount++;
-            $this->factoryCallbackCalled = $callCount === 2;
-            return $wrappedMock;
+    /**
+     * @test
+     * @dataProvider provideWrapped
+     */
+    public function wrappedEntityManagerIsOnlyRecreatedWhenCurrentOneIsClosed(
+        EntityManagerInterface $wrapped,
+        bool $shouldRecreate
+    ): void {
+        $factoryCalls = 0;
+        $reopeningEm = new ReopeningEntityManager(static function () use ($wrapped, &$factoryCalls) {
+            $factoryCalls++;
+            return $wrapped;
         });
+
+        $reopeningEm->open();
+
+        $this->assertEquals($shouldRecreate, $factoryCalls === 2);
     }
 
-    /**
-     * @test
-     * @dataProvider provideMethodNames
-     */
-    public function wrappedInstanceIsTransparentlyCalledWhenItIsNotClosed(string $methodName): void
+    public function provideWrapped(): iterable
     {
-        $method = $this->wrapped->__call($methodName, [Argument::cetera()])->willReturnArgument();
-        $isOpen = $this->wrapped->isOpen()->willReturn(true);
+        $createEmMock = function (bool $isOpen): EntityManagerInterface {
+            $em = $this->prophesize(EntityManagerInterface::class);
+            $em->isOpen()->willReturn($isOpen);
 
-        $this->decoratorEm->{$methodName}(new stdClass());
+            return $em->reveal();
+        };
 
-        $this->assertFalse($this->factoryCallbackCalled);
-        $method->shouldHaveBeenCalledOnce();
-        $isOpen->shouldHaveBeenCalledOnce();
-    }
-
-    /**
-     * @test
-     * @dataProvider provideMethodNames
-     */
-    public function wrappedInstanceIsRecreatedWhenItIsClosed(string $methodName): void
-    {
-        $method = $this->wrapped->__call($methodName, [Argument::cetera()])->willReturnArgument();
-        $isOpen = $this->wrapped->isOpen()->willReturn(false);
-
-        $this->decoratorEm->{$methodName}(new stdClass());
-
-        $this->assertTrue($this->factoryCallbackCalled);
-        $method->shouldHaveBeenCalledOnce();
-        $isOpen->shouldHaveBeenCalledOnce();
-    }
-
-    public function provideMethodNames(): iterable
-    {
-        yield 'flush' => ['flush'];
-        yield 'persist' => ['persist'];
-        yield 'remove' => ['remove'];
-        yield 'refresh' => ['refresh'];
-        yield 'merge' => ['merge'];
+        yield [$createEmMock(true), false];
+        yield [$createEmMock(false), true];
     }
 }
