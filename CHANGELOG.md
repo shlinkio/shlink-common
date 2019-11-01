@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.2.1 - 2019-11-01
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* Made `ReopeningEntityManager` to have to be actively opened by the `CloseDbConnectionMiddleware`, so that it behaves closer to fast-cgi contexts.
+
+
 ## 2.2.0 - 2019-10-27
 
 #### Added
