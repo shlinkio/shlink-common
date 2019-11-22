@@ -42,6 +42,7 @@
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.0.0",
         "symfony/var-dumper": "^4.4",
+        "zendframework/zend-problem-details": "^1.0",
         "zendframework/zend-stratigility": "^3.2"
     },
     "autoload": {
@@ -95,5 +96,9 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "suggest": {
+        "zendframework/zend-problem-details":  "To log ProblemDetailsMiddleware errors using the ErrorLogger",
+        "zendframework/zend-stratigility": "To log ErrorHandler errors using the ErrorLogger"
     }
 }
