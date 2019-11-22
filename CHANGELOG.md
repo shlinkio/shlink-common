@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.3.0 - 2019-11-22
+
+#### Added
+
+* Updated to latest symfony and doctrine dependency versions
+* Created `ErrorLogger` that can be used to listen for `ErrorHandler` and `ProblemDetailMiddleware` errors in order to log them on a PSR logger.
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.2.1 - 2019-11-01
 
 #### Added
