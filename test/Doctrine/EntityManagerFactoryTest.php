@@ -8,11 +8,15 @@ use Doctrine\Common\Persistence\Mapping\Driver\PHPDriver;
 use Doctrine\DBAL\Driver\PDOSqlite;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\EntityManagerFactory;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use Zend\ServiceManager\ServiceManager;
 
+use function array_filter;
 use function array_merge;
+
+use const ARRAY_FILTER_USE_KEY;
 
 class EntityManagerFactoryTest extends TestCase
 {
@@ -22,8 +26,16 @@ class EntityManagerFactoryTest extends TestCase
     public function setUp(): void
     {
         if (Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
-            Type::overrideType(ChronosDateTimeType::CHRONOS_DATETIME, null);
+            $typeRegistry = Type::getTypeRegistry();
+            $ref = new ReflectionObject($typeRegistry);
+            $instancesProp = $ref->getProperty('instances');
+            $instancesProp->setAccessible(true);
+            $withoutChronosType = array_filter($typeRegistry->getMap(), static function (string $key) {
+                return $key !== ChronosDateTimeType::CHRONOS_DATETIME;
+            }, ARRAY_FILTER_USE_KEY);
+            $instancesProp->setValue($typeRegistry, $withoutChronosType);
         }
+
         $this->factory = new EntityManagerFactory();
     }
 
