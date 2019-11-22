@@ -24,14 +24,11 @@ class ChronosDateTimeTypeTest extends TestCase
     {
         if (! Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
             Type::addType(ChronosDateTimeType::CHRONOS_DATETIME, ChronosDateTimeType::class);
+        } else {
+            Type::overrideType(ChronosDateTimeType::CHRONOS_DATETIME, ChronosDateTimeType::class);
         }
 
         $this->type = Type::getType(ChronosDateTimeType::CHRONOS_DATETIME);
-    }
-
-    protected function tearDown(): void
-    {
-        Type::overrideType(ChronosDateTimeType::CHRONOS_DATETIME, null);
     }
 
     /** @test */

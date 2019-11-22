@@ -17,7 +17,7 @@
         "akrabat/ip-address-middleware": "^1.0",
         "cakephp/chronos": "^1.2",
         "cocur/slugify": "^3.2",
-        "doctrine/orm": "^2.6",
+        "doctrine/orm": "^2.7",
         "endroid/qr-code": "^3.6",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
@@ -27,7 +27,7 @@
         "predis/predis": "^1.1",
         "psr/http-server-middleware": "^1.0",
         "ramsey/uuid": "^3.8",
-        "symfony/lock": "^4.3",
+        "symfony/lock": "^4.4",
         "theorchard/monolog-cascade": "^0.5.1",
         "zendframework/zend-config": "^3.3",
         "zendframework/zend-diactoros": "^2.1.3",
@@ -41,7 +41,8 @@
         "phpunit/phpunit": "^8.3",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.0.0",
-        "symfony/var-dumper": "^4.3"
+        "symfony/var-dumper": "^4.4",
+        "zendframework/zend-stratigility": "^3.2"
     },
     "autoload": {
         "psr-4": {
@@ -63,20 +64,16 @@
             "@test:ci",
             "@infect:ci"
         ],
-
         "cs": "phpcs",
         "cs:fix": "phpcbf",
         "stan": "phpstan analyse src config functions --level=5 -c phpstan.neon",
-
         "test": "phpdbg -qrr vendor/bin/phpunit --order-by=random --testdox --colors=always",
         "test:ci": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml --testdox --colors=always",
         "test:pretty": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-html build/coverage-html --testdox --colors=always",
-
         "infect": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered",
         "infect:ci": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --coverage=build",
         "infect:show": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --show-mutations",
         "infect:show:ci": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --show-mutations --coverage=build",
-
         "test:infect": [
             "@test:ci",
             "@infect:show:ci"
