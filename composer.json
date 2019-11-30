@@ -35,7 +35,7 @@
         "zendframework/zend-servicemanager": "^3.4"
     },
     "require-dev": {
-        "infection/infection": "^0.14.1",
+        "infection/infection": "^0.15.0",
         "phpstan/phpstan": "^0.11.12",
         "phpunit/phpunit": "^8.3",
         "roave/security-advisories": "dev-master",
@@ -68,7 +68,7 @@
         "cs:fix": "phpcbf",
         "stan": "phpstan analyse src config functions --level=5 -c phpstan.neon",
         "test": "phpdbg -qrr vendor/bin/phpunit --order-by=random --testdox --colors=always",
-        "test:ci": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml --testdox --colors=always",
+        "test:ci": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml --testdox --colors=always",
         "test:pretty": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-html build/coverage-html --testdox --colors=always",
         "infect": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered",
         "infect:ci": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --coverage=build",
