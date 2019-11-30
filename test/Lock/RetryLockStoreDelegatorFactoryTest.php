@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Lock\RetryLockStoreDelegatorFactory;
-use Symfony\Component\Lock\StoreInterface;
+use Symfony\Component\Lock\PersistingStoreInterface;
 use Zend\ServiceManager\ServiceManager;
 
 class RetryLockStoreDelegatorFactoryTest extends TestCase
@@ -20,7 +20,7 @@ class RetryLockStoreDelegatorFactoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->originalStore = $this->prophesize(StoreInterface::class)->reveal();
+        $this->originalStore = $this->prophesize(PersistingStoreInterface::class)->reveal();
         $this->delegator = new RetryLockStoreDelegatorFactory();
     }
 

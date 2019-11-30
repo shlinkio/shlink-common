@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.4.0 - 2019-11-30
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* Bumped required symfony version to v5.0
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#21](https://github.com/shlinkio/shlink-common/issues/21) Removed direct dependency on monolog.
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.3.0 - 2019-11-22
 
 #### Added
