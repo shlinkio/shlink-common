@@ -25,7 +25,7 @@ class ErrorLoggerTest extends TestCase
     public function delegatesIntoInternalLoggerWhenInvoked(): void
     {
         $e = new Exception('Something wrong');
-        $error = $this->logger->error((string) $e)->will(function () {
+        $error = $this->logger->error((string) $e)->will(function (): void {
         });
 
         ($this->errorLogger)($e);

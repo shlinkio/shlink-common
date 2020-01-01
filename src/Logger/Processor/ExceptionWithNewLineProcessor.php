@@ -13,7 +13,7 @@ final class ExceptionWithNewLineProcessor
 {
     private const EXCEPTION_PLACEHOLDER = '{e}';
 
-    public function __invoke(array $record)
+    public function __invoke(array $record): array
     {
         $message = $record['message'];
         $messageHasExceptionPlaceholder = strpos($message, self::EXCEPTION_PLACEHOLDER) !== false;
@@ -22,7 +22,7 @@ final class ExceptionWithNewLineProcessor
             $record['message'] = str_replace(
                 self::EXCEPTION_PLACEHOLDER,
                 PHP_EOL . self::EXCEPTION_PLACEHOLDER,
-                $message
+                $message,
             );
         }
 

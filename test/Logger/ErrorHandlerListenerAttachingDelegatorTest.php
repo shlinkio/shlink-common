@@ -30,11 +30,11 @@ class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
      */
     public function attachesAllRegisteredListeners(int $expectedCalls, array $config): void
     {
-        $listener = function () {
+        $listener = function (): void {
         };
         $getConfig = $this->container->get('config')->willReturn($config);
         $getListener = $this->container->get(Argument::not('config'))->willReturn($listener);
-        $attachListener = $this->errorHandler->attachListener($listener)->will(function () {
+        $attachListener = $this->errorHandler->attachListener($listener)->will(function (): void {
         });
         $callbackInvoked = false;
 

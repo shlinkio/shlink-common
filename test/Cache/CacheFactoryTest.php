@@ -37,7 +37,7 @@ class CacheFactoryTest extends TestCase
 
         $getConfig = $this->container->get('config')->willReturn($config);
         $getRedis = $this->container->get(RedisFactory::SERVICE_NAME)->willReturn(
-            $this->prophesize(ClientInterface::class)->reveal()
+            $this->prophesize(ClientInterface::class)->reveal(),
         );
 
         $cache = $factory($this->container->reveal());

@@ -83,6 +83,9 @@ class IpAddressTest extends TestCase
         yield ['8.8.4.4', '8', '8', '4', '4'];
     }
 
+    /**
+     * @return mixed
+     */
     private function getPropFromIpAddress(IpAddress $address, string $propName)
     {
         $ref = new ReflectionObject($address);

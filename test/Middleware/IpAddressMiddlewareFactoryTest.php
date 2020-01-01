@@ -11,7 +11,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class IpAddressMiddlewareFactoryTest extends TestCase
 {
-    private $factory;
+    private IpAddressMiddlewareFactory $factory;
 
     public function setUp(): void
     {

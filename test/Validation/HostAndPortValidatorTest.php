@@ -61,6 +61,7 @@ class HostAndPortValidatorTest extends TestCase
     }
 
     /**
+     * @param mixed $value
      * @test
      * @dataProvider provideIncompatibleValues
      */

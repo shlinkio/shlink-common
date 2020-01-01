@@ -24,7 +24,7 @@ class SluggerFilterTest extends TestCase
      * @test
      * @dataProvider provideValuesToFilter
      */
-    public function providedValueIsFilteredAsExpected($providedValue, $expectedValue): void
+    public function providedValueIsFilteredAsExpected(?string $providedValue, ?string $expectedValue): void
     {
         $slugify = $this->slugger->slugify($providedValue)->willReturn('slug');
 

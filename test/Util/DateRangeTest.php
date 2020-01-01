@@ -11,7 +11,7 @@ use Shlinkio\Shlink\Common\Util\DateRange;
 class DateRangeTest extends TestCase
 {
     /** @test */
-    public function defaultConstructorSetDatesToNull()
+    public function defaultConstructorSetDatesToNull(): void
     {
         $range = new DateRange();
         $this->assertNull($range->getStartDate());
@@ -20,7 +20,7 @@ class DateRangeTest extends TestCase
     }
 
     /** @test */
-    public function providedDatesAreSet()
+    public function providedDatesAreSet(): void
     {
         $startDate = Chronos::now();
         $endDate = Chronos::now();

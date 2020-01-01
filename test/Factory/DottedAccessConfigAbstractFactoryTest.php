@@ -41,7 +41,7 @@ class DottedAccessConfigAbstractFactoryTest extends TestCase
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage(
-            'Defined service "foo" could not be found in container after resolving dotted expression "foo.bar"'
+            'Defined service "foo" could not be found in container after resolving dotted expression "foo.bar"',
         );
 
         $this->factory->__invoke(new ServiceManager(), 'foo.bar');
@@ -66,7 +66,7 @@ class DottedAccessConfigAbstractFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'The key "baz" provided in the dotted notation could not be found in the array service'
+            'The key "baz" provided in the dotted notation could not be found in the array service',
         );
 
         $this->factory->__invoke(new ServiceManager(['services' => [

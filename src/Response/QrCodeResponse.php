@@ -19,7 +19,7 @@ class QrCodeResponse extends Response
         parent::__construct(
             $this->createBody($qrCode),
             $status,
-            $this->injectContentType($qrCode->getContentType(), $headers)
+            $this->injectContentType($qrCode->getContentType(), $headers),
         );
     }
 
