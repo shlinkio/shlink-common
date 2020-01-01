@@ -34,9 +34,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         int $expectedHasLoggerCalls,
         int $expectedGetLoggerCalls
     ): void {
-        $callback = static function () use ($instance) {
-            return $instance;
-        };
+        $callback = fn () => $instance;
         $getLogger = $this->container->get(Log\LoggerInterface::class)->willReturn(new Log\NullLogger());
         $hasLogger = $this->container->has(Log\LoggerInterface::class)->willReturn($hasLogger);
 

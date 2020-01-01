@@ -26,13 +26,11 @@ class StringUtilsTraitTest extends TestCase
 
     public function provideLengths(): array
     {
-        return map(range(10, 50, 5), function (int $i) {
-            return [$i];
-        });
+        return map(range(10, 50, 5), fn (int $i) => [$i]);
     }
 
     /** @test */
-    public function generatesUuidV4()
+    public function generatesUuidV4(): void
     {
         $uuidPattern = '/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/';
 

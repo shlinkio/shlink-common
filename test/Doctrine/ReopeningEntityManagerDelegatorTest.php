@@ -16,9 +16,7 @@ class ReopeningEntityManagerDelegatorTest extends TestCase
     public function decoratesEntityManagerFromCallback(): void
     {
         $em = $this->prophesize(EntityManagerInterface::class)->reveal();
-        $result = (new ReopeningEntityManagerDelegator())(new ServiceManager(), '', function () use ($em) {
-            return $em;
-        });
+        $result = (new ReopeningEntityManagerDelegator())(new ServiceManager(), '', fn () => $em);
 
         $ref = new ReflectionObject($result);
         $prop = $ref->getProperty('wrapped');

@@ -24,9 +24,7 @@ class RetryLockStoreDelegatorFactoryTest extends TestCase
     /** @test */
     public function originalStoreIsWrappedInRetryStore(): void
     {
-        $callback = function () {
-            return $this->originalStore;
-        };
+        $callback = fn () => $this->originalStore;
 
         $result = ($this->delegator)(new ServiceManager(), '', $callback);
 
