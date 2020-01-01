@@ -32,7 +32,6 @@ final class IpAddress
     }
 
     /**
-     * @param string $address
      * @return IpAddress
      * @throws InvalidArgumentException
      */
@@ -53,7 +52,7 @@ final class IpAddress
             $this->firstOctet,
             $this->secondOctet,
             $this->thirdOctet,
-            self::OBFUSCATED_OCTET
+            self::OBFUSCATED_OCTET,
         );
     }
 

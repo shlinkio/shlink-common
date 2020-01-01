@@ -26,12 +26,12 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->handler = $this->prophesize(RequestHandlerInterface::class);
         $this->em = $this->prophesize(ReopeningEntityManager::class);
         $this->conn = $this->prophesize(Connection::class);
-        $this->conn->close()->will(function () {
+        $this->conn->close()->will(function (): void {
         });
         $this->em->getConnection()->willReturn($this->conn->reveal());
-        $this->em->clear()->will(function () {
+        $this->em->clear()->will(function (): void {
         });
-        $this->em->open()->will(function () {
+        $this->em->open()->will(function (): void {
         });
 
         $this->middleware = new CloseDbConnectionMiddleware($this->em->reveal());

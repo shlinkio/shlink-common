@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Validation;
 
+use Traversable;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Between;
 use Zend\Validator\Digits;
@@ -36,6 +37,9 @@ class HostAndPortValidator extends AbstractValidator
     private ValidatorInterface $hostValidator;
     private ValidatorInterface $portValidator;
 
+    /**
+     * @param array|Traversable|null $options
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);
@@ -59,7 +63,6 @@ class HostAndPortValidator extends AbstractValidator
      * validation failed.
      *
      * @param mixed $value
-     * @return bool
      * @throws Exception\RuntimeException If validation of $value is impossible
      */
     public function isValid($value): bool
@@ -67,7 +70,7 @@ class HostAndPortValidator extends AbstractValidator
         if (! is_string($value)) {
             throw new Exception\RuntimeException(sprintf(
                 'Expected value to be a string. %s provided',
-                is_object($value) ? get_class($value) : gettype($value)
+                is_object($value) ? get_class($value) : gettype($value),
             ));
         }
 

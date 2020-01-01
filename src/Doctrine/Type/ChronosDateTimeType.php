@@ -20,6 +20,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
     }
 
     /**
+     * @param mixed $value
      * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Chronos
@@ -33,6 +34,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
     }
 
     /**
+     * @param mixed $value
      * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
@@ -48,7 +50,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
         throw ConversionException::conversionFailedInvalidType(
             $value,
             $this->getName(),
-            ['null', DateTimeInterface::class]
+            ['null', DateTimeInterface::class],
         );
     }
 }

@@ -25,7 +25,6 @@ class PixelResponse extends Response
     /**
      * Create the message body.
      *
-     * @return StreamInterface
      */
     private function createBody(): StreamInterface
     {

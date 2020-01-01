@@ -12,5 +12,4 @@ Dockerfile export-ignore
 indocker export-ignore
 infection.json export-ignore
 phpcs.xml export-ignore
-phpstan.neon export-ignore
 phpunit.xml.dist export-ignore

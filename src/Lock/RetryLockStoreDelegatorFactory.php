@@ -10,7 +10,7 @@ use Symfony\Component\Lock\Store\RetryTillSaveStore;
 
 class RetryLockStoreDelegatorFactory
 {
-    public function __invoke(ContainerInterface $container, $name, callable $callback): RetryTillSaveStore
+    public function __invoke(ContainerInterface $container, string $name, callable $callback): RetryTillSaveStore
     {
         /** @var PersistingStoreInterface $originalStore */
         $originalStore = $callback();

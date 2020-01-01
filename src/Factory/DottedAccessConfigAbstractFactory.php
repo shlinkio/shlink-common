@@ -6,10 +6,8 @@ namespace Shlinkio\Shlink\Common\Factory;
 
 use ArrayAccess;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 use function array_shift;
@@ -22,10 +20,9 @@ class DottedAccessConfigAbstractFactory implements AbstractFactoryInterface
 {
     /**
      * Can the factory create an instance for the service?
-     *
-     * @param  string $requestedName
+     * @param string $requestedName
      */
-    public function canCreate(ContainerInterface $container, $requestedName): bool
+    public function canCreate(ContainerInterface $container, $requestedName): bool // phpcs:ignore
     {
         return substr_count($requestedName, '.') > 0;
     }
@@ -33,16 +30,10 @@ class DottedAccessConfigAbstractFactory implements AbstractFactoryInterface
     /**
      * Create an object
      *
-     * @param  ContainerInterface $container
-     * @param  string $requestedName
-     * @param  null|array $options
-     * @return object
-     * @throws InvalidArgumentException
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @param string $requestedName
+     * @return mixed
      */
+    // phpcs:ignore
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $parts = explode('.', $requestedName);
@@ -51,7 +42,7 @@ class DottedAccessConfigAbstractFactory implements AbstractFactoryInterface
             throw new ServiceNotCreatedException(sprintf(
                 'Defined service "%s" could not be found in container after resolving dotted expression "%s".',
                 $serviceName,
-                $requestedName
+                $requestedName,
             ));
         }
 
@@ -73,7 +64,7 @@ class DottedAccessConfigAbstractFactory implements AbstractFactoryInterface
         if (! isset($array[$key])) {
             throw new InvalidArgumentException(sprintf(
                 'The key "%s" provided in the dotted notation could not be found in the array service',
-                $key
+                $key,
             ));
         }
 
