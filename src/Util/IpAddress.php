@@ -18,14 +18,10 @@ final class IpAddress
     private const OBFUSCATED_OCTET = '0';
     public const LOCALHOST = '127.0.0.1';
 
-    /** @var string */
-    private $firstOctet;
-    /** @var string */
-    private $secondOctet;
-    /** @var string */
-    private $thirdOctet;
-    /** @var string */
-    private $fourthOctet;
+    private string $firstOctet;
+    private string $secondOctet;
+    private string $thirdOctet;
+    private string $fourthOctet;
 
     private function __construct(string $firstOctet, string $secondOctet, string $thirdOctet, string $fourthOctet)
     {

@@ -15,10 +15,8 @@ use stdClass;
 
 class LoggerAwareDelegatorFactoryTest extends TestCase
 {
-    /** @var LoggerAwareDelegatorFactory */
-    private $delegator;
-    /** @var ObjectProphecy */
-    private $container;
+    private LoggerAwareDelegatorFactory $delegator;
+    private ObjectProphecy $container;
 
     public function setUp(): void
     {

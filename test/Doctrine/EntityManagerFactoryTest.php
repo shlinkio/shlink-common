@@ -20,8 +20,7 @@ use const ARRAY_FILTER_USE_KEY;
 
 class EntityManagerFactoryTest extends TestCase
 {
-    /** @var EntityManagerFactory */
-    private $factory;
+    private EntityManagerFactory $factory;
 
     public function setUp(): void
     {

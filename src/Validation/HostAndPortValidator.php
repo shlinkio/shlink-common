@@ -26,17 +26,15 @@ class HostAndPortValidator extends AbstractValidator
     private const INVALID_HOST = 'INVALID_HOST';
     private const INVALID_PORT = 'INVALID_PORT';
 
-    protected $messageTemplates = [
+    protected array $messageTemplates = [
         self::INVALID_AMOUNT_OF_PARTS =>
             'Provided value, once split using the ":" separator, returned more than 2 parts',
         self::INVALID_HOST => 'The host part of the value is not valid',
         self::INVALID_PORT => 'The port part of the value is not valid. Must be a number between 1 and 65535',
     ];
 
-    /** @var ValidatorInterface */
-    private $hostValidator;
-    /** @var ValidatorInterface */
-    private $portValidator;
+    private ValidatorInterface $hostValidator;
+    private ValidatorInterface $portValidator;
 
     public function __construct($options = null)
     {

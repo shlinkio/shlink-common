@@ -9,8 +9,7 @@ use Throwable;
 
 class ErrorLogger
 {
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(LoggerInterface $logger)
     {

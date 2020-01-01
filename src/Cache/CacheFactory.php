@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Cache;
 
+use Closure;
 use Doctrine\Common\Cache;
 use Predis\Client as PredisClient;
 use Psr\Container\ContainerInterface;
@@ -12,14 +13,11 @@ use function extension_loaded;
 
 class CacheFactory
 {
-    /** @var callable|null */
-    private $apcuEnabled;
+    private Closure $apcuEnabled;
 
     public function __construct(?callable $apcuEnabled = null)
     {
-        $this->apcuEnabled = $apcuEnabled ?? function () {
-            return extension_loaded('apcu');
-        };
+        $this->apcuEnabled = Closure::fromCallable($apcuEnabled ?? fn () => extension_loaded('apcu'));
     }
 
     public function __invoke(ContainerInterface $container): Cache\CacheProvider

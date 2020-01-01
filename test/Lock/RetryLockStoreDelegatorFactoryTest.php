@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Lock;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Lock\RetryLockStoreDelegatorFactory;
 use Symfony\Component\Lock\PersistingStoreInterface;
@@ -13,10 +12,8 @@ use Zend\ServiceManager\ServiceManager;
 
 class RetryLockStoreDelegatorFactoryTest extends TestCase
 {
-    /** @var RetryLockStoreDelegatorFactory */
-    private $delegator;
-    /** @var ObjectProphecy */
-    private $originalStore;
+    private RetryLockStoreDelegatorFactory $delegator;
+    private PersistingStoreInterface $originalStore;
 
     public function setUp(): void
     {

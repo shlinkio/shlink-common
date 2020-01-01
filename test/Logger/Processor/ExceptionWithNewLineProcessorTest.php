@@ -17,8 +17,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
 {
     use StringUtilsTrait;
 
-    /** @var ExceptionWithNewLineProcessor */
-    private $processor;
+    private ExceptionWithNewLineProcessor $processor;
 
     public function setUp(): void
     {

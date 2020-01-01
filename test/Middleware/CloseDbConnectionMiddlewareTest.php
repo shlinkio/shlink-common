@@ -16,14 +16,10 @@ use Zend\Diactoros\ServerRequest;
 
 class CloseDbConnectionMiddlewareTest extends TestCase
 {
-    /** @var CloseDbConnectionMiddleware */
-    private $middleware;
-    /** @var ObjectProphecy */
-    private $handler;
-    /** @var ObjectProphecy */
-    private $em;
-    /** @var ObjectProphecy */
-    private $conn;
+    private CloseDbConnectionMiddleware $middleware;
+    private ObjectProphecy $handler;
+    private ObjectProphecy $em;
+    private ObjectProphecy $conn;
 
     public function setUp(): void
     {

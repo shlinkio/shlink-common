@@ -12,10 +12,8 @@ use Shlinkio\Shlink\Common\Logger\ErrorLogger;
 
 class ErrorLoggerTest extends TestCase
 {
-    /** @var ErrorLogger */
-    private $errorLogger;
-    /** @var ObjectProphecy */
-    private $logger;
+    private ErrorLogger $errorLogger;
+    private ObjectProphecy $logger;
 
     public function setUp(): void
     {

@@ -11,10 +11,8 @@ use Shlinkio\Shlink\Common\Validation\SluggerFilter;
 
 class SluggerFilterTest extends TestCase
 {
-    /** @var SluggerFilter */
-    private $filter;
-    /** @var ObjectProphecy */
-    private $slugger;
+    private SluggerFilter $filter;
+    private ObjectProphecy $slugger;
 
     public function setUp(): void
     {
