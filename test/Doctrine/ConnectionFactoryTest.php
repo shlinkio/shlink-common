@@ -14,12 +14,9 @@ use Shlinkio\Shlink\Common\Doctrine\ConnectionFactory;
 
 class ConnectionFactoryTest extends TestCase
 {
-    /** @var ConnectionFactory */
-    private $factory;
-    /** @var ObjectProphecy */
-    private $container;
-    /** @var ObjectProphecy */
-    private $em;
+    private ConnectionFactory $factory;
+    private ObjectProphecy $container;
+    private ObjectProphecy $em;
 
     public function setUp(): void
     {

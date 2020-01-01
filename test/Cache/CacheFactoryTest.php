@@ -16,8 +16,7 @@ use function Functional\const_function;
 
 class CacheFactoryTest extends TestCase
 {
-    /** @var ObjectProphecy */
-    private $container;
+    private ObjectProphecy $container;
 
     public function setUp(): void
     {

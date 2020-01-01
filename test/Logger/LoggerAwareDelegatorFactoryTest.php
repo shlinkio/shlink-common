@@ -15,10 +15,8 @@ use stdClass;
 
 class LoggerAwareDelegatorFactoryTest extends TestCase
 {
-    /** @var LoggerAwareDelegatorFactory */
-    private $delegator;
-    /** @var ObjectProphecy */
-    private $container;
+    private LoggerAwareDelegatorFactory $delegator;
+    private ObjectProphecy $container;
 
     public function setUp(): void
     {
@@ -36,9 +34,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         int $expectedHasLoggerCalls,
         int $expectedGetLoggerCalls
     ): void {
-        $callback = static function () use ($instance) {
-            return $instance;
-        };
+        $callback = fn () => $instance;
         $getLogger = $this->container->get(Log\LoggerInterface::class)->willReturn(new Log\NullLogger());
         $hasLogger = $this->container->has(Log\LoggerInterface::class)->willReturn($hasLogger);
 

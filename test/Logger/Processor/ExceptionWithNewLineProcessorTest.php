@@ -17,8 +17,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
 {
     use StringUtilsTrait;
 
-    /** @var ExceptionWithNewLineProcessor */
-    private $processor;
+    private ExceptionWithNewLineProcessor $processor;
 
     public function setUp(): void
     {
@@ -36,9 +35,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
 
     public function provideNoPlaceholderRecords(): iterable
     {
-        return map(range(1, 5), function () {
-            return [['message' => $this->generateRandomString()]];
-        });
+        return map(range(1, 5), fn () => [['message' => $this->generateRandomString()]]);
     }
 
     /**

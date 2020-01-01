@@ -20,8 +20,7 @@ use const ARRAY_FILTER_USE_KEY;
 
 class EntityManagerFactoryTest extends TestCase
 {
-    /** @var EntityManagerFactory */
-    private $factory;
+    private EntityManagerFactory $factory;
 
     public function setUp(): void
     {
@@ -30,9 +29,11 @@ class EntityManagerFactoryTest extends TestCase
             $ref = new ReflectionObject($typeRegistry);
             $instancesProp = $ref->getProperty('instances');
             $instancesProp->setAccessible(true);
-            $withoutChronosType = array_filter($typeRegistry->getMap(), static function (string $key) {
-                return $key !== ChronosDateTimeType::CHRONOS_DATETIME;
-            }, ARRAY_FILTER_USE_KEY);
+            $withoutChronosType = array_filter(
+                $typeRegistry->getMap(),
+                fn (string $key): bool => $key !== ChronosDateTimeType::CHRONOS_DATETIME,
+                ARRAY_FILTER_USE_KEY,
+            );
             $instancesProp->setValue($typeRegistry, $withoutChronosType);
         }
 

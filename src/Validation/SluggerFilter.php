@@ -10,8 +10,7 @@ use Zend\Filter\FilterInterface;
 
 class SluggerFilter implements FilterInterface
 {
-    /** @var Slugify\SlugifyInterface */
-    private $slugger;
+    private Slugify\SlugifyInterface $slugger;
 
     public function __construct(?Slugify\SlugifyInterface $slugger = null)
     {

@@ -6,8 +6,7 @@ namespace Shlinkio\Shlink\Common\Entity;
 
 abstract class AbstractEntity
 {
-    /** @var string */
-    protected $id;
+    protected ?string $id = null;
 
     public function getId(): string
     {

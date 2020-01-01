@@ -13,12 +13,9 @@ use Zend\Stratigility\Middleware\ErrorHandler;
 
 class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
 {
-    /** @var ErrorHandlerListenerAttachingDelegator */
-    private $delegator;
-    /** @var ObjectProphecy */
-    private $container;
-    /** @var ObjectProphecy */
-    private $errorHandler;
+    private ErrorHandlerListenerAttachingDelegator $delegator;
+    private ObjectProphecy $container;
+    private ObjectProphecy $errorHandler;
 
     public function setUp(): void
     {

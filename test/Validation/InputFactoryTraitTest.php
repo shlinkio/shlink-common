@@ -51,9 +51,10 @@ class InputFactoryTraitTest extends TestCase
 
         /** @var Validator\NotEmpty $notEmptyValidator */
         $notEmptyValidator = $validators[0]['instance'];
-        $calculateTypeValue = (function (array $type) {
-            return $this->calculateTypeValue($type);
-        })->bindTo($notEmptyValidator, Validator\NotEmpty::class);
+        $calculateTypeValue = (fn (array $type) => $this->calculateTypeValue($type))->bindTo(
+            $notEmptyValidator,
+            Validator\NotEmpty::class,
+        );
         $this->assertInstanceOf(Validator\NotEmpty::class, $notEmptyValidator);
         $this->assertEquals($calculateTypeValue([
             Validator\NotEmpty::OBJECT,
@@ -72,8 +73,9 @@ class InputFactoryTraitTest extends TestCase
 
     private function getFiltersFromInput(Input $input): array
     {
-        return map($input->getFilterChain()->getFilters()->toArray(), static function (Filter\FilterInterface $filter) {
-            return get_class($filter);
-        });
+        return map(
+            $input->getFilterChain()->getFilters()->toArray(),
+            fn (Filter\FilterInterface $filter): string => get_class($filter),
+        );
     }
 }

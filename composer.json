@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-fileinfo": "*",
         "akrabat/ip-address-middleware": "^1.0",
         "cakephp/chronos": "^1.2",
@@ -20,7 +20,7 @@
         "doctrine/orm": "^2.7",
         "endroid/qr-code": "^3.6",
         "fig/http-message-util": "^1.1",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^6.5.1",
         "league/plates": "^3.3",
         "lstrojny/functional-php": "^1.9",
         "predis/predis": "^1.1",
@@ -68,12 +68,12 @@
         "cs:fix": "phpcbf",
         "stan": "phpstan analyse src config functions --level=5 -c phpstan.neon",
         "test": "phpdbg -qrr vendor/bin/phpunit --order-by=random --testdox --colors=always",
-        "test:ci": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml --testdox --colors=always",
-        "test:pretty": "phpdbg -qrr vendor/bin/phpunit --order-by=random --coverage-html build/coverage-html --testdox --colors=always",
+        "test:ci": "@test --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml",
+        "test:pretty": "@test --coverage-html build/coverage-html",
         "infect": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered",
-        "infect:ci": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --coverage=build",
-        "infect:show": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --show-mutations",
-        "infect:show:ci": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered --show-mutations --coverage=build",
+        "infect:ci": "@infect --coverage=build",
+        "infect:show": "@infect --show-mutations",
+        "infect:show:ci": "@infect --show-mutations --coverage=build",
         "test:infect": [
             "@test:ci",
             "@infect:show:ci"

@@ -12,8 +12,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class DottedAccessConfigAbstractFactoryTest extends TestCase
 {
-    /** @var DottedAccessConfigAbstractFactory */
-    private $factory;
+    private DottedAccessConfigAbstractFactory $factory;
 
     public function setUp(): void
     {
@@ -38,7 +37,7 @@ class DottedAccessConfigAbstractFactoryTest extends TestCase
     }
 
     /** @test */
-    public function throwsExceptionWhenFirstPartOfTheServiceIsNotRegistered()
+    public function throwsExceptionWhenFirstPartOfTheServiceIsNotRegistered(): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage(
@@ -49,7 +48,7 @@ class DottedAccessConfigAbstractFactoryTest extends TestCase
     }
 
     /** @test */
-    public function dottedNotationIsRecursivelyResolvedUntilLastValueIsFoundAndReturned()
+    public function dottedNotationIsRecursivelyResolvedUntilLastValueIsFoundAndReturned(): void
     {
         $expected = 'this is the result';
 
@@ -63,7 +62,7 @@ class DottedAccessConfigAbstractFactoryTest extends TestCase
     }
 
     /** @test */
-    public function exceptionIsThrownIfAnyStepCannotBeResolved()
+    public function exceptionIsThrownIfAnyStepCannotBeResolved(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

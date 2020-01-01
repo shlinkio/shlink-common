@@ -9,8 +9,7 @@ use Shlinkio\Shlink\Common\Response\PixelResponse;
 
 class PixelResponseTest extends TestCase
 {
-    /** @var PixelResponse */
-    private $resp;
+    private PixelResponse $resp;
 
     public function setUp(): void
     {
@@ -18,7 +17,7 @@ class PixelResponseTest extends TestCase
     }
 
     /** @test */
-    public function responseHasGifTypeAndIsNotEmpty()
+    public function responseHasGifTypeAndIsNotEmpty(): void
     {
         $this->assertEquals('image/gif', $this->resp->getHeaderLine('Content-Type'));
         $this->assertNotEmpty((string) $this->resp->getBody());

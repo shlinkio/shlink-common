@@ -13,10 +13,8 @@ use Shlinkio\Shlink\Common\Cache\RedisFactory;
 
 class RedisFactoryTest extends TestCase
 {
-    /** @var RedisFactory */
-    private $factory;
-    /** @var ObjectProphecy */
-    private $container;
+    private RedisFactory $factory;
+    private ObjectProphecy $container;
 
     public function setUp(): void
     {

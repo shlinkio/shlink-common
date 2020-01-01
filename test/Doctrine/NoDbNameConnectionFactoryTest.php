@@ -13,12 +13,9 @@ use Shlinkio\Shlink\Common\Doctrine\NoDbNameConnectionFactory;
 
 class NoDbNameConnectionFactoryTest extends TestCase
 {
-    /** @var NoDbNameConnectionFactory */
-    private $factory;
-    /** @var ObjectProphecy */
-    private $container;
-    /** @var ObjectProphecy */
-    private $originalConn;
+    private NoDbNameConnectionFactory $factory;
+    private ObjectProphecy $container;
+    private ObjectProphecy $originalConn;
 
     public function setUp(): void
     {
