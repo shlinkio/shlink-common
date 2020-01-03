@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## 2.5.0 - 2020-01-03
 
 #### Added
 
@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 #### Changed
 
 * [#25](https://github.com/shlinkio/shlink-common/issues/25) Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.1.
+* [#26](https://github.com/shlinkio/shlink-common/issues/26) Migrated from Zend Framework components to [Laminas](https://getlaminas.org/).
 
 #### Deprecated
 
