@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerDelegator;
-use Zend\ServiceManager\ServiceManager;
 
 class ReopeningEntityManagerDelegatorTest extends TestCase
 {

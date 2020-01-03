@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Factory;
 
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 use Shlinkio\Shlink\Common\Factory\DottedAccessConfigAbstractFactory;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceManager;
 
 class DottedAccessConfigAbstractFactoryTest extends TestCase
 {

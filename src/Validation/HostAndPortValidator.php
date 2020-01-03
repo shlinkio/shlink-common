@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Validation;
 
+use Laminas\Validator\AbstractValidator;
+use Laminas\Validator\Between;
+use Laminas\Validator\Digits;
+use Laminas\Validator\Exception;
+use Laminas\Validator\Hostname;
+use Laminas\Validator\ValidatorChain;
+use Laminas\Validator\ValidatorInterface;
 use Traversable;
-use Zend\Validator\AbstractValidator;
-use Zend\Validator\Between;
-use Zend\Validator\Digits;
-use Zend\Validator\Exception;
-use Zend\Validator\Hostname;
-use Zend\Validator\ValidatorChain;
-use Zend\Validator\ValidatorInterface;
 
 use function count;
 use function explode;

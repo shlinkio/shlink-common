@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Logger;
 
+use Laminas\Stratigility\Middleware\ErrorHandler;
+use Mezzio\ProblemDetails\ProblemDetailsMiddleware;
 use Psr\Container\ContainerInterface;
-use Zend\ProblemDetails\ProblemDetailsMiddleware;
-use Zend\Stratigility\Middleware\ErrorHandler;
 
 class ErrorHandlerListenerAttachingDelegator
 {

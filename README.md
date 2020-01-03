@@ -9,7 +9,7 @@
 
 This library provides some utils and conventions for web apps. It's main purpose is to be used on [Shlink](https://github.com/shlinkio/shlink) project, but any PHP project can take advantage.
 
-Most of the elements it provides require a [PSR-11](https://www.php-fig.org/psr/psr-11/) container, and it's easy to integrate on [expressive](https://github.com/zendframework/zend-expressive) applications thanks to the `ConfigProvider` it includes.
+Most of the elements it provides require a [PSR-11](https://www.php-fig.org/psr/psr-11/) container, and it's easy to integrate on [mezzio](https://github.com/mezzio/mezzio) applications thanks to the `ConfigProvider` it includes.
 
 ## Install
 
@@ -193,6 +193,6 @@ Besides the `LoggerFactory`, this module provides these utilities:
 ## Utils
 
 * `DottedAccessConfigAbstractFactory`: A zend-servicemanager abstract factory that lets any config param to be fetched as a service by using the `config.foo.bar` notation.
-* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Zend\Paginator\Paginator` objects.
+* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
 * `IpAddress`: An immutable value object representing an IP address that can be copied into an obfuscated instance which removes the last octet.

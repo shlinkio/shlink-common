@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Lock;
 
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Lock\RetryLockStoreDelegatorFactory;
 use Symfony\Component\Lock\PersistingStoreInterface;
-use Zend\ServiceManager\ServiceManager;
 
 class RetryLockStoreDelegatorFactoryTest extends TestCase
 {

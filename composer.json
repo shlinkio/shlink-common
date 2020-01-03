@@ -21,28 +21,29 @@
         "endroid/qr-code": "^3.6",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^6.5.1",
+        "laminas/laminas-config": "^3.3",
+        "laminas/laminas-diactoros": "^2.1.3",
+        "laminas/laminas-inputfilter": "^2.10",
+        "laminas/laminas-paginator": "^2.8",
+        "laminas/laminas-servicemanager": "^3.4",
+        "laminas/laminas-dependency-plugin": "^1.0",
         "league/plates": "^3.3",
         "lstrojny/functional-php": "^1.9",
         "predis/predis": "^1.1",
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
         "ramsey/uuid": "^3.8",
-        "symfony/lock": "^5.0",
-        "zendframework/zend-config": "^3.3",
-        "zendframework/zend-diactoros": "^2.1.3",
-        "zendframework/zend-inputfilter": "^2.10",
-        "zendframework/zend-paginator": "^2.8",
-        "zendframework/zend-servicemanager": "^3.4"
+        "symfony/lock": "^5.0"
     },
     "require-dev": {
         "infection/infection": "^0.15.0",
+        "laminas/laminas-stratigility": "^3.2",
+        "mezzio/mezzio-problem-details": "^1.0",
         "phpstan/phpstan": "^0.11.12",
         "phpunit/phpunit": "^8.3",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.1.0",
-        "symfony/var-dumper": "^5.0",
-        "zendframework/zend-problem-details": "^1.0",
-        "zendframework/zend-stratigility": "^3.2"
+        "symfony/var-dumper": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -97,7 +98,7 @@
         "sort-packages": true
     },
     "suggest": {
-        "zendframework/zend-problem-details":  "To log ProblemDetailsMiddleware errors using the ErrorLogger",
-        "zendframework/zend-stratigility": "To log ErrorHandler errors using the ErrorLogger"
+        "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
+        "laminas/laminas-stratigility": "To log ErrorHandler errors using the ErrorLogger"
     }
 }

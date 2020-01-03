@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Paginator\Util;
 
+use Laminas\Paginator\Paginator;
+use Laminas\Stdlib\ArrayUtils;
 use Shlinkio\Shlink\Common\Rest\DataTransformerInterface;
-use Zend\Paginator\Paginator;
-use Zend\Stdlib\ArrayUtils;
 
 use function array_map;
 use function sprintf;

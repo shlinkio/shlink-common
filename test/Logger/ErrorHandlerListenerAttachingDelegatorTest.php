@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Logger;
 
+use Laminas\Stratigility\Middleware\ErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Logger\ErrorHandlerListenerAttachingDelegator;
-use Zend\Stratigility\Middleware\ErrorHandler;
 
 class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
 {

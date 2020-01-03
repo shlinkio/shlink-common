@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use Laminas\Validator\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\HostAndPortValidator;
 use stdClass;
-use Zend\Validator\Exception\RuntimeException;
 
 use function array_values;
 use function gettype;

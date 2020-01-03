@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Middleware\IpAddressMiddlewareFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class IpAddressMiddlewareFactoryTest extends TestCase
 {

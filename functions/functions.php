@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
 
-use Zend\Config\Factory;
-use Zend\Stdlib\Glob;
+use Laminas\Config\Factory;
+use Laminas\Stdlib\Glob;
 
 use function getenv;
 use function json_decode as spl_json_decode;
