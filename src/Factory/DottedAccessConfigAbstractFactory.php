@@ -6,9 +6,9 @@ namespace Shlinkio\Shlink\Common\Factory;
 
 use ArrayAccess;
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 use function array_shift;
 use function explode;

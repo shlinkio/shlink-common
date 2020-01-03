@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
 use Doctrine\DBAL\Connection;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 use Shlinkio\Shlink\Common\Middleware\CloseDbConnectionMiddleware;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
 
 class CloseDbConnectionMiddlewareTest extends TestCase
 {

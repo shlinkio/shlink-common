@@ -7,11 +7,11 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\Common\Persistence\Mapping\Driver\PHPDriver;
 use Doctrine\DBAL\Driver\PDOSqlite;
 use Doctrine\DBAL\Types\Type;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\EntityManagerFactory;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
-use Zend\ServiceManager\ServiceManager;
 
 use function array_filter;
 use function array_merge;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Validation;
 
-use Zend\Filter;
-use Zend\InputFilter\Input;
-use Zend\Validator;
+use Laminas\Filter;
+use Laminas\InputFilter\Input;
+use Laminas\Validator;
 
 trait InputFactoryTrait
 {

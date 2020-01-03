@@ -6,9 +6,9 @@ namespace Shlinkio\Shlink\Common\Response;
 
 use Endroid\QrCode\QrCodeInterface;
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Stream;
 use Psr\Http\Message\StreamInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 
 class QrCodeResponse extends Response
 {

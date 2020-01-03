@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use Laminas\Filter;
+use Laminas\InputFilter\Input;
+use Laminas\Validator;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\InputFactoryTrait;
-use Zend\Filter;
-use Zend\InputFilter\Input;
-use Zend\Validator;
 
 use function Functional\map;
 use function get_class;

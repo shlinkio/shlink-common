@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Validation;
 
 use Cocur\Slugify;
-use Zend\Filter\Exception;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\Exception;
+use Laminas\Filter\FilterInterface;
 
 class SluggerFilter implements FilterInterface
 {

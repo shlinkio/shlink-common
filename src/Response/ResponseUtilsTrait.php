@@ -6,10 +6,10 @@ namespace Shlinkio\Shlink\Common\Response;
 
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use finfo;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Stream;
+use Laminas\Stdlib\ArrayUtils;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
-use Zend\Stdlib\ArrayUtils;
 
 use const FILEINFO_MIME;
 

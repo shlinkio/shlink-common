@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Paginator\Util;
 
+use Laminas\Paginator\Adapter\ArrayAdapter;
+use Laminas\Paginator\Paginator;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Paginator\Util\PaginatorUtilsTrait;
-use Zend\Paginator\Adapter\ArrayAdapter;
-use Zend\Paginator\Paginator;
 
 use function range;
 

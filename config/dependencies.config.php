@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common;
 
 use GuzzleHttp\Client as GuzzleClient;
+use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Psr\Log\LoggerInterface;
 use RKA\Middleware\IpAddress;
 use Symfony\Component\Filesystem\Filesystem;
-use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
 
