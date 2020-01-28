@@ -8,6 +8,8 @@ use Laminas\Filter;
 use Laminas\InputFilter\Input;
 use Laminas\Validator;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
+use Shlinkio\Shlink\Common\Validation\ExcludingValidatorChain;
 use Shlinkio\Shlink\Common\Validation\InputFactoryTrait;
 
 use function Functional\map;
@@ -19,11 +21,11 @@ class InputFactoryTraitTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideRequired
+     * @dataProvider provideInputArgs
      */
-    public function basicInputIsCreatedWithDefaultFilters(bool $required): void
+    public function basicInputIsCreatedWithDefaultFilters(array $args, bool $required): void
     {
-        $input = $this->createInput('foo', $required);
+        $input = $this->createInput(...$args);
         $filters = $this->getFiltersFromInput($input);
 
         $this->assertEquals($required, $input->isRequired());
@@ -34,11 +36,26 @@ class InputFactoryTraitTest extends TestCase
 
     /**
      * @test
-     * @dataProvider provideRequired
+     * @dataProvider provideInputArgs
      */
-    public function booleanInputIsCreatedAsExpected(bool $required): void
+    public function arrayInputIsCreatedWithDefaultFilters(array $args, bool $required): void
     {
-        $input = $this->createBooleanInput('foo', $required);
+        $input = $this->createArrayInput(...$args);
+        $filters = $this->getFiltersFromInput($input);
+
+        $this->assertEquals($required, $input->isRequired());
+        $this->assertCount(2, $filters);
+        $this->assertContains(Filter\StripTags::class, $filters);
+        $this->assertContains(Filter\StringTrim::class, $filters);
+    }
+
+    /**
+     * @test
+     * @dataProvider provideInputArgs
+     */
+    public function booleanInputIsCreatedAsExpected(array $args, bool $required): void
+    {
+        $input = $this->createBooleanInput(...$args);
         $filters = $this->getFiltersFromInput($input);
         $validators = $input->getValidatorChain()->getValidators();
 
@@ -65,10 +82,40 @@ class InputFactoryTraitTest extends TestCase
         ]), $notEmptyValidator->getType());
     }
 
-    public function provideRequired(): iterable
+    /**
+     * @test
+     * @dataProvider provideInputArgs
+     */
+    public function dateInputIsCreatedAsExpected(array $args, bool $required): void
     {
-        yield [true];
-        yield [false];
+        $input = $this->createDateInput(...$args);
+        $filters = $this->getFiltersFromInput($input);
+        $validators = $input->getValidatorChain()->getValidators();
+
+        $this->assertEquals($required, $input->isRequired());
+        $this->assertCount(1, $validators);
+        $this->assertCount(2, $filters);
+        $this->assertContains(Filter\StripTags::class, $filters);
+        $this->assertContains(Filter\StringTrim::class, $filters);
+
+        /** @var ExcludingValidatorChain $excludingValidator */
+        $excludingValidator = $validators[0]['instance'];
+        $this->assertInstanceOf(ExcludingValidatorChain::class, $excludingValidator);
+
+        $ref = new ReflectionObject($excludingValidator);
+        $prop = $ref->getProperty('validators');
+        $prop->setAccessible(true);
+        $validators = $prop->getValue($excludingValidator);
+        $this->assertCount(2, $validators);
+        $this->assertInstanceOf(Validator\Date::class, $validators[0]);
+        $this->assertInstanceOf(Validator\Date::class, $validators[1]);
+    }
+
+    public function provideInputArgs(): iterable
+    {
+        yield [['foo', true], true];
+        yield [['foo', false], false];
+        yield [['foo'], true];
     }
 
     private function getFiltersFromInput(Input $input): array
