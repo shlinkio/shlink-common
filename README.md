@@ -187,7 +187,7 @@ Besides the `LoggerFactory`, this module provides these utilities:
 
 * `ExceptionWithNewLineProcessor`: A monolog processor which captures the `{e}` pattern inside log messages, and prepends a new line before it, assuming you are going to replace that with an exception trace.
 * `LoggerAwareDelegatorFactory`: A zend-servicemanager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
-* `ErrorLogger`: A callable which expects a `Psr\Log\LoggerInterface` to be injected and uses it to log a `Throwable` when invoked.
+* `ErrorLogger`: A callable which expects a `Psr\Log\LoggerInterface` to be injected and uses it to log a `Throwable` when invoked. It will log 5xx errors with error level and 4xx errors with debug level.
 * `ErrorHandlerListenerAttachingDelegator`: A zend-servicemanager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
 
 ## Utils
