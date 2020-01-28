@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 * [#32](https://github.com/shlinkio/shlink-common/issues/32) Created new `ExcludingValidatorChain` which allows a list of validators to be opassed and considers the value valid as soon as one of them passes.
 * [#32](https://github.com/shlinkio/shlink-common/issues/32) Added `createDateInput` and `createArrayInput` to the `InputFactoryTrait`. The first one makes use of the `ExcludingValidatorChain` to define two valid date formats, `ATOM` and `Y-m-d`.
+* [#31](https://github.com/shlinkio/shlink-common/issues/31) Enhanced `ErrorLogger` so that it logs "controlled" errors as debug, the same way it used to do before adding the problem-details package.
 
 #### Changed
 
