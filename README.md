@@ -121,6 +121,7 @@ return [
             'types' => [ // List of custom database types to map
                 Doctrine\Type\ChronosDateTimeType::CHRONOS_DATETIME => Doctrine\Type\ChronosDateTimeType::class,
             ],
+            'load_mappings_using_functional_style' => true, // Makes loader assume mappings return a function which should be invoked. Defaults to false
         ],
         'connection' => [ // Database connection params
             'driver' => 'pdo_mysql',
