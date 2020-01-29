@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.7.0 - 2020-01-29
+
+#### Added
+
+* [#35](https://github.com/shlinkio/shlink-common/issues/35) Allowed entity mapping config files to be loaded on a functional way and to get the EM config to be passed.
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.6.0 - 2020-01-28
 
 #### Added
