@@ -6,13 +6,13 @@ namespace Shlinkio\Shlink\Common\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Persistence\Mapping\Driver\PHPDriver;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
+use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 
 class EntityManagerFactory
 {
@@ -28,11 +28,14 @@ class EntityManagerFactory
         $emConfig = $globalConfig['entity_manager'] ?? [];
         $connectionConfig = $emConfig['connection'] ?? [];
         $ormConfig = $emConfig['orm'] ?? [];
+        $funcStyle = $ormConfig['load_mappings_using_functional_style'] ?? false;
 
         $this->registerTypes($ormConfig);
 
         $config = Setup::createConfiguration($isDevMode, $ormConfig['proxies_dir'] ?? null, $cache);
-        $config->setMetadataDriverImpl(new PHPDriver($ormConfig['entities_mappings'] ?? []));
+        $config->setMetadataDriverImpl(
+            new EnhancedPHPDriver($ormConfig['entities_mappings'] ?? [], $emConfig, $funcStyle),
+        );
 
         return EntityManager::create($connectionConfig, $config);
     }
