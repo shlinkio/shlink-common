@@ -31,6 +31,7 @@ A [doctrine cache](https://www.doctrine-project.org/projects/doctrine-cache/en/1
  
  ```php
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -71,6 +72,7 @@ This module provides a set of useful middlewares, all registered as services in 
 
     ```php
     <?php
+
     declare(strict_types=1);
 
     return [
@@ -105,6 +107,7 @@ The EntityManager can be customized using this configuration:
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
@@ -157,6 +160,7 @@ So, given this config:
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -190,6 +194,38 @@ Besides the `LoggerFactory`, this module provides these utilities:
 * `LoggerAwareDelegatorFactory`: A zend-servicemanager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
 * `ErrorLogger`: A callable which expects a `Psr\Log\LoggerInterface` to be injected and uses it to log a `Throwable` when invoked. It will log 5xx errors with error level and 4xx errors with debug level.
 * `ErrorHandlerListenerAttachingDelegator`: A zend-servicemanager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
+
+## HTTP Client
+
+A guzzle HTTP client comes preregistered, under the `GuzzleHttp\Client` service name, and aliased by `httpClient`.
+
+It can be customized by adding request and response middlewares using a configuration like this:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+return [
+
+    'http_client' => [
+        'request_middlewares' => [
+            'some_service_middleware',
+            fn (RequestInterface $req): RequestInterface => $req->withHeader('X-Foo', 'bar'),
+        ],
+        'response_middlewares' => [
+            'some_service_middleware',
+            fn (ResponseInterface $res): ResponseInterface => $res->withHeader('X-Foo', 'bar'),
+        ],
+    ],
+
+];
+```
+
+Middlewares can be registered as static callbacks with a signature like the one from the example or as service names which resolve to a service with that same signature.
 
 ## Utils
 
