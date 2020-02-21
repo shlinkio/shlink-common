@@ -16,27 +16,10 @@ class InvalidHttpMiddlewareException extends InvalidArgumentException
     /**
      * @param mixed $middleware
      */
-    public static function fromRequestMiddleware($middleware): self
-    {
-        return static::fromMiddleware($middleware, 'request_middleware');
-    }
-
-    /**
-     * @param mixed $middleware
-     */
-    public static function fromResponseMiddleware($middleware): self
-    {
-        return static::fromMiddleware($middleware, 'response_middleware');
-    }
-
-    /**
-     * @param mixed $middleware
-     */
-    private static function fromMiddleware($middleware, string $type): self
+    public static function fromMiddleware($middleware): self
     {
         return new self(sprintf(
-            'Provided %s does not have a valid type. Expected callable, %s provided',
-            $type,
+            'Provided middleware does not have a valid type. Expected callable, %s provided',
             is_object($middleware) ? get_class($middleware) : getType($middleware),
         ));
     }

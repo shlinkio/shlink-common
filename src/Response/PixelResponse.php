@@ -22,10 +22,6 @@ class PixelResponse extends Response
         parent::__construct($this->createBody(), $status, $headers);
     }
 
-    /**
-     * Create the message body.
-     *
-     */
     private function createBody(): StreamInterface
     {
         $body = new Stream('php://temp', 'wb+');

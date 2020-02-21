@@ -16,35 +16,40 @@ class HttpClientFactory
     public function __invoke(ContainerInterface $container): GuzzleHttp\Client
     {
         $handler = GuzzleHttp\HandlerStack::create();
-        [$requestMiddlewares, $responseMiddlewares] = $this->resolveMiddlewares($container);
+        [$requestMiddlewares, $responseMiddlewares] = $this->getRegisteredMiddlewares($container);
 
         foreach ($requestMiddlewares as $middleware) {
-            $middlewareInstance = is_string($middleware) ? $container->get($middleware) : $middleware;
-            if (! is_callable($middlewareInstance)) {
-                throw InvalidHttpMiddlewareException::fromRequestMiddleware($middlewareInstance);
-            }
-
+            $middlewareInstance = $this->resolveMiddleware($middleware, $container);
             $handler->push(GuzzleHttp\Middleware::mapRequest($middlewareInstance));
         }
 
         foreach ($responseMiddlewares as $middleware) {
-            $middlewareInstance = is_string($middleware) ? $container->get($middleware) : $middleware;
-            if (! is_callable($middlewareInstance)) {
-                throw InvalidHttpMiddlewareException::fromResponseMiddleware($middlewareInstance);
-            }
-
+            $middlewareInstance = $this->resolveMiddleware($middleware, $container);
             $handler->push(GuzzleHttp\Middleware::mapResponse($middlewareInstance));
         }
 
         return new GuzzleHttp\Client(['handler' => $handler]);
     }
 
-    private function resolveMiddlewares(ContainerInterface $container): array
+    private function getRegisteredMiddlewares(ContainerInterface $container): array
     {
         $config = $container->get('config')['http_client'] ?? [];
         return [
             $config['request_middlewares'] ?? [],
             $config['response_middlewares'] ?? [],
         ];
+    }
+
+    /**
+     * @param mixed $middleware
+     */
+    private function resolveMiddleware($middleware, ContainerInterface $container): callable
+    {
+        $middlewareInstance = is_string($middleware) ? $container->get($middleware) : $middleware;
+        if (! is_callable($middlewareInstance)) {
+            throw InvalidHttpMiddlewareException::fromMiddleware($middlewareInstance);
+        }
+
+        return $middlewareInstance;
     }
 }
