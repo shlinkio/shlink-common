@@ -37,7 +37,7 @@ class SluggerFilterTest extends TestCase
     public function provideValuesToFilter(): iterable
     {
         yield 'null' => [null, null];
-        yield 'empty string' => ['', null];
+        yield 'empty string' => ['', 'slug'];
         yield 'not empty string' => ['foo', 'slug'];
     }
 

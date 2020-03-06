@@ -8,6 +8,8 @@ use Cocur\Slugify;
 use Laminas\Filter\Exception;
 use Laminas\Filter\FilterInterface;
 
+use function is_string;
+
 class SluggerFilter implements FilterInterface
 {
     private Slugify\SlugifyInterface $slugger;
@@ -26,6 +28,6 @@ class SluggerFilter implements FilterInterface
      */
     public function filter($value)
     {
-        return ! empty($value) ? $this->slugger->slugify($value) : null;
+        return is_string($value) ? $this->slugger->slugify($value) : $value;
     }
 }
