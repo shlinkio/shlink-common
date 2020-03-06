@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 #### Added
 
 * [#37](https://github.com/shlinkio/shlink-common/issues/37) Middlewares can now be registered on the http client.
+* [#40](https://github.com/shlinkio/shlink-common/issues/40) Replaced coccur/sluggify by symfony/string.
 
 #### Changed
 
@@ -24,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Fixed
 
-* *Nothing*
+* [#39](https://github.com/shlinkio/shlink-common/issues/39) Fixed `SluggerFilter` so that it .
 
 
 ## 2.7.0 - 2020-01-29
