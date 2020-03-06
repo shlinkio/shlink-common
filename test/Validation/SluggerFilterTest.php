@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
-use Cocur\Slugify\SlugifyInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Validation\SluggerFilter;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+use function Symfony\Component\String\u;
 
 class SluggerFilterTest extends TestCase
 {
@@ -16,7 +18,7 @@ class SluggerFilterTest extends TestCase
 
     public function setUp(): void
     {
-        $this->slugger = $this->prophesize(SlugifyInterface::class);
+        $this->slugger = $this->prophesize(SluggerInterface::class);
         $this->filter = new SluggerFilter($this->slugger->reveal());
     }
 
@@ -26,7 +28,7 @@ class SluggerFilterTest extends TestCase
      */
     public function providedValueIsFilteredAsExpected(?string $providedValue, ?string $expectedValue): void
     {
-        $slugify = $this->slugger->slugify($providedValue)->willReturn('slug');
+        $slugify = $this->slugger->slug($providedValue)->willReturn(u('slug'));
 
         $result = $this->filter->filter($providedValue);
 
@@ -37,14 +39,27 @@ class SluggerFilterTest extends TestCase
     public function provideValuesToFilter(): iterable
     {
         yield 'null' => [null, null];
-        yield 'empty string' => ['', null];
+        yield 'empty string' => ['', 'slug'];
         yield 'not empty string' => ['foo', 'slug'];
     }
 
-    /** @test */
-    public function internalSluggerKeepsCasing(): void
+    /**
+     * @test
+     * @dataProvider provideValuesToFilterWithCasing
+     */
+    public function internalSluggerKeepsCasing(string $providedValue, string $expectedValue): void
     {
         $filter = new SluggerFilter();
-        $this->assertEquals('FoO-baR', $filter->filter('FoO baR'));
+        $this->assertEquals($expectedValue, $filter->filter($providedValue));
+    }
+
+    public function provideValuesToFilterWithCasing(): iterable
+    {
+        yield ['FoO baR', 'FoO-baR'];
+        yield ['  FoO/bar', 'FoO-bar'];
+        yield ['  FoO/bar  ', 'FoO-bar'];
+        yield ['foobar  ', 'foobar'];
+        yield ['fo ob ar  ', 'fo-ob-ar'];
+        yield ['/', ''];
     }
 }
