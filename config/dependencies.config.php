@@ -20,9 +20,6 @@ return [
             IpAddress::class => Middleware\IpAddressMiddlewareFactory::class,
             Logger\ErrorLogger::class => ConfigAbstractFactory::class,
         ],
-        'abstract_factories' => [
-            Factory\DottedAccessConfigAbstractFactory::class,
-        ],
     ],
 
     ConfigAbstractFactory::class => [
