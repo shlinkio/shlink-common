@@ -6,17 +6,11 @@ namespace ShlinkioTest\Shlink\Common\Logger\Processor;
 
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Logger\Processor\ExceptionWithNewLineProcessor;
-use Shlinkio\Shlink\Common\Util\StringUtilsTrait;
-
-use function Functional\map;
-use function range;
 
 use const PHP_EOL;
 
 class ExceptionWithNewLineProcessorTest extends TestCase
 {
-    use StringUtilsTrait;
-
     private ExceptionWithNewLineProcessor $processor;
 
     public function setUp(): void
@@ -24,18 +18,11 @@ class ExceptionWithNewLineProcessorTest extends TestCase
         $this->processor = new ExceptionWithNewLineProcessor();
     }
 
-    /**
-     * @test
-     * @dataProvider provideNoPlaceholderRecords
-     */
-    public function keepsRecordAsIsWhenNoPlaceholderExists(array $record): void
+    /** @test */
+    public function keepsRecordAsIsWhenNoPlaceholderExists(): void
     {
+        $record = ['message' => 'foobar2000'];
         $this->assertSame($record, ($this->processor)($record));
-    }
-
-    public function provideNoPlaceholderRecords(): iterable
-    {
-        return map(range(1, 5), fn () => [['message' => $this->generateRandomString()]]);
     }
 
     /**
