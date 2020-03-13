@@ -229,7 +229,6 @@ Middlewares can be registered as static callbacks with a signature like the one 
 
 ## Utils
 
-* `DottedAccessConfigAbstractFactory`: A laminas-servicemanager abstract factory that lets any config param to be fetched as a service by using the `config.foo.bar` notation.
 * `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
 * `IpAddress`: An immutable value object representing an IP address that can be copied into an obfuscated instance which removes the last octet.
