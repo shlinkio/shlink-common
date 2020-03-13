@@ -17,7 +17,7 @@ Install this library using composer:
 
     composer require shlinkio/shlink-common
 
-> This library is also an expressive module which provides its own `ConfigProvider`. Add it to your configuration to get everything automatically set up.
+> This library is also a mezzio module which provides its own `ConfigProvider`. Add it to your configuration to get everything automatically set up.
 
 ## Cache
 
@@ -58,7 +58,7 @@ When the `cache.redis` config is provided, a set of servers is expected. If only
 
 This module provides a set of useful middlewares, all registered as services in the container:
 
-* `CloseDatabaseConnectionMiddleware`:
+* `CloseDbConnectionMiddleware`:
 
     Should be an early middleware in the pipeline. It makes use of the EntityManager that ensure the database connection is closed at the end of the request.
 
@@ -229,7 +229,6 @@ Middlewares can be registered as static callbacks with a signature like the one 
 
 ## Utils
 
-* `DottedAccessConfigAbstractFactory`: A zend-servicemanager abstract factory that lets any config param to be fetched as a service by using the `config.foo.bar` notation.
 * `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
 * `IpAddress`: An immutable value object representing an IP address that can be copied into an obfuscated instance which removes the last octet.

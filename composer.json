@@ -31,7 +31,7 @@
         "predis/predis": "^1.1",
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
-        "ramsey/uuid": "^3.8",
+        "shlinkio/shlink-config": "^1.0",
         "symfony/lock": "^5.0",
         "symfony/string": "^5.0"
     },
@@ -67,7 +67,7 @@
         ],
         "cs": "phpcs",
         "cs:fix": "phpcbf",
-        "stan": "phpstan analyse src config functions --level=5",
+        "stan": "phpstan analyse src config functions --level=6",
         "test": "phpdbg -qrr vendor/bin/phpunit --order-by=random --testdox --colors=always",
         "test:ci": "@test --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml",
         "test:pretty": "@test --coverage-html build/coverage-html",

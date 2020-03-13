@@ -62,11 +62,3 @@ function json_decode(string $json, int $depth = 512, int $options = 0): array
 
     return $data;
 }
-
-/**
- * Loads configuration files which match provided glob pattern, and returns the merged result as array
- */
-function loadConfigFromGlob(string $globPattern): array
-{
-    return Factory::fromFiles(Glob::glob($globPattern, Glob::GLOB_BRACE));
-}
