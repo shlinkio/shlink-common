@@ -32,6 +32,7 @@
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
         "ramsey/uuid": "^3.8",
+        "shlinkio/shlink-config": "^1.0",
         "symfony/lock": "^5.0",
         "symfony/string": "^5.0"
     },
