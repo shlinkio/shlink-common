@@ -8,6 +8,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Added
 
+* *Nothing*
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#29](https://github.com/shlinkio/shlink-common/issues/29) Removed everything which is now part of `shlinkio/shlink-config`.
+
+#### Fixed
+
+* *Nothing*
+
+
+## 2.8.0 - 2020-03-06
+
+#### Added
+
 * [#37](https://github.com/shlinkio/shlink-common/issues/37) Middlewares can now be registered on the http client.
 * [#40](https://github.com/shlinkio/shlink-common/issues/40) Replaced coccur/sluggify by symfony/string.
 
@@ -25,7 +48,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Fixed
 
-* [#39](https://github.com/shlinkio/shlink-common/issues/39) Fixed `SluggerFilter` so that it .
+* [#39](https://github.com/shlinkio/shlink-common/issues/39) Fixed `SluggerFilter` so that it does not return null when an empty string is provided.
 
 
 ## 2.7.0 - 2020-01-29
