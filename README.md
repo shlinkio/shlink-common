@@ -5,7 +5,7 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/shlinkio/shlink-common.svg?style=flat-square)](https://scrutinizer-ci.com/g/shlinkio/shlink-common/?branch=master)
 [![Latest Stable Version](https://img.shields.io/github/release/shlinkio/shlink-common.svg?style=flat-square)](https://packagist.org/packages/shlinkio/shlink-common)
 [![License](https://img.shields.io/github/license/shlinkio/shlink-common.svg?style=flat-square)](https://github.com/shlinkio/shlink-common/blob/master/LICENSE)
-[![Paypal donate](https://img.shields.io/badge/Donate-paypal-blue.svg?style=flat-square&logo=paypal&colorA=aaaaaa)](https://acel.me/donate)
+[![Paypal donate](https://img.shields.io/badge/Donate-paypal-blue.svg?style=flat-square&logo=paypal&colorA=aaaaaa)](https://slnk.to/donate)
 
 This library provides some utils and conventions for web apps. It's main purpose is to be used on [Shlink](https://github.com/shlinkio/shlink) project, but any PHP project can take advantage.
 
