@@ -6,10 +6,13 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 
 class ReopeningEntityManagerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      * @dataProvider provideWrapped

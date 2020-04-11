@@ -8,6 +8,7 @@ use Exception;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -15,6 +16,8 @@ use Shlinkio\Shlink\Common\Logger\ErrorLogger;
 
 class ErrorLoggerTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ErrorLogger $errorLogger;
     private ObjectProphecy $logger;
 

@@ -12,11 +12,14 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use stdClass;
 
 class ChronosDateTimeTypeTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ChronosDateTimeType $type;
 
     protected function setUp(): void

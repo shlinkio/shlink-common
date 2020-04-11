@@ -7,12 +7,15 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\NoDbNameConnectionFactory;
 
 class NoDbNameConnectionFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private NoDbNameConnectionFactory $factory;
     private ObjectProphecy $container;
     private ObjectProphecy $originalConn;

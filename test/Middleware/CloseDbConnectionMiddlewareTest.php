@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
@@ -16,6 +17,8 @@ use Shlinkio\Shlink\Common\Middleware\CloseDbConnectionMiddleware;
 
 class CloseDbConnectionMiddlewareTest extends TestCase
 {
+    use ProphecyTrait;
+
     private CloseDbConnectionMiddleware $middleware;
     private ObjectProphecy $handler;
     private ObjectProphecy $em;

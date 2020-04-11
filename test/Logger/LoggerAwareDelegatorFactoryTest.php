@@ -6,6 +6,7 @@ namespace ShlinkioTest\Shlink\Common\Logger;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Log;
@@ -15,6 +16,8 @@ use stdClass;
 
 class LoggerAwareDelegatorFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private LoggerAwareDelegatorFactory $delegator;
     private ObjectProphecy $container;
 

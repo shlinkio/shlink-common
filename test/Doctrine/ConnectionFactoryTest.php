@@ -8,12 +8,15 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\ConnectionFactory;
 
 class ConnectionFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ConnectionFactory $factory;
     private ObjectProphecy $container;
     private ObjectProphecy $em;

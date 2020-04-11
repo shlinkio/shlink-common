@@ -7,12 +7,15 @@ namespace ShlinkioTest\Shlink\Common\Cache;
 use PHPUnit\Framework\TestCase;
 use Predis\Connection\Aggregate\PredisCluster;
 use Predis\Connection\Aggregate\RedisCluster;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
 
 class RedisFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private RedisFactory $factory;
     private ObjectProphecy $container;
 
