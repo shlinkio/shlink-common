@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
+use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerInterface;
 
 class CloseDbConnectionMiddleware implements MiddlewareInterface
 {
-    private ReopeningEntityManager $em;
+    private ReopeningEntityManagerInterface $em;
 
-    public function __construct(ReopeningEntityManager $em)
+    public function __construct(ReopeningEntityManagerInterface $em)
     {
         $this->em = $em;
     }

@@ -7,7 +7,10 @@ namespace Shlinkio\Shlink\Common\Doctrine;
 use Closure;
 use Doctrine\ORM\Decorator\EntityManagerDecorator;
 
-class ReopeningEntityManager extends EntityManagerDecorator
+/**
+ * @final
+ */
+class ReopeningEntityManager extends EntityManagerDecorator implements ReopeningEntityManagerInterface
 {
     private Closure $createEm;
 
