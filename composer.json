@@ -39,8 +39,9 @@
         "infection/infection": "^0.16.1",
         "laminas/laminas-stratigility": "^3.2",
         "mezzio/mezzio-problem-details": "^1.0",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^0.12.18",
-        "phpunit/phpunit": "^9.0.2",
+        "phpunit/phpunit": "^9.1",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.1.0",
         "symfony/var-dumper": "^5.0"

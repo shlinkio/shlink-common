@@ -6,6 +6,7 @@ namespace ShlinkioTest\Shlink\Common\Http;
 
 use GuzzleHttp\HandlerStack;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use ReflectionObject;
@@ -17,6 +18,8 @@ use function fopen;
 
 class HttpClientFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private const BASE_HANDLERS_COUNT = 4;
 
     private HttpClientFactory $factory;

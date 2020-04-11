@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 #### Changed
 
 * [#44](https://github.com/shlinkio/shlink-common/issues/44) Updated `phpunit` to v9, `infection` to v0.16 and `phpstan` to v0.12.
+* [#46](https://github.com/shlinkio/shlink-common/issues/46) Created `ReopeningEntityManagerInterface`, which is implemented by the `ReopeningEntityManager`.
 
 #### Deprecated
 

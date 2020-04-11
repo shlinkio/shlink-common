@@ -8,11 +8,14 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\FileLocator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 
 class EnhancedPHPDriverTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ObjectProphecy $loader;
     private ObjectProphecy $meta;
 

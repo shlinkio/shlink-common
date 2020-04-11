@@ -7,12 +7,15 @@ namespace ShlinkioTest\Shlink\Common\Logger;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Logger\ErrorHandlerListenerAttachingDelegator;
 
 class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ErrorHandlerListenerAttachingDelegator $delegator;
     private ObjectProphecy $container;
     private ObjectProphecy $errorHandler;

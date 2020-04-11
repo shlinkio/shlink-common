@@ -8,14 +8,17 @@ use Doctrine\DBAL\Connection;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
-use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
+use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerInterface;
 use Shlinkio\Shlink\Common\Middleware\CloseDbConnectionMiddleware;
 
 class CloseDbConnectionMiddlewareTest extends TestCase
 {
+    use ProphecyTrait;
+
     private CloseDbConnectionMiddleware $middleware;
     private ObjectProphecy $handler;
     private ObjectProphecy $em;
@@ -24,7 +27,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
     public function setUp(): void
     {
         $this->handler = $this->prophesize(RequestHandlerInterface::class);
-        $this->em = $this->prophesize(ReopeningEntityManager::class);
+        $this->em = $this->prophesize(ReopeningEntityManagerInterface::class);
         $this->conn = $this->prophesize(Connection::class);
         $this->conn->close()->will(function (): void {
         });

@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Cache;
 use Doctrine\Common\Cache;
 use PHPUnit\Framework\TestCase;
 use Predis\ClientInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\CacheFactory;
@@ -16,6 +17,8 @@ use function Functional\const_function;
 
 class CacheFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private ObjectProphecy $container;
 
     public function setUp(): void

@@ -6,12 +6,15 @@ namespace ShlinkioTest\Shlink\Common\Lock;
 
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Lock\RetryLockStoreDelegatorFactory;
 use Symfony\Component\Lock\PersistingStoreInterface;
 
 class RetryLockStoreDelegatorFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private RetryLockStoreDelegatorFactory $delegator;
     private PersistingStoreInterface $originalStore;
 

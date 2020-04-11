@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Validation;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Validation\SluggerFilter;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -13,6 +14,8 @@ use function Symfony\Component\String\u;
 
 class SluggerFilterTest extends TestCase
 {
+    use ProphecyTrait;
+
     private SluggerFilter $filter;
     private ObjectProphecy $slugger;
 
