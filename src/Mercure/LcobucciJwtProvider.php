@@ -27,13 +27,13 @@ class LcobucciJwtProvider implements JwtProviderInterface
     public function buildPublishToken(): string
     {
         $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
-        return $this->buildToken(['publish' => []], $expiresAt);
+        return $this->buildToken(['publish' => ['*']], $expiresAt);
     }
 
     public function buildSubscriptionToken(?DateTimeImmutable $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
-        return $this->buildToken(['subscribe' => []], $expiresAt);
+        return $this->buildToken(['subscribe' => ['*']], $expiresAt);
     }
 
     private function buildToken(array $mercureClaim, DateTimeImmutable $expiresAt): string
@@ -49,9 +49,9 @@ class LcobucciJwtProvider implements JwtProviderInterface
             ->getToken($this->jwtConfig->getSigner(), $this->jwtConfig->getSigningKey());
     }
 
-    public function roundDateToTheSecond(DateTimeImmutable $date): Chronos
+    private function roundDateToTheSecond(DateTimeImmutable $date): Chronos
     {
         // This removes the microseconds, rounding down to the second, and working around how Lcobucci\JWT parses dates
-        return Chronos::parse($date->format('Y-m-d h:i:s'));
+        return Chronos::parse($date->format('Y-m-d H:i:s'));
     }
 }
