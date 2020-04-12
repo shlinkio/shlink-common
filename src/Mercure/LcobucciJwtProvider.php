@@ -21,11 +21,20 @@ class LcobucciJwtProvider
 
     public function __invoke(?DateTimeImmutable $expiresAt = null): string
     {
+        $now = $this->roundDateToCurrentSecond(Chronos::now());
+        $expiresAt = $expiresAt === null ? $now->addMinutes(10) : $this->roundDateToCurrentSecond($expiresAt);
+
         return (string) $this->jwtConfig
             ->createBuilder()
             ->issuedBy($this->mercureConfig['jwt_issuer'] ?? 'Shlink')
-            ->issuedAt(Chronos::now())
-            ->expiresAt($expiresAt ?? Chronos::now()->addMinutes(10))
+            ->issuedAt($now)
+            ->expiresAt($expiresAt)
             ->getToken($this->jwtConfig->getSigner(), $this->jwtConfig->getSigningKey());
+    }
+
+    public function roundDateToCurrentSecond(DateTimeImmutable $date): Chronos
+    {
+        // This removes the microseconds, rounding down to the second, and working around how Lcobucci\JWT parses dates
+        return Chronos::parse($date->format('Y-m-d h:i:s'));
     }
 }
