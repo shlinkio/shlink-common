@@ -8,7 +8,7 @@ use Cake\Chronos\Chronos;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
 
-class LcobucciJwtProvider
+class LcobucciJwtProvider implements JwtProviderInterface
 {
     private Configuration $jwtConfig;
     private array $mercureConfig;
@@ -19,20 +19,37 @@ class LcobucciJwtProvider
         $this->mercureConfig = $mercureConfig;
     }
 
-    public function __invoke(?DateTimeImmutable $expiresAt = null): string
+    public function __invoke(): string
     {
-        $now = $this->roundDateToCurrentSecond(Chronos::now());
-        $expiresAt = $expiresAt === null ? $now->addMinutes(10) : $this->roundDateToCurrentSecond($expiresAt);
+        return $this->buildPublishToken();
+    }
+
+    public function buildPublishToken(): string
+    {
+        $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
+        return $this->buildToken(['publish' => []], $expiresAt);
+    }
+
+    public function buildSubscriptionToken(?DateTimeImmutable $expiresAt = null): string
+    {
+        $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
+        return $this->buildToken(['subscribe' => []], $expiresAt);
+    }
+
+    private function buildToken(array $mercureClaim, DateTimeImmutable $expiresAt): string
+    {
+        $now = $this->roundDateToTheSecond(Chronos::now());
 
         return (string) $this->jwtConfig
             ->createBuilder()
             ->issuedBy($this->mercureConfig['jwt_issuer'] ?? 'Shlink')
             ->issuedAt($now)
             ->expiresAt($expiresAt)
+            ->withClaim('mercure', $mercureClaim)
             ->getToken($this->jwtConfig->getSigner(), $this->jwtConfig->getSigningKey());
     }
 
-    public function roundDateToCurrentSecond(DateTimeImmutable $date): Chronos
+    public function roundDateToTheSecond(DateTimeImmutable $date): Chronos
     {
         // This removes the microseconds, rounding down to the second, and working around how Lcobucci\JWT parses dates
         return Chronos::parse($date->format('Y-m-d h:i:s'));

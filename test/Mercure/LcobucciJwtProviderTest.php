@@ -22,28 +22,40 @@ class LcobucciJwtProviderTest extends TestCase
      * @test
      * @dataProvider provideMercureConfigs
      */
-    public function expectedTokenIsCreated(
-        array $mercureConfig,
-        string $expectedIssuer,
-        ?Chronos $expiresAt,
-        Chronos $expectedExpiration
-    ): void {
+    public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
+    {
         $token = $this->jwtConfig->getParser()->parse(
-            (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))($expiresAt),
+            (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))(),
         );
 
         $this->assertTrue($token->hasBeenIssuedBy($expectedIssuer));
-        $this->assertTrue($token->isExpired($expectedExpiration->addSeconds(5)));
+        $this->assertTrue($token->isExpired(Chronos::now()->addMinutes(10)->addSeconds(5)));
+        $this->assertEquals(['publish' => []], $token->claims()->get('mercure'));
     }
 
     public function provideMercureConfigs(): iterable
     {
-        yield 'without issuer' => [[], 'Shlink', null, Chronos::now()->addMinutes(10)];
-        yield 'with issuer' => [
-            ['jwt_issuer' => $issuer = 'foobar'],
-            $issuer,
-            $expires = Chronos::now()->addMonths(5),
-            $expires,
-        ];
+        yield 'without issuer' => [[], 'Shlink'];
+        yield 'with issuer' => [['jwt_issuer' => $issuer = 'foobar'], $issuer];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideExpirationDates
+     */
+    public function expectedSubscriptionTokenIsCreated(?Chronos $expiresAt, Chronos $expectedExpiresAt): void
+    {
+        $token = $this->jwtConfig->getParser()->parse(
+            (new LcobucciJwtProvider($this->jwtConfig, []))->buildSubscriptionToken($expiresAt),
+        );
+
+        $this->assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));
+        $this->assertEquals(['subscribe' => []], $token->claims()->get('mercure'));
+    }
+
+    public function provideExpirationDates(): iterable
+    {
+        yield 'default expiration' => [null, Chronos::now()->addDays(3)];
+        yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires];
     }
 }
