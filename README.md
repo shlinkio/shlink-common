@@ -227,6 +227,54 @@ return [
 
 Middlewares can be registered as static callbacks with a signature like the one from the example or as service names which resolve to a service with that same signature.
 
+## Mercure
+
+A helper to publish updates on a mercure hub comes preregistered. You need to provide a configuration like this one:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+return [
+
+    'mercure' => [
+
+        // A URL publicly available in which the mercure hub can be reached.
+        'public_hub_url' => null,
+
+        // Optional. An internal URL in which the mercure hub can be reached. Will fall back to public_hub_url if not provided.
+        'internal_hub_url' => null,
+
+        // The JWT secret you provided to the mercure hub as JWT_KEY, so that valid JWTs can be generated.
+        'jwt_secret' => null,
+
+        // Optional. The issuer for generated JWTs. Will fall back to "Shlink".
+        'jwt_issuer' => 'Shlink',
+    ],
+
+];
+```
+
+After that, you can get the publisher from the container, and invoke it to publish updates for specific topics:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Symfony\Component\Mercure\Publisher;
+use Symfony\Component\Mercure\Update;
+
+$publisher = $container->get(Publisher::class);
+
+$publisher(new Update('some_topic', json_encode([
+    'foo' => 'bar',
+])));
+```
+
+> Find more info about the symfony/mercure component here: https://symfony.com/blog/symfony-gets-real-time-push-capabilities
+
 ## Utils
 
 * `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.

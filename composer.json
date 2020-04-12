@@ -26,6 +26,7 @@
         "laminas/laminas-inputfilter": "^2.10",
         "laminas/laminas-paginator": "^2.8",
         "laminas/laminas-servicemanager": "^3.4",
+        "lcobucci/jwt": "^4.0@alpha",
         "league/plates": "^3.3",
         "lstrojny/functional-php": "^1.9",
         "predis/predis": "^1.1",
@@ -33,6 +34,7 @@
         "psr/log": "^1.1",
         "shlinkio/shlink-config": "^1.0",
         "symfony/lock": "^5.0",
+        "symfony/mercure": "^0.3.0",
         "symfony/string": "^5.0"
     },
     "require-dev": {
