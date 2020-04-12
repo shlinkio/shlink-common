@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Added
 
-* *Nothing*
+* [#42](https://github.com/shlinkio/shlink-common/issues/42) Added utilities to work with a mercure hub.
 
 #### Changed
 
