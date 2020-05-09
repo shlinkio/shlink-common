@@ -279,4 +279,4 @@ $publisher(new Update('some_topic', json_encode([
 
 * `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
-* `IpAddress`: An immutable value object representing an IP address that can be copied into an obfuscated instance which removes the last octet.
+* `IpAddress`: An immutable value object representing an IP address that can be copied into an anonymized instance which removes the last octet.
