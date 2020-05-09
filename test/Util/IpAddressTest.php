@@ -59,18 +59,18 @@ class IpAddressTest extends TestCase
      * @test
      * @dataProvider provideValidAddresses
      */
-    public function addressesRemoveLastOctetWhenObfuscated(
+    public function addressesRemoveLastOctetWhenAnonymized(
         string $validAddress,
         string $firstOctet,
         string $secondOctet,
         string $thirdOctet
     ): void {
-        $obfuscatedAddress = IpAddress::fromString($validAddress)->getObfuscatedCopy();
+        $anonymizedAddress = IpAddress::fromString($validAddress)->getAnonymizedCopy();
 
-        $this->assertEquals($firstOctet, $this->getPropFromIpAddress($obfuscatedAddress, 'firstOctet'));
-        $this->assertEquals($secondOctet, $this->getPropFromIpAddress($obfuscatedAddress, 'secondOctet'));
-        $this->assertEquals($thirdOctet, $this->getPropFromIpAddress($obfuscatedAddress, 'thirdOctet'));
-        $this->assertEquals(0, $this->getPropFromIpAddress($obfuscatedAddress, 'fourthOctet'));
+        $this->assertEquals($firstOctet, $this->getPropFromIpAddress($anonymizedAddress, 'firstOctet'));
+        $this->assertEquals($secondOctet, $this->getPropFromIpAddress($anonymizedAddress, 'secondOctet'));
+        $this->assertEquals($thirdOctet, $this->getPropFromIpAddress($anonymizedAddress, 'thirdOctet'));
+        $this->assertEquals(0, $this->getPropFromIpAddress($anonymizedAddress, 'fourthOctet'));
     }
 
     public function provideValidAddresses(): iterable

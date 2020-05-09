@@ -15,7 +15,7 @@ use function trim;
 final class IpAddress
 {
     private const IPV4_PARTS_COUNT = 4;
-    private const OBFUSCATED_OCTET = '0';
+    private const ANONYMIZED_OCTET = '0';
     public const LOCALHOST = '127.0.0.1';
 
     private string $firstOctet;
@@ -46,14 +46,20 @@ final class IpAddress
         return new self(...$parts);
     }
 
-    public function getObfuscatedCopy(): self
+    public function getAnonymizedCopy(): self
     {
         return new self(
             $this->firstOctet,
             $this->secondOctet,
             $this->thirdOctet,
-            self::OBFUSCATED_OCTET,
+            self::ANONYMIZED_OCTET,
         );
+    }
+
+    /** @deprecated Use getAnonymizedCopy instead */
+    public function getObfuscatedCopy(): self
+    {
+        return $this->getAnonymizedCopy();
     }
 
     public function __toString(): string
