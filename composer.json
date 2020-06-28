@@ -33,9 +33,10 @@
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
         "shlinkio/shlink-config": "^1.0",
-        "symfony/lock": "^5.0",
+        "symfony/lock": "^5.1",
         "symfony/mercure": "^0.3.0",
-        "symfony/string": "^5.0"
+        "symfony/string": "^5.1",
+        "symfony/translation-contracts": "^2.1"
     },
     "require-dev": {
         "infection/infection": "^0.16.1",
