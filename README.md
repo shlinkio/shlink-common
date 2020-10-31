@@ -1,6 +1,6 @@
 # Shlink Common
 
-[![Build Status](https://img.shields.io/travis/shlinkio/shlink-common.svg?style=flat-square)](https://travis-ci.org/shlinkio/shlink-common)
+[![Build Status](https://img.shields.io/travis/com/shlinkio/shlink-common.svg?style=flat-square)](https://travis-ci.com/shlinkio/shlink-common)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/shlinkio/shlink-common.svg?style=flat-square)](https://scrutinizer-ci.com/g/shlinkio/shlink-common/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/shlinkio/shlink-common.svg?style=flat-square)](https://scrutinizer-ci.com/g/shlinkio/shlink-common/)
 [![Latest Stable Version](https://img.shields.io/github/release/shlinkio/shlink-common.svg?style=flat-square)](https://packagist.org/packages/shlinkio/shlink-common)
