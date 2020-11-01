@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [3.2.1] - 2020-10-25
 ### Added
-* *Nothing*
+* Explicitly added compatibility with PHP 8
 
 ### Changed
 * Added PHP 8 to the build matrix, allowing failures on it.
