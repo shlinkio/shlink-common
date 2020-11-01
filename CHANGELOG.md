@@ -4,359 +4,285 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## 3.2.1 - 2020-10-25
+## [Unreleased]
+### Added
+* Explicitly added compatibility with PHP 8
 
-#### Added
-
+### Changed
 * *Nothing*
 
-#### Changed
+### Deprecated
+* *Nothing*
 
+### Removed
+* *Nothing*
+
+
+### Fixed
+* *Nothing*
+## [3.2.1] - 2020-10-25
+### Added
+* *Nothing*
+
+### Changed
 * Added PHP 8 to the build matrix, allowing failures on it.
 * Updated to composer 2.
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 3.2.0 - 2020-06-28
-
-#### Added
-
+## [3.2.0] - 2020-06-28
+### Added
 * Added support for Guzzle 7.
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 3.1.0 - 2020-05-09
-
-#### Added
-
+## [3.1.0] - 2020-05-09
+### Added
 * [#42](https://github.com/shlinkio/shlink-common/issues/42) Added utilities to work with a mercure hub.
 
-#### Changed
-
+### Changed
 * [#44](https://github.com/shlinkio/shlink-common/issues/44) Updated `phpunit` to v9, `infection` to v0.16 and `phpstan` to v0.12.
 * [#46](https://github.com/shlinkio/shlink-common/issues/46) Created `ReopeningEntityManagerInterface`, which is implemented by the `ReopeningEntityManager`.
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 3.0.0 - 2020-03-14
-
-#### Added
-
+## [3.0.0] - 2020-03-14
+### Added
 * *Nothing*
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * [#29](https://github.com/shlinkio/shlink-common/issues/29) Removed everything which is now part of `shlinkio/shlink-config`.
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.8.0 - 2020-03-06
-
-#### Added
-
+## [2.8.0] - 2020-03-06
+### Added
 * [#37](https://github.com/shlinkio/shlink-common/issues/37) Middlewares can now be registered on the http client.
 * [#40](https://github.com/shlinkio/shlink-common/issues/40) Replaced coccur/sluggify by symfony/string.
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * [#39](https://github.com/shlinkio/shlink-common/issues/39) Fixed `SluggerFilter` so that it does not return null when an empty string is provided.
 
 
-## 2.7.0 - 2020-01-29
-
-#### Added
-
+## [2.7.0] - 2020-01-29
+### Added
 * [#35](https://github.com/shlinkio/shlink-common/issues/35) Allowed entity mapping config files to be loaded on a functional way and to get the EM config to be passed.
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.6.0 - 2020-01-28
-
-#### Added
-
+## [2.6.0] - 2020-01-28
+### Added
 * [#32](https://github.com/shlinkio/shlink-common/issues/32) Created new `ExcludingValidatorChain` which allows a list of validators to be opassed and considers the value valid as soon as one of them passes.
 * [#32](https://github.com/shlinkio/shlink-common/issues/32) Added `createDateInput` and `createArrayInput` to the `InputFactoryTrait`. The first one makes use of the `ExcludingValidatorChain` to define two valid date formats, `ATOM` and `Y-m-d`.
 * [#31](https://github.com/shlinkio/shlink-common/issues/31) Enhanced `ErrorLogger` so that it logs "controlled" errors as debug, the same way it used to do before adding the problem-details package.
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.5.0 - 2020-01-03
-
-#### Added
-
+## [2.5.0] - 2020-01-03
+### Added
 * *Nothing*
 
-#### Changed
-
+### Changed
 * [#25](https://github.com/shlinkio/shlink-common/issues/25) Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.1.
 * [#26](https://github.com/shlinkio/shlink-common/issues/26) Migrated from Zend Framework components to [Laminas](https://getlaminas.org/).
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * [#24](https://github.com/shlinkio/shlink-common/issues/24) Dropped support for PHP 7.2 and 7.3
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.4.0 - 2019-11-30
-
-#### Added
-
+## [2.4.0] - 2019-11-30
+### Added
 * *Nothing*
 
-#### Changed
-
+### Changed
 * Bumped required symfony version to v5.0
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * [#21](https://github.com/shlinkio/shlink-common/issues/21) Removed direct dependency on monolog.
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.3.0 - 2019-11-22
-
-#### Added
-
+## [2.3.0] - 2019-11-22
+### Added
 * Updated to latest symfony and doctrine dependency versions
 * Created `ErrorLogger` that can be used to listen for `ErrorHandler` and `ProblemDetailMiddleware` errors in order to log them on a PSR logger.
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.2.1 - 2019-11-01
-
-#### Added
-
+## [2.2.1] - 2019-11-01
+### Added
 * *Nothing*
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * Made `ReopeningEntityManager` to have to be actively opened by the `CloseDbConnectionMiddleware`, so that it behaves closer to fast-cgi contexts.
 
 
-## 2.2.0 - 2019-10-27
-
-#### Added
-
+## [2.2.0] - 2019-10-27
+### Added
 * *Nothing*
 
-#### Changed
-
+### Changed
 * [#17](https://github.com/shlinkio/shlink-common/issues/17) Simplified `ReopeningEntityManager` so that it expects a simpler EM creation function.
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.1.0 - 2019-10-11
-
-#### Added
-
+## [2.1.0] - 2019-10-11
+### Added
 * [#14](https://github.com/shlinkio/shlink-common/issues/14) Created a `HostAndPortValidator` which is capable of validating values such as `example.com` or `example.com:8080`.
 
-#### Changed
-
+### Changed
 * [#5](https://github.com/shlinkio/shlink-common/issues/5) Updated to latest [endroid/qr-code](https://github.com/endroid/qr-code) version.
 * Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 2.0.0 - 2019-09-11
-
-#### Added
-
+## [2.0.0] - 2019-09-11
+### Added
 * [#4](https://github.com/shlinkio/shlink-common/issues/4) Finished documentation.
 
-#### Changed
-
+### Changed
 * [#2](https://github.com/shlinkio/shlink-common/issues/2) Increased code coverage to 98%.
 * [#1](https://github.com/shlinkio/shlink-common/issues/1) Increased mutation score to 84%.
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * [#7](https://github.com/shlinkio/shlink-common/issues/7) Removed anything related with i18n.
 
     * `TranslatorFactory`.
     * `TranslatorExtension`.
     * `LocaleMiddleware`.
 
-#### Fixed
-
+### Fixed
 * *Nothing*
 
 
-## 1.0.0 - 2019-08-12
-
-#### Added
-
+## [1.0.0] - 2019-08-12
+### Added
 * First stable release
 
-#### Changed
-
+### Changed
 * *Nothing*
 
-#### Deprecated
-
+### Deprecated
 * *Nothing*
 
-#### Removed
-
+### Removed
 * *Nothing*
 
-#### Fixed
-
+### Fixed
 * *Nothing*
