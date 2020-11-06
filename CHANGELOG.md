@@ -18,9 +18,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Removed
 * *Nothing*
 
-
 ### Fixed
 * *Nothing*
+
+
 ## [3.2.1] - 2020-10-25
 ### Added
 * *Nothing*
