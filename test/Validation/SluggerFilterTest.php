@@ -35,7 +35,7 @@ class SluggerFilterTest extends TestCase
 
         $result = $this->filter->filter($providedValue);
 
-        $this->assertEquals($expectedValue, $result);
+        self::assertEquals($expectedValue, $result);
         $slugify->shouldHaveBeenCalledTimes($expectedValue !== null ? 1 : 0);
     }
 
@@ -53,7 +53,7 @@ class SluggerFilterTest extends TestCase
     public function internalSluggerKeepsCasing(string $providedValue, string $expectedValue): void
     {
         $filter = new SluggerFilter();
-        $this->assertEquals($expectedValue, $filter->filter($providedValue));
+        self::assertEquals($expectedValue, $filter->filter($providedValue));
     }
 
     public function provideValuesToFilterWithCasing(): iterable

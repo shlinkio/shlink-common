@@ -10,6 +10,7 @@ use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 use Shlinkio\Shlink\Common\Util\IpAddress;
 
 use function sprintf;
+use function trim;
 
 class IpAddressTest extends TestCase
 {
@@ -48,11 +49,11 @@ class IpAddressTest extends TestCase
     ): void {
         $address = IpAddress::fromString($validAddress);
 
-        $this->assertEquals($firstOctet, $this->getPropFromIpAddress($address, 'firstOctet'));
-        $this->assertEquals($secondOctet, $this->getPropFromIpAddress($address, 'secondOctet'));
-        $this->assertEquals($thirdOctet, $this->getPropFromIpAddress($address, 'thirdOctet'));
-        $this->assertEquals($fourthOctet, $this->getPropFromIpAddress($address, 'fourthOctet'));
-        $this->assertEquals($validAddress, (string) $address);
+        self::assertEquals($firstOctet, $this->getPropFromIpAddress($address, 'firstOctet'));
+        self::assertEquals($secondOctet, $this->getPropFromIpAddress($address, 'secondOctet'));
+        self::assertEquals($thirdOctet, $this->getPropFromIpAddress($address, 'thirdOctet'));
+        self::assertEquals($fourthOctet, $this->getPropFromIpAddress($address, 'fourthOctet'));
+        self::assertEquals(trim($validAddress), (string) $address);
     }
 
     /**
@@ -67,10 +68,10 @@ class IpAddressTest extends TestCase
     ): void {
         $anonymizedAddress = IpAddress::fromString($validAddress)->getAnonymizedCopy();
 
-        $this->assertEquals($firstOctet, $this->getPropFromIpAddress($anonymizedAddress, 'firstOctet'));
-        $this->assertEquals($secondOctet, $this->getPropFromIpAddress($anonymizedAddress, 'secondOctet'));
-        $this->assertEquals($thirdOctet, $this->getPropFromIpAddress($anonymizedAddress, 'thirdOctet'));
-        $this->assertEquals(0, $this->getPropFromIpAddress($anonymizedAddress, 'fourthOctet'));
+        self::assertEquals($firstOctet, $this->getPropFromIpAddress($anonymizedAddress, 'firstOctet'));
+        self::assertEquals($secondOctet, $this->getPropFromIpAddress($anonymizedAddress, 'secondOctet'));
+        self::assertEquals($thirdOctet, $this->getPropFromIpAddress($anonymizedAddress, 'thirdOctet'));
+        self::assertEquals(0, $this->getPropFromIpAddress($anonymizedAddress, 'fourthOctet'));
     }
 
     public function provideValidAddresses(): iterable
@@ -81,6 +82,7 @@ class IpAddressTest extends TestCase
         yield ['192.168.1.254', '192', '168', '1', '254'];
         yield ['8.8.8.8', '8', '8', '8', '8'];
         yield ['8.8.4.4', '8', '8', '4', '4'];
+        yield ['  8.8.4.4   ', '8', '8', '4', '4'];
     }
 
     /**

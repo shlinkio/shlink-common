@@ -28,6 +28,6 @@ class SluggerFilter implements FilterInterface
      */
     public function filter($value)
     {
-        return is_string($value) ? (string) $this->slugger->slug($value) : $value;
+        return is_string($value) ? $this->slugger->slug($value)->toString() : $value;
     }
 }

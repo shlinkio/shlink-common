@@ -23,8 +23,8 @@ class HostAndPortValidatorTest extends TestCase
     {
         $validator = new HostAndPortValidator();
 
-        $this->assertFalse($validator->isValid($value));
-        $this->assertContains($expectedError, array_values($validator->getMessages()));
+        self::assertFalse($validator->isValid($value));
+        self::assertContains($expectedError, array_values($validator->getMessages()));
     }
 
     public function provideInvalidValues(): iterable
@@ -49,7 +49,7 @@ class HostAndPortValidatorTest extends TestCase
     public function succeedsWhenProvidingValidValues(string $value): void
     {
         $validator = new HostAndPortValidator();
-        $this->assertTrue($validator->isValid($value));
+        self::assertTrue($validator->isValid($value));
     }
 
     public function provideValidValues(): iterable
@@ -58,6 +58,8 @@ class HostAndPortValidatorTest extends TestCase
         yield ['localhost:3000'];
         yield ['example.com'];
         yield ['example.com:8080'];
+        yield ['example.com:1'];
+        yield ['example.com:65535'];
     }
 
     /**
