@@ -18,7 +18,7 @@ class InvalidHttpMiddlewareExceptionTest extends TestCase
     public function exceptionIsCreatedAsExpected($middleware, string $expectedMessage): void
     {
         $e = InvalidHttpMiddlewareException::fromMiddleware($middleware);
-        $this->assertEquals($expectedMessage, $e->getMessage());
+        self::assertEquals($expectedMessage, $e->getMessage());
     }
 
     public function provideMessages(): iterable

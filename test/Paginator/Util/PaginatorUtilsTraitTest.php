@@ -22,7 +22,7 @@ class PaginatorUtilsTraitTest extends TestCase
     public function paginatorIsSerializedAsExpected(array $expectedSerialization, Paginator $paginator): void
     {
         $result = $this->serializePaginator($paginator);
-        $this->assertEquals($expectedSerialization, $result);
+        self::assertEquals($expectedSerialization, $result);
     }
 
     public function providePaginatorAdapters(): iterable
@@ -90,7 +90,7 @@ class PaginatorUtilsTraitTest extends TestCase
      */
     public function properlyTellsIfInLastPage(bool $expectedInLastPage, Paginator $paginator): void
     {
-        $this->assertEquals($expectedInLastPage, $this->isLastPage($paginator));
+        self::assertEquals($expectedInLastPage, $this->isLastPage($paginator));
     }
 
     public function providePaginatorsInPage(): iterable
@@ -109,7 +109,7 @@ class PaginatorUtilsTraitTest extends TestCase
      */
     public function pageMessageIsProperlyFormatted(string $expectedMessage, string $pattern, Paginator $paginator): void
     {
-        $this->assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
+        self::assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
     }
 
     public function providePaginatorsToFormat(): iterable

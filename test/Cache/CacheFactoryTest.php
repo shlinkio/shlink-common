@@ -45,8 +45,8 @@ class CacheFactoryTest extends TestCase
 
         $cache = $factory($this->container->reveal());
 
-        $this->assertInstanceOf($expectedAdapterClass, $cache);
-        $this->assertEquals($expectedNamespace, $cache->getNamespace());
+        self::assertInstanceOf($expectedAdapterClass, $cache);
+        self::assertEquals($expectedNamespace, $cache->getNamespace());
         $getConfig->shouldHaveBeenCalledOnce();
         $getRedis->shouldHaveBeenCalledTimes($expectedAdapterClass === Cache\PredisCache::class ? 1 : 0);
     }

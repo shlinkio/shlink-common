@@ -36,7 +36,7 @@ class ChronosDateTimeTypeTest extends TestCase
     /** @test */
     public function nameIsReturned(): void
     {
-        $this->assertEquals(ChronosDateTimeType::CHRONOS_DATETIME, $this->type->getName());
+        self::assertEquals(ChronosDateTimeType::CHRONOS_DATETIME, $this->type->getName());
     }
 
     /**
@@ -51,9 +51,9 @@ class ChronosDateTimeTypeTest extends TestCase
         $result = $this->type->convertToPHPValue($value, $platform->reveal());
 
         if ($expected === null) {
-            $this->assertNull($result);
+            self::assertNull($result);
         } else {
-            $this->assertInstanceOf($expected, $result);
+            self::assertInstanceOf($expected, $result);
         }
     }
 
@@ -73,7 +73,7 @@ class ChronosDateTimeTypeTest extends TestCase
         $platform = $this->prophesize(AbstractPlatform::class);
         $platform->getDateTimeFormatString()->willReturn('Y-m-d');
 
-        $this->assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform->reveal()));
+        self::assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform->reveal()));
     }
 
     public function providePhpValues(): iterable

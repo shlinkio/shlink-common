@@ -22,7 +22,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
     public function keepsRecordAsIsWhenNoPlaceholderExists(): void
     {
         $record = ['message' => 'foobar2000'];
-        $this->assertSame($record, ($this->processor)($record));
+        self::assertSame($record, ($this->processor)($record));
     }
 
     /**
@@ -31,7 +31,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
      */
     public function properlyReplacesExceptionPlaceholderAddingNewLine(array $record, array $expected): void
     {
-        $this->assertEquals($expected, ($this->processor)($record));
+        self::assertEquals($expected, ($this->processor)($record));
     }
 
     public function providePlaceholderRecords(): iterable

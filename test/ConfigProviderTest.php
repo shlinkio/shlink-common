@@ -20,6 +20,6 @@ class ConfigProviderTest extends TestCase
     public function configIsReturned(): void
     {
         $config = $this->configProvider->__invoke();
-        $this->assertArrayHasKey('dependencies', $config);
+        self::assertArrayHasKey('dependencies', $config);
     }
 }

@@ -38,7 +38,7 @@ class ConnectionFactoryTest extends TestCase
 
         $result = ($this->factory)($this->container->reveal());
 
-        $this->assertSame($connection, $result);
+        self::assertSame($connection, $result);
         $getConnection->shouldHaveBeenCalledOnce();
         $this->container->get(EntityManager::class)->shouldHaveBeenCalledOnce();
     }

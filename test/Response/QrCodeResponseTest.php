@@ -16,7 +16,7 @@ class QrCodeResponseTest extends TestCase
         $qrCode = new QrCode('Hello');
         $resp = new QrCodeResponse($qrCode);
 
-        $this->assertEquals($qrCode->getContentType(), $resp->getHeaderLine('Content-Type'));
-        $this->assertEquals($qrCode->writeString(), (string) $resp->getBody());
+        self::assertEquals($qrCode->getContentType(), $resp->getHeaderLine('Content-Type'));
+        self::assertEquals($qrCode->writeString(), (string) $resp->getBody());
     }
 }

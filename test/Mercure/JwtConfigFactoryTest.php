@@ -62,8 +62,8 @@ class JwtConfigFactoryTest extends TestCase
 
         $jwtConfig = ($this->factory)($this->container->reveal());
 
-        $this->assertInstanceOf(Sha256::class, $jwtConfig->signer());
-        $this->assertEquals($secret, $jwtConfig->signingKey()->contents());
+        self::assertInstanceOf(Sha256::class, $jwtConfig->signer());
+        self::assertEquals($secret, $jwtConfig->signingKey()->contents());
         $getConfig->shouldHaveBeenCalledOnce();
     }
 }

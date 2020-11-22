@@ -38,10 +38,10 @@ class IpAddressMiddlewareFactoryTest extends TestCase
         $headersToInspect = $ref->getProperty('headersToInspect');
         $headersToInspect->setAccessible(true);
 
-        $this->assertTrue($checkProxyHeaders->getValue($instance));
-        $this->assertEquals([], $trustedProxies->getValue($instance));
-        $this->assertEquals(IpAddressMiddlewareFactory::REQUEST_ATTR, $attributeName->getValue($instance));
-        $this->assertEquals($expectedHeadersToInspect, $headersToInspect->getValue($instance));
+        self::assertTrue($checkProxyHeaders->getValue($instance));
+        self::assertEquals([], $trustedProxies->getValue($instance));
+        self::assertEquals(IpAddressMiddlewareFactory::REQUEST_ATTR, $attributeName->getValue($instance));
+        self::assertEquals($expectedHeadersToInspect, $headersToInspect->getValue($instance));
     }
 
     public function provideConfigs(): iterable
