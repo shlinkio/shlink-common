@@ -40,13 +40,14 @@ class LcobucciJwtProvider implements JwtProviderInterface
     {
         $now = $this->roundDateToTheSecond(Chronos::now());
 
-        return (string) $this->jwtConfig
-            ->createBuilder()
+        return $this->jwtConfig
+            ->builder()
             ->issuedBy($this->mercureConfig['jwt_issuer'] ?? 'Shlink')
             ->issuedAt($now)
             ->expiresAt($expiresAt)
             ->withClaim('mercure', $mercureClaim)
-            ->getToken($this->jwtConfig->getSigner(), $this->jwtConfig->getSigningKey());
+            ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey())
+            ->toString();
     }
 
     private function roundDateToTheSecond(DateTimeImmutable $date): Chronos

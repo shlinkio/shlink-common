@@ -19,6 +19,6 @@ class JwtConfigFactory
             throw MercureException::missingJwtSecret();
         }
 
-        return Configuration::forSymmetricSigner(new Sha256(), new Key((string) $jwtSecret));
+        return Configuration::forSymmetricSigner(new Sha256(), Key\InMemory::plainText((string) $jwtSecret));
     }
 }

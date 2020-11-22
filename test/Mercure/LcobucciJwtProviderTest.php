@@ -24,7 +24,7 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
     {
-        $token = $this->jwtConfig->getParser()->parse(
+        $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))(),
         );
 
@@ -45,7 +45,7 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedSubscriptionTokenIsCreated(?Chronos $expiresAt, Chronos $expectedExpiresAt): void
     {
-        $token = $this->jwtConfig->getParser()->parse(
+        $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, []))->buildSubscriptionToken($expiresAt),
         );
 

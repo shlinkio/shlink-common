@@ -25,7 +25,7 @@
         "laminas/laminas-inputfilter": "^2.10",
         "laminas/laminas-paginator": "^2.8",
         "laminas/laminas-servicemanager": "^3.4",
-        "lcobucci/jwt": "^4.0@alpha",
+        "lcobucci/jwt": "^4.0@beta",
         "league/plates": "^3.3",
         "lstrojny/functional-php": "^1.9",
         "predis/predis": "^1.1",
