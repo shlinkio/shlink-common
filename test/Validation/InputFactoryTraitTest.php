@@ -28,10 +28,10 @@ class InputFactoryTraitTest extends TestCase
         $input = $this->createInput(...$args);
         $filters = $this->getFiltersFromInput($input);
 
-        $this->assertEquals($required, $input->isRequired());
-        $this->assertCount(2, $filters);
-        $this->assertContains(Filter\StripTags::class, $filters);
-        $this->assertContains(Filter\StringTrim::class, $filters);
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(2, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
     }
 
     /**
@@ -43,10 +43,10 @@ class InputFactoryTraitTest extends TestCase
         $input = $this->createArrayInput(...$args);
         $filters = $this->getFiltersFromInput($input);
 
-        $this->assertEquals($required, $input->isRequired());
-        $this->assertCount(2, $filters);
-        $this->assertContains(Filter\StripTags::class, $filters);
-        $this->assertContains(Filter\StringTrim::class, $filters);
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(2, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
     }
 
     /**
@@ -59,12 +59,12 @@ class InputFactoryTraitTest extends TestCase
         $filters = $this->getFiltersFromInput($input);
         $validators = $input->getValidatorChain()->getValidators();
 
-        $this->assertEquals($required, $input->isRequired());
-        $this->assertCount(1, $validators);
-        $this->assertCount(3, $filters);
-        $this->assertContains(Filter\StripTags::class, $filters);
-        $this->assertContains(Filter\StringTrim::class, $filters);
-        $this->assertContains(Filter\Boolean::class, $filters);
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(1, $validators);
+        self::assertCount(3, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
+        self::assertContains(Filter\Boolean::class, $filters);
 
         /** @var Validator\NotEmpty $notEmptyValidator */
         $notEmptyValidator = $validators[0]['instance'];
@@ -72,8 +72,8 @@ class InputFactoryTraitTest extends TestCase
             $notEmptyValidator,
             Validator\NotEmpty::class,
         );
-        $this->assertInstanceOf(Validator\NotEmpty::class, $notEmptyValidator);
-        $this->assertEquals($calculateTypeValue([
+        self::assertInstanceOf(Validator\NotEmpty::class, $notEmptyValidator);
+        self::assertEquals($calculateTypeValue([
             Validator\NotEmpty::OBJECT,
             Validator\NotEmpty::SPACE,
             Validator\NotEmpty::NULL,
@@ -92,23 +92,23 @@ class InputFactoryTraitTest extends TestCase
         $filters = $this->getFiltersFromInput($input);
         $validators = $input->getValidatorChain()->getValidators();
 
-        $this->assertEquals($required, $input->isRequired());
-        $this->assertCount(1, $validators);
-        $this->assertCount(2, $filters);
-        $this->assertContains(Filter\StripTags::class, $filters);
-        $this->assertContains(Filter\StringTrim::class, $filters);
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(1, $validators);
+        self::assertCount(2, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
 
         /** @var ExcludingValidatorChain $excludingValidator */
         $excludingValidator = $validators[0]['instance'];
-        $this->assertInstanceOf(ExcludingValidatorChain::class, $excludingValidator);
+        self::assertInstanceOf(ExcludingValidatorChain::class, $excludingValidator);
 
         $ref = new ReflectionObject($excludingValidator);
         $prop = $ref->getProperty('validators');
         $prop->setAccessible(true);
         $validators = $prop->getValue($excludingValidator);
-        $this->assertCount(2, $validators);
-        $this->assertInstanceOf(Validator\Date::class, $validators[0]);
-        $this->assertInstanceOf(Validator\Date::class, $validators[1]);
+        self::assertCount(2, $validators);
+        self::assertInstanceOf(Validator\Date::class, $validators[0]);
+        self::assertInstanceOf(Validator\Date::class, $validators[1]);
     }
 
     public function provideInputArgs(): iterable

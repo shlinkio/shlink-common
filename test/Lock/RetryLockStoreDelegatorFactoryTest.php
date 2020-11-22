@@ -35,6 +35,6 @@ class RetryLockStoreDelegatorFactoryTest extends TestCase
         $prop = $ref->getProperty('decorated');
         $prop->setAccessible(true);
 
-        $this->assertSame($this->originalStore, $prop->getValue($result));
+        self::assertSame($this->originalStore, $prop->getValue($result));
     }
 }

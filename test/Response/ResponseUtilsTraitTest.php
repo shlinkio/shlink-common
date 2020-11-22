@@ -20,8 +20,8 @@ class ResponseUtilsTraitTest extends TestCase
         string $expectedLength,
         string $path
     ): void {
-        $this->assertExpectedResponseForMethod('generateBinaryResponse', $expectedType, $expectedLength, $path);
-        $this->assertExpectedResponseForMethod('generateImageResponse', $expectedType, $expectedLength, $path);
+        self::assertExpectedResponseForMethod('generateBinaryResponse', $expectedType, $expectedLength, $path);
+        self::assertExpectedResponseForMethod('generateImageResponse', $expectedType, $expectedLength, $path);
     }
 
     public function provideFiles(): iterable
@@ -38,8 +38,8 @@ class ResponseUtilsTraitTest extends TestCase
     ): void {
         $resp = $this->{$method}($path);
 
-        $this->assertStringContainsString($expectedType, $resp->getHeaderLine('Content-Type'));
-        $this->assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
+        self::assertStringContainsString($expectedType, $resp->getHeaderLine('Content-Type'));
+        self::assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
     }
 
     /** @test */
@@ -51,7 +51,7 @@ class ResponseUtilsTraitTest extends TestCase
         ]);
         $headers = $resp->getHeaders();
 
-        $this->assertArrayHasKey('foo', $headers);
-        $this->assertArrayHasKey('baz', $headers);
+        self::assertArrayHasKey('foo', $headers);
+        self::assertArrayHasKey('baz', $headers);
     }
 }

@@ -50,7 +50,7 @@ class HttpClientFactoryTest extends TestCase
         $stack = $ref->getProperty('stack');
         $stack->setAccessible(true);
 
-        $this->assertCount($expectedMiddlewaresAmount + self::BASE_HANDLERS_COUNT, $stack->getValue($handler));
+        self::assertCount($expectedMiddlewaresAmount + self::BASE_HANDLERS_COUNT, $stack->getValue($handler));
         $getConfig->shouldHaveBeenCalledOnce();
     }
 

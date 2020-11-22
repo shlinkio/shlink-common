@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [3.3.1] - 2020-11-22
+### Added
+* *Nothing*
+
+### Changed
+* Changed all phpunit assertions to use static access.
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Removed dependency on `league/plates`.
+
+### Fixed
+* Fixed compatibility with `lcobucci/jwt:4.0@beta`.
+
+
 ## [3.3.0] - 2020-11-06
 ### Added
 * Explicitly added compatibility with PHP 8

@@ -19,8 +19,8 @@ class ExcludingValidatorChainTest extends TestCase
     {
         $chain = new ExcludingValidatorChain(...$validators);
 
-        $this->assertEquals($expected, $chain->isValid($value));
-        $this->assertEquals($expected, ($chain)($value));
+        self::assertEquals($expected, $chain->isValid($value));
+        self::assertEquals($expected, ($chain)($value));
     }
 
     public function provideValidatorsLists(): iterable
@@ -60,8 +60,8 @@ class ExcludingValidatorChainTest extends TestCase
             new Validator\Digits(),
         );
 
-        $this->assertTrue($chain->isValid(1000));
-        $this->assertEquals([
+        self::assertTrue($chain->isValid(1000));
+        self::assertEquals([
             Validator\EmailAddress::INVALID => 'Invalid type given. String expected',
             Validator\Between::NOT_BETWEEN => 'The input is not between \'50\' and \'60\', inclusively',
         ], $chain->getMessages());

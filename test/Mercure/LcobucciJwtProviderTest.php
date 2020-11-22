@@ -24,13 +24,13 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
     {
-        $token = $this->jwtConfig->getParser()->parse(
+        $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))(),
         );
 
-        $this->assertTrue($token->hasBeenIssuedBy($expectedIssuer));
-        $this->assertTrue($token->isExpired(Chronos::now()->addMinutes(10)->addSeconds(5)));
-        $this->assertEquals(['publish' => ['*']], $token->claims()->get('mercure'));
+        self::assertTrue($token->hasBeenIssuedBy($expectedIssuer));
+        self::assertTrue($token->isExpired(Chronos::now()->addMinutes(10)->addSeconds(5)));
+        self::assertEquals(['publish' => ['*']], $token->claims()->get('mercure'));
     }
 
     public function provideMercureConfigs(): iterable
@@ -45,12 +45,12 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedSubscriptionTokenIsCreated(?Chronos $expiresAt, Chronos $expectedExpiresAt): void
     {
-        $token = $this->jwtConfig->getParser()->parse(
+        $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, []))->buildSubscriptionToken($expiresAt),
         );
 
-        $this->assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));
-        $this->assertEquals(['subscribe' => ['*']], $token->claims()->get('mercure'));
+        self::assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));
+        self::assertEquals(['subscribe' => ['*']], $token->claims()->get('mercure'));
     }
 
     public function provideExpirationDates(): iterable

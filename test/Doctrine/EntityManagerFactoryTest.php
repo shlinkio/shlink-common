@@ -50,17 +50,17 @@ class EntityManagerFactoryTest extends TestCase
             'config' => $config,
         ]]);
 
-        $this->assertFalse(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
+        self::assertFalse(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
         $em = ($this->factory)($sm);
 
-        $this->assertTrue(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
-        $this->assertEquals($expectedAutoGenerateProxies, $em->getConfiguration()->getAutoGenerateProxyClasses());
-        $this->assertInstanceOf(PDOSqlite\Driver::class, $em->getConnection()->getDriver());
-        $this->assertEquals(__DIR__, $em->getConfiguration()->getProxyDir());
+        self::assertTrue(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
+        self::assertEquals($expectedAutoGenerateProxies, $em->getConfiguration()->getAutoGenerateProxyClasses());
+        self::assertInstanceOf(PDOSqlite\Driver::class, $em->getConnection()->getDriver());
+        self::assertEquals(__DIR__, $em->getConfiguration()->getProxyDir());
 
         /** @var PHPDriver $metaDriver */
         $metaDriver = $em->getConfiguration()->getMetadataDriverImpl();
-        $this->assertEquals([__FILE__], $metaDriver->getLocator()->getPaths());
+        self::assertEquals([__FILE__], $metaDriver->getLocator()->getPaths());
     }
 
     public function provideConfig(): iterable

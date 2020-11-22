@@ -47,8 +47,8 @@ class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
             return $expected;
         });
 
-        $this->assertSame($expected, $result);
-        $this->assertTrue($callbackInvoked);
+        self::assertSame($expected, $result);
+        self::assertTrue($callbackInvoked);
         $getConfig->shouldHaveBeenCalledOnce();
         $getListener->shouldHaveBeenCalledTimes($expectedCalls);
         $attachListener->shouldHaveBeenCalledTimes($expectedCalls);

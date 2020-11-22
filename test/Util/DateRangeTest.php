@@ -14,9 +14,9 @@ class DateRangeTest extends TestCase
     public function defaultConstructorSetDatesToNull(): void
     {
         $range = new DateRange();
-        $this->assertNull($range->getStartDate());
-        $this->assertNull($range->getEndDate());
-        $this->assertTrue($range->isEmpty());
+        self::assertNull($range->getStartDate());
+        self::assertNull($range->getEndDate());
+        self::assertTrue($range->isEmpty());
     }
 
     /** @test */
@@ -25,9 +25,9 @@ class DateRangeTest extends TestCase
         $startDate = Chronos::now();
         $endDate = Chronos::now();
         $range = new DateRange($startDate, $endDate);
-        $this->assertSame($startDate, $range->getStartDate());
-        $this->assertSame($endDate, $range->getEndDate());
-        $this->assertFalse($range->isEmpty());
+        self::assertSame($startDate, $range->getStartDate());
+        self::assertSame($endDate, $range->getEndDate());
+        self::assertFalse($range->isEmpty());
     }
 
     /**
@@ -40,7 +40,7 @@ class DateRangeTest extends TestCase
         bool $isEmpty
     ): void {
         $range = new DateRange($startDate, $endDate);
-        $this->assertEquals($isEmpty, $range->isEmpty());
+        self::assertEquals($isEmpty, $range->isEmpty());
     }
 
     public function provideDates(): iterable

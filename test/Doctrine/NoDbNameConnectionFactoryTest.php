@@ -44,7 +44,7 @@ class NoDbNameConnectionFactoryTest extends TestCase
 
         $conn = ($this->factory)($this->container->reveal());
 
-        $this->assertEquals([
+        self::assertEquals([
             'username' => 'foo',
             'password' => 'bar',
         ], $conn->getParams());

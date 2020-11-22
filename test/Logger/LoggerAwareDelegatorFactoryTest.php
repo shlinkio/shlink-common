@@ -43,7 +43,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
 
         $result = ($this->delegator)($this->container->reveal(), '', $callback);
 
-        $this->assertSame($instance, $result);
+        self::assertSame($instance, $result);
         $hasLogger->shouldHaveBeenCalledTimes($expectedHasLoggerCalls);
         $getLogger->shouldHaveBeenCalledTimes($expectedGetLoggerCalls);
     }

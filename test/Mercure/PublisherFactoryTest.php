@@ -78,7 +78,7 @@ class PublisherFactoryTest extends TestCase
         $prop = $ref->getProperty('hubUrl');
         $prop->setAccessible(true);
 
-        $this->assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($publisher));
+        self::assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($publisher));
         $getConfig->shouldHaveBeenCalledOnce();
         $getJwtProvider->shouldHaveBeenCalledOnce();
     }

@@ -49,7 +49,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
 
         $result = $this->middleware->process($req, $this->handler->reveal());
 
-        $this->assertSame($result, $resp);
+        self::assertSame($result, $resp);
         $this->em->open()->shouldHaveBeenCalledOnce();
         $this->em->getConnection()->shouldHaveBeenCalledOnce();
         $this->conn->close()->shouldHaveBeenCalledOnce();

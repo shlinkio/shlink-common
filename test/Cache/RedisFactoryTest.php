@@ -38,7 +38,7 @@ class RedisFactoryTest extends TestCase
         $client = ($this->factory)($this->container->reveal());
 
         $getConfig->shouldHaveBeenCalledOnce();
-        $this->assertInstanceOf($expectedCluster, $client->getOptions()->cluster);
+        self::assertInstanceOf($expectedCluster, $client->getOptions()->cluster);
     }
 
     /**
@@ -56,7 +56,7 @@ class RedisFactoryTest extends TestCase
         $client = ($this->factory)($this->container->reveal());
 
         $getConfig->shouldHaveBeenCalledOnce();
-        $this->assertInstanceOf($expectedCluster, $client->getOptions()->cluster);
+        self::assertInstanceOf($expectedCluster, $client->getOptions()->cluster);
     }
 
     public function provideRedisConfig(): iterable

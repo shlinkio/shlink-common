@@ -29,7 +29,7 @@ class ReopeningEntityManagerTest extends TestCase
 
         $reopeningEm->open();
 
-        $this->assertEquals($shouldRecreate, $factoryCalls === 2);
+        self::assertEquals($shouldRecreate, $factoryCalls === 2);
     }
 
     public function provideWrapped(): iterable
