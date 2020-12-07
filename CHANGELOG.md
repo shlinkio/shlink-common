@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
+* Added support for `lcobucci/jwt:4.0` stable version.
 * Updated to `akrabat/ip-address-middleware` 2.0
 
 ### Changed
