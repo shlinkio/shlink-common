@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* Updated to `akrabat/ip-address-middleware` 2.0
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Dropped support for `cakephp/chronos` 1.0
+
+### Fixed
+* *Nothing*
+
+
 ## [3.3.2] - 2020-11-22
 ### Added
 * *Nothing*

@@ -39,7 +39,7 @@ class IpAddressMiddlewareFactoryTest extends TestCase
         $headersToInspect->setAccessible(true);
 
         self::assertTrue($checkProxyHeaders->getValue($instance));
-        self::assertEquals([], $trustedProxies->getValue($instance));
+        self::assertNull($trustedProxies->getValue($instance));
         self::assertEquals(IpAddressMiddlewareFactory::REQUEST_ATTR, $attributeName->getValue($instance));
         self::assertEquals($expectedHeadersToInspect, $headersToInspect->getValue($instance));
     }
