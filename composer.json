@@ -14,9 +14,9 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-fileinfo": "*",
-        "akrabat/ip-address-middleware": "^1.0",
-        "cakephp/chronos": "^2.0 || ^1.2",
-        "doctrine/orm": "^2.7",
+        "akrabat/ip-address-middleware": "^2.0",
+        "cakephp/chronos": "^2.0",
+        "doctrine/orm": "^2.8.1",
         "endroid/qr-code": "^3.6",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^7.0",

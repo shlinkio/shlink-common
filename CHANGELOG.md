@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Added support for `lcobucci/jwt:4.0` stable version.
+* Updated to `akrabat/ip-address-middleware` 2.0
 
 ### Changed
 * *Nothing*
@@ -15,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* Dropped support for `cakephp/chronos` 1.0
 
 ### Fixed
 * *Nothing*
