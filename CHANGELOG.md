@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Updated to `akrabat/ip-address-middleware` 2.0
 
 ### Changed
-* *Nothing*
+* Migrated build to Github Actions.
 
 ### Deprecated
 * *Nothing*
