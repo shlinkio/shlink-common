@@ -6,7 +6,7 @@ namespace Shlinkio\Shlink\Common\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
@@ -18,7 +18,7 @@ class EntityManagerFactory
 {
     /**
      * @throws ORMException
-     * @throws DBALException
+     * @throws Exception
      */
     public function __invoke(ContainerInterface $container): EntityManager
     {
@@ -29,6 +29,7 @@ class EntityManagerFactory
         $connectionConfig = $emConfig['connection'] ?? [];
         $ormConfig = $emConfig['orm'] ?? [];
         $funcStyle = $ormConfig['load_mappings_using_functional_style'] ?? false;
+        $defaultRepo = $ormConfig['default_repository_classname'] ?? null;
 
         $this->registerTypes($ormConfig);
 
@@ -37,11 +38,15 @@ class EntityManagerFactory
             new EnhancedPHPDriver($ormConfig['entities_mappings'] ?? [], $emConfig, $funcStyle),
         );
 
+        if ($defaultRepo !== null) {
+            $config->setDefaultRepositoryClassName($defaultRepo);
+        }
+
         return EntityManager::create($connectionConfig, $config);
     }
 
     /**
-     * @throws DBALException
+     * @throws Exception
      */
     private function registerTypes(array $ormConfig): void
     {

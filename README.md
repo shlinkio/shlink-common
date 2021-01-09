@@ -116,6 +116,7 @@ return [
     'entity_manager' => [
         'orm' => [
             'proxies_dir' => 'data/proxies', // Directory in which proxies will be persisted
+            'default_repository_classname' => '', // A FQCN for the class used as repository by default
             'entities_mappings' => [ // List of directories from which entities mappings should be read
                 __DIR__ . '/../foo/entities-mappings',
                 __DIR__ . '/../bar/entities-mappings',
