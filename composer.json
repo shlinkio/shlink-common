@@ -76,8 +76,8 @@
         "infect": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered",
         "infect:ci": "@infect --coverage=build --skip-initial-tests",
         "infect:show": "@infect --show-mutations",
-        "infect:show:ci": "@infect --show-mutations --coverage=build",
-        "test:infect": [
+        "infect:show:ci": "@infect:ci --show-mutations",
+        "infect:test": [
             "@test:ci",
             "@infect:show:ci"
         ]
@@ -90,11 +90,11 @@
         "test": "<fg=blue;options=bold>Runs unit tests with no coverage reports</>",
         "test:ci": "<fg=blue;options=bold>Runs unit tests generating coverage reports and logs</>",
         "test:pretty": "<fg=blue;options=bold>Runs unit tests generating coverage reports in html</>",
-        "test:infect": "<fg=blue;options=bold>Alias for \"test:ci\" and \"infect:show:ci\"</>",
         "infect": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing</>",
         "infect:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs</>",
         "infect:show": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing and shows applied mutators</>",
-        "infect:show:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs and shows applied mutators</>"
+        "infect:show:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs and shows applied mutators</>",
+        "infect:test": "<fg=blue;options=bold>Alias for \"test:ci\" and \"infect:show:ci\"</>"
     },
     "config": {
         "sort-packages": true

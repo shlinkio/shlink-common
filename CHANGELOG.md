@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Added
 * Added support for `lcobucci/jwt:4.0` stable version.
 * Updated to `akrabat/ip-address-middleware` 2.0
+* [#58](https://github.com/shlinkio/shlink-common/issues/58) Added support to define custom base repositories for the entity manager.
 
 ### Changed
 * Migrated build to Github Actions.

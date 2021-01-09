@@ -22,11 +22,10 @@ class EnhancedPHPDriver extends PHPDriver
     {
         $metadata = $this->metadata;
         $emConfig = $this->emConfig;
+        $result = include $file;
 
         if ($this->loadMappingsUsingFunctionalStyle) {
-            (include $file)($metadata, $emConfig);
-        } else {
-            include $file;
+            $result($metadata, $emConfig);
         }
 
         return [$metadata->getName() => $metadata];
