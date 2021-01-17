@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [3.4.0] - 2021-01-17
 ### Added
 * Added support for `lcobucci/jwt:4.0` stable version.
 * Updated to `akrabat/ip-address-middleware` 2.0
