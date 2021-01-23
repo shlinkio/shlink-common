@@ -277,6 +277,7 @@ $publisher(new Update('some_topic', json_encode([
 
 ## Utils
 
-* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects.
+* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects. It requires that you install `laminas/laminas-paginator`
+* `PagerfantaUtilsTrait`: A trait providing methods to get useful info from `Pagerfanta\Pagerfanta` objects. It requires that you install `pagerfanta/core`
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
 * `IpAddress`: An immutable value object representing an IP address that can be copied into an anonymized instance which removes the last octet.
