@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * [#60](https://github.com/shlinkio/shlink-common/issues/60) Added support for `pagerfanta/core` as a pagination system.
+* [#64](https://github.com/shlinkio/shlink-common/issues/64) Added new input factory methods.
 
 ### Changed
 * *Nothing*
