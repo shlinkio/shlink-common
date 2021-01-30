@@ -37,7 +37,6 @@
     },
     "require-dev": {
         "infection/infection": "^0.20.1",
-        "laminas/laminas-paginator": "^2.8",
         "laminas/laminas-stratigility": "^3.2",
         "mezzio/mezzio-problem-details": "^1.0",
         "pagerfanta/core": "^2.5",
@@ -51,8 +50,7 @@
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
         "laminas/laminas-stratigility": "To log ErrorHandler errors using the ErrorLogger",
-        "pagerfanta/core": "To use the PagerfantaUtilsTrait",
-        "laminas/laminas-paginator": "To use the PaginatorUtilsTrait"
+        "pagerfanta/core": "To use the PagerfantaUtilsTrait"
     },
     "autoload": {
         "psr-4": {
