@@ -11,6 +11,7 @@ use Laminas\InputFilter\Input;
 use Laminas\Validator;
 
 use function Functional\map;
+use function is_numeric;
 
 trait InputFactoryTrait
 {
@@ -51,12 +52,30 @@ trait InputFactoryTrait
         return $input;
     }
 
-    private function createArrayInput(string $name, bool $required = true): Input
+    private function createNumericInput(string $name, bool $required = true, ?int $min = 1): Input
+    {
+        $input = $this->createInput($name, $required);
+        $input->getValidatorChain()->attach(new Validator\Callback(fn ($value) => is_numeric($value)))
+                                   ->attach(new Validator\GreaterThan(['min' => $min, 'inclusive' => true]));
+
+        return $input;
+    }
+
+    private function createArrayInput(string $name, bool $required = true): ArrayInput
     {
         $input = new ArrayInput($name);
         $input->setRequired($required)
               ->getFilterChain()->attach(new Filter\StripTags())
                                 ->attach(new Filter\StringTrim());
         return $input;
+    }
+
+    private function createTagsInput(string $name, bool $required = true): ArrayInput
+    {
+        $tags = $this->createArrayInput($name, $required);
+        $tags->getFilterChain()->attach(new Filter\StringToLower())
+                               ->attach(new Filter\PregReplace(['pattern' => '/ /', 'replacement' => '-']));
+
+        return $tags;
     }
 }
