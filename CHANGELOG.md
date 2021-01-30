@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* [#63](https://github.com/shlinkio/shlink-common/issues/63) Removed support for `laminas/laminas-paginator`. Use `pagerfanta/core` instead.
 
 ### Fixed
 * *Nothing*

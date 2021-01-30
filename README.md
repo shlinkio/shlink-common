@@ -277,7 +277,6 @@ $publisher(new Update('some_topic', json_encode([
 
 ## Utils
 
-* `PaginatorUtilsTrait`: A trait providing methods to get useful info from `Laminas\Paginator\Paginator` objects. It requires that you install `laminas/laminas-paginator`.
 * `PagerfantaUtilsTrait`: A trait providing methods to get useful info from `Pagerfanta\Pagerfanta` objects. It requires that you install `pagerfanta/core`.
 * `Paginator`: An object extending `Pagerfanta`, that makes it behave as laminas' Paginator object on regards to be able to set `-1` as the max results and get all the results in that case. It requires that you install `pagerfanta/core`.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
