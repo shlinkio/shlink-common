@@ -111,6 +111,44 @@ class InputFactoryTraitTest extends TestCase
         self::assertInstanceOf(Validator\Date::class, $validators[1]);
     }
 
+    /**
+     * @test
+     * @dataProvider provideInputArgs
+     */
+    public function numericInputIsCreatedAsExpected(array $args, bool $required): void
+    {
+        $input = $this->createNumericInput(...$args);
+        $filters = $this->getFiltersFromInput($input);
+        $validators = $input->getValidatorChain()->getValidators();
+
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(2, $validators);
+        self::assertCount(2, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
+        self::assertInstanceOf(Validator\Callback::class, $validators[0]['instance']);
+        self::assertInstanceOf(Validator\GreaterThan::class, $validators[1]['instance']);
+    }
+
+    /**
+     * @test
+     * @dataProvider provideInputArgs
+     */
+    public function tagsInputIsCreatedAsExpected(array $args, bool $required): void
+    {
+        $input = $this->createTagsInput(...$args);
+        $filters = $this->getFiltersFromInput($input);
+        $validators = $input->getValidatorChain()->getValidators();
+
+        self::assertEquals($required, $input->isRequired());
+        self::assertCount(0, $validators);
+        self::assertCount(4, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
+        self::assertContains(Filter\StringToLower::class, $filters);
+        self::assertContains(Filter\PregReplace::class, $filters);
+    }
+
     public function provideInputArgs(): iterable
     {
         yield [['foo', true], true];
