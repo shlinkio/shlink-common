@@ -13,7 +13,8 @@ class DateRangeTest extends TestCase
     /** @test */
     public function defaultConstructorSetDatesToNull(): void
     {
-        $range = new DateRange();
+        $range = DateRange::emptyInstance();
+
         self::assertNull($range->getStartDate());
         self::assertNull($range->getEndDate());
         self::assertTrue($range->isEmpty());
@@ -24,30 +25,44 @@ class DateRangeTest extends TestCase
     {
         $startDate = Chronos::now();
         $endDate = Chronos::now();
-        $range = new DateRange($startDate, $endDate);
+        $range = DateRange::withStartAndEndDate($startDate, $endDate);
+
         self::assertSame($startDate, $range->getStartDate());
         self::assertSame($endDate, $range->getEndDate());
         self::assertFalse($range->isEmpty());
     }
 
-    /**
-     * @test
-     * @dataProvider provideDates
-     */
-    public function isConsideredEmptyOnlyIfNoneOfTheDatesIsSet(
-        ?Chronos $startDate,
-        ?Chronos $endDate,
-        bool $isEmpty
-    ): void {
-        $range = new DateRange($startDate, $endDate);
-        self::assertEquals($isEmpty, $range->isEmpty());
+    /** @test */
+    public function isCreatedWithStartDate(): void
+    {
+        $startDate = Chronos::now();
+        $range = DateRange::withStartDate($startDate);
+
+        self::assertFalse($range->isEmpty());
+        self::assertNull($range->getEndDate());
+        self::assertSame($startDate, $range->getStartDate());
     }
 
-    public function provideDates(): iterable
+    /** @test */
+    public function isCreatedWithEndDate(): void
     {
-        yield 'both are null' => [null, null, true];
-        yield 'start is null' => [null, Chronos::now(), false];
-        yield 'end is null' => [Chronos::now(), null, false];
-        yield 'none are null' => [Chronos::now(), Chronos::now(), false];
+        $endDate = Chronos::now();
+        $range = DateRange::withEndDate($endDate);
+
+        self::assertFalse($range->isEmpty());
+        self::assertNull($range->getStartDate());
+        self::assertSame($endDate, $range->getEndDate());
+    }
+
+    /** @test */
+    public function isCreatedWithBothDates(): void
+    {
+        $startDate = Chronos::now();
+        $endDate = Chronos::now();
+        $range = DateRange::withStartAndEndDate($startDate, $endDate);
+
+        self::assertFalse($range->isEmpty());
+        self::assertSame($startDate, $range->getStartDate());
+        self::assertSame($endDate, $range->getEndDate());
     }
 }
