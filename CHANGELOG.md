@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * [#60](https://github.com/shlinkio/shlink-common/issues/60) Added support for `pagerfanta/core` as a pagination system.
 * [#64](https://github.com/shlinkio/shlink-common/issues/64) Added new input factory methods.
 * Added named constructors to `DateRange`.
+* Created new `ContentLengthMiddleware`.
 
 ### Changed
 * *Nothing*
