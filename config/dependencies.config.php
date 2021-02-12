@@ -17,7 +17,9 @@ return [
             Filesystem::class => InvokableFactory::class,
 
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
+            Middleware\ContentLengthMiddleware::class => InvokableFactory::class,
             IpAddress::class => Middleware\IpAddressMiddlewareFactory::class,
+
             Logger\ErrorLogger::class => ConfigAbstractFactory::class,
         ],
     ],
