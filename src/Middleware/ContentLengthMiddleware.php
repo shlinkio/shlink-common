@@ -23,7 +23,7 @@ class ContentLengthMiddleware implements MiddlewareInterface
             : static fn () => extension_loaded('swoole');
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
         if (($this->isSwoole)() || $response->hasHeader('Content-Length')) {
