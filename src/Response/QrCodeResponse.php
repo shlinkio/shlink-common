@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Response;
 
-use Endroid\QrCode\QrCodeInterface;
+use Endroid\QrCode\Writer\Result\ResultInterface;
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Stream;
@@ -14,19 +14,19 @@ class QrCodeResponse extends Response
 {
     use Response\InjectContentTypeTrait;
 
-    public function __construct(QrCodeInterface $qrCode, int $status = StatusCode::STATUS_OK, array $headers = [])
+    public function __construct(ResultInterface $qrCode, int $status = StatusCode::STATUS_OK, array $headers = [])
     {
         parent::__construct(
             $this->createBody($qrCode),
             $status,
-            $this->injectContentType($qrCode->getContentType(), $headers),
+            $this->injectContentType($qrCode->getMimeType(), $headers),
         );
     }
 
-    private function createBody(QrCodeInterface $qrCode): StreamInterface
+    private function createBody(ResultInterface $qrCode): StreamInterface
     {
         $body = new Stream('php://temp', 'wb+');
-        $body->write($qrCode->writeString());
+        $body->write($qrCode->getString());
         $body->rewind();
         return $body;
     }
