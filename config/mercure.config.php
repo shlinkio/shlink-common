@@ -6,7 +6,7 @@ namespace Shlinkio\Shlink\Common;
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Lcobucci\JWT\Configuration;
-use Symfony\Component\Mercure\Publisher;
+use Symfony\Component\Mercure\Hub;
 
 return [
 
@@ -16,7 +16,7 @@ return [
         'factories' => [
             Configuration::class => Mercure\JwtConfigFactory::class,
             Mercure\LcobucciJwtProvider::class => ConfigAbstractFactory::class,
-            Publisher::class => Mercure\PublisherFactory::class,
+            Hub::class => Mercure\HubFactory::class,
         ],
     ],
 

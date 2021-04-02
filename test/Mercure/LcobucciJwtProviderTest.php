@@ -25,7 +25,7 @@ class LcobucciJwtProviderTest extends TestCase
     public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
     {
         $token = $this->jwtConfig->parser()->parse(
-            (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))(),
+            (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))->getJwt(),
         );
 
         self::assertTrue($token->hasBeenIssuedBy($expectedIssuer));
