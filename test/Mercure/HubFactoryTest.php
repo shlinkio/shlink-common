@@ -10,20 +10,23 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Exception\MercureException;
+use Shlinkio\Shlink\Common\Mercure\HubFactory;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
-use Shlinkio\Shlink\Common\Mercure\PublisherFactory;
+use Symfony\Component\Mercure\Jwt\TokenProviderInterface;
 
-class PublisherFactoryTest extends TestCase
+class HubFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    private PublisherFactory $factory;
+    private HubFactory $factory;
     private ObjectProphecy $container;
+    private ObjectProphecy $tokenProvider;
 
     public function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
-        $this->factory = new PublisherFactory();
+        $this->tokenProvider = $this->prophesize(TokenProviderInterface::class);
+        $this->factory = new HubFactory();
     }
 
     /**
@@ -33,8 +36,7 @@ class PublisherFactoryTest extends TestCase
     public function throwsExceptionWhenNoHubUrlIsConfigured(array $config): void
     {
         $getConfig = $this->container->get('config')->willReturn($config);
-        $getJwtProvider = $this->container->get(LcobucciJwtProvider::class)->willReturn(function (): void {
-        });
+        $getJwtProvider = $this->container->get(LcobucciJwtProvider::class)->willReturn($this->tokenProvider->reveal());
 
         $this->expectException(MercureException::class);
         $this->expectExceptionMessage(
@@ -69,16 +71,15 @@ class PublisherFactoryTest extends TestCase
     public function returnsExpectedObjectIfProperConfigIsFound(array $config, string $expectedHubUrl): void
     {
         $getConfig = $this->container->get('config')->willReturn($config);
-        $getJwtProvider = $this->container->get(LcobucciJwtProvider::class)->willReturn(function (): void {
-        });
+        $getJwtProvider = $this->container->get(LcobucciJwtProvider::class)->willReturn($this->tokenProvider->reveal());
 
-        $publisher = ($this->factory)($this->container->reveal());
+        $hub = ($this->factory)($this->container->reveal());
 
-        $ref = new ReflectionObject($publisher);
-        $prop = $ref->getProperty('hubUrl');
+        $ref = new ReflectionObject($hub);
+        $prop = $ref->getProperty('url');
         $prop->setAccessible(true);
 
-        self::assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($publisher));
+        self::assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($hub));
         $getConfig->shouldHaveBeenCalledOnce();
         $getJwtProvider->shouldHaveBeenCalledOnce();
     }

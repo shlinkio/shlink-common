@@ -19,7 +19,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
         $this->mercureConfig = $mercureConfig;
     }
 
-    public function __invoke(): string
+    public function getJwt(): string
     {
         return $this->buildPublishToken();
     }
