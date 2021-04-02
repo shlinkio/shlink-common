@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* [#70](https://github.com/shlinkio/shlink-common/issues/70) Added support for `symfony/mercure` 0.5.
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* [#70](https://github.com/shlinkio/shlink-common/issues/70) Dropped support for `symfony/mercure` 0.4.
+
+### Fixed
+* *Nothing*
+
+
 ## [3.6.0] - 2021-02-28
 ### Added
 * [#68](https://github.com/shlinkio/shlink-common/issues/68) Added support for `endroid/qr-code` 4.0.
