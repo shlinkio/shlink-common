@@ -111,6 +111,8 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
 
+use Doctrine\ORM\Events;
+
 return [
 
     'entity_manager' => [
@@ -125,6 +127,10 @@ return [
                 Doctrine\Type\ChronosDateTimeType::CHRONOS_DATETIME => Doctrine\Type\ChronosDateTimeType::class,
             ],
             'load_mappings_using_functional_style' => true, // Makes loader assume mappings return a function which should be invoked. Defaults to false
+            'listeners' => [ // Map telling which service listeners to invoke for every ORM event
+                Events::postFlush => ['some_service'],
+                Events::preUpdate => ['foo', 'bar'],
+            ]
         ],
         'connection' => [ // Database connection params
             'driver' => 'pdo_mysql',
