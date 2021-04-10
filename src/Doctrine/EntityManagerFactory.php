@@ -42,7 +42,11 @@ class EntityManagerFactory
             $config->setDefaultRepositoryClassName($defaultRepo);
         }
 
-        return EntityManager::create($connectionConfig, $config);
+        $em = EntityManager::create($connectionConfig, $config);
+
+        $this->registerListeners($ormConfig, $em, $container);
+
+        return $em;
     }
 
     /**
@@ -55,6 +59,18 @@ class EntityManagerFactory
         foreach ($types as $name => $className) {
             if (! Type::hasType($name)) {
                 Type::addType($name, $className);
+            }
+        }
+    }
+
+    private function registerListeners(array $ormConfig, EntityManager $em, ContainerInterface $container): void
+    {
+        $listeners = $ormConfig['listeners'] ?? [];
+        $events = $em->getEventManager();
+
+        foreach ($listeners as $event => $services) {
+            foreach ($services as $service) {
+                $events->addEventListener($event, $container->get($service));
             }
         }
     }
