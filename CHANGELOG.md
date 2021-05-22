@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [3.7.0] - 2021-05-21
 ### Added
 * [#70](https://github.com/shlinkio/shlink-common/issues/70) Added support for `symfony/mercure` 0.5.
 * [#72](https://github.com/shlinkio/shlink-common/issues/72) Added ability to register event listeners in the EntityManager through the `EntityManagerFactory`.
 
 ### Changed
-* *Nothing*
+* Updated to infection 0.23
 
 ### Deprecated
 * *Nothing*
