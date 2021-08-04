@@ -8,14 +8,12 @@ use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 
 class EnhancedPHPDriver extends PHPDriver
 {
-    private array $emConfig;
-    private bool $loadMappingsUsingFunctionalStyle;
-
-    public function __construct($locator, array $emConfig, bool $loadMappingsUsingFunctionalStyle = false) // phpcs:ignore
-    {
+    public function __construct( // phpcs:ignore
+        $locator,
+        private array $emConfig,
+        private bool $loadMappingsUsingFunctionalStyle = false,
+    ) {
         parent::__construct($locator);
-        $this->emConfig = $emConfig;
-        $this->loadMappingsUsingFunctionalStyle = $loadMappingsUsingFunctionalStyle;
     }
 
     protected function loadMappingFile($file): array // phpcs:ignore

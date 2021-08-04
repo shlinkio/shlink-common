@@ -12,11 +12,8 @@ use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerInterface;
 
 class CloseDbConnectionMiddleware implements MiddlewareInterface
 {
-    private ReopeningEntityManagerInterface $em;
-
-    public function __construct(ReopeningEntityManagerInterface $em)
+    public function __construct(private ReopeningEntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

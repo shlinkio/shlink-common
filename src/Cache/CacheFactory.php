@@ -17,7 +17,7 @@ class CacheFactory
 
     public function __construct(?callable $apcuEnabled = null)
     {
-        $this->apcuEnabled = Closure::fromCallable($apcuEnabled ?? fn () => extension_loaded('apcu'));
+        $this->apcuEnabled = Closure::fromCallable($apcuEnabled ?? static fn () => extension_loaded('apcu'));
     }
 
     public function __invoke(ContainerInterface $container): Cache\CacheProvider

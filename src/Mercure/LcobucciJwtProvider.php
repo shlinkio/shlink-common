@@ -10,13 +10,8 @@ use Lcobucci\JWT\Configuration;
 
 class LcobucciJwtProvider implements JwtProviderInterface
 {
-    private Configuration $jwtConfig;
-    private array $mercureConfig;
-
-    public function __construct(Configuration $jwtConfig, array $mercureConfig)
+    public function __construct(private Configuration $jwtConfig, private array $mercureConfig)
     {
-        $this->jwtConfig = $jwtConfig;
-        $this->mercureConfig = $mercureConfig;
     }
 
     public function getJwt(): string

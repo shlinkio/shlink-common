@@ -8,14 +8,8 @@ use Cake\Chronos\Chronos;
 
 final class DateRange
 {
-    private ?Chronos $startDate;
-    private ?Chronos $endDate;
-
-    /** @deprecated Use named constructors */
-    public function __construct(?Chronos $startDate = null, ?Chronos $endDate = null)
+    private function __construct(private ?Chronos $startDate = null, private ?Chronos $endDate = null)
     {
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
     }
 
     public static function emptyInstance(): self
@@ -38,12 +32,12 @@ final class DateRange
         return new self($startDate, $endDate);
     }
 
-    public function getStartDate(): ?Chronos
+    public function startDate(): ?Chronos
     {
         return $this->startDate;
     }
 
-    public function getEndDate(): ?Chronos
+    public function endDate(): ?Chronos
     {
         return $this->endDate;
     }
