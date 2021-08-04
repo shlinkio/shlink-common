@@ -11,7 +11,6 @@ use Laminas\Validator\Exception;
 use Laminas\Validator\Hostname;
 use Laminas\Validator\ValidatorChain;
 use Laminas\Validator\ValidatorInterface;
-use Traversable;
 
 use function count;
 use function explode;
@@ -37,10 +36,7 @@ class HostAndPortValidator extends AbstractValidator
     private ValidatorInterface $hostValidator;
     private ValidatorInterface $portValidator;
 
-    /**
-     * @param array|Traversable|null $options
-     */
-    public function __construct($options = null)
+    public function __construct(?iterable $options = null)
     {
         parent::__construct($options);
 
