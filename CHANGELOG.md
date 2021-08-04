@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* Updated to infection 0.24
+* Added experimental builds under PHP 8.1
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Dropped support for PHP 7.4.
+
+### Fixed
+* *Nothing*
+
+
 ## [3.7.0] - 2021-05-21
 ### Added
 * [#70](https://github.com/shlinkio/shlink-common/issues/70) Added support for `symfony/mercure` 0.5.
