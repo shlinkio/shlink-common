@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* Updated to infection 0.24
+* [#79](https://github.com/shlinkio/shlink-common/issues/79) Added experimental builds under PHP 8.1
+* [#76](https://github.com/shlinkio/shlink-common/issues/76) Increased required phpstan level to 8
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* [#75](https://github.com/shlinkio/shlink-common/issues/75) Dropped support for PHP 7.4.
+* [#74](https://github.com/shlinkio/shlink-common/issues/74) Removed everything that was deprecated from v3.*
+
+### Fixed
+* *Nothing*
+
+
 ## [3.7.0] - 2021-05-21
 ### Added
 * [#70](https://github.com/shlinkio/shlink-common/issues/70) Added support for `symfony/mercure` 0.5.

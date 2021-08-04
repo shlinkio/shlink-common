@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
 
+use Cake\Chronos\Chronos;
 use Laminas\Config\Factory;
 use Laminas\Stdlib\Glob;
 
+use Shlinkio\Shlink\Common\Util\DateRange;
 use function getenv;
 use function json_decode as spl_json_decode;
 use function json_last_error;
@@ -61,4 +63,14 @@ function json_decode(string $json, int $depth = 512, int $options = 0): array
     }
 
     return $data;
+}
+
+function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange
+{
+    return match (true) {
+        $startDate !== null && $endDate !== null => DateRange::withStartAndEndDate($startDate, $endDate),
+        $startDate !== null => DateRange::withStartDate($startDate),
+        $endDate !== null => DateRange::withEndDate($endDate),
+        default => DateRange::emptyInstance(),
+    };
 }

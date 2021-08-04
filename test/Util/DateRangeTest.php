@@ -15,8 +15,8 @@ class DateRangeTest extends TestCase
     {
         $range = DateRange::emptyInstance();
 
-        self::assertNull($range->getStartDate());
-        self::assertNull($range->getEndDate());
+        self::assertNull($range->startDate());
+        self::assertNull($range->endDate());
         self::assertTrue($range->isEmpty());
     }
 
@@ -27,8 +27,8 @@ class DateRangeTest extends TestCase
         $endDate = Chronos::now();
         $range = DateRange::withStartAndEndDate($startDate, $endDate);
 
-        self::assertSame($startDate, $range->getStartDate());
-        self::assertSame($endDate, $range->getEndDate());
+        self::assertSame($startDate, $range->startDate());
+        self::assertSame($endDate, $range->endDate());
         self::assertFalse($range->isEmpty());
     }
 
@@ -39,8 +39,8 @@ class DateRangeTest extends TestCase
         $range = DateRange::withStartDate($startDate);
 
         self::assertFalse($range->isEmpty());
-        self::assertNull($range->getEndDate());
-        self::assertSame($startDate, $range->getStartDate());
+        self::assertNull($range->endDate());
+        self::assertSame($startDate, $range->startDate());
     }
 
     /** @test */
@@ -50,8 +50,8 @@ class DateRangeTest extends TestCase
         $range = DateRange::withEndDate($endDate);
 
         self::assertFalse($range->isEmpty());
-        self::assertNull($range->getStartDate());
-        self::assertSame($endDate, $range->getEndDate());
+        self::assertNull($range->startDate());
+        self::assertSame($endDate, $range->endDate());
     }
 
     /** @test */
@@ -62,7 +62,7 @@ class DateRangeTest extends TestCase
         $range = DateRange::withStartAndEndDate($startDate, $endDate);
 
         self::assertFalse($range->isEmpty());
-        self::assertSame($startDate, $range->getStartDate());
-        self::assertSame($endDate, $range->getEndDate());
+        self::assertSame($startDate, $range->startDate());
+        self::assertSame($endDate, $range->endDate());
     }
 }

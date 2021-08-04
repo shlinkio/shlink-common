@@ -18,17 +18,12 @@ final class IpAddress
     private const ANONYMIZED_OCTET = '0';
     public const LOCALHOST = '127.0.0.1';
 
-    private string $firstOctet;
-    private string $secondOctet;
-    private string $thirdOctet;
-    private string $fourthOctet;
-
-    private function __construct(string $firstOctet, string $secondOctet, string $thirdOctet, string $fourthOctet)
-    {
-        $this->firstOctet = $firstOctet;
-        $this->secondOctet = $secondOctet;
-        $this->thirdOctet = $thirdOctet;
-        $this->fourthOctet = $fourthOctet;
+    private function __construct(
+        private string $firstOctet,
+        private string $secondOctet,
+        private string $thirdOctet,
+        private string $fourthOctet,
+    ) {
     }
 
     /**
@@ -54,12 +49,6 @@ final class IpAddress
             $this->thirdOctet,
             self::ANONYMIZED_OCTET,
         );
-    }
-
-    /** @deprecated Use getAnonymizedCopy instead */
-    public function getObfuscatedCopy(): self
-    {
-        return $this->getAnonymizedCopy();
     }
 
     public function __toString(): string

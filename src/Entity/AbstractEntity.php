@@ -10,7 +10,7 @@ abstract class AbstractEntity
 
     public function getId(): string
     {
-        return $this->id;
+        return $this->id ?? '';
     }
 
     /**

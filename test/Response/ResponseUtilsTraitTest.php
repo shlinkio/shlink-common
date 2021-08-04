@@ -20,26 +20,16 @@ class ResponseUtilsTraitTest extends TestCase
         string $expectedLength,
         string $path
     ): void {
-        self::assertExpectedResponseForMethod('generateBinaryResponse', $expectedType, $expectedLength, $path);
-        self::assertExpectedResponseForMethod('generateImageResponse', $expectedType, $expectedLength, $path);
+        $resp = $this->generateBinaryResponse($path);
+
+        self::assertStringContainsString($expectedType, $resp->getHeaderLine('Content-Type'));
+        self::assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
     }
 
     public function provideFiles(): iterable
     {
         yield ['image/png', '2433', __DIR__ . '/../../test-resources/shlink-logo.png'];
         yield ['text/plain', '20', __DIR__ . '/../../test-resources/text-file.txt'];
-    }
-
-    private function assertExpectedResponseForMethod(
-        string $method,
-        string $expectedType,
-        string $expectedLength,
-        string $path
-    ): void {
-        $resp = $this->{$method}($path);
-
-        self::assertStringContainsString($expectedType, $resp->getHeaderLine('Content-Type'));
-        self::assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
     }
 
     /** @test */
