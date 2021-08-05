@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
+use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Doctrine\DBAL\Driver\PDO\SQLite\Driver as SQLiteDriver;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
@@ -16,6 +18,7 @@ use Shlinkio\Shlink\Common\Doctrine\EntityManagerFactory;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use ShlinkioTest\Shlink\Common\Repository\CustomRepository;
 use stdClass;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 use function array_filter;
 use function array_merge;
@@ -61,6 +64,7 @@ class EntityManagerFactoryTest extends TestCase
             'foo_listener' => new stdClass(),
             'bar_listener' => new stdClass(),
             'baz_listener' => new stdClass(),
+            Cache::class => DoctrineProvider::wrap(new ArrayAdapter()),
         ]]);
 
         self::assertFalse(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
