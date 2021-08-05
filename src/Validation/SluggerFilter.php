@@ -20,13 +20,9 @@ class SluggerFilter implements FilterInterface
     }
 
     /**
-     * Returns the result of filtering $value
-     *
-     * @param  mixed $value
      * @throws Exception\RuntimeException If filtering $value is impossible
-     * @return mixed
      */
-    public function filter($value)
+    public function filter(mixed $value): mixed
     {
         return is_string($value) ? $this->slugger->slug($value)->toString() : $value;
     }

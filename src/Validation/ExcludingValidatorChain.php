@@ -19,10 +19,7 @@ class ExcludingValidatorChain implements Validator\ValidatorInterface
         $this->validators = $validators;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function isValid($value): bool
+    public function isValid(mixed $value): bool
     {
         return some(
             $this->validators,
@@ -38,10 +35,7 @@ class ExcludingValidatorChain implements Validator\ValidatorInterface
         );
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function __invoke($value): bool
+    public function __invoke(mixed $value): bool
     {
         return $this->isValid($value);
     }

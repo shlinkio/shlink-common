@@ -91,7 +91,7 @@ class PagerfantaUtilsTraitTest extends TestCase
     public function pageMessageIsProperlyFormatted(
         string $expectedMessage,
         string $pattern,
-        Pagerfanta $paginator
+        Pagerfanta $paginator,
     ): void {
         self::assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
     }

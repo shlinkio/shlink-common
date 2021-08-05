@@ -51,10 +51,7 @@ class HostAndPortValidator extends AbstractValidator
                                                      ]));
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function isValid($value): bool
+    public function isValid(mixed $value): bool
     {
         if (! is_string($value)) {
             throw new Exception\RuntimeException(sprintf(

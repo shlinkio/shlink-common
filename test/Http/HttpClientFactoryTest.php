@@ -37,7 +37,7 @@ class HttpClientFactoryTest extends TestCase
      */
     public function properlyCreatesAFactoryWithExpectedNumberOfMiddlewares(
         array $config,
-        int $expectedMiddlewaresAmount
+        int $expectedMiddlewaresAmount,
     ): void {
         $this->container->get('some_middleware')->willReturn(static function (): void {
         });
@@ -89,11 +89,10 @@ class HttpClientFactoryTest extends TestCase
     }
 
     /**
-     * @param mixed $middleware
      * @test
      * @dataProvider provideInvalidMiddlewares
      */
-    public function exceptionIsThrownWhenNonCallableStaticMiddlewaresAreProvided($middleware): void
+    public function exceptionIsThrownWhenNonCallableStaticMiddlewaresAreProvided(mixed $middleware): void
     {
         $getService = $this->container->get('some_middleware')->willReturn(static function (): void {
         });
@@ -109,11 +108,10 @@ class HttpClientFactoryTest extends TestCase
     }
 
     /**
-     * @param mixed $middleware
      * @test
      * @dataProvider provideInvalidMiddlewares
      */
-    public function exceptionIsThrownWhenNonCallableServiceMiddlewaresAreProvided($middleware): void
+    public function exceptionIsThrownWhenNonCallableServiceMiddlewaresAreProvided(mixed $middleware): void
     {
         $getService = $this->container->get('some_middleware')->willReturn($middleware);
         $getConfig = $this->container->get('config')->willReturn(['http_client' => [

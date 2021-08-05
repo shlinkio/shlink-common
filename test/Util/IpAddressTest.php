@@ -45,7 +45,7 @@ class IpAddressTest extends TestCase
         string $firstOctet,
         string $secondOctet,
         string $thirdOctet,
-        string $fourthOctet
+        string $fourthOctet,
     ): void {
         $address = IpAddress::fromString($validAddress);
 
@@ -64,7 +64,7 @@ class IpAddressTest extends TestCase
         string $validAddress,
         string $firstOctet,
         string $secondOctet,
-        string $thirdOctet
+        string $thirdOctet,
     ): void {
         $anonymizedAddress = IpAddress::fromString($validAddress)->getAnonymizedCopy();
 
@@ -85,10 +85,7 @@ class IpAddressTest extends TestCase
         yield ['  8.8.4.4   ', '8', '8', '4', '4'];
     }
 
-    /**
-     * @return mixed
-     */
-    private function getPropFromIpAddress(IpAddress $address, string $propName)
+    private function getPropFromIpAddress(IpAddress $address, string $propName): mixed
     {
         $ref = new ReflectionObject($address);
         $prop = $ref->getProperty($propName);

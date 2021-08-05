@@ -40,10 +40,7 @@ class HttpClientFactory
         ];
     }
 
-    /**
-     * @param mixed $middleware
-     */
-    private function resolveMiddleware($middleware, ContainerInterface $container): callable
+    private function resolveMiddleware(mixed $middleware, ContainerInterface $container): callable
     {
         $middlewareInstance = is_string($middleware) ? $container->get($middleware) : $middleware;
         if (! is_callable($middlewareInstance)) {

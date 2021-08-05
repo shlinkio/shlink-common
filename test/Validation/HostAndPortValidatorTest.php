@@ -63,11 +63,10 @@ class HostAndPortValidatorTest extends TestCase
     }
 
     /**
-     * @param mixed $value
      * @test
      * @dataProvider provideIncompatibleValues
      */
-    public function throwsExceptionWhenProvidedValuesIsNotString($value, string $expectedExceptionMessage): void
+    public function throwsExceptionWhenProvidedValuesIsNotString(mixed $value, string $expectedExceptionMessage): void
     {
         $validator = new HostAndPortValidator();
 

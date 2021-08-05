@@ -9,10 +9,7 @@ use Psr\Log;
 
 class LoggerAwareDelegatorFactory
 {
-    /**
-     * @return mixed
-     */
-    public function __invoke(ContainerInterface $container, string $name, callable $callback)
+    public function __invoke(ContainerInterface $container, string $name, callable $callback): mixed
     {
         $instance = $callback();
         if ($instance instanceof Log\LoggerAwareInterface && $container->has(Log\LoggerInterface::class)) {

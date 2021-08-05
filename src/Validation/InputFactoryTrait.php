@@ -42,7 +42,7 @@ trait InputFactoryTrait
     private function createDateInput(
         string $name,
         bool $required = true,
-        array $formats = [DateTime::ATOM, 'Y-m-d']
+        array $formats = [DateTime::ATOM, 'Y-m-d'],
     ): Input {
         $input = $this->createInput($name, $required);
         $input->getValidatorChain()->attach(new ExcludingValidatorChain(...map(
