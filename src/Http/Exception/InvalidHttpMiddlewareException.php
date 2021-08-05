@@ -13,10 +13,7 @@ use function sprintf;
 
 class InvalidHttpMiddlewareException extends InvalidArgumentException
 {
-    /**
-     * @param mixed $middleware
-     */
-    public static function fromMiddleware($middleware): self
+    public static function fromMiddleware(mixed $middleware): self
     {
         return new self(sprintf(
             'Provided middleware does not have a valid type. Expected callable, %s provided',

@@ -11,12 +11,14 @@ use Shlinkio\Shlink\Common\Validation\ExcludingValidatorChain;
 class ExcludingValidatorChainTest extends TestCase
 {
     /**
-     * @param mixed $value
      * @test
      * @dataProvider provideValidatorsLists
      */
-    public function validationPassesAsSoonAsOneWrappedValidatorPasses(array $validators, $value, bool $expected): void
-    {
+    public function validationPassesAsSoonAsOneWrappedValidatorPasses(
+        array $validators,
+        mixed $value,
+        bool $expected,
+    ): void {
         $chain = new ExcludingValidatorChain(...$validators);
 
         self::assertEquals($expected, $chain->isValid($value));

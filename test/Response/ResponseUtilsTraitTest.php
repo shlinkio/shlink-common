@@ -18,7 +18,7 @@ class ResponseUtilsTraitTest extends TestCase
     public function expectedBinaryResponsesAreGenerated(
         string $expectedType,
         string $expectedLength,
-        string $path
+        string $path,
     ): void {
         $resp = $this->generateBinaryResponse($path);
 

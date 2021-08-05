@@ -19,7 +19,7 @@ class ReopeningEntityManagerTest extends TestCase
      */
     public function wrappedEntityManagerIsOnlyRecreatedWhenCurrentOneIsClosed(
         EntityManagerInterface $wrapped,
-        bool $shouldRecreate
+        bool $shouldRecreate,
     ): void {
         $factoryCalls = 0;
         $reopeningEm = new ReopeningEntityManager(static function () use ($wrapped, &$factoryCalls) {

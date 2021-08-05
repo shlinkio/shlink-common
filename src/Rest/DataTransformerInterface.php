@@ -9,5 +9,5 @@ interface DataTransformerInterface
     /**
      * @param mixed $value
      */
-    public function transform($value): array;
+    public function transform($value): array; // @phpcs:ignore
 }

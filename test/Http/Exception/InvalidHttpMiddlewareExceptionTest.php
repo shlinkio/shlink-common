@@ -11,11 +11,10 @@ use stdClass;
 class InvalidHttpMiddlewareExceptionTest extends TestCase
 {
     /**
-     * @param mixed $middleware
      * @test
      * @dataProvider provideMessages
      */
-    public function exceptionIsCreatedAsExpected($middleware, string $expectedMessage): void
+    public function exceptionIsCreatedAsExpected(mixed $middleware, string $expectedMessage): void
     {
         $e = InvalidHttpMiddlewareException::fromMiddleware($middleware);
         self::assertEquals($expectedMessage, $e->getMessage());

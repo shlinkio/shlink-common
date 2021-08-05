@@ -57,7 +57,7 @@ class EntityManagerFactoryTest extends TestCase
         array $config,
         int $expectedAutoGenerateProxies,
         string $expectedDefaultRepo,
-        int $expectedListeners
+        int $expectedListeners,
     ): void {
         $sm = new ServiceManager(['services' => [
             'config' => $config,
