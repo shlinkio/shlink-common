@@ -13,12 +13,10 @@ use function is_string;
 
 class RedisFactory
 {
-    public const SERVICE_NAME = 'Shlinkio\Shlink\Common\Cache\Redis';
-
     public function __invoke(ContainerInterface $container): PredisClient
     {
         $config = $container->get('config');
-        $redisConfig = $config['cache']['redis'] ?? $config['redis'] ?? [];
+        $redisConfig = $config['cache']['redis'] ?? [];
 
         $servers = $redisConfig['servers'] ?? [];
         $servers = is_string($servers) ? explode(',', $servers) : $servers;

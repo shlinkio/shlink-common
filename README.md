@@ -20,13 +20,15 @@ Install this library using composer:
 
 ## Cache
 
-A [doctrine cache](https://www.doctrine-project.org/projects/doctrine-cache/en/1.8/index.html) adapter is registered, which returns different instances depending on your configuration:
+A [symfony/cache](https://symfony.com/doc/current/components/cache.html) adapter is registered, under the `Psr\Cache\CacheItemPoolInterface` service key (as all adapters implement it).
+
+The concrete implementation it returns is different depending on your configuration:
  
- * An `ArrayCache` instance when the `debug` config is set to true or when the APUc extension is not installed and the `cache.redis` config is not defined.
- * An `ApcuCache`instance when no `cache.redis` is defined and the APCu extension is installed.
- * A `PredisCache` instance when the `cache.redis` config is defined.
+ * An `ArrayAdapter` instance when the `debug` config is set to true or when the APUc extension is not installed and the `cache.redis` config is not defined.
+ * An `ApcuAdapter`instance when no `cache.redis` is defined and the APCu extension is installed.
+ * A `RedisAdapter` instance when the `cache.redis` config is defined.
  
- Any of the adapters will use the namespace defined in `cache.namespace` config entry.
+ The last two adapters will use the namespace defined in `cache.namespace` config entry.
  
  ```php
 <?php
@@ -51,7 +53,15 @@ return [
 ];
 ```
 
+### Redis support
+
 When the `cache.redis` config is provided, a set of servers is expected. If only one server is provided, this library will treat it as a regular server, but if several servers are defined, it will treat them as a redis cluster and expect the servers to be configured as such.
+
+### Doctrine cache support
+
+As other doctrine components still expect a `doctrine/cache` adapter to be provided, this package still depends on `doctrine/cache:^2.0` which just exposes the interfaces and a PSR compatibility layer.
+
+Also, a `Doctrine\Common\Cache\Cache` service is registered, which is basically an object wrapping the PSR/Symfony cache object registered above.
 
 ## Middlewares
 

@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Changed
+* [#77](https://github.com/shlinkio/shlink-common/issues/77) Replaced doctrine/cache adapters by symfony/cache, complying with PSR-6 and PSR-16 in the process.
+
+    The project still depends on doctrine/cache 2.0, and wraps the PSR-6 adapter into a doctrine cache that can be used with other doctrine packages.
+
 * Updated to infection 0.24
 * [#79](https://github.com/shlinkio/shlink-common/issues/79) Added experimental builds under PHP 8.1
 * [#76](https://github.com/shlinkio/shlink-common/issues/76) Increased required phpstan level to 8

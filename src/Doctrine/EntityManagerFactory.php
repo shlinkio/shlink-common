@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Doctrine;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
@@ -24,7 +23,7 @@ class EntityManagerFactory
     {
         $globalConfig = $container->get('config');
         $isDevMode = (bool) ($globalConfig['debug'] ?? false);
-        $cache = $container->has(Cache::class) ? $container->get(Cache::class) : new ArrayCache();
+        $cache = $container->get(Cache::class);
         $emConfig = $globalConfig['entity_manager'] ?? [];
         $connectionConfig = $emConfig['connection'] ?? [];
         $ormConfig = $emConfig['orm'] ?? [];

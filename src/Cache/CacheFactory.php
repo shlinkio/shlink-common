@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Cache;
 
 use Closure;
-use Doctrine\Common\Cache;
-use Predis\Client as PredisClient;
+use Predis\ClientInterface as PredisClient;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Cache\Adapter;
 
 use function extension_loaded;
 
@@ -20,31 +21,23 @@ class CacheFactory
         $this->apcuEnabled = Closure::fromCallable($apcuEnabled ?? static fn () => extension_loaded('apcu'));
     }
 
-    public function __invoke(ContainerInterface $container): Cache\CacheProvider
+    public function __invoke(ContainerInterface $container): CacheItemPoolInterface
     {
         $config = $container->get('config');
-        $adapter = $this->buildAdapter($config, $container);
-        $adapter->setNamespace($config['cache']['namespace'] ?? '');
-
-        return $adapter;
-    }
-
-    private function buildAdapter(array $config, ContainerInterface $container): Cache\CacheProvider
-    {
         $isDebug = (bool) ($config['debug'] ?? false);
         $redisConfig = $config['cache']['redis'] ?? null;
         $apcuEnabled = ($this->apcuEnabled)();
 
         if ($isDebug || (! $apcuEnabled && $redisConfig === null)) {
-            return new Cache\ArrayCache();
+            return new Adapter\ArrayAdapter();
         }
 
+        $namespace = $config['cache']['namespace'] ?? '';
         if ($redisConfig === null) {
-            return new Cache\ApcuCache();
+            return new Adapter\ApcuAdapter($namespace);
         }
 
-        /** @var PredisClient $predis */
-        $predis = $container->get(RedisFactory::SERVICE_NAME);
-        return new Cache\PredisCache($predis);
+        $predis = $container->get(PredisClient::class);
+        return new Adapter\RedisAdapter($predis, $namespace);
     }
 }
