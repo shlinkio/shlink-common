@@ -41,12 +41,14 @@ return [
 
     'cache' => [
         'namespace' => 'my_namespace',
+        
         'redis' => [
             'servers' => [
                 'tcp://1.1.1.1:6379',
                 'tcp://2.2.2.2:6379',
                 'tcp://3.3.3.3:6379',
             ],
+            'sentinel_service' => 'theservice' // Optional.
         ],
     ],
 
@@ -55,7 +57,10 @@ return [
 
 ### Redis support
 
-When the `cache.redis` config is provided, a set of servers is expected. If only one server is provided, this library will treat it as a regular server, but if several servers are defined, it will treat them as a redis cluster and expect the servers to be configured as such.
+You can allow caching to be done on a redis instance, redis cluster or redis sentinels, by defining some options under `cache.redis` config.
+
+* `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
+* `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
 
 ### Doctrine cache support
 

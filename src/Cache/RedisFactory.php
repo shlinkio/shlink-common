@@ -20,8 +20,21 @@ class RedisFactory
 
         $servers = $redisConfig['servers'] ?? [];
         $servers = is_string($servers) ? explode(',', $servers) : $servers;
-        $options = count($servers) <= 1 ? null : ['cluster' => 'redis'];
+        $options = $this->resolveOptions($redisConfig, $servers);
 
         return new PredisClient($servers, $options);
+    }
+
+    private function resolveOptions(array $redisConfig, array $servers): ?array
+    {
+        $sentinelService = $redisConfig['sentinel_service'] ?? null;
+        if ($sentinelService !== null) {
+            return [
+                'replication' => 'sentinel',
+                'service' => $sentinelService,
+            ];
+        }
+
+        return count($servers) <= 1 ? null : ['cluster' => 'redis'];
     }
 }
