@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [4.0.0] - 2021-10-08
 ### Added
-* *Nothing*
+* [#80](https://github.com/shlinkio/shlink-common/issues/80) Added support for redis cache with redis sentinel
 
 ### Changed
 * [#77](https://github.com/shlinkio/shlink-common/issues/77) Replaced doctrine/cache adapters by symfony/cache, complying with PSR-6 and PSR-16 in the process.
