@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Added support for symfony/mercure 0.6
 
 ### Changed
 * Moved ci workflow to external repo and reused
