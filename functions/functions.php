@@ -54,6 +54,7 @@ function env($key, $default = null)
 
 /**
  * @throws Exception\InvalidArgumentException
+ * @param int<1, max> $depth
  */
 function json_decode(string $json, int $depth = 512, int $options = 0): array
 {
