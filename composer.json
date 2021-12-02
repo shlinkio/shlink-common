@@ -31,10 +31,10 @@
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^1.1",
         "shlinkio/shlink-config": "^1.2",
-        "symfony/cache": "^5.3",
-        "symfony/lock": "^5.3",
-        "symfony/mercure": "^0.5.3 || ^0.6",
-        "symfony/string": "^5.3",
+        "symfony/cache": "^6.0 || ^5.4",
+        "symfony/lock": "^6.0 || ^5.4",
+        "symfony/mercure": "^0.6",
+        "symfony/string": "^6.0 || ^5.4",
         "symfony/translation-contracts": "^2.4"
     },
     "require-dev": {
@@ -47,7 +47,7 @@
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.2.0",
-        "symfony/var-dumper": "^5.3"
+        "symfony/var-dumper": "^6.0"
     },
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
