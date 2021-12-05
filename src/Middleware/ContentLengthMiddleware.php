@@ -10,17 +10,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-use function extension_loaded;
-
 class ContentLengthMiddleware implements MiddlewareInterface
 {
     private Closure $isSwoole;
 
-    public function __construct(?callable $isSwoole = null)
+    public function __construct(callable $isSwoole)
     {
-        $this->isSwoole = $isSwoole !== null
-            ? Closure::fromCallable($isSwoole)
-            : static fn () => extension_loaded('swoole');
+        $this->isSwoole = Closure::fromCallable($isSwoole);
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
