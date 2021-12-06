@@ -1,13 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
 
 use Cake\Chronos\Chronos;
-use Laminas\Config\Factory;
-use Laminas\Stdlib\Glob;
-
 use Shlinkio\Shlink\Common\Util\DateRange;
+
 use function getenv;
 use function json_decode as spl_json_decode;
 use function json_last_error;
@@ -18,16 +17,7 @@ use function trim;
 
 use const JSON_ERROR_NONE;
 
-/**
- * Gets the value of an environment variable. Supports boolean, empty and null.
- * This is basically Laravel's env helper
- *
- * @param string $key
- * @param mixed $default
- * @return mixed
- * @link https://github.com/laravel/framework/blob/5.2/src/Illuminate/Foundation/helpers.php#L369
- */
-function env($key, $default = null)
+function env(string $key, mixed $default = null): mixed
 {
     $value = getenv($key);
     if ($value === false) {
