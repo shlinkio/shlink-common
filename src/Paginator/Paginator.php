@@ -10,14 +10,11 @@ class Paginator extends Pagerfanta
 {
     private bool $allResults = false;
 
-    /**
-     * @param int $maxPerPage
-     */
-    public function setMaxPerPage($maxPerPage): self // phpcs:ignore
+    public function setMaxPerPage(int $maxPerPage): self
     {
-        $this->allResults = $maxPerPage < 1;
+        $this->allResults = $maxPerPage < 1; // @phpstan-ignore-line
 
-        if (! $this->allResults) {
+        if (! $this->allResults) { // @phpstan-ignore-line
             parent::setMaxPerPage($maxPerPage);
         }
 
