@@ -41,7 +41,7 @@
         "infection/infection": "^0.25",
         "laminas/laminas-stratigility": "^3.4",
         "mezzio/mezzio-problem-details": "^1.4",
-        "pagerfanta/core": "^2.7",
+        "pagerfanta/core": "^3.5",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^9.5",

@@ -64,7 +64,7 @@ class PaginatorTest extends TestCase
      * @test
      * @dataProvider provideEmptyAdapterResults
      */
-    public function getMaxReturnsOneWhenAdapterReturnsEmpty(?int $adapterNbResults): void
+    public function getMaxReturnsOneWhenAdapterReturnsEmpty(int $adapterNbResults): void
     {
         $getFromAdapter = $this->adapter->getNbResults()->willReturn($adapterNbResults);
 
@@ -76,6 +76,6 @@ class PaginatorTest extends TestCase
 
     public function provideEmptyAdapterResults(): iterable
     {
-        return [[-3], [-25], [0], [-1], [null]];
+        return [[-3], [-25], [0], [-1]];
     }
 }
