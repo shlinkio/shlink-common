@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Added support for openswoole.
+* Updated to pagerfanta 3.5.
 
 ### Changed
 * *Nothing*
