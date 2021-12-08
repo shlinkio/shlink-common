@@ -6,15 +6,21 @@ namespace Shlinkio\Shlink\Common\Paginator;
 
 use Pagerfanta\Pagerfanta;
 
+use function max;
+
 class Paginator extends Pagerfanta
 {
-    private bool $allResults = false;
+    public const ALL_ITEMS = -1;
 
+    private bool $returnAllItems = false;
+
+    /**
+     * @param positive-int|self::ALL_ITEMS $maxPerPage
+     */
     public function setMaxPerPage(int $maxPerPage): self
     {
-        $this->allResults = $maxPerPage < 1; // @phpstan-ignore-line
-
-        if (! $this->allResults) { // @phpstan-ignore-line
+        $this->returnAllItems = $maxPerPage < 1;
+        if ($maxPerPage >= 1) {
             parent::setMaxPerPage($maxPerPage);
         }
 
@@ -23,11 +29,10 @@ class Paginator extends Pagerfanta
 
     public function getMaxPerPage(): int
     {
-        if (! $this->allResults) {
+        if (! $this->returnAllItems) {
             return parent::getMaxPerPage();
         }
 
-        $numberOfResults = parent::getNbResults();
-        return $numberOfResults === null || $numberOfResults < 1 ? 1 : $numberOfResults; // @phpstan-ignore-line
+        return max(parent::getNbResults(), 1);
     }
 }
