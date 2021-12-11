@@ -9,13 +9,11 @@ use Shlinkio\Shlink\Common\Util\DateRange;
 
 use function getenv;
 use function json_decode as spl_json_decode;
-use function json_last_error;
-use function json_last_error_msg;
-use function sprintf;
+use function json_encode as spl_json_encode;
 use function strtolower;
 use function trim;
 
-use const JSON_ERROR_NONE;
+use const JSON_THROW_ON_ERROR;
 
 function env(string $key, mixed $default = null): mixed
 {
@@ -42,18 +40,14 @@ function env(string $key, mixed $default = null): mixed
     return trim($value);
 }
 
-/**
- * @throws Exception\InvalidArgumentException
- * @param int<1, max> $depth
- */
-function json_decode(string $json, int $depth = 512, int $options = 0): array
+function json_decode(string $json): array
 {
-    $data = spl_json_decode($json, true, $depth, $options);
-    if (JSON_ERROR_NONE !== json_last_error()) {
-        throw new Exception\InvalidArgumentException(sprintf('Error decoding JSON: %s', json_last_error_msg()));
-    }
+    return spl_json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+}
 
-    return $data;
+function json_encode(array $payload): string
+{
+    return spl_json_encode($payload, JSON_THROW_ON_ERROR);
 }
 
 function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange
