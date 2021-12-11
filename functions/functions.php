@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common;
 
 use Cake\Chronos\Chronos;
+use JsonSerializable;
 use Shlinkio\Shlink\Common\Util\DateRange;
 
 use function getenv;
@@ -45,7 +46,7 @@ function json_decode(string $json): array
     return spl_json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 }
 
-function json_encode(array $payload): string
+function json_encode(array|JsonSerializable $payload): string
 {
     return spl_json_encode($payload, JSON_THROW_ON_ERROR);
 }
