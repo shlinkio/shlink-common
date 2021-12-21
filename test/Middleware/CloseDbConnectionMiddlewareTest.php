@@ -32,7 +32,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->conn->close()->will(function (): void {
         });
         $this->em->getConnection()->willReturn($this->conn->reveal());
-        $this->em->clear()->will(function (): void {
+        $this->em->close()->will(function (): void {
         });
         $this->em->open()->will(function (): void {
         });
@@ -53,7 +53,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->em->open()->shouldHaveBeenCalledOnce();
         $this->em->getConnection()->shouldHaveBeenCalledOnce();
         $this->conn->close()->shouldHaveBeenCalledOnce();
-        $this->em->clear()->shouldHaveBeenCalledOnce();
+        $this->em->close()->shouldHaveBeenCalledOnce();
         $handle->shouldHaveBeenCalledOnce();
     }
 
@@ -68,7 +68,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->em->open()->shouldBeCalledOnce();
         $this->em->getConnection()->shouldBeCalledOnce();
         $this->conn->close()->shouldBeCalledOnce();
-        $this->em->clear()->shouldBeCalledOnce();
+        $this->em->close()->shouldBeCalledOnce();
         $this->expectExceptionObject($expectedError);
 
         $this->middleware->process($req, $this->handler->reveal());
