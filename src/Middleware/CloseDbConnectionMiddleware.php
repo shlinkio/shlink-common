@@ -24,7 +24,7 @@ class CloseDbConnectionMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } finally {
             $this->em->getConnection()->close();
-            $this->em->clear();
+            $this->em->close();
         }
     }
 }
