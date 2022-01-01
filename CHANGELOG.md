@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* Deprecated `Shlinkio\Shlink\Common\env` function. Use `Shlinkio\Shlink\Config\env` as a direct replacement.
+
+### Removed
+* Dropped support for Symfony 5.
+
+### Fixed
+* *Nothing*
+
+
 ## [4.2.1] - 2021-12-21
 ### Added
 * *Nothing*
