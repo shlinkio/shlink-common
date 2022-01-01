@@ -8,37 +8,18 @@ use Cake\Chronos\Chronos;
 use JsonSerializable;
 use Shlinkio\Shlink\Common\Util\DateRange;
 
-use function getenv;
 use function json_decode as spl_json_decode;
 use function json_encode as spl_json_encode;
-use function strtolower;
-use function trim;
+use function Shlinkio\Shlink\Config\env as configEnv;
 
 use const JSON_THROW_ON_ERROR;
 
+/**
+ * @deprecated Use Shlinkio\Shlink\Config\env instead
+ */
 function env(string $key, mixed $default = null): mixed
 {
-    $value = getenv($key);
-    if ($value === false) {
-        return $default;
-    }
-
-    switch (strtolower($value)) {
-        case 'true':
-        case '(true)':
-            return true;
-        case 'false':
-        case '(false)':
-            return false;
-        case 'empty':
-        case '(empty)':
-            return '';
-        case 'null':
-        case '(null)':
-            return null;
-    }
-
-    return trim($value);
+    return configEnv($key, $default);
 }
 
 function json_decode(string $json): array
