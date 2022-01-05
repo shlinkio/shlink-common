@@ -14,12 +14,15 @@ use function sprintf;
 
 trait PagerfantaUtilsTrait
 {
-    private function serializePaginator(Pagerfanta $paginator, ?DataTransformerInterface $transformer = null): array
-    {
+    private function serializePaginator(
+        Pagerfanta $paginator,
+        ?DataTransformerInterface $transformer = null,
+        string $dataProp = 'data',
+    ): array {
         $currentPageItems = ArrayUtils::iteratorToArray($paginator->getCurrentPageResults());
 
         return [
-            'data' => $this->serializeItems($currentPageItems, $transformer),
+            $dataProp => $this->serializeItems($currentPageItems, $transformer),
             'pagination' => [
                 'currentPage' => $paginator->getCurrentPage(),
                 'pagesCount' => $paginator->getNbPages(),

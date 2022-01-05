@@ -86,6 +86,25 @@ class PagerfantaUtilsTraitTest extends TestCase
 
     /**
      * @test
+     * @dataProvider provideDataProps
+     */
+    public function paginatorIsSerializedWithExpectedDataProp(string $prop): void
+    {
+        $result = $this->serializePaginator(new Pagerfanta(new ArrayAdapter([])), null, $prop);
+
+        self::assertArrayNotHasKey('data', $result);
+        self::assertArrayHasKey($prop, $result);
+    }
+
+    public function provideDataProps(): iterable
+    {
+        yield 'foo' => ['foo'];
+        yield 'bar' => ['bar'];
+        yield 'something' => ['something'];
+    }
+
+    /**
+     * @test
      * @dataProvider providePaginatorsToFormat
      */
     public function pageMessageIsProperlyFormatted(

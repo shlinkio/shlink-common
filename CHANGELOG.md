@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Added support in paginator utils to provide a custom data prop name
 
 ### Changed
 * *Nothing*
