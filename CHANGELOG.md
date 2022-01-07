@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [4.3.0] - 2022-01-07
 ### Added
-* Added support in paginator utils to provide a custom data prop name
+* Added support in paginator utils to provide a custom data prop name.
+* Added support to define a default lifetime in cache adapters.
 
 ### Changed
 * *Nothing*
