@@ -5,20 +5,14 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Doctrine;
 
 use Doctrine\Common\Cache\Cache;
-use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 
 class EntityManagerFactory
 {
-    /**
-     * @throws ORMException
-     * @throws Exception
-     */
     public function __invoke(ContainerInterface $container): EntityManager
     {
         $globalConfig = $container->get('config');
@@ -48,9 +42,6 @@ class EntityManagerFactory
         return $em;
     }
 
-    /**
-     * @throws Exception
-     */
     private function registerTypes(array $ormConfig): void
     {
         $types = $ormConfig['types'] ?? [];

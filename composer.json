@@ -104,6 +104,10 @@
         "infect:test": "<fg=blue;options=bold>Alias for \"test:ci\" and \"infect:show:ci\"</>"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true
+        }
     }
 }
