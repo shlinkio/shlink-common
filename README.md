@@ -24,13 +24,15 @@ Install this library using composer:
 A [symfony/cache](https://symfony.com/doc/current/components/cache.html) adapter is registered, under the `Psr\Cache\CacheItemPoolInterface` service key (as all adapters implement it).
 
 The concrete implementation it returns is different depending on your configuration:
- 
- * An `ArrayAdapter` instance when the `debug` config is set to true or when the APUc extension is not installed and the `cache.redis` config is not defined.
- * An `ApcuAdapter`instance when no `cache.redis` is defined and the APCu extension is installed.
- * A `RedisAdapter` instance when the `cache.redis` config is defined.
- 
- The last two adapters will use the namespace defined in `cache.namespace` config entry.
- 
+
+* An `ArrayAdapter` instance when the `debug` config is set to true or when the APUc extension is not installed and the `cache.redis` config is not defined.
+* An `ApcuAdapter`instance when no `cache.redis` is defined and the APCu extension is installed.
+* A `RedisAdapter` instance when the `cache.redis` config is defined.
+
+The last two adapters will use the namespace defined in `cache.namespace` config entry.
+
+The three of them will allow setting a default lifetime for those entries which do not explicitly define one, picking it up from `cache.default_lifetime`.
+
  ```php
 <?php
 
@@ -42,7 +44,8 @@ return [
 
     'cache' => [
         'namespace' => 'my_namespace',
-        
+        'default_lifetime' => 86400, // Optional. Defaults to "never expire"
+
         'redis' => [
             'servers' => [
                 'tcp://1.1.1.1:6379',

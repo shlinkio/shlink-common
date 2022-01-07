@@ -23,21 +23,22 @@ class CacheFactory
 
     public function __invoke(ContainerInterface $container): CacheItemPoolInterface
     {
+        $apcuEnabled = ($this->apcuEnabled)();
         $config = $container->get('config');
         $isDebug = (bool) ($config['debug'] ?? false);
         $redisConfig = $config['cache']['redis'] ?? null;
-        $apcuEnabled = ($this->apcuEnabled)();
+        $lifetime = (int) ($config['cache']['default_lifetime'] ?? 0);
 
         if ($isDebug || (! $apcuEnabled && $redisConfig === null)) {
-            return new Adapter\ArrayAdapter();
+            return new Adapter\ArrayAdapter($lifetime);
         }
 
         $namespace = $config['cache']['namespace'] ?? '';
         if ($redisConfig === null) {
-            return new Adapter\ApcuAdapter($namespace);
+            return new Adapter\ApcuAdapter($namespace, $lifetime);
         }
 
         $predis = $container->get(PredisClient::class);
-        return new Adapter\RedisAdapter($predis, $namespace);
+        return new Adapter\RedisAdapter($predis, $namespace, $lifetime);
     }
 }
