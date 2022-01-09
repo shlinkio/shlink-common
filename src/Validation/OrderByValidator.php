@@ -27,9 +27,9 @@ class OrderByValidator extends AbstractValidator
     /**
      * @param string[] $validFields
      */
-    public function __construct(array $validFields)
+    public function __construct(private array $validFields)
     {
-        parent::__construct(['fields' => $validFields]);
+        parent::__construct([]);
     }
 
     public function isValid(mixed $value): bool
@@ -40,7 +40,7 @@ class OrderByValidator extends AbstractValidator
         }
 
         [$field, $dir] = $value;
-        if (! contains($this->getOptions()['fields'], $field)) {
+        if (! contains($this->validFields, $field)) {
             $this->error(self::INVALID_ORDER_FIELD);
             return false;
         }
