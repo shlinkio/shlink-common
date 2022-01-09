@@ -40,7 +40,7 @@ class OrderByValidator extends AbstractValidator
         }
 
         [$field, $dir] = $value;
-        if (! contains($this->validFields, $field)) {
+        if ($field !== null && ! contains($this->validFields, $field)) {
             $this->error(self::INVALID_ORDER_FIELD);
             return false;
         }

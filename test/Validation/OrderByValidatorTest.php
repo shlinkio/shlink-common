@@ -54,9 +54,15 @@ class OrderByValidatorTest extends TestCase
     {
         yield [['foo', 'ASC']];
         yield [['foo', 'DESC']];
+        yield [['foo', null]];
         yield [['bar', 'ASC']];
         yield [['bar', 'DESC']];
+        yield [['bar', null]];
         yield [['somethingElse', 'ASC']];
         yield [['somethingElse', 'DESC']];
+        yield [['somethingElse', null]];
+        yield [[null, 'ASC']];
+        yield [[null, 'DESC']];
+        yield [[null, null]];
     }
 }
