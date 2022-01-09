@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Validation\ExcludingValidatorChain;
 use Shlinkio\Shlink\Common\Validation\InputFactoryTrait;
+use Shlinkio\Shlink\Common\Validation\OrderByFilter;
+use Shlinkio\Shlink\Common\Validation\OrderByValidator;
 
 use function Functional\map;
 use function get_class;
@@ -154,6 +156,21 @@ class InputFactoryTraitTest extends TestCase
         yield [['foo', true], true];
         yield [['foo', false], false];
         yield [['foo'], true];
+    }
+
+    /** @test */
+    public function orderByInputIsCreatedAsExpected(): void
+    {
+        $input = $this->createOrderByInput('orderBy', ['foo', 'bar', 'somethingElse']);
+        $filters = $this->getFiltersFromInput($input);
+        $validators = $input->getValidatorChain()->getValidators();
+
+        self::assertCount(1, $validators);
+        self::assertCount(3, $filters);
+        self::assertContains(Filter\StripTags::class, $filters);
+        self::assertContains(Filter\StringTrim::class, $filters);
+        self::assertContains(OrderByFilter::class, $filters);
+        self::assertInstanceOf(OrderByValidator::class, $validators[0]['instance']);
     }
 
     private function getFiltersFromInput(Input $input): array

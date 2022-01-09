@@ -78,4 +78,16 @@ trait InputFactoryTrait
 
         return $tags;
     }
+
+    /**
+     * @param string[] $validFields
+     */
+    private function createOrderByInput(string $name, array $validFields, bool $required = false): Input
+    {
+        $input = $this->createInput($name, $required);
+        $input->getFilterChain()->attach(new OrderByFilter());
+        $input->getValidatorChain()->attach(new OrderByValidator($validFields));
+
+        return $input;
+    }
 }

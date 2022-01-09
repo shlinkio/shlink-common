@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Validation;
 
-use Laminas\Filter\FilterInterface;
+use Laminas\Filter\AbstractFilter;
 
 use function is_string;
 use function Shlinkio\Shlink\Common\parseOrderBy;
 
-class OrderByFilter implements FilterInterface
+class OrderByFilter extends AbstractFilter
 {
     /**
      * @return array{string|null, string|null}
