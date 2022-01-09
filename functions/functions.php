@@ -8,6 +8,8 @@ use Cake\Chronos\Chronos;
 use JsonSerializable;
 use Shlinkio\Shlink\Common\Util\DateRange;
 
+use function array_pad;
+use function explode;
 use function json_decode as spl_json_decode;
 use function json_encode as spl_json_encode;
 use function Shlinkio\Shlink\Config\env as configEnv;
@@ -40,4 +42,12 @@ function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange
         $endDate !== null => DateRange::withEndDate($endDate),
         default => DateRange::emptyInstance(),
     };
+}
+
+/**
+ * @return array{string, string|null}
+ */
+function parseOrderBy(string $orderBy): array
+{
+    return array_pad(explode('-', $orderBy), 2, null); // @phpstan-ignore-line
 }
