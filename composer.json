@@ -38,7 +38,7 @@
         "symfony/translation-contracts": "^2.4"
     },
     "require-dev": {
-        "infection/infection": "^0.25",
+        "infection/infection": "^0.26",
         "laminas/laminas-stratigility": "^3.4",
         "mezzio/mezzio-problem-details": "^1.4",
         "pagerfanta/core": "^3.5",
