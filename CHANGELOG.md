@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Created logic to build filtering and validation fields for "order by".
 
 ### Changed
-* *Nothing*
+* Updated to infection 0.26, enabling HTML reports.
+* Added explicitly enabled composer plugins to composer.json.
 
 ### Deprecated
 * *Nothing*
