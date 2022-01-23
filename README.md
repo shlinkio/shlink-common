@@ -66,12 +66,6 @@ You can allow caching to be done on a redis instance, redis cluster or redis sen
 * `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
 * `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
 
-### Doctrine cache support
-
-As other doctrine components still expect a `doctrine/cache` adapter to be provided, this package still depends on `doctrine/cache:^2.0` which just exposes the interfaces and a PSR compatibility layer.
-
-Also, a `Doctrine\Common\Cache\Cache` service is registered, which is basically an object wrapping the PSR/Symfony cache object registered above.
-
 ## Middlewares
 
 This module provides a set of useful middlewares, all registered as services in the container:

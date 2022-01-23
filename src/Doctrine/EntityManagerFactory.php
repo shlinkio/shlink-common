@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Doctrine;
 
-use Doctrine\Common\Cache\Cache;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 
@@ -17,7 +17,7 @@ class EntityManagerFactory
     {
         $globalConfig = $container->get('config');
         $isDevMode = (bool) ($globalConfig['debug'] ?? false);
-        $cache = $container->get(Cache::class);
+        $cache = $container->get(CacheItemPoolInterface::class);
         $emConfig = $globalConfig['entity_manager'] ?? [];
         $connectionConfig = $emConfig['connection'] ?? [];
         $ormConfig = $emConfig['orm'] ?? [];
@@ -26,7 +26,7 @@ class EntityManagerFactory
 
         $this->registerTypes($ormConfig);
 
-        $config = Setup::createConfiguration($isDevMode, $ormConfig['proxies_dir'] ?? null, $cache);
+        $config = $this->createConfiguration($isDevMode, $ormConfig['proxies_dir'] ?? '', $cache);
         $config->setMetadataDriverImpl(
             new EnhancedPHPDriver($ormConfig['entities_mappings'] ?? [], $emConfig, $funcStyle),
         );
@@ -51,6 +51,20 @@ class EntityManagerFactory
                 Type::addType($name, $className);
             }
         }
+    }
+
+    private function createConfiguration(bool $isDev, string $proxyDir, CacheItemPoolInterface $cache): Configuration
+    {
+        $config = new Configuration();
+
+        $config->setMetadataCache($cache);
+        $config->setQueryCache($cache);
+        $config->setResultCache($cache); // TODO Remove this??
+        $config->setProxyDir($proxyDir);
+        $config->setProxyNamespace('DoctrineProxies');
+        $config->setAutoGenerateProxyClasses($isDev);
+
+        return $config;
     }
 
     private function registerListeners(array $ormConfig, EntityManager $em, ContainerInterface $container): void

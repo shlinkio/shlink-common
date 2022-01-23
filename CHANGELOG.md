@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* [#98](https://github.com/shlinkio/shlink-common/issues/98) Removed integration with doctrine/cache by manually creating the doctrine config object.
 
 ### Fixed
 * *Nothing*
