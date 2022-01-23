@@ -16,7 +16,6 @@
         "ext-fileinfo": "*",
         "akrabat/ip-address-middleware": "^2.0",
         "cakephp/chronos": "^2.2",
-        "doctrine/cache": "^2.0",
         "doctrine/orm": "^2.9",
         "endroid/qr-code": "^4.2",
         "fig/http-message-util": "^1.1",

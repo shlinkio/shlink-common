@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [4.4.0] - 2022-01-23
 ### Added
 * Created logic to build filtering and validation fields for "order by".
 
@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* [#98](https://github.com/shlinkio/shlink-common/issues/98) Removed integration with doctrine/cache by manually creating the doctrine config object.
 
 ### Fixed
 * *Nothing*
