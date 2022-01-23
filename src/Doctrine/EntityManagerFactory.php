@@ -59,7 +59,7 @@ class EntityManagerFactory
 
         $config->setMetadataCache($cache);
         $config->setQueryCache($cache);
-        $config->setResultCache($cache); // TODO Remove this??
+        $config->setResultCache($cache);
         $config->setProxyDir($proxyDir);
         $config->setProxyNamespace('DoctrineProxies');
         $config->setAutoGenerateProxyClasses($isDev);
