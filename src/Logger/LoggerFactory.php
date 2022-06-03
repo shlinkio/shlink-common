@@ -29,7 +29,11 @@ class LoggerFactory
             throw InvalidLoggerException::fromInvalidName($name);
         }
 
-        return new Logger($name, [], LoggerFactory::resolveProcessors($loggerConfig, $container));
+        return new Logger(
+            $name,
+            [LoggerFactory::buildHandler($loggerConfig)],
+            LoggerFactory::resolveProcessors($loggerConfig, $container),
+        );
     }
 
     private static function buildHandler(array $loggerConfig): HandlerInterface
@@ -46,11 +50,7 @@ class LoggerFactory
             ? new RotatingFileHandler($destination ?? 'data/log/shlink_log.log', 30, $level, true, 0666)
             : new StreamHandler($destination ?? 'php://stdout', $level);
 
-        $handler->setFormatter(new LineFormatter(
-            '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%' . PHP_EOL,
-            null,
-            true,
-        ));
+        $handler->setFormatter(new LineFormatter(($loggerConfig['line_format'] ?? '') . PHP_EOL, null, true));
 
         return $handler;
     }
