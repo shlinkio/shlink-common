@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-fileinfo": "*",
         "akrabat/ip-address-middleware": "^2.0",
         "cakephp/chronos": "^2.2",
@@ -26,9 +26,9 @@
         "laminas/laminas-servicemanager": "^3.7",
         "lcobucci/jwt": "^4.1",
         "lstrojny/functional-php": "^1.17",
+        "monolog/monolog": "^3.0",
         "predis/predis": "^1.1",
         "psr/http-server-middleware": "^1.0",
-        "psr/log": "^1.1",
         "shlinkio/shlink-config": "^1.5",
         "symfony/cache": "^6.0",
         "symfony/lock": "^6.0",
