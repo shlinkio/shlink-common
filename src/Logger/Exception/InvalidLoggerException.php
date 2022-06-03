@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Logger\Exception;
 
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
-
 use Shlinkio\Shlink\Common\Logger\LoggerType;
+
 use function Functional\map;
 use function implode;
 use function sprintf;
