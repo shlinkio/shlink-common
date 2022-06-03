@@ -18,9 +18,6 @@ use const PHP_EOL;
 
 class LoggerFactory
 {
-    public const TYPE_FILE = 'file';
-    public const TYPE_STREAM = 'stream';
-
     public static function __callStatic(string $name, array $arguments): LoggerInterface
     {
         /** @var ContainerInterface $container */
@@ -41,10 +38,11 @@ class LoggerFactory
             // TODO Throw error
         }
 
+        $destination = $loggerConfig['destination'] ?? null;
         $level = Level::tryFrom($loggerConfig['level'] ?? '') ?? Level::Info;
         $handler = $type === LoggerType::FILE
-            ? new RotatingFileHandler('data/log/shlink_log.log', 30, $level, true, 0666)
-            : new StreamHandler($loggerConfig['stream'] ?? 'php://stdout', $level);
+            ? new RotatingFileHandler($destination ?? 'data/log/shlink_log.log', 30, $level, true, 0666)
+            : new StreamHandler($destination ?? 'php://stdout', $level);
 
         $handler->setFormatter(new LineFormatter(
             '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%' . PHP_EOL,
