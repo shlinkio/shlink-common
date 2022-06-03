@@ -13,6 +13,7 @@ use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
 
 use const PHP_EOL;
 
@@ -25,7 +26,7 @@ class LoggerFactory
         $loggerConfig = $container->get('config')['logger'][$name] ?? null;
 
         if ($loggerConfig === null) {
-            // TODO Throw error
+            throw InvalidLoggerException::fromInvalidName($name);
         }
 
         return new Logger($name, [], LoggerFactory::resolveProcessors($loggerConfig, $container));
@@ -33,9 +34,10 @@ class LoggerFactory
 
     private static function buildHandler(array $loggerConfig): HandlerInterface
     {
-        $type = LoggerType::tryFrom($loggerConfig['type'] ?? '');
+        $configuredType = $loggerConfig['type'] ?? '';
+        $type = LoggerType::tryFrom($configuredType);
         if ($type === null) {
-            // TODO Throw error
+            throw InvalidLoggerException::fromInvalidType($configuredType);
         }
 
         $destination = $loggerConfig['destination'] ?? null;
