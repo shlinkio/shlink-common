@@ -207,7 +207,7 @@ You should use the `Logger_foo` name to get the `foo` logger, and `Logger_bar` i
 
 ### Other logger utils
 
-Besides the `LoggerFactory`, this module provides these utilities:
+Other than the `LoggerFactory`, this module provides these utilities:
 
 * `ExceptionWithNewLineProcessor`: A monolog processor which captures the `{e}` pattern inside log messages, and prepends a new line before it, assuming you are going to replace that with an exception trace.
 * `LoggerAwareDelegatorFactory`: A zend-servicemanager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
