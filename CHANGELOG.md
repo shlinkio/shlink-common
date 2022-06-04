@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* Added new `MonologFactory` for monolog 3, and a couple new logger utilities.
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Dropped support for PHP 8.0
+
+### Fixed
+* *Nothing*
+
+
 ## [4.4.0] - 2022-01-23
 ### Added
 * Created logic to build filtering and validation fields for "order by".
