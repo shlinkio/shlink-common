@@ -13,7 +13,6 @@ use function Functional\select_keys;
 
 class BackwardsCompatibleMonologProcessor implements ProcessorInterface
 {
-    /** @var callable(array): array */
     private readonly Closure $legacyProcessor;
 
     /**

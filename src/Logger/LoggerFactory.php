@@ -14,6 +14,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
+
 use function Functional\map;
 
 use const PHP_EOL;
