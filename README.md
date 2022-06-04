@@ -167,52 +167,64 @@ As well as the EntityManager, there are two Connection objects that can be fetch
 
 ## Logger
 
-A few logger-related commodities are provided by this library.
+A few logger-related helpers are provided by this library.
 
 ### LoggerFactory
 
-The `LoggerFactory` class is capable of creating `Monolog\Logger` instances based on the configuration described by [monolog-cascade](https://github.com/theorchard/monolog-cascade), which should be provided under the `logger` config entry.
-
-This factory can create any logger registered in the configuration, but the service names used must follow the `Logger_<name>` pattern, where the `<name>` is the name used under the "loggers" config.
-
-So, given this config:
+The `LoggerFactory` class is capable of creating `Monolog\Logger` instances wrapping either stream handlers or rotating file handlers, which should be defined under the `logger` config entry.
 
 ```php
 <?php
 
 declare(strict_types=1);
 
+use Monolog\Level;
+use Shlinkio\Shlink\Common\Logger\LoggerFactory;
+use Shlinkio\Shlink\Common\Logger\LoggerType;
+
 return [
 
     'logger' => [
-        'formatters' => [
-            // ...
+        'Shlink' => [
+            'type' => LoggerType::FILE->value,
+            'level' => Level::Info->value,
+            'processors' => [MyRequestIdProcessor::class],
+            'line_format' => '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%',
         ],
-        'handlers' => [
-            // ...
+        'Access' => [
+            'type' => LoggerType::STREAM->value,
+            'level' => Level::Alert->value,
+            'line_format' => '[%datetime%] %level_name% - %message%',
         ],
-        'processors' => [
-            // ...
-        ],
-        'loggers' => [
-            'foo' => [],
-            'bar' => [],
+    ],
+
+    'dependencies' => [
+        'factories' => [
+            'ShlinkLogger' => [LoggerFactory::class, 'Shlink'],
+            'AccessLogger' => [LoggerFactory::class, 'Access'],
         ],
     ],
 
 ];
 ```
 
-You should use the `Logger_foo` name to get the `foo` logger, and `Logger_bar` in order to get the `bar` one.
+Every logger can have these config options:
+
+* `type`: Any value from the `LoggerType` enum, which will make different handlers to be injected in the logger instance.
+* `level`: Any value from monolog's `Level` enum, which determines the minimum level of the generated logs. Defaults to `Level::Info` if not provided.
+* `line_format`: The format of the line logs to generate.
+* `processors`: An optional list of extra processors to inject in the generated logger. The values in the array must be service names.
 
 ### Other logger utils
 
-Other than the `LoggerFactory`, this module provides these utilities:
+This module provides some other logger-related utilities:
 
 * `ExceptionWithNewLineProcessor`: A monolog processor which captures the `{e}` pattern inside log messages, and prepends a new line before it, assuming you are going to replace that with an exception trace.
-* `LoggerAwareDelegatorFactory`: A zend-servicemanager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
+* `LoggerAwareDelegatorFactory`: A ServiceManager delegator factory that checks if the service returned by previous factory is a `Psr\Log\LoggerAwareInterface` instance. If it is, it sets the `Psr\Log\LoggerInterface` service on it (if it was registered).
 * `ErrorLogger`: A callable which expects a `Psr\Log\LoggerInterface` to be injected and uses it to log a `Throwable` when invoked. It will log 5xx errors with error level and 4xx errors with debug level.
-* `ErrorHandlerListenerAttachingDelegator`: A zend-servicemanager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
+* `ErrorHandlerListenerAttachingDelegator`: A ServiceManager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
+* `BackwardsCompatibleMonologProcessor`: It lets you wrap monolog 2 processors with `callable(array): array` signature to make them compatible with monolog 3 and its new `callable(LogRecord): LogRecord` signature.
+* `BackwardsCompatibleMonologProcessorDelegator`: Can be used to decorate any monolog 2 processor registered in a ServiceManager and use it with monolog 3.
 
 ## HTTP Client
 
