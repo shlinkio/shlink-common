@@ -25,14 +25,8 @@ final class ExceptionWithNewLineProcessor implements ProcessorInterface
             return $record;
         }
 
-        return new LogRecord(
-            $record->datetime,
-            $record->channel,
-            $record->level,
-            str_replace(self::EXCEPTION_PLACEHOLDER, PHP_EOL . self::EXCEPTION_PLACEHOLDER, $message),
-            $record->context,
-            $record->extra,
-            $record->formatted,
+        return $record->with(
+            message: str_replace(self::EXCEPTION_PLACEHOLDER, PHP_EOL . self::EXCEPTION_PLACEHOLDER, $message),
         );
     }
 }
