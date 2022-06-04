@@ -14,6 +14,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
+use function Functional\map;
 
 use const PHP_EOL;
 
@@ -57,16 +58,11 @@ class LoggerFactory
 
     private static function resolveProcessors(array $loggerConfig, ContainerInterface $container): array
     {
-        $processors = [
-            'exception_with_new_line' => new Processor\ExceptionWithNewLineProcessor(),
-            'psr3' => new PsrLogMessageProcessor(),
-        ];
         $extraProcessors = $loggerConfig['processors'] ?? [];
-
-        foreach ($extraProcessors as $key => $value) {
-            $processors[$key] = $container->get($value);
-        }
-
-        return $processors;
+        return [
+            new Processor\ExceptionWithNewLineProcessor(),
+            new PsrLogMessageProcessor(),
+            ...map($extraProcessors, static fn (string $value) => $container->get($value)),
+        ];
     }
 }
