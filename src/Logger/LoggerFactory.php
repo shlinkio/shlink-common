@@ -33,8 +33,8 @@ class LoggerFactory
 
         return new Logger(
             $name,
-            [LoggerFactory::buildHandler($loggerConfig)],
-            LoggerFactory::resolveProcessors($loggerConfig, $container),
+            [self::buildHandler($loggerConfig)],
+            self::resolveProcessors($loggerConfig, $container),
         );
     }
 
@@ -47,12 +47,12 @@ class LoggerFactory
         }
 
         $destination = $loggerConfig['destination'] ?? null;
-        $level = Level::tryFrom($loggerConfig['level'] ?? '') ?? Level::Info;
+        $level = Level::tryFrom($loggerConfig['level'] ?? Level::Info->value) ?? Level::Info;
         $handler = $type === LoggerType::FILE
             ? new RotatingFileHandler($destination ?? 'data/log/shlink_log.log', 30, $level, true, 0666)
             : new StreamHandler($destination ?? 'php://stdout', $level);
 
-        $handler->setFormatter(new LineFormatter(($loggerConfig['line_format'] ?? '') . PHP_EOL, null, true));
+        $handler->setFormatter(new LineFormatter(($loggerConfig['line_format'] ?? null) . PHP_EOL, null, true));
 
         return $handler;
     }

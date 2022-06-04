@@ -194,7 +194,7 @@ return [
         'Access' => [
             'type' => LoggerType::STREAM->value,
             'level' => Level::Alert->value,
-            'line_format' => '[%datetime%] [%extra] %level_name% - %message%',
+            'line_format' => '[%datetime%] %level_name% - %message%',
         ],
     ],
 
