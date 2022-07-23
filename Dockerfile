@@ -3,7 +3,7 @@ FROM composer:2
 ENV APCU_VERSION 5.1.21
 
 RUN apk add --no-cache libpng-dev libpng libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install gd sockets
 
 # Install APCu extension
 ADD https://pecl.php.net/get/apcu-$APCU_VERSION.tgz /tmp/apcu.tar.gz

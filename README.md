@@ -270,7 +270,6 @@ declare(strict_types=1);
 return [
 
     'mercure' => [
-
         // A URL publicly available in which the mercure hub can be reached.
         'public_hub_url' => null,
 
@@ -305,6 +304,51 @@ $publisher(new Update('some_topic', json_encode([
 ```
 
 > Find more info about the symfony/mercure component here: https://symfony.com/blog/symfony-gets-real-time-push-capabilities
+
+## RabbitMQ
+
+A helper to publish updates on RabbitMQ comes preregistered. You need to provide a configuration like this one:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+return [
+
+    'rabbitmq' => [
+        // The RabbitMQ server name
+        'host' => 'my-rabbitmq-server.com',
+
+        // The RabbitMQ server port
+        'port' => '5672',
+
+        // The username credential
+        'user' => 'username',
+
+        // The password credential
+        'password' => 'password',
+
+        // The vHost
+        'vhost' => '/',
+    ],
+
+];
+```
+
+After that, you can get the helper from the container, and invoke it to publish updates for specific queues:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
+
+$helper = $container->get(RabbitMqPublishingHelper::class);
+
+$helper->publishPayloadInQueue(['foo' => 'bar'], 'some_queue');
+```
 
 ## Utils
 
