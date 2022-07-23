@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Added new `MonologFactory` for monolog 3, and a couple new logger utilities.
+* Added new `RabbitMqPublishingHelper`, to simplify publishing in rabbitmq queues.
 
 ### Changed
 * *Nothing*
