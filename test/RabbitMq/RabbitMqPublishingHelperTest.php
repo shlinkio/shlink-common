@@ -7,9 +7,9 @@ namespace ShlinkioTest\Shlink\Common\RabbitMq;
 use Exception;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
@@ -44,8 +44,9 @@ class RabbitMqPublishingHelperTest extends TestCase
 
         $this->helper->publishPayloadInQueue($payload, $channel);
 
-        $this->channel->exchange_declare($channel, Argument::cetera())->shouldHaveBeenCalledOnce();
-        $this->channel->queue_declare($channel, Argument::cetera())->shouldHaveBeenCalledOnce();
+        $this->channel->exchange_declare($channel, AMQPExchangeType::DIRECT, false, true, false)
+                      ->shouldHaveBeenCalledOnce();
+        $this->channel->queue_declare($channel, false, true, false, false)->shouldHaveBeenCalledOnce();
         $this->channel->queue_bind($channel, $channel)->shouldHaveBeenCalledOnce();
         $this->channel->basic_publish(new AMQPMessage(json_encode($payload), [
             'content_type' => 'application/json',
