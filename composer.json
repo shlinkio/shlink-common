@@ -27,6 +27,7 @@
         "lcobucci/jwt": "^4.1",
         "lstrojny/functional-php": "^1.17",
         "monolog/monolog": "^3.0",
+        "php-amqplib/php-amqplib": "^3.2",
         "predis/predis": "^1.1",
         "psr/http-server-middleware": "^1.0",
         "shlinkio/shlink-config": "^1.5",
