@@ -26,7 +26,6 @@ class RabbitMqPublishingHelper implements RabbitMqPublishingHelperInterface
             $this->connection->reconnect();
         }
 
-        $message = $this->payloadToMessage($payload);
         try {
             $channel = $this->connection->channel();
 
@@ -37,7 +36,7 @@ class RabbitMqPublishingHelper implements RabbitMqPublishingHelperInterface
 
             // Bind the exchange and the queue together, and publish the message
             $channel->queue_bind($queue, $exchange);
-            $channel->basic_publish($message, $exchange);
+            $channel->basic_publish($this->payloadToMessage($payload), $exchange);
 
             $channel->close();
         } finally {
