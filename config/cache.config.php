@@ -13,10 +13,11 @@ return [
     'dependencies' => [
         'factories' => [
             PsrCache::class => Cache\CacheFactory::class,
-            PredisClientInterface::class => Cache\RedisFactory::class,
+            Cache\RedisFactory::SERVICE_NAME => Cache\RedisFactory::class,
         ],
         'aliases' => [
-            PredisClient::class => PredisClientInterface::class,
+            PredisClient::class => Cache\RedisFactory::SERVICE_NAME,
+            PredisClientInterface::class => Cache\RedisFactory::SERVICE_NAME,
         ],
     ],
 
