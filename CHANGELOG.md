@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Added new `RabbitMqPublishingHelper`, to simplify publishing in rabbitmq queues.
 
 ### Changed
-* *Nothing*
+* Upgraded to predis 2.0.0
 
 ### Deprecated
 * *Nothing*
