@@ -28,7 +28,7 @@
         "lstrojny/functional-php": "^1.17",
         "monolog/monolog": "^3.0",
         "php-amqplib/php-amqplib": "^3.2",
-        "predis/predis": "^1.1",
+        "predis/predis": "^2.0",
         "psr/http-server-middleware": "^1.0",
         "shlinkio/shlink-config": "^1.5",
         "symfony/cache": "^6.0",
@@ -46,7 +46,7 @@
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-master",
-        "shlinkio/php-coding-standard": "~2.2.0",
+        "shlinkio/php-coding-standard": "~2.3.0",
         "symfony/var-dumper": "^6.0"
     },
     "suggest": {

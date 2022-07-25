@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
-use Closure;
 use PHPUnit\Framework\TestCase;
-use Predis\Connection\Aggregate\MasterSlaveReplication;
-use Predis\Connection\Aggregate\PredisCluster;
-use Predis\Connection\Aggregate\RedisCluster;
+use Predis\Connection\Cluster\PredisCluster;
+use Predis\Connection\Cluster\RedisCluster;
+use Predis\Connection\Replication\MasterSlaveReplication;
+use Predis\Connection\Replication\SentinelReplication;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
@@ -45,13 +45,14 @@ class RedisFactoryTest extends TestCase
         $client = ($this->factory)($this->container->reveal());
 
         $getConfig->shouldHaveBeenCalledOnce();
-        self::assertInstanceOf($expectedCluster, $client->getOptions()->cluster);
-        self::assertInstanceOf($expectedReplication, $client->getOptions()->replication);
+
+        self::assertInstanceOf($expectedCluster, ($client->getOptions()->cluster)());
+        self::assertInstanceOf($expectedReplication, ($client->getOptions()->replication)([]));
     }
 
     public function provideRedisConfig(): iterable
     {
-        yield 'no config' => [null, PredisCluster::class, MasterSlaveReplication::class];
+        yield 'no config' => [null, RedisCluster::class, MasterSlaveReplication::class];
         yield 'single server as string' => [[
             'servers' => 'tcp://127.0.0.1:6379',
         ], PredisCluster::class, MasterSlaveReplication::class];
@@ -63,13 +64,13 @@ class RedisFactoryTest extends TestCase
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'empty cluster of servers' => [[
             'servers' => [],
-        ], PredisCluster::class, MasterSlaveReplication::class];
+        ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of servers as string' => [[
             'servers' => 'tcp://1.1.1.1:6379,tcp://2.2.2.2:6379',
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of sentinels' => [[
             'servers' => ['tcp://1.1.1.1:6379', 'tcp://2.2.2.2:6379'],
             'sentinel_service' => 'foo',
-        ], PredisCluster::class, Closure::class];
+        ], PredisCluster::class, SentinelReplication::class];
     }
 }

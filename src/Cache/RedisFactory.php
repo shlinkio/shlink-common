@@ -17,17 +17,26 @@ class RedisFactory
 
     public function __invoke(ContainerInterface $container): PredisClient
     {
-        $config = $container->get('config');
-        $redisConfig = $config['cache']['redis'] ?? [];
-
-        $servers = $redisConfig['servers'] ?? [];
-        $servers = is_string($servers) ? explode(',', $servers) : $servers;
+        $redisConfig = $container->get('config')['cache']['redis'] ?? [];
+        $servers = $this->resolveServers($redisConfig);
         $options = $this->resolveOptions($redisConfig, $servers);
 
         return new PredisClient($servers, $options);
     }
 
-    private function resolveOptions(array $redisConfig, array $servers): ?array
+    /**
+     * @return string|string[]
+     */
+    private function resolveServers(array $redisConfig): string|array
+    {
+        $servers = $redisConfig['servers'] ?? [];
+        $servers = is_string($servers) ? explode(',', $servers) : $servers;
+
+        // If there's only one server, Predis expects a string. If an array is provided, it also expects cluster config
+        return count($servers) === 1 ? $servers[0] : $servers;
+    }
+
+    private function resolveOptions(array $redisConfig, array|string $servers): ?array
     {
         $sentinelService = $redisConfig['sentinel_service'] ?? null;
         if ($sentinelService !== null) {
@@ -37,6 +46,6 @@ class RedisFactory
             ];
         }
 
-        return count($servers) <= 1 ? null : ['cluster' => 'redis'];
+        return is_string($servers) ? null : ['cluster' => 'redis'];
     }
 }
