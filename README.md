@@ -66,6 +66,22 @@ You can allow caching to be done on a redis instance, redis cluster or redis sen
 * `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
 * `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
 
+### Redis helper
+
+Also, in order to support publishing in redis pub/sub, a `RedisPublishingHelper` service is provided, which will use the configuration above in order to connect to the redis instance/cluster.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Shlinkio\Shlink\Common\Cache\RedisPublishingHelper;
+
+$helper = $container->get(RedisPublishingHelper::class);
+
+$helper->publishPayloadInQueue(['foo' => 'bar'], 'some_queue');
+```
+
 ## Middlewares
 
 This module provides a set of useful middlewares, all registered as services in the container:
