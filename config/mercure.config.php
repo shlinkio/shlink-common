@@ -17,11 +17,13 @@ return [
             Configuration::class => Mercure\JwtConfigFactory::class,
             Mercure\LcobucciJwtProvider::class => ConfigAbstractFactory::class,
             Hub::class => Mercure\HubFactory::class,
+            Mercure\MercureHubPublishingHelper::class => ConfigAbstractFactory::class,
         ],
     ],
 
     ConfigAbstractFactory::class => [
         Mercure\LcobucciJwtProvider::class => [Configuration::class, 'config.mercure'],
+        Mercure\MercureHubPublishingHelper::class => [Hub::class],
     ],
 
 ];

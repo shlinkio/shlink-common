@@ -9,6 +9,7 @@ use Predis\ClientInterface;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Cache\RedisPublishingHelper;
+use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
 class RedisPublishingHelperTest extends TestCase
 {
@@ -26,7 +27,7 @@ class RedisPublishingHelperTest extends TestCase
     /** @test */
     public function publishingIsForwardedToRedisClient(): void
     {
-        $this->helper->publishPayloadInQueue(['bar' => 'baz'], 'foo');
+        $this->helper->publishUpdate(Update::forTopicAndPayload('foo', ['bar' => 'baz']));
         $this->predis->publish('foo', '{"bar":"baz"}')->shouldHaveBeenCalledOnce();
     }
 }
