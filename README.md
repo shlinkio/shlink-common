@@ -76,10 +76,11 @@ Also, in order to support publishing in redis pub/sub, a `RedisPublishingHelper`
 declare(strict_types=1);
 
 use Shlinkio\Shlink\Common\Cache\RedisPublishingHelper;
+use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
 $helper = $container->get(RedisPublishingHelper::class);
 
-$helper->publishPayloadInQueue(['foo' => 'bar'], 'some_queue');
+$helper->publishUpdate(Update::forTopicAndPayload('some_queue', ['foo' => 'bar']));
 ```
 
 ## Middlewares
@@ -360,10 +361,11 @@ After that, you can get the helper from the container, and invoke it to publish 
 declare(strict_types=1);
 
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
+use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
 $helper = $container->get(RabbitMqPublishingHelper::class);
 
-$helper->publishPayloadInQueue(['foo' => 'bar'], 'some_queue');
+$helper->publishUpdate(Update::forTopicAndPayload('some_queue', ['foo' => 'bar']));
 ```
 
 ## Utils

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Cache;
 
 use Predis\ClientInterface as PredisClient;
+use Shlinkio\Shlink\Common\UpdatePublishing\PublishingHelperInterface;
+use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 use Throwable;
 
 use function Shlinkio\Shlink\Common\json_encode;
 
-class RedisPublishingHelper implements RedisPublishingHelperInterface
+class RedisPublishingHelper implements PublishingHelperInterface
 {
     public function __construct(private readonly PredisClient $predis)
     {
@@ -18,8 +20,8 @@ class RedisPublishingHelper implements RedisPublishingHelperInterface
     /**
      * @throws Throwable
      */
-    public function publishPayloadInQueue(array $payload, string $queue): void
+    public function publishUpdate(Update $update): void
     {
-        $this->predis->publish($queue, json_encode($payload));
+        $this->predis->publish($update->topic, json_encode($update->payload));
     }
 }

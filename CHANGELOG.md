@@ -7,8 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Added new `MonologFactory` for monolog 3, and a couple new logger utilities.
-* Added new `RabbitMqPublishingHelper`, to simplify publishing in rabbitmq queues.
+* Added new `RabbitMqPublishingHelper`, to simplify publishing in RabbitMQ queues.
 * Added new `RedisPublishingHelper`, to simplify publishing in redis pub/sub queues.
+* Added new `MercureHubPublishingHelper`, to simplify publishing in a mercure hub topic.
 
 ### Changed
 * Upgraded to predis 2.0.0

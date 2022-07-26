@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
+use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
 use function Shlinkio\Shlink\Common\json_encode;
 
@@ -42,7 +43,7 @@ class RabbitMqPublishingHelperTest extends TestCase
         $channel = 'foobar';
         $payload = ['some' => 'thing'];
 
-        $this->helper->publishPayloadInQueue($payload, $channel);
+        $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));
 
         $this->channel->exchange_declare($channel, AMQPExchangeType::DIRECT, false, true, false)
                       ->shouldHaveBeenCalledOnce();
@@ -68,7 +69,7 @@ class RabbitMqPublishingHelperTest extends TestCase
         $this->connection->close()->shouldBeCalledOnce();
 
         try {
-            $this->helper->publishPayloadInQueue($payload, $channel);
+            $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));
         } catch (Exception $e) {
             self::assertSame($expectedError, $e);
         }
