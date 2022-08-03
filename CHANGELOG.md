@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Upgraded to predis 2.0.0
 
 ### Deprecated
-* *Nothing*
+* Deprecated named constructors in `DateRange`. Provided replacements with better semantics.
 
 ### Removed
 * Dropped support for PHP 8.0

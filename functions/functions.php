@@ -37,10 +37,10 @@ function json_encode(array|JsonSerializable $payload): string
 function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange
 {
     return match (true) {
-        $startDate !== null && $endDate !== null => DateRange::withStartAndEndDate($startDate, $endDate),
-        $startDate !== null => DateRange::withStartDate($startDate),
-        $endDate !== null => DateRange::withEndDate($endDate),
-        default => DateRange::emptyInstance(),
+        $startDate !== null && $endDate !== null => DateRange::between($startDate, $endDate),
+        $startDate !== null => DateRange::since($startDate),
+        $endDate !== null => DateRange::until($endDate),
+        default => DateRange::allTime(),
     };
 }
 
