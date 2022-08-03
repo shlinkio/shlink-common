@@ -10,59 +10,91 @@ use Shlinkio\Shlink\Common\Util\DateRange;
 
 class DateRangeTest extends TestCase
 {
-    /** @test */
-    public function defaultConstructorSetDatesToNull(): void
+    /**
+     * @test
+     * @dataProvider provideAllTimeMethods
+     */
+    public function defaultConstructorSetDatesToNull(string $method): void
     {
-        $range = DateRange::emptyInstance();
+        $range = DateRange::{$method}();
 
-        self::assertNull($range->startDate());
-        self::assertNull($range->endDate());
+        self::assertNull($range->startDate);
+        self::assertNull($range->endDate);
+        self::assertNull($range->startDate()); // Deprecated
+        self::assertNull($range->endDate()); // Deprecated
         self::assertTrue($range->isEmpty());
     }
 
-    /** @test */
-    public function providedDatesAreSet(): void
+    public function provideAllTimeMethods(): iterable
     {
-        $startDate = Chronos::now();
-        $endDate = Chronos::now();
-        $range = DateRange::withStartAndEndDate($startDate, $endDate);
+        yield 'emptyInstance' => ['emptyInstance']; // Deprecated
+        yield 'allTime' => ['allTime'];
+    }
 
-        self::assertSame($startDate, $range->startDate());
-        self::assertSame($endDate, $range->endDate());
+    /**
+     * @test
+     * @dataProvider provideBetweenMethods
+     */
+    public function providedDatesAreSet(string $method): void
+    {
+        $startDate = Chronos::now()->subDays(3);
+        $endDate = Chronos::now();
+        $range = DateRange::{$method}($startDate, $endDate);
+
+        self::assertSame($startDate, $range->startDate);
+        self::assertSame($endDate, $range->endDate);
+        self::assertSame($startDate, $range->startDate()); // Deprecated
+        self::assertSame($endDate, $range->endDate()); // Deprecated
         self::assertFalse($range->isEmpty());
     }
 
-    /** @test */
-    public function isCreatedWithStartDate(): void
+    public function provideBetweenMethods(): iterable
     {
-        $startDate = Chronos::now();
-        $range = DateRange::withStartDate($startDate);
-
-        self::assertFalse($range->isEmpty());
-        self::assertNull($range->endDate());
-        self::assertSame($startDate, $range->startDate());
+        yield 'withStartAndEndDate' => ['withStartAndEndDate']; // Deprecated
+        yield 'between' => ['between'];
     }
 
-    /** @test */
-    public function isCreatedWithEndDate(): void
-    {
-        $endDate = Chronos::now();
-        $range = DateRange::withEndDate($endDate);
-
-        self::assertFalse($range->isEmpty());
-        self::assertNull($range->startDate());
-        self::assertSame($endDate, $range->endDate());
-    }
-
-    /** @test */
-    public function isCreatedWithBothDates(): void
+    /**
+     * @test
+     * @dataProvider provideSinceMethods
+     */
+    public function isCreatedWithStartDate(string $method): void
     {
         $startDate = Chronos::now();
-        $endDate = Chronos::now();
-        $range = DateRange::withStartAndEndDate($startDate, $endDate);
+        $range = DateRange::{$method}($startDate);
 
         self::assertFalse($range->isEmpty());
-        self::assertSame($startDate, $range->startDate());
-        self::assertSame($endDate, $range->endDate());
+        self::assertNull($range->endDate);
+        self::assertSame($startDate, $range->startDate);
+        self::assertNull($range->endDate()); // Deprecated
+        self::assertSame($startDate, $range->startDate()); // Deprecated
+    }
+
+    public function provideSinceMethods(): iterable
+    {
+        yield 'withStartDate' => ['withStartDate']; // Deprecated
+        yield 'since' => ['since'];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideUntilMethods
+     */
+    public function isCreatedWithEndDate(string $method): void
+    {
+        $endDate = Chronos::now();
+        $range = DateRange::{$method}($endDate);
+
+        self::assertFalse($range->isEmpty());
+        self::assertNull($range->startDate);
+        self::assertSame($endDate, $range->endDate);
+        self::assertNull($range->startDate()); // Deprecated
+        self::assertSame($endDate, $range->endDate()); // Deprecated
+    }
+
+    public function provideUntilMethods(): iterable
+    {
+        yield 'withEndDate' => ['withEndDate']; // Deprecated
+        yield 'until' => ['until'];
     }
 }
