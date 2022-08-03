@@ -20,9 +20,10 @@ class DateRangeTest extends TestCase
 
         self::assertNull($range->startDate);
         self::assertNull($range->endDate);
+        self::assertTrue($range->isAllTime());
         self::assertNull($range->startDate()); // Deprecated
         self::assertNull($range->endDate()); // Deprecated
-        self::assertTrue($range->isEmpty());
+        self::assertTrue($range->isEmpty()); // Deprecated
     }
 
     public function provideAllTimeMethods(): iterable
@@ -43,9 +44,10 @@ class DateRangeTest extends TestCase
 
         self::assertSame($startDate, $range->startDate);
         self::assertSame($endDate, $range->endDate);
+        self::assertFalse($range->isAllTime());
         self::assertSame($startDate, $range->startDate()); // Deprecated
         self::assertSame($endDate, $range->endDate()); // Deprecated
-        self::assertFalse($range->isEmpty());
+        self::assertFalse($range->isEmpty()); // Deprecated
     }
 
     public function provideBetweenMethods(): iterable
@@ -63,9 +65,10 @@ class DateRangeTest extends TestCase
         $startDate = Chronos::now();
         $range = DateRange::{$method}($startDate);
 
-        self::assertFalse($range->isEmpty());
+        self::assertFalse($range->isAllTime());
         self::assertNull($range->endDate);
         self::assertSame($startDate, $range->startDate);
+        self::assertFalse($range->isEmpty()); // Deprecated
         self::assertNull($range->endDate()); // Deprecated
         self::assertSame($startDate, $range->startDate()); // Deprecated
     }
@@ -85,9 +88,10 @@ class DateRangeTest extends TestCase
         $endDate = Chronos::now();
         $range = DateRange::{$method}($endDate);
 
-        self::assertFalse($range->isEmpty());
+        self::assertFalse($range->isAllTime());
         self::assertNull($range->startDate);
         self::assertSame($endDate, $range->endDate);
+        self::assertFalse($range->isEmpty()); // Deprecated
         self::assertNull($range->startDate()); // Deprecated
         self::assertSame($endDate, $range->endDate()); // Deprecated
     }

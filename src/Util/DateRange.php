@@ -32,7 +32,7 @@ final class DateRange
         return new self();
     }
 
-    public function isEmpty(): bool
+    public function isAllTime(): bool
     {
         return $this->startDate === null && $this->endDate === null;
     }
@@ -71,5 +71,11 @@ final class DateRange
     public function endDate(): ?Chronos
     {
         return $this->endDate;
+    }
+
+    /** @deprecated Use $dateRange->isAllTime() instead */
+    public function isEmpty(): bool
+    {
+        return $this->isAllTime();
     }
 }
