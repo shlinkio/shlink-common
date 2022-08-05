@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [4.5.0] - 2022-08-05
 ### Added
 * Added new `MonologFactory` for monolog 3, and a couple new logger utilities.
 * Added new `RabbitMqPublishingHelper`, to simplify publishing in RabbitMQ queues.
