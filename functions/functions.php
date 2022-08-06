@@ -12,17 +12,8 @@ use function array_pad;
 use function explode;
 use function json_decode as spl_json_decode;
 use function json_encode as spl_json_encode;
-use function Shlinkio\Shlink\Config\env as configEnv;
 
 use const JSON_THROW_ON_ERROR;
-
-/**
- * @deprecated Use Shlinkio\Shlink\Config\env instead
- */
-function env(string $key, mixed $default = null): mixed
-{
-    return configEnv($key, $default);
-}
 
 function json_decode(string $json): array
 {
