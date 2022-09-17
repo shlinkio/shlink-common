@@ -21,11 +21,13 @@ Install this library using composer:
 
 ## Cache
 
-A [symfony/cache](https://symfony.com/doc/current/components/cache.html) adapter is registered, under the `Psr\Cache\CacheItemPoolInterface` service key (as all adapters implement it).
+This library provides both PSR-6 and PSR-16 cache adapters, via [symfony/cache](https://symfony.com/doc/current/components/cache.html).
 
-The concrete implementation it returns is different depending on your configuration:
+They can be fetched via `Psr\Cache\CacheItemPoolInterface` and `Psr\SimpleCache\CacheInterface`.
 
-* An `ArrayAdapter` instance when the `debug` config is set to true or when the APUc extension is not installed and the `cache.redis` config is not defined.
+The concrete implementation they return is different depending on your configuration:
+
+* An `ArrayAdapter` instance when the `debug` config is set to true or when the APCu extension is not installed and the `cache.redis` config is not defined.
 * An `ApcuAdapter`instance when no `cache.redis` is defined and the APCu extension is installed.
 * A `RedisAdapter` instance when the `cache.redis` config is defined.
 
