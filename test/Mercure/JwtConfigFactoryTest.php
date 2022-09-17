@@ -35,7 +35,7 @@ class JwtConfigFactoryTest extends TestCase
 
         $this->expectException(MercureException::class);
         $this->expectExceptionMessage(
-            'You have to provide a secret key for the JWT generation, under mercure.jwt_secret',
+            'You have to provide a non-empty secret key for the JWT generation, under mercure.jwt_secret',
         );
         $getConfig->shouldBeCalledOnce();
 
@@ -46,8 +46,14 @@ class JwtConfigFactoryTest extends TestCase
     {
         yield 'empty config' => [[]];
         yield 'empty mercure config' => [['mercure' => []]];
-        yield 'empty jwt secret' => [['mercure' => [
+        yield 'null jwt secret' => [['mercure' => [
             'jwt_secret' => null,
+        ]]];
+        yield 'empty jwt secret' => [['mercure' => [
+            'jwt_secret' => '',
+        ]]];
+        yield 'non-string' => [['mercure' => [
+            'jwt_secret' => ['foo', 'bar'],
         ]]];
     }
 

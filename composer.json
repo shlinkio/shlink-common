@@ -30,6 +30,7 @@
         "php-amqplib/php-amqplib": "^3.2",
         "predis/predis": "^2.0",
         "psr/http-server-middleware": "^1.0",
+        "psr/simple-cache": "^2.0",
         "shlinkio/shlink-config": "^2.0",
         "symfony/cache": "^6.1",
         "symfony/lock": "^6.1",
