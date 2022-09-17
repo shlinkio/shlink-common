@@ -45,7 +45,7 @@
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.5",
-        "psr/simple-cache": "^2.0",
+        "psr/simple-cache": "^3.0 | ^2.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.3.0",
         "symfony/var-dumper": "^6.1"
