@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Fixed
-* *Nothing*
+* Ensured redis servers are trimmed inside RedisFactory.
 
 
 ## [5.1.0] - 2022-09-18

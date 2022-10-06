@@ -62,11 +62,17 @@ class RedisFactoryTest extends TestCase
         yield 'cluster of servers' => [[
             'servers' => ['tcp://1.1.1.1:6379', 'tcp://2.2.2.2:6379'],
         ], RedisCluster::class, MasterSlaveReplication::class];
+        yield 'cluster of servers with spaces' => [[
+            'servers' => ['tcp://1.1.1.1:6379  ', '  tcp://2.2.2.2:6379 '],
+        ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'empty cluster of servers' => [[
             'servers' => [],
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of servers as string' => [[
             'servers' => 'tcp://1.1.1.1:6379,tcp://2.2.2.2:6379',
+        ], RedisCluster::class, MasterSlaveReplication::class];
+        yield 'cluster of servers as string with spaces' => [[
+            'servers' => 'tcp://1.1.1.1:6379, tcp://2.2.2.2:6379 , tcp://3.3.3.3:6379',
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of sentinels' => [[
             'servers' => ['tcp://1.1.1.1:6379', 'tcp://2.2.2.2:6379'],
