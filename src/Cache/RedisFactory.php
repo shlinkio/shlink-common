@@ -7,9 +7,11 @@ namespace Shlinkio\Shlink\Common\Cache;
 use Predis\Client as PredisClient;
 use Psr\Container\ContainerInterface;
 
+use function array_map;
 use function count;
 use function explode;
 use function is_string;
+use function trim;
 
 class RedisFactory
 {
@@ -30,7 +32,7 @@ class RedisFactory
     private function resolveServers(array $redisConfig): string|array
     {
         $servers = $redisConfig['servers'] ?? [];
-        $servers = is_string($servers) ? explode(',', $servers) : $servers;
+        $servers = array_map(trim(...), is_string($servers) ? explode(',', $servers) : $servers);
 
         // If there's only one server, Predis expects a string. If an array is provided, it also expects cluster config
         return count($servers) === 1 ? $servers[0] : $servers;
