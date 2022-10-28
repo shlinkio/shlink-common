@@ -6,13 +6,10 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 
 class ReopeningEntityManagerTest extends TestCase
 {
-    use ProphecyTrait;
-
     /**
      * @test
      * @dataProvider provideWrapped
@@ -35,10 +32,10 @@ class ReopeningEntityManagerTest extends TestCase
     public function provideWrapped(): iterable
     {
         $createEmMock = function (bool $isOpen): EntityManagerInterface {
-            $em = $this->prophesize(EntityManagerInterface::class);
-            $em->isOpen()->willReturn($isOpen);
+            $em = $this->createMock(EntityManagerInterface::class);
+            $em->method('isOpen')->willReturn($isOpen);
 
-            return $em->reveal();
+            return $em;
         };
 
         yield [$createEmMock(true), false];
