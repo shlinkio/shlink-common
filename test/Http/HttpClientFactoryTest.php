@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Http;
 
 use GuzzleHttp\HandlerStack;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Http\Exception\InvalidHttpMiddlewareException;
@@ -18,17 +18,15 @@ use function fopen;
 
 class HttpClientFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private const BASE_HANDLERS_COUNT = 4;
 
     private HttpClientFactory $factory;
-    private ObjectProphecy $container;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
         $this->factory = new HttpClientFactory();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /**
@@ -38,12 +36,15 @@ class HttpClientFactoryTest extends TestCase
     public function properlyCreatesAFactoryWithExpectedNumberOfMiddlewares(
         array $config,
         int $expectedMiddlewaresAmount,
+        InvocationOrder $amountOfServiceGets,
     ): void {
-        $this->container->get('some_middleware')->willReturn(static function (): void {
-        });
-        $getConfig = $this->container->get('config')->willReturn(['http_client' => $config]);
+        $this->container->expects($amountOfServiceGets)->method('get')->willReturnMap([
+            ['some_middleware', static function (): void {
+            }],
+            ['config', ['http_client' => $config]],
+        ]);
 
-        $client = ($this->factory)($this->container->reveal());
+        $client = ($this->factory)($this->container);
         /** @var HandlerStack $handler */
         $handler = $client->getConfig('handler');
         $ref = new ReflectionObject($handler);
@@ -51,7 +52,6 @@ class HttpClientFactoryTest extends TestCase
         $stack->setAccessible(true);
 
         self::assertCount($expectedMiddlewaresAmount + self::BASE_HANDLERS_COUNT, $stack->getValue($handler));
-        $getConfig->shouldHaveBeenCalledOnce();
     }
 
     public function provideConfig(): iterable
@@ -59,33 +59,33 @@ class HttpClientFactoryTest extends TestCase
         $staticMiddleware = static function (): void {
         };
 
-        yield [[], 0];
-        yield [['request_middlewares' => []], 0];
-        yield [['response_middlewares' => []], 0];
+        yield [[], 0, $this->once()];
+        yield [['request_middlewares' => []], 0, $this->once()];
+        yield [['response_middlewares' => []], 0, $this->once()];
         yield [[
             'request_middlewares' => [],
             'response_middlewares' => [],
-        ], 0];
+        ], 0, $this->once()];
         yield [[
             'request_middlewares' => ['some_middleware'],
             'response_middlewares' => [],
-        ], 1];
+        ], 1, $this->exactly(2)];
         yield [[
             'request_middlewares' => [],
             'response_middlewares' => ['some_middleware'],
-        ], 1];
+        ], 1, $this->exactly(2)];
         yield [[
             'request_middlewares' => ['some_middleware'],
             'response_middlewares' => ['some_middleware'],
-        ], 2];
+        ], 2, $this->exactly(3)];
         yield [[
             'request_middlewares' => [$staticMiddleware],
             'response_middlewares' => ['some_middleware'],
-        ], 2];
+        ], 2, $this->exactly(2)];
         yield [[
             'request_middlewares' => ['some_middleware', $staticMiddleware],
             'response_middlewares' => [$staticMiddleware, 'some_middleware'],
-        ], 4];
+        ], 4, $this->exactly(3)];
     }
 
     /**
@@ -94,17 +94,14 @@ class HttpClientFactoryTest extends TestCase
      */
     public function exceptionIsThrownWhenNonCallableStaticMiddlewaresAreProvided(mixed $middleware): void
     {
-        $getService = $this->container->get('some_middleware')->willReturn(static function (): void {
-        });
-        $getConfig = $this->container->get('config')->willReturn(['http_client' => [
+
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn(['http_client' => [
             'request_middlewares' => [$middleware],
         ]]);
 
         $this->expectException(InvalidHttpMiddlewareException::class);
-        $getService->shouldNotBeCalled();
-        $getConfig->shouldBeCalledOnce();
 
-        ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container);
     }
 
     /**
@@ -113,16 +110,17 @@ class HttpClientFactoryTest extends TestCase
      */
     public function exceptionIsThrownWhenNonCallableServiceMiddlewaresAreProvided(mixed $middleware): void
     {
-        $getService = $this->container->get('some_middleware')->willReturn($middleware);
-        $getConfig = $this->container->get('config')->willReturn(['http_client' => [
-            'response_middlewares' => ['some_middleware'],
-        ]]);
+
+        $this->container->expects($this->exactly(2))->method('get')->willReturnMap([
+            ['some_middleware' => $middleware],
+            ['config', ['http_client' => [
+                'response_middlewares' => ['some_middleware'],
+            ]]],
+        ]);
 
         $this->expectException(InvalidHttpMiddlewareException::class);
-        $getService->shouldBeCalledOnce();
-        $getConfig->shouldBeCalledOnce();
 
-        ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container);
     }
 
     public function provideInvalidMiddlewares(): iterable
