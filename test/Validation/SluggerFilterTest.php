@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Validation\SluggerFilter;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -14,15 +13,13 @@ use function Symfony\Component\String\u;
 
 class SluggerFilterTest extends TestCase
 {
-    use ProphecyTrait;
-
     private SluggerFilter $filter;
-    private ObjectProphecy $slugger;
+    private MockObject & SluggerInterface $slugger;
 
     public function setUp(): void
     {
-        $this->slugger = $this->prophesize(SluggerInterface::class);
-        $this->filter = new SluggerFilter($this->slugger->reveal());
+        $this->slugger = $this->createMock(SluggerInterface::class);
+        $this->filter = new SluggerFilter($this->slugger);
     }
 
     /**
@@ -31,12 +28,13 @@ class SluggerFilterTest extends TestCase
      */
     public function providedValueIsFilteredAsExpected(?string $providedValue, ?string $expectedValue): void
     {
-        $slugify = $this->slugger->slug($providedValue)->willReturn(u('slug'));
+        $this->slugger->expects($this->exactly($expectedValue !== null ? 1 : 0))->method('slug')->with(
+            $providedValue,
+        )->willReturn(u('slug'));
 
         $result = $this->filter->filter($providedValue);
 
         self::assertEquals($expectedValue, $result);
-        $slugify->shouldHaveBeenCalledTimes($expectedValue !== null ? 1 : 0);
     }
 
     public function provideValuesToFilter(): iterable
