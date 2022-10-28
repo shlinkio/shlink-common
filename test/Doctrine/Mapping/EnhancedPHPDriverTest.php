@@ -6,46 +6,41 @@ namespace ShlinkioTest\Shlink\Common\Doctrine\Mapping;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\FileLocator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 
 class EnhancedPHPDriverTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $loader;
-    private ObjectProphecy $meta;
+    private MockObject & FileLocator $loader;
+    private MockObject & ClassMetadata $meta;
 
     public function setUp(): void
     {
-        $this->loader = $this->prophesize(FileLocator::class);
-        $this->loader->findMappingFile(Argument::any())->willReturn(
+        $this->loader = $this->createMock(FileLocator::class);
+        $this->loader->method('findMappingFile')->willReturn(
             __DIR__ . '/../../../test-resources/mapping/fake.mapping.php',
         );
-        $this->meta = $this->prophesize(ClassMetadata::class);
+        $this->meta = $this->createMock(ClassMetadata::class);
     }
 
     /**
      * @test
      * @dataProvider provideFuncStyle
      */
-    public function internalFunctionIsInvokedBasedOnFunctionalStyle(array $args, int $metaExpectedCalls): void
+    public function internalFunctionIsInvokedBasedOnFunctionalStyle(array $args, InvokedCount $metaExpectedCalls): void
     {
-        $metaMethod = $this->meta->getFieldNames();
+        $this->meta->expects($metaExpectedCalls)->method('getFieldNames');
 
-        $driver = new EnhancedPHPDriver($this->loader->reveal(), [], ...$args);
-        $driver->loadMetadataForClass('', $this->meta->reveal());
-
-        $metaMethod->shouldHaveBeenCalledTimes($metaExpectedCalls);
+        $driver = new EnhancedPHPDriver($this->loader, [], ...$args);
+        $driver->loadMetadataForClass('', $this->meta);
     }
 
     public function provideFuncStyle(): iterable
     {
-        yield 'func style' => [[true], 1];
-        yield 'no func style' => [[false], 0];
-        yield 'default func style' => [[], 0];
+        yield 'func style' => [[true], $this->once()];
+        yield 'no func style' => [[false], $this->never()];
+        yield 'default func style' => [[], $this->never()];
     }
 }
