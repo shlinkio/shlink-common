@@ -12,14 +12,11 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use stdClass;
 
 class ChronosDateTimeTypeTest extends TestCase
 {
-    use ProphecyTrait;
-
     private ChronosDateTimeType $type;
 
     protected function setUp(): void
@@ -45,10 +42,10 @@ class ChronosDateTimeTypeTest extends TestCase
      */
     public function valueIsConverted(?string $value, ?string $expected): void
     {
-        $platform = $this->prophesize(AbstractPlatform::class);
-        $platform->getDateTimeFormatString()->willReturn('Y-m-d H:i:s');
+        $platform = $this->createMock(AbstractPlatform::class);
+        $platform->method('getDateTimeFormatString')->willReturn('Y-m-d H:i:s');
 
-        $result = $this->type->convertToPHPValue($value, $platform->reveal());
+        $result = $this->type->convertToPHPValue($value, $platform);
 
         if ($expected === null) {
             self::assertNull($result);
@@ -70,10 +67,10 @@ class ChronosDateTimeTypeTest extends TestCase
      */
     public function valueIsConvertedToDatabaseFormat(?DateTimeInterface $value, ?string $expected): void
     {
-        $platform = $this->prophesize(AbstractPlatform::class);
-        $platform->getDateTimeFormatString()->willReturn('Y-m-d');
+        $platform = $this->createMock(AbstractPlatform::class);
+        $platform->method('getDateTimeFormatString')->willReturn('Y-m-d');
 
-        self::assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform->reveal()));
+        self::assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform));
     }
 
     public function providePhpValues(): iterable
@@ -88,6 +85,6 @@ class ChronosDateTimeTypeTest extends TestCase
     public function exceptionIsThrownIfInvalidValueIsParsedToDatabase(): void
     {
         $this->expectException(ConversionException::class);
-        $this->type->convertToDatabaseValue(new stdClass(), $this->prophesize(AbstractPlatform::class)->reveal());
+        $this->type->convertToDatabaseValue(new stdClass(), $this->createMock(AbstractPlatform::class));
     }
 }
