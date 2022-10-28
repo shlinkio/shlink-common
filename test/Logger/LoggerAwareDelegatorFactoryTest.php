@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Logger;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Log;
 use Psr\Log\LoggerInterface;
@@ -16,14 +15,12 @@ use stdClass;
 
 class LoggerAwareDelegatorFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private LoggerAwareDelegatorFactory $delegator;
-    private ObjectProphecy $container;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
         $this->delegator = new LoggerAwareDelegatorFactory();
     }
 
@@ -38,14 +35,16 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         int $expectedGetLoggerCalls,
     ): void {
         $callback = fn () => $instance;
-        $getLogger = $this->container->get(Log\LoggerInterface::class)->willReturn(new Log\NullLogger());
-        $hasLogger = $this->container->has(Log\LoggerInterface::class)->willReturn($hasLogger);
+        $this->container->expects($this->exactly($expectedHasLoggerCalls))->method('has')->with(
+            Log\LoggerInterface::class,
+        )->willReturn($hasLogger);
+        $this->container->expects($this->exactly($expectedGetLoggerCalls))->method('get')->with(
+            Log\LoggerInterface::class,
+        )->willReturn(new Log\NullLogger());
 
-        $result = ($this->delegator)($this->container->reveal(), '', $callback);
+        $result = ($this->delegator)($this->container, '', $callback);
 
         self::assertSame($instance, $result);
-        $hasLogger->shouldHaveBeenCalledTimes($expectedHasLoggerCalls);
-        $getLogger->shouldHaveBeenCalledTimes($expectedGetLoggerCalls);
     }
 
     public function provideInstances(): iterable
