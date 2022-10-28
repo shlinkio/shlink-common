@@ -4,26 +4,23 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Predis\Connection\Cluster\PredisCluster;
 use Predis\Connection\Cluster\RedisCluster;
 use Predis\Connection\Replication\MasterSlaveReplication;
 use Predis\Connection\Replication\SentinelReplication;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
 
 class RedisFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private RedisFactory $factory;
-    private ObjectProphecy $container;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
         $this->factory = new RedisFactory();
     }
 
@@ -36,15 +33,13 @@ class RedisFactoryTest extends TestCase
         string $expectedCluster,
         string $expectedReplication,
     ): void {
-        $getConfig = $this->container->get('config')->willReturn([
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => [
                 'redis' => $config,
             ],
         ]);
 
-        $client = ($this->factory)($this->container->reveal());
-
-        $getConfig->shouldHaveBeenCalledOnce();
+        $client = ($this->factory)($this->container);
 
         self::assertInstanceOf($expectedCluster, ($client->getOptions()->cluster)());
         self::assertInstanceOf($expectedReplication, ($client->getOptions()->replication)([]));
