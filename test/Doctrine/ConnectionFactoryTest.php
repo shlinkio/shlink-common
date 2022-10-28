@@ -7,25 +7,21 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\ConnectionFactory;
 
 class ConnectionFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private ConnectionFactory $factory;
-    private ObjectProphecy $container;
-    private ObjectProphecy $em;
+    private MockObject & EntityManagerInterface $em;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->em = $this->prophesize(EntityManagerInterface::class);
-        $this->container->get(EntityManager::class)->willReturn($this->em->reveal());
+        $this->em = $this->createMock(EntityManagerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->factory = new ConnectionFactory();
     }
@@ -33,13 +29,12 @@ class ConnectionFactoryTest extends TestCase
     /** @test */
     public function properServiceFallbackOccursWhenInvoked(): void
     {
-        $connection = $this->prophesize(Connection::class)->reveal();
-        $getConnection = $this->em->getConnection()->willReturn($connection);
+        $connection = $this->createMock(Connection::class);
+        $this->em->expects($this->once())->method('getConnection')->willReturn($connection);
+        $this->container->expects($this->once())->method('get')->with(EntityManager::class)->willReturn($this->em);
 
-        $result = ($this->factory)($this->container->reveal());
+        $result = ($this->factory)($this->container);
 
         self::assertSame($connection, $result);
-        $getConnection->shouldHaveBeenCalledOnce();
-        $this->container->get(EntityManager::class)->shouldHaveBeenCalledOnce();
     }
 }
