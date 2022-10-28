@@ -7,24 +7,21 @@ namespace ShlinkioTest\Shlink\Common\Logger;
 use Exception;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Shlinkio\Shlink\Common\Logger\ErrorLogger;
 
 class ErrorLoggerTest extends TestCase
 {
-    use ProphecyTrait;
-
     private ErrorLogger $errorLogger;
-    private ObjectProphecy $logger;
+    private MockObject & LoggerInterface $logger;
 
     public function setUp(): void
     {
-        $this->logger = $this->prophesize(LoggerInterface::class);
-        $this->errorLogger = new ErrorLogger($this->logger->reveal());
+        $this->logger = $this->createMock(LoggerInterface::class);
+        $this->errorLogger = new ErrorLogger($this->logger);
     }
 
     /**
@@ -34,11 +31,9 @@ class ErrorLoggerTest extends TestCase
     public function delegatesIntoInternalLoggerWhenInvoked(int $status, string $expectedLevel): void
     {
         $e = new Exception('Something wrong');
-        $log = $this->logger->log($expectedLevel, (string) $e);
+        $this->logger->expects($this->once())->method('log')->with($expectedLevel, (string) $e);
 
         ($this->errorLogger)($e, new ServerRequest(), (new Response())->withStatus($status));
-
-        $log->shouldHaveBeenCalledOnce();
     }
 
     public function provideStatusCodes(): iterable
