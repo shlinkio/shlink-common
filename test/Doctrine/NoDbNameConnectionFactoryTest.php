@@ -6,25 +6,21 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Doctrine\NoDbNameConnectionFactory;
 
 class NoDbNameConnectionFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private NoDbNameConnectionFactory $factory;
-    private ObjectProphecy $container;
-    private ObjectProphecy $originalConn;
+    private MockObject & Connection $originalConn;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->originalConn = $this->prophesize(Connection::class);
-        $this->container->get(Connection::class)->willReturn($this->originalConn->reveal());
+        $this->originalConn = $this->createMock(Connection::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->factory = new NoDbNameConnectionFactory();
     }
@@ -37,21 +33,19 @@ class NoDbNameConnectionFactoryTest extends TestCase
             'password' => 'bar',
             'dbname' => 'something',
         ];
-        $getOriginalParams = $this->originalConn->getParams()->willReturn($params);
-        $getOriginalDriver = $this->originalConn->getDriver()->willReturn($this->prophesize(Driver::class)->reveal());
-        $getOriginalConfig = $this->originalConn->getConfiguration()->willReturn(null);
-        $getOriginalEvents = $this->originalConn->getEventManager()->willReturn(null);
+        $this->originalConn->expects($this->once())->method('getParams')->willReturn($params);
+        $this->originalConn->expects($this->once())->method('getDriver')->willReturn($this->createMock(Driver::class));
+        $this->originalConn->expects($this->once())->method('getConfiguration')->willReturn(null);
+        $this->originalConn->expects($this->once())->method('getEventManager')->willReturn(null);
+        $this->container->expects($this->once())->method('get')->with(Connection::class)->willReturn(
+            $this->originalConn,
+        );
 
-        $conn = ($this->factory)($this->container->reveal());
+        $conn = ($this->factory)($this->container);
 
         self::assertEquals([
             'username' => 'foo',
             'password' => 'bar',
         ], $conn->getParams());
-        $getOriginalParams->shouldHaveBeenCalledOnce();
-        $getOriginalDriver->shouldHaveBeenCalledOnce();
-        $getOriginalConfig->shouldHaveBeenCalledOnce();
-        $getOriginalEvents->shouldHaveBeenCalledOnce();
-        $this->container->get(Connection::class)->shouldHaveBeenCalledOnce();
     }
 }
