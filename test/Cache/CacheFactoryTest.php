@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Predis\ClientInterface as PredisClient;
 use Predis\Configuration\Options;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\CacheFactory;
 use Symfony\Component\Cache\Adapter;
@@ -17,13 +16,11 @@ use function Functional\const_function;
 
 class CacheFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $container;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /**
@@ -37,17 +34,19 @@ class CacheFactoryTest extends TestCase
     ): void {
         $factory = new CacheFactory($apcuEnabled);
 
-        $predis = $this->prophesize(PredisClient::class);
-        $predis->getOptions()->willReturn(new Options(['exceptions' => false]));
+        $predis = $this->createMock(PredisClient::class);
+        $predis->method('getOptions')->willReturn(new Options(['exceptions' => false]));
 
-        $getConfig = $this->container->get('config')->willReturn($config);
-        $getRedis = $this->container->get(PredisClient::class)->willReturn($predis->reveal());
+        $this->container->expects($this->exactly($expectedAdapterClass === Adapter\RedisAdapter::class ? 2 : 1))
+                        ->method('get')
+                        ->willReturnMap([
+                            ['config', $config],
+                            [PredisClient::class, $predis],
+                        ]);
 
-        $cache = $factory($this->container->reveal());
+        $cache = $factory($this->container);
 
         self::assertInstanceOf($expectedAdapterClass, $cache);
-        $getConfig->shouldHaveBeenCalledOnce();
-        $getRedis->shouldHaveBeenCalledTimes($expectedAdapterClass === Adapter\RedisAdapter::class ? 1 : 0);
     }
 
     public function provideCacheConfig(): iterable
