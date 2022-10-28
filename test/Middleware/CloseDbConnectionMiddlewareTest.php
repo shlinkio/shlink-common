@@ -7,9 +7,8 @@ namespace ShlinkioTest\Shlink\Common\Middleware;
 use Doctrine\DBAL\Connection;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerInterface;
@@ -17,27 +16,18 @@ use Shlinkio\Shlink\Common\Middleware\CloseDbConnectionMiddleware;
 
 class CloseDbConnectionMiddlewareTest extends TestCase
 {
-    use ProphecyTrait;
-
     private CloseDbConnectionMiddleware $middleware;
-    private ObjectProphecy $handler;
-    private ObjectProphecy $em;
-    private ObjectProphecy $conn;
+    private MockObject & RequestHandlerInterface $handler;
+    private MockObject & ReopeningEntityManagerInterface $em;
+    private MockObject & Connection $conn;
 
     public function setUp(): void
     {
-        $this->handler = $this->prophesize(RequestHandlerInterface::class);
-        $this->em = $this->prophesize(ReopeningEntityManagerInterface::class);
-        $this->conn = $this->prophesize(Connection::class);
-        $this->conn->close()->will(function (): void {
-        });
-        $this->em->getConnection()->willReturn($this->conn->reveal());
-        $this->em->close()->will(function (): void {
-        });
-        $this->em->open()->will(function (): void {
-        });
+        $this->handler = $this->createMock(RequestHandlerInterface::class);
+        $this->em = $this->createMock(ReopeningEntityManagerInterface::class);
+        $this->conn = $this->createMock(Connection::class);
 
-        $this->middleware = new CloseDbConnectionMiddleware($this->em->reveal());
+        $this->middleware = new CloseDbConnectionMiddleware($this->em);
     }
 
     /** @test */
@@ -45,16 +35,15 @@ class CloseDbConnectionMiddlewareTest extends TestCase
     {
         $req = new ServerRequest();
         $resp = new Response();
-        $handle = $this->handler->handle($req)->willReturn($resp);
+        $this->handler->expects($this->once())->method('handle')->with($req)->willReturn($resp);
+        $this->conn->expects($this->once())->method('close');
+        $this->em->expects($this->once())->method('getConnection')->willReturn($this->conn);
+        $this->em->expects($this->once())->method('open');
+        $this->em->expects($this->once())->method('close');
 
-        $result = $this->middleware->process($req, $this->handler->reveal());
+        $result = $this->middleware->process($req, $this->handler);
 
         self::assertSame($result, $resp);
-        $this->em->open()->shouldHaveBeenCalledOnce();
-        $this->em->getConnection()->shouldHaveBeenCalledOnce();
-        $this->conn->close()->shouldHaveBeenCalledOnce();
-        $this->em->close()->shouldHaveBeenCalledOnce();
-        $handle->shouldHaveBeenCalledOnce();
     }
 
     /** @test */
@@ -62,15 +51,14 @@ class CloseDbConnectionMiddlewareTest extends TestCase
     {
         $req = new ServerRequest();
         $expectedError = new RuntimeException();
-        $this->handler->handle($req)->willThrow($expectedError)
-                                    ->shouldBeCalledOnce();
+        $this->handler->expects($this->once())->method('handle')->with($req)->willThrowException($expectedError);
+        $this->conn->expects($this->once())->method('close');
+        $this->em->expects($this->once())->method('getConnection')->willReturn($this->conn);
+        $this->em->expects($this->once())->method('open');
+        $this->em->expects($this->once())->method('close');
 
-        $this->em->open()->shouldBeCalledOnce();
-        $this->em->getConnection()->shouldBeCalledOnce();
-        $this->conn->close()->shouldBeCalledOnce();
-        $this->em->close()->shouldBeCalledOnce();
         $this->expectExceptionObject($expectedError);
 
-        $this->middleware->process($req, $this->handler->reveal());
+        $this->middleware->process($req, $this->handler);
     }
 }
