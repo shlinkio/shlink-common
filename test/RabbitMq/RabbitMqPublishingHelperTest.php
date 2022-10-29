@@ -9,9 +9,8 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
 use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
@@ -19,22 +18,17 @@ use function Shlinkio\Shlink\Common\json_encode;
 
 class RabbitMqPublishingHelperTest extends TestCase
 {
-    use ProphecyTrait;
-
     private RabbitMqPublishingHelper $helper;
-    private ObjectProphecy $connection;
-    private ObjectProphecy $channel;
+    private MockObject & AMQPStreamConnection $connection;
+    private MockObject & AMQPChannel $channel;
 
     public function setUp(): void
     {
-        $this->channel = $this->prophesize(AMQPChannel::class);
-        $this->connection = $this->prophesize(AMQPStreamConnection::class);
-        $this->connection->isConnected()->willReturn(false);
-        $this->connection->reconnect()->will(function (): void {
-        });
-        $this->connection->channel()->willReturn($this->channel->reveal());
+        $this->channel = $this->createMock(AMQPChannel::class);
+        $this->connection = $this->createMock(AMQPStreamConnection::class);
+        $this->connection->method('isConnected')->willReturn(false);
 
-        $this->helper = new RabbitMqPublishingHelper($this->connection->reveal());
+        $this->helper = new RabbitMqPublishingHelper($this->connection);
     }
 
     /** @test */
@@ -42,20 +36,21 @@ class RabbitMqPublishingHelperTest extends TestCase
     {
         $channel = 'foobar';
         $payload = ['some' => 'thing'];
-
-        $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));
-
-        $this->channel->exchange_declare($channel, AMQPExchangeType::DIRECT, false, true, false)
-                      ->shouldHaveBeenCalledOnce();
-        $this->channel->queue_declare($channel, false, true, false, false)->shouldHaveBeenCalledOnce();
-        $this->channel->queue_bind($channel, $channel)->shouldHaveBeenCalledOnce();
-        $this->channel->basic_publish(new AMQPMessage(json_encode($payload), [
+        $this->channel->expects($this->once())->method(
+            'exchange_declare',
+        )->with($channel, AMQPExchangeType::DIRECT, false, true, false);
+        $this->channel->expects($this->once())->method('queue_declare')->with($channel, false, true, false, false);
+        $this->channel->expects($this->once())->method('queue_bind')->with($channel, $channel);
+        $this->channel->expects($this->once())->method('basic_publish')->with(new AMQPMessage(json_encode($payload), [
             'content_type' => 'application/json',
             'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
-        ]), $channel)->shouldHaveBeenCalledOnce();
-        $this->channel->close()->shouldHaveBeenCalledOnce();
-        $this->connection->reconnect()->shouldHaveBeenCalledOnce();
-        $this->connection->close()->shouldHaveBeenCalledOnce();
+        ]), $channel);
+        $this->channel->expects($this->once())->method('close');
+        $this->connection->expects($this->once())->method('channel')->willReturn($this->channel);
+        $this->connection->expects($this->once())->method('reconnect');
+        $this->connection->expects($this->once())->method('close');
+
+        $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));
     }
 
     /** @test */
@@ -65,8 +60,8 @@ class RabbitMqPublishingHelperTest extends TestCase
         $payload = ['some' => 'thing'];
         $expectedError = new Exception('Error!');
 
-        $this->connection->channel()->willThrow($expectedError);
-        $this->connection->close()->shouldBeCalledOnce();
+        $this->connection->expects($this->once())->method('channel')->willThrowException($expectedError);
+        $this->connection->expects($this->once())->method('close');
 
         try {
             $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));

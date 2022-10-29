@@ -5,24 +5,21 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Exception\MercureException;
 use Shlinkio\Shlink\Common\Mercure\JwtConfigFactory;
 
 class JwtConfigFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private JwtConfigFactory $factory;
-    private ObjectProphecy $container;
+    private MockObject & ContainerInterface $container;
 
     public function setUp(): void
     {
         $this->factory = new JwtConfigFactory();
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     /**
@@ -31,15 +28,14 @@ class JwtConfigFactoryTest extends TestCase
      */
     public function throwsExceptionWhenProperConfigCouldNotBeFound(array $config): void
     {
-        $getConfig = $this->container->get('config')->willReturn($config);
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn($config);
 
         $this->expectException(MercureException::class);
         $this->expectExceptionMessage(
             'You have to provide a non-empty secret key for the JWT generation, under mercure.jwt_secret',
         );
-        $getConfig->shouldBeCalledOnce();
 
-        ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container);
     }
 
     public function provideInvalidConfigs(): iterable
@@ -62,14 +58,13 @@ class JwtConfigFactoryTest extends TestCase
     {
         $secret = 'the _super_secure_secret';
 
-        $getConfig = $this->container->get('config')->willReturn(['mercure' => [
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn(['mercure' => [
             'jwt_secret' => $secret,
         ]]);
 
-        $jwtConfig = ($this->factory)($this->container->reveal());
+        $jwtConfig = ($this->factory)($this->container);
 
         self::assertInstanceOf(Sha256::class, $jwtConfig->signer());
         self::assertEquals($secret, $jwtConfig->signingKey()->contents());
-        $getConfig->shouldHaveBeenCalledOnce();
     }
 }

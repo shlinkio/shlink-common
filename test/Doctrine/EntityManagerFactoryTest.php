@@ -81,7 +81,7 @@ class EntityManagerFactoryTest extends TestCase
 
         $events = $em->getEventManager();
         $ref = new ReflectionObject($events);
-        $prop = $ref->getProperty('_listeners');
+        $prop = $ref->getProperty('listeners');
         $prop->setAccessible(true);
         $listeners = $prop->getValue($events);
 

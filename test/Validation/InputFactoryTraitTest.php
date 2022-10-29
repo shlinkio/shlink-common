@@ -70,7 +70,7 @@ class InputFactoryTraitTest extends TestCase
 
         /** @var Validator\NotEmpty $notEmptyValidator */
         $notEmptyValidator = $validators[0]['instance'];
-        $calculateTypeValue = (fn (array $type) => $this->calculateTypeValue($type))->bindTo(
+        $calculateTypeValue = (fn (array $type) => $this->calculateTypeValue($type))->bindTo( // @phpstan-ignore-line
             $notEmptyValidator,
             Validator\NotEmpty::class,
         );

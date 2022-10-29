@@ -5,25 +5,21 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Logger;
 
 use Laminas\Stratigility\Middleware\ErrorHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Logger\ErrorHandlerListenerAttachingDelegator;
 
 class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
 {
-    use ProphecyTrait;
-
     private ErrorHandlerListenerAttachingDelegator $delegator;
-    private ObjectProphecy $container;
-    private ObjectProphecy $errorHandler;
+    private MockObject & ContainerInterface $container;
+    private MockObject & ErrorHandler $errorHandler;
 
     public function setUp(): void
     {
-        $this->errorHandler = $this->prophesize(ErrorHandler::class);
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->errorHandler = $this->createMock(ErrorHandler::class);
+        $this->container = $this->createMock(ContainerInterface::class);
         $this->delegator = new ErrorHandlerListenerAttachingDelegator();
     }
 
@@ -35,23 +31,20 @@ class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
     {
         $listener = function (): void {
         };
-        $getConfig = $this->container->get('config')->willReturn($config);
-        $getListener = $this->container->get(Argument::not('config'))->willReturn($listener);
-        $attachListener = $this->errorHandler->attachListener($listener)->will(function (): void {
-        });
+        $this->container->expects($this->exactly($expectedCalls + 1))->method('get')->willReturnCallback(
+            fn (string $serviceName) => $serviceName === 'config' ? $config : $listener,
+        );
+        $this->errorHandler->expects($this->exactly($expectedCalls))->method('attachListener')->with($listener);
         $callbackInvoked = false;
 
-        $expected = $this->errorHandler->reveal();
-        $result = ($this->delegator)($this->container->reveal(), '', function () use (&$callbackInvoked, $expected) {
+        $expected = $this->errorHandler;
+        $result = ($this->delegator)($this->container, '', function () use (&$callbackInvoked, $expected) {
             $callbackInvoked = true;
             return $expected;
         });
 
         self::assertSame($expected, $result);
         self::assertTrue($callbackInvoked);
-        $getConfig->shouldHaveBeenCalledOnce();
-        $getListener->shouldHaveBeenCalledTimes($expectedCalls);
-        $attachListener->shouldHaveBeenCalledTimes($expectedCalls);
     }
 
     public function provideConfig(): iterable
