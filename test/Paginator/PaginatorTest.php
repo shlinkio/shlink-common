@@ -21,6 +21,7 @@ class PaginatorTest extends TestCase
     }
 
     /**
+     * @param -1|int<1, max> $maxPage
      * @test
      * @dataProvider providePositiveNumbers
      */
@@ -39,6 +40,7 @@ class PaginatorTest extends TestCase
     }
 
     /**
+     * @param -1|int<1, max> $maxPage
      * @test
      * @dataProvider provideNonPositiveNumbers
      */

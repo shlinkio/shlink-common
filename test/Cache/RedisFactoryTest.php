@@ -6,9 +6,11 @@ namespace ShlinkioTest\Shlink\Common\Cache;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Predis\Connection\Cluster\ClusterInterface;
 use Predis\Connection\Cluster\PredisCluster;
 use Predis\Connection\Cluster\RedisCluster;
 use Predis\Connection\Replication\MasterSlaveReplication;
+use Predis\Connection\Replication\ReplicationInterface;
 use Predis\Connection\Replication\SentinelReplication;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
@@ -25,6 +27,8 @@ class RedisFactoryTest extends TestCase
     }
 
     /**
+     * @param class-string<ClusterInterface> $expectedCluster
+     * @param class-string<ReplicationInterface> $expectedReplication
      * @test
      * @dataProvider provideRedisConfig
      */

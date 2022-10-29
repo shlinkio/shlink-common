@@ -10,6 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
+use stdClass;
 
 class EnhancedPHPDriverTest extends TestCase
 {
@@ -34,7 +35,7 @@ class EnhancedPHPDriverTest extends TestCase
         $this->meta->expects($metaExpectedCalls)->method('getFieldNames');
 
         $driver = new EnhancedPHPDriver($this->loader, [], ...$args);
-        $driver->loadMetadataForClass('', $this->meta);
+        $driver->loadMetadataForClass(stdClass::class, $this->meta);
     }
 
     public function provideFuncStyle(): iterable

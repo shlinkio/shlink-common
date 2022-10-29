@@ -6,6 +6,7 @@ namespace ShlinkioTest\Shlink\Common\Mercure;
 
 use Cake\Chronos\Chronos;
 use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\UnencryptedToken;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
 
@@ -24,6 +25,7 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
     {
+        /** @var UnencryptedToken $token */
         $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))->getJwt(),
         );
@@ -45,6 +47,7 @@ class LcobucciJwtProviderTest extends TestCase
      */
     public function expectedSubscriptionTokenIsCreated(?Chronos $expiresAt, Chronos $expectedExpiresAt): void
     {
+        /** @var UnencryptedToken $token */
         $token = $this->jwtConfig->parser()->parse(
             (new LcobucciJwtProvider($this->jwtConfig, []))->buildSubscriptionToken($expiresAt),
         );

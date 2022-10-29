@@ -110,9 +110,8 @@ class HttpClientFactoryTest extends TestCase
      */
     public function exceptionIsThrownWhenNonCallableServiceMiddlewaresAreProvided(mixed $middleware): void
     {
-
         $this->container->expects($this->exactly(2))->method('get')->willReturnMap([
-            ['some_middleware' => $middleware],
+            ['some_middleware', $middleware],
             ['config', ['http_client' => [
                 'response_middlewares' => ['some_middleware'],
             ]]],

@@ -27,7 +27,7 @@ class ChronosDateTimeTypeTest extends TestCase
             Type::overrideType(ChronosDateTimeType::CHRONOS_DATETIME, ChronosDateTimeType::class);
         }
 
-        $this->type = Type::getType(ChronosDateTimeType::CHRONOS_DATETIME);
+        $this->type = Type::getType(ChronosDateTimeType::CHRONOS_DATETIME); // @phpstan-ignore-line
     }
 
     /** @test */
@@ -37,6 +37,7 @@ class ChronosDateTimeTypeTest extends TestCase
     }
 
     /**
+     * @param class-string<Chronos>|null $expected
      * @test
      * @dataProvider provideValues
      */

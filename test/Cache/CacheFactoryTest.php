@@ -11,6 +11,7 @@ use Predis\Configuration\Options;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\CacheFactory;
 use Symfony\Component\Cache\Adapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 use function Functional\const_function;
 
@@ -24,6 +25,7 @@ class CacheFactoryTest extends TestCase
     }
 
     /**
+     * @param class-string<AdapterInterface> $expectedAdapterClass
      * @test
      * @dataProvider provideCacheConfig
      */
