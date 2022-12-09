@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Changed
 * Migrated infection config to json5
 * Migrated from prophecy to PHPUnit mocks
+* Extended boolean input to make sure it casts "false" string as false.
 
 ### Deprecated
 * *Nothing*

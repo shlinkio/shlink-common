@@ -27,7 +27,9 @@ trait InputFactoryTrait
     private function createBooleanInput(string $name, bool $required = true): Input
     {
         $input = $this->createInput($name, $required);
-        $input->getFilterChain()->attach(new Filter\Boolean());
+        $input->getFilterChain()->attach(new Filter\Boolean([
+            'type' => Filter\Boolean::TYPE_PHP | Filter\Boolean::TYPE_FALSE_STRING,
+        ]));
         $input->getValidatorChain()->attach(new Validator\NotEmpty(['type' => [
             Validator\NotEmpty::OBJECT,
             Validator\NotEmpty::SPACE,
