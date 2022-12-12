@@ -51,9 +51,12 @@ class RedisFactoryTest extends TestCase
 
     public function provideRedisConfig(): iterable
     {
-        yield 'no config' => [null, RedisCluster::class, MasterSlaveReplication::class];
+        yield 'no config' => [null, PredisCluster::class, MasterSlaveReplication::class];
         yield 'single server as string' => [[
             'servers' => 'tcp://127.0.0.1:6379',
+        ], PredisCluster::class, MasterSlaveReplication::class];
+        yield 'single server as string with password' => [[
+            'servers' => 'tcp://password:127.0.0.1:6379',
         ], PredisCluster::class, MasterSlaveReplication::class];
         yield 'single server as array' => [[
             'servers' => ['tcp://127.0.0.1:6379'],
@@ -66,7 +69,7 @@ class RedisFactoryTest extends TestCase
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'empty cluster of servers' => [[
             'servers' => [],
-        ], RedisCluster::class, MasterSlaveReplication::class];
+        ], PredisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of servers as string' => [[
             'servers' => 'tcp://1.1.1.1:6379,tcp://2.2.2.2:6379',
         ], RedisCluster::class, MasterSlaveReplication::class];
@@ -75,6 +78,10 @@ class RedisFactoryTest extends TestCase
         ], RedisCluster::class, MasterSlaveReplication::class];
         yield 'cluster of sentinels' => [[
             'servers' => ['tcp://1.1.1.1:6379', 'tcp://2.2.2.2:6379'],
+            'sentinel_service' => 'foo',
+        ], PredisCluster::class, SentinelReplication::class];
+        yield 'cluster of sentinels with ACL' => [[
+            'servers' => ['tcp://foo:bar@1.1.1.1:6379', 'tcp://foo2:bar2@2.2.2.2:6379'],
             'sentinel_service' => 'foo',
         ], PredisCluster::class, SentinelReplication::class];
     }

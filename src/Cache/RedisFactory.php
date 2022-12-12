@@ -11,6 +11,7 @@ use function array_map;
 use function count;
 use function explode;
 use function is_string;
+use function parse_url;
 use function trim;
 
 class RedisFactory
@@ -26,19 +27,35 @@ class RedisFactory
         return new PredisClient($servers, $options);
     }
 
-    /**
-     * @return string|string[]
-     */
-    private function resolveServers(array $redisConfig): string|array
+    private function resolveServers(array $redisConfig): array
     {
         $servers = $redisConfig['servers'] ?? [];
-        $servers = array_map(trim(...), is_string($servers) ? explode(',', $servers) : $servers);
+        $servers = array_map($this->normalizeServer(...), is_string($servers) ? explode(',', $servers) : $servers);
 
-        // If there's only one server, Predis expects a string. If an array is provided, it also expects cluster config
+        // If there's only one server, we return it as is. If an array is provided, predis expects cluster config
         return count($servers) === 1 ? $servers[0] : $servers;
     }
 
-    private function resolveOptions(array $redisConfig, array|string $servers): ?array
+    private function normalizeServer(string $server): array
+    {
+        $parsedServer = parse_url(trim($server));
+        if (! isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
+            return $parsedServer;
+        }
+
+        if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
+            $parsedServer['password'] = $parsedServer['user'];
+        } elseif (isset($parsedServer['pass'])) {
+            $parsedServer['username'] = $parsedServer['user'];
+            $parsedServer['password'] = $parsedServer['pass'];
+        }
+
+        unset($parsedServer['user'], $parsedServer['pass']);
+
+        return $parsedServer;
+    }
+
+    private function resolveOptions(array $redisConfig, array $servers): ?array
     {
         $sentinelService = $redisConfig['sentinel_service'] ?? null;
         if ($sentinelService !== null) {
@@ -48,6 +65,6 @@ class RedisFactory
             ];
         }
 
-        return is_string($servers) ? null : ['cluster' => 'redis'];
+        return ! isset($servers[0]) ? null : ['cluster' => 'redis'];
     }
 }
