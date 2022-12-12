@@ -68,7 +68,10 @@ You can allow caching to be done on a redis instance, redis cluster or redis sen
 * `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
 * `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
 
-### Redis helper
+> **Note**
+> The entries in `servers` support credentials in the form of `tcp://password@my-server:6379` or `tcp://username:password@my-server:6379`.
+
+### Redis publishing helper
 
 Also, in order to support publishing in redis pub/sub, a `RedisPublishingHelper` service is provided, which will use the configuration above in order to connect to the redis instance/cluster.
 

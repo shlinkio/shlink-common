@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Added support for credentials on redis servers, either just password or both username and password.
 
 ### Changed
 * Migrated infection config to json5
