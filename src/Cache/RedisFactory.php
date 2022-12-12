@@ -6,12 +6,15 @@ namespace Shlinkio\Shlink\Common\Cache;
 
 use Predis\Client as PredisClient;
 use Psr\Container\ContainerInterface;
+use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 
 use function array_map;
 use function count;
 use function explode;
+use function is_array;
 use function is_string;
 use function parse_url;
+use function sprintf;
 use function trim;
 
 class RedisFactory
@@ -39,13 +42,20 @@ class RedisFactory
     private function normalizeServer(string $server): array
     {
         $parsedServer = parse_url(trim($server));
+        if (! is_array($parsedServer)) {
+            throw new InvalidArgumentException(sprintf(
+                'Provided server "%s" is not a valid URL with format schema://[[username:]password@]host:port',
+                $server,
+            ));
+        }
+
         if (! isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
             return $parsedServer;
         }
 
         if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
             $parsedServer['password'] = $parsedServer['user'];
-        } elseif (isset($parsedServer['pass'])) {
+        } elseif (isset($parsedServer['user'], $parsedServer['pass'])) {
             $parsedServer['username'] = $parsedServer['user'];
             $parsedServer['password'] = $parsedServer['pass'];
         }

@@ -14,6 +14,7 @@ use Predis\Connection\Replication\ReplicationInterface;
 use Predis\Connection\Replication\SentinelReplication;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
+use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 
 class RedisFactoryTest extends TestCase
 {
@@ -84,5 +85,22 @@ class RedisFactoryTest extends TestCase
             'servers' => ['tcp://foo:bar@1.1.1.1:6379', 'tcp://foo2:bar2@2.2.2.2:6379'],
             'sentinel_service' => 'foo',
         ], PredisCluster::class, SentinelReplication::class];
+    }
+
+    /** @test */
+    public function exceptionIsThrownIfServerUriHasInvalidFormat(): void
+    {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'cache' => [
+                'redis' => ['servers' => ['//']],
+            ],
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Provided server "//" is not a valid URL with format schema://[[username:]password@]host:port',
+        );
+
+        ($this->factory)($this->container);
     }
 }
