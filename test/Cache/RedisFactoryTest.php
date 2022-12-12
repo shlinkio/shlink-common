@@ -103,4 +103,33 @@ class RedisFactoryTest extends TestCase
 
         ($this->factory)($this->container);
     }
+
+    /**
+     * @test
+     * @dataProvider provideServersWithCredentials
+     */
+    public function providedCredentialsArePassedToConnection(
+        string $server,
+        ?string $expectedUsername,
+        ?string $expectedPassword,
+    ): void {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'cache' => [
+                'redis' => ['servers' => [$server]],
+            ],
+        ]);
+
+        $client = ($this->factory)($this->container);
+        $conn = $client->getConnection();
+
+        self::assertEquals($expectedUsername, $conn->getParameters()->username); // @phpstan-ignore-line
+        self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
+    }
+
+    public function provideServersWithCredentials(): iterable
+    {
+        yield 'no credentials' => ['tcp://1.1.1.1:6379', null, null];
+        yield 'password only' => ['tcp://foo:bar@1.1.1.1:6379', 'foo', 'bar'];
+        yield 'username and password' => ['tcp://foo@1.1.1.1:6379', null, 'foo'];
+    }
 }
