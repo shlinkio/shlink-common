@@ -187,6 +187,26 @@ As well as the EntityManager, there are two Connection objects that can be fetch
 * `Doctrine\DBAL\Connection`: Returns the connection used by the EntityManager, as is.
 * `Shlinkio\Shlink\Common\Doctrine\NoDbNameConnection`: Returns a connection which is the same used by the EntityManager but without setting the database name. Useful to perform operations like creating the database (which would otherwise fail since the database does not exist yet).
 
+### EntityRepository factory
+
+In order to allow multiple repositories per entity, and also to avoid the `$this->em->getRepository(MyEntity::class)` pattern and instead "promote" injecting repositories, this library provides a `EntityRepositoryFactory` helper class that can be used like this.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Shlinkio\Shlink\Common\Doctrine\EntityRepositoryFactory;
+
+return [
+
+    'dependencies' => [
+        MyEntityRepository::class => [EntityRepositoryFactory::class, MyEntity::class],
+    ],
+
+];
+```
+
 ## Logger
 
 A few logger-related helpers are provided by this library.

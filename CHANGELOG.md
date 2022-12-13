@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Added support for credentials on redis servers, either just password or both username and password.
+* Added `EntityRepositoryFactory` helper factory for entity repositories.
 
 ### Changed
 * Migrated infection config to json5
