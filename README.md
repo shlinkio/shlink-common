@@ -1,6 +1,6 @@
 # Shlink Common
 
-[![Build Status](https://img.shields.io/github/workflow/status/shlinkio/shlink-common/Continuous%20integration/main?logo=github&style=flat-square)](https://github.com/shlinkio/shlink-common/actions?query=workflow%3A%22Continuous+integration%22)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/shlinkio/shlink-common/ci.yml?branch=main&logo=github&style=flat-square)](https://github.com/shlinkio/shlink-common/actions/workflows/ci.yml?query=workflow%3A%22Continuous+integration%22)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/shlinkio/shlink-common/main?style=flat-square)](https://app.codecov.io/gh/shlinkio/shlink-common)
 [![Infection MSI](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fshlinkio%2Fshlink-common%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/shlinkio/shlink-common/main)
 [![Latest Stable Version](https://img.shields.io/github/release/shlinkio/shlink-common.svg?style=flat-square)](https://packagist.org/packages/shlinkio/shlink-common)
