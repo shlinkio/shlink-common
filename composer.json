@@ -16,7 +16,7 @@
         "ext-fileinfo": "*",
         "akrabat/ip-address-middleware": "^2.1",
         "cakephp/chronos": "^2.3",
-        "doctrine/orm": "^2.13.3",
+        "doctrine/orm": "^2.14",
         "endroid/qr-code": "^4.4",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^7.4",
@@ -35,7 +35,8 @@
         "symfony/lock": "^6.1",
         "symfony/mercure": "^0.6",
         "symfony/string": "^6.1",
-        "symfony/translation-contracts": "^2.5"
+        "symfony/translation-contracts": "^2.5",
+        "symfony/var-exporter": "^6.2"
     },
     "require-dev": {
         "infection/infection": "^0.26.15",

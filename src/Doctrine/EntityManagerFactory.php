@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Doctrine;
 
+use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
@@ -35,7 +36,7 @@ class EntityManagerFactory
             $config->setDefaultRepositoryClassName($defaultRepo);
         }
 
-        $em = EntityManager::create($connectionConfig, $config);
+        $em = new EntityManager(DriverManager::getConnection($connectionConfig, $config), $config);
 
         $this->registerListeners($ormConfig, $em, $container);
 
@@ -63,6 +64,9 @@ class EntityManagerFactory
         $config->setProxyDir($proxyDir);
         $config->setProxyNamespace('DoctrineProxies');
         $config->setAutoGenerateProxyClasses($isDev);
+
+        // Changes the "engine" used to build entity proxies, to one where public readonly props can be used
+        $config->setLazyGhostObjectEnabled(true);
 
         return $config;
     }

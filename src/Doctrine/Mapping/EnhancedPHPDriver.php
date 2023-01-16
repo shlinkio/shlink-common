@@ -10,8 +10,8 @@ class EnhancedPHPDriver extends PHPDriver
 {
     public function __construct( // phpcs:ignore
         $locator,
-        private array $emConfig,
-        private bool $loadMappingsUsingFunctionalStyle = false,
+        private readonly array $emConfig,
+        private readonly bool $loadMappingsUsingFunctionalStyle = false,
     ) {
         parent::__construct($locator);
     }
