@@ -74,6 +74,7 @@ class EntityManagerFactoryTest extends TestCase
         self::assertEquals(__DIR__, $em->getConfiguration()->getProxyDir());
         self::assertInstanceOf(SQLiteDriver::class, $em->getConnection()->getDriver());
         self::assertEquals($expectedDefaultRepo, $em->getConfiguration()->getDefaultRepositoryClassName());
+        self::assertTrue($em->getConfiguration()->isLazyGhostObjectEnabled());
 
         /** @var PHPDriver $metaDriver */
         $metaDriver = $em->getConfiguration()->getMetadataDriverImpl();
