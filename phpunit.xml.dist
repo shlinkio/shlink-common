@@ -17,6 +17,7 @@
         </include>
         <exclude>
             <file>./src/Entity/AbstractEntity.php</file>
+            <file>./src/Cache/ShlinkPredisClient.php</file>
         </exclude>
     </coverage>
 </phpunit>

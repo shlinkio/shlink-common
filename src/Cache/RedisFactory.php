@@ -27,7 +27,7 @@ class RedisFactory
         $servers = $this->resolveServers($redisConfig);
         $options = $this->resolveOptions($redisConfig, $servers);
 
-        return new PredisClient($servers, $options);
+        return new ShlinkPredisClient($servers, $options);
     }
 
     private function resolveServers(array $redisConfig): array
