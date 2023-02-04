@@ -77,12 +77,20 @@ class RedisFactoryTest extends TestCase
         yield 'cluster of servers as string with spaces' => [[
             'servers' => 'tcp://1.1.1.1:6379, tcp://2.2.2.2:6379 , tcp://3.3.3.3:6379',
         ], RedisCluster::class, MasterSlaveReplication::class];
+        yield 'single sentinel as string' => [[
+            'servers' => 'tcp://1.1.1.1:26379',
+            'sentinel_service' => 'foo',
+        ], PredisCluster::class, SentinelReplication::class];
+        yield 'single sentinel as array' => [[
+            'servers' => ['tcp://1.1.1.1:26379'],
+            'sentinel_service' => 'foo',
+        ], PredisCluster::class, SentinelReplication::class];
         yield 'cluster of sentinels' => [[
-            'servers' => ['tcp://1.1.1.1:6379', 'tcp://2.2.2.2:6379'],
+            'servers' => ['tcp://1.1.1.1:26379', 'tcp://2.2.2.2:26379'],
             'sentinel_service' => 'foo',
         ], PredisCluster::class, SentinelReplication::class];
         yield 'cluster of sentinels with ACL' => [[
-            'servers' => ['tcp://foo:bar@1.1.1.1:6379', 'tcp://foo2:bar2@2.2.2.2:6379'],
+            'servers' => ['tcp://foo:bar@1.1.1.1:26379', 'tcp://foo2:bar2@2.2.2.2:26379'],
             'sentinel_service' => 'foo',
         ], PredisCluster::class, SentinelReplication::class];
     }
