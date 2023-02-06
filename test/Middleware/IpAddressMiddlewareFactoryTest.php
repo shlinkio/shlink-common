@@ -44,7 +44,7 @@ class IpAddressMiddlewareFactoryTest extends TestCase
         self::assertEquals($expectedHeadersToInspect, $headersToInspect->getValue($instance));
     }
 
-    public function provideConfigs(): iterable
+    public static function provideConfigs(): iterable
     {
         $defaultHeadersToInspect = [
             'Forwarded',

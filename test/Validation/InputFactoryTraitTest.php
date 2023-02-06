@@ -151,7 +151,7 @@ class InputFactoryTraitTest extends TestCase
         self::assertContains(Filter\PregReplace::class, $filters);
     }
 
-    public function provideInputArgs(): iterable
+    public static function provideInputArgs(): iterable
     {
         yield [['foo', true], true];
         yield [['foo', false], false];

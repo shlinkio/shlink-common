@@ -26,7 +26,7 @@ class ResponseUtilsTraitTest extends TestCase
         self::assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
     }
 
-    public function provideFiles(): iterable
+    public static function provideFiles(): iterable
     {
         yield ['image/png', '2433', __DIR__ . '/../../test-resources/shlink-logo.png'];
         yield ['text/plain', '20', __DIR__ . '/../../test-resources/text-file.txt'];

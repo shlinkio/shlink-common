@@ -54,7 +54,7 @@ class EntityRepositoryFactoryTest extends TestCase
         self::assertInstanceOf($repoClass, $repoInstance);
     }
 
-    public function provideValidRepoNames(): iterable
+    public static function provideValidRepoNames(): iterable
     {
         yield [MockRepository::class];
         yield [ExtendedMockRepository::class];

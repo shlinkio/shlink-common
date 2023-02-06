@@ -19,7 +19,7 @@ class InvalidLoggerExceptionTest extends TestCase
         self::assertEquals($expectedMessage, $e->getMessage());
     }
 
-    public function provideNames(): iterable
+    public static function provideNames(): iterable
     {
         yield [
             'foo',
@@ -48,7 +48,7 @@ class InvalidLoggerExceptionTest extends TestCase
         self::assertEquals($expectedMessage, $e->getMessage());
     }
 
-    public function provideTypes(): iterable
+    public static function provideTypes(): iterable
     {
         yield ['foo', 'Provided logger type "foo" is not valid. Expected one of ["file", "stream"]'];
         yield ['bar', 'Provided logger type "bar" is not valid. Expected one of ["file", "stream"]'];

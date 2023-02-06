@@ -41,7 +41,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
         self::assertEquals($expected, $result->message);
     }
 
-    public function providePlaceholderRecords(): iterable
+    public static function providePlaceholderRecords(): iterable
     {
         yield ['Hello World with placeholder {e}', 'Hello World with placeholder ' . PHP_EOL . '{e}'];
         yield ['{e} Shlink', PHP_EOL . '{e} Shlink'];

@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Http;
 use GuzzleHttp\HandlerStack;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use ReflectionObject;
@@ -54,38 +55,38 @@ class HttpClientFactoryTest extends TestCase
         self::assertCount($expectedMiddlewaresAmount + self::BASE_HANDLERS_COUNT, $stack->getValue($handler));
     }
 
-    public function provideConfig(): iterable
+    public static function provideConfig(): iterable
     {
         $staticMiddleware = static function (): void {
         };
 
-        yield [[], 0, $this->once()];
-        yield [['request_middlewares' => []], 0, $this->once()];
-        yield [['response_middlewares' => []], 0, $this->once()];
+        yield [[], 0, new InvokedCount(1)];
+        yield [['request_middlewares' => []], 0, new InvokedCount(1)];
+        yield [['response_middlewares' => []], 0, new InvokedCount(1)];
         yield [[
             'request_middlewares' => [],
             'response_middlewares' => [],
-        ], 0, $this->once()];
+        ], 0, new InvokedCount(1)];
         yield [[
             'request_middlewares' => ['some_middleware'],
             'response_middlewares' => [],
-        ], 1, $this->exactly(2)];
+        ], 1, new InvokedCount(2)];
         yield [[
             'request_middlewares' => [],
             'response_middlewares' => ['some_middleware'],
-        ], 1, $this->exactly(2)];
+        ], 1, new InvokedCount(2)];
         yield [[
             'request_middlewares' => ['some_middleware'],
             'response_middlewares' => ['some_middleware'],
-        ], 2, $this->exactly(3)];
+        ], 2, new InvokedCount(3)];
         yield [[
             'request_middlewares' => [$staticMiddleware],
             'response_middlewares' => ['some_middleware'],
-        ], 2, $this->exactly(2)];
+        ], 2, new InvokedCount(2)];
         yield [[
             'request_middlewares' => ['some_middleware', $staticMiddleware],
             'response_middlewares' => [$staticMiddleware, 'some_middleware'],
-        ], 4, $this->exactly(3)];
+        ], 4, new InvokedCount(3)];
     }
 
     /**
@@ -122,7 +123,7 @@ class HttpClientFactoryTest extends TestCase
         ($this->factory)($this->container);
     }
 
-    public function provideInvalidMiddlewares(): iterable
+    public static function provideInvalidMiddlewares(): iterable
     {
         yield [1234];
         yield [new stdClass()];

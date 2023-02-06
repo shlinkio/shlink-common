@@ -47,7 +47,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         self::assertSame($instance, $result);
     }
 
-    public function provideInstances(): iterable
+    public static function provideInstances(): iterable
     {
         $loggerAware = new class implements Log\LoggerAwareInterface {
             public function setLogger(LoggerInterface $logger): void

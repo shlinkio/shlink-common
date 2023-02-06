@@ -25,7 +25,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         self::assertEquals($expectedSerialization, $result);
     }
 
-    public function providePaginatorAdapters(): iterable
+    public static function providePaginatorAdapters(): iterable
     {
         yield 'empty' => [
             [
@@ -96,7 +96,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         self::assertArrayHasKey($prop, $result);
     }
 
-    public function provideDataProps(): iterable
+    public static function provideDataProps(): iterable
     {
         yield 'foo' => ['foo'];
         yield 'bar' => ['bar'];
@@ -115,7 +115,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         self::assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
     }
 
-    public function providePaginatorsToFormat(): iterable
+    public static function providePaginatorsToFormat(): iterable
     {
         yield [
             'Page "5" out of "10"',

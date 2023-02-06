@@ -40,7 +40,7 @@ class HubFactoryTest extends TestCase
         ($this->factory)($this->container);
     }
 
-    public function provideInvalidConfigs(): iterable
+    public static function provideInvalidConfigs(): iterable
     {
         yield 'empty config' => [[]];
         yield 'empty mercure' => [['mercure' => []]];
@@ -76,7 +76,7 @@ class HubFactoryTest extends TestCase
         self::assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($hub));
     }
 
-    public function provideValidConfigs(): iterable
+    public static function provideValidConfigs(): iterable
     {
         yield 'with internal url' => [['mercure' => [
             'internal_hub_url' => $url = 'http://foo.com',

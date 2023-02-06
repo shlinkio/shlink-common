@@ -61,7 +61,7 @@ class LoggerFactoryTest extends TestCase
         LoggerFactory::foo($this->container); // @phpstan-ignore-line
     }
 
-    public function provideConfigWithInvalidType(): iterable
+    public static function provideConfigWithInvalidType(): iterable
     {
         yield 'no type' => [[]];
         yield 'invalid type' => [['type' => 'invalid']];
@@ -89,7 +89,7 @@ class LoggerFactoryTest extends TestCase
         $assertConfig($handlers[0]);
     }
 
-    public function provideTypes(): iterable
+    public static function provideTypes(): iterable
     {
         yield [
             ['type' => LoggerType::FILE->value],
@@ -148,7 +148,7 @@ class LoggerFactoryTest extends TestCase
         self::assertCount($expectedAmountOfProcessors + 2, $processors);
     }
 
-    public function provideExtraProcessors(): iterable
+    public static function provideExtraProcessors(): iterable
     {
         yield [[], 0];
         yield [['processors' => []], 0];
@@ -175,7 +175,7 @@ class LoggerFactoryTest extends TestCase
         self::assertEquals($expectedLevel, $handlers[0]->getLevel());
     }
 
-    public function provideLevelConfig(): iterable
+    public static function provideLevelConfig(): iterable
     {
         yield 'no config' => [[], Level::Info];
         yield 'invalid level' => [['level' => 30000], Level::Info];

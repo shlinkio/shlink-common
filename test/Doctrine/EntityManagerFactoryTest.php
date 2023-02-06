@@ -94,7 +94,7 @@ class EntityManagerFactoryTest extends TestCase
         self::assertEquals($expectedListeners, $listenersCount);
     }
 
-    public function provideConfig(): iterable
+    public static function provideConfig(): iterable
     {
         $baseConfig = [
             'entity_manager' => [

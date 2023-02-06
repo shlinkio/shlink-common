@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Doctrine;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 class NoDbNameConnectionFactory
@@ -13,10 +14,11 @@ class NoDbNameConnectionFactory
 
     public function __invoke(ContainerInterface $container): Connection
     {
-        $conn = $container->get(Connection::class);
+        $em = $container->get(EntityManager::class);
+        $conn = $em->getConnection();
         $params = $conn->getParams();
         unset($params['dbname']);
 
-        return new Connection($params, $conn->getDriver(), $conn->getConfiguration(), $conn->getEventManager());
+        return new Connection($params, $conn->getDriver(), $conn->getConfiguration(), $em->getEventManager());
     }
 }

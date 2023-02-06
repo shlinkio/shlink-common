@@ -26,7 +26,7 @@ class OrderByFilterTest extends TestCase
         self::assertEquals($expectedResult, $this->filter->filter($value));
     }
 
-    public function provideValuesToFilter(): iterable
+    public static function provideValuesToFilter(): iterable
     {
         $defaultValue = [null, null];
 

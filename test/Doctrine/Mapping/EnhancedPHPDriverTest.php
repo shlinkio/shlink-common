@@ -38,10 +38,10 @@ class EnhancedPHPDriverTest extends TestCase
         $driver->loadMetadataForClass(stdClass::class, $this->meta);
     }
 
-    public function provideFuncStyle(): iterable
+    public static function provideFuncStyle(): iterable
     {
-        yield 'func style' => [[true], $this->once()];
-        yield 'no func style' => [[false], $this->never()];
-        yield 'default func style' => [[], $this->never()];
+        yield 'func style' => [[true], new InvokedCount(1)];
+        yield 'no func style' => [[false], new InvokedCount(0)];
+        yield 'default func style' => [[], new InvokedCount(0)];
     }
 }

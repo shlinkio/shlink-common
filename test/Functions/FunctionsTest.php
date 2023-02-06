@@ -24,7 +24,7 @@ class FunctionsTest extends TestCase
         self::assertSame($endDate, $dateRange->endDate);
     }
 
-    public function provideDates(): iterable
+    public static function provideDates(): iterable
     {
         yield 'allTime' => [null, null, true];
         yield 'since' => [Chronos::now(), null, false];

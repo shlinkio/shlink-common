@@ -51,7 +51,7 @@ class CacheFactoryTest extends TestCase
         self::assertInstanceOf($expectedAdapterClass, $cache);
     }
 
-    public function provideCacheConfig(): iterable
+    public static function provideCacheConfig(): iterable
     {
         $withApcu = const_function(true);
         $withoutApcu = const_function(false);

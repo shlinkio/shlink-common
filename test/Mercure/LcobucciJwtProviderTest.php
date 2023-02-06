@@ -35,7 +35,7 @@ class LcobucciJwtProviderTest extends TestCase
         self::assertEquals(['publish' => ['*']], $token->claims()->get('mercure'));
     }
 
-    public function provideMercureConfigs(): iterable
+    public static function provideMercureConfigs(): iterable
     {
         yield 'without issuer' => [[], 'Shlink'];
         yield 'with issuer' => [['jwt_issuer' => $issuer = 'foobar'], $issuer];
@@ -56,7 +56,7 @@ class LcobucciJwtProviderTest extends TestCase
         self::assertEquals(['subscribe' => ['*']], $token->claims()->get('mercure'));
     }
 
-    public function provideExpirationDates(): iterable
+    public static function provideExpirationDates(): iterable
     {
         yield 'default expiration' => [null, Chronos::now()->addDays(3)];
         yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires];

@@ -25,7 +25,7 @@ class ExcludingValidatorChainTest extends TestCase
         self::assertEquals($expected, ($chain)($value));
     }
 
-    public function provideValidatorsLists(): iterable
+    public static function provideValidatorsLists(): iterable
     {
         yield [
             [

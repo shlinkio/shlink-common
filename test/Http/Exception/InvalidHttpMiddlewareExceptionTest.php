@@ -20,7 +20,7 @@ class InvalidHttpMiddlewareExceptionTest extends TestCase
         self::assertEquals($expectedMessage, $e->getMessage());
     }
 
-    public function provideMessages(): iterable
+    public static function provideMessages(): iterable
     {
         yield [new stdClass(), 'Provided middleware does not have a valid type. Expected callable, stdClass provided'];
         yield ['foobar', 'Provided middleware does not have a valid type. Expected callable, string provided'];

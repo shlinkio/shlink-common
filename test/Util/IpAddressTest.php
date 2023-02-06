@@ -26,7 +26,7 @@ class IpAddressTest extends TestCase
         IpAddress::fromString($invalidAddress);
     }
 
-    public function provideInvalidAddresses(): iterable
+    public static function provideInvalidAddresses(): iterable
     {
         yield [''];
         yield ['1'];
@@ -74,7 +74,7 @@ class IpAddressTest extends TestCase
         self::assertEquals(0, $this->getPropFromIpAddress($anonymizedAddress, 'fourthOctet'));
     }
 
-    public function provideValidAddresses(): iterable
+    public static function provideValidAddresses(): iterable
     {
         yield ['1.1.1.1', '1', '1', '1', '1'];
         yield ['2.2.2.2', '2', '2', '2', '2'];

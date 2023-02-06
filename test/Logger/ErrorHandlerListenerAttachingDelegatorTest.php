@@ -47,7 +47,7 @@ class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
         self::assertTrue($callbackInvoked);
     }
 
-    public function provideConfig(): iterable
+    public static function provideConfig(): iterable
     {
         yield [0, []];
         yield [0, ['error_handler' => []]];

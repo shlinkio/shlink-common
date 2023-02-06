@@ -55,7 +55,7 @@ class ChronosDateTimeTypeTest extends TestCase
         }
     }
 
-    public function provideValues(): iterable
+    public static function provideValues(): iterable
     {
         yield 'null date' => [null, null];
         yield 'human friendly date' => ['now', Chronos::class];
@@ -74,7 +74,7 @@ class ChronosDateTimeTypeTest extends TestCase
         self::assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform));
     }
 
-    public function providePhpValues(): iterable
+    public static function providePhpValues(): iterable
     {
         yield 'null date' => [null, null];
         yield 'DateTimeImmutable date' => [new DateTimeImmutable('2017-01-01'), '2017-01-01'];

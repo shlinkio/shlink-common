@@ -27,7 +27,7 @@ class OrderByValidatorTest extends TestCase
         self::assertEquals($expectedErrors, $this->validator->getMessages());
     }
 
-    public function provideInvalidValues(): iterable
+    public static function provideInvalidValues(): iterable
     {
         $invalidTypeError = ['INVALID_TYPE' => 'Provided value is not an array or does not have at least 2 elements.'];
 
@@ -50,7 +50,7 @@ class OrderByValidatorTest extends TestCase
         self::assertTrue($this->validator->isValid($value));
     }
 
-    public function provideValidValues(): iterable
+    public static function provideValidValues(): iterable
     {
         yield [['foo', 'ASC']];
         yield [['foo', 'DESC']];

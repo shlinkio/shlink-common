@@ -37,7 +37,7 @@ class SluggerFilterTest extends TestCase
         self::assertEquals($expectedValue, $result);
     }
 
-    public function provideValuesToFilter(): iterable
+    public static function provideValuesToFilter(): iterable
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', 'slug'];
@@ -54,7 +54,7 @@ class SluggerFilterTest extends TestCase
         self::assertEquals($expectedValue, $filter->filter($providedValue));
     }
 
-    public function provideValuesToFilterWithCasing(): iterable
+    public static function provideValuesToFilterWithCasing(): iterable
     {
         yield ['FoO baR', 'FoO-baR'];
         yield ['  FoO/bar', 'FoO-bar'];

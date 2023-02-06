@@ -50,7 +50,7 @@ class RedisFactoryTest extends TestCase
         self::assertInstanceOf($expectedReplication, ($client->getOptions()->replication)([]));
     }
 
-    public function provideRedisConfig(): iterable
+    public static function provideRedisConfig(): iterable
     {
         yield 'no config' => [null, PredisCluster::class, MasterSlaveReplication::class];
         yield 'single server as string' => [[
@@ -134,7 +134,7 @@ class RedisFactoryTest extends TestCase
         self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
     }
 
-    public function provideServersWithCredentials(): iterable
+    public static function provideServersWithCredentials(): iterable
     {
         yield 'no credentials' => ['tcp://1.1.1.1:6379', null, null];
         yield 'password only' => ['tcp://foo:bar@1.1.1.1:6379', 'foo', 'bar'];

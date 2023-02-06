@@ -34,7 +34,7 @@ class PaginatorTest extends TestCase
         self::assertEquals($maxPage, $this->paginator->getMaxPerPage());
     }
 
-    public function providePositiveNumbers(): iterable
+    public static function providePositiveNumbers(): iterable
     {
         return [[5], [15], [32], [1], [8]];
     }
@@ -54,7 +54,7 @@ class PaginatorTest extends TestCase
         self::assertEquals($expected, $this->paginator->getMaxPerPage());
     }
 
-    public function provideNonPositiveNumbers(): iterable
+    public static function provideNonPositiveNumbers(): iterable
     {
         return [[-3], [-25], [0], [-1]];
     }
@@ -72,7 +72,7 @@ class PaginatorTest extends TestCase
         self::assertEquals(1, $this->paginator->getMaxPerPage());
     }
 
-    public function provideEmptyAdapterResults(): iterable
+    public static function provideEmptyAdapterResults(): iterable
     {
         return [[-3], [-25], [0], [-1]];
     }

@@ -38,7 +38,7 @@ class JwtConfigFactoryTest extends TestCase
         ($this->factory)($this->container);
     }
 
-    public function provideInvalidConfigs(): iterable
+    public static function provideInvalidConfigs(): iterable
     {
         yield 'empty config' => [[]];
         yield 'empty mercure config' => [['mercure' => []]];
