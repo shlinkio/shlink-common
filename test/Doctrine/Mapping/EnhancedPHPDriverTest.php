@@ -6,6 +6,8 @@ namespace ShlinkioTest\Shlink\Common\Doctrine\Mapping;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\FileLocator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\TestCase;
@@ -26,10 +28,7 @@ class EnhancedPHPDriverTest extends TestCase
         $this->meta = $this->createMock(ClassMetadata::class);
     }
 
-    /**
-     * @test
-     * @dataProvider provideFuncStyle
-     */
+    #[Test, DataProvider('provideFuncStyle')]
     public function internalFunctionIsInvokedBasedOnFunctionalStyle(array $args, InvokedCount $metaExpectedCalls): void
     {
         $this->meta->expects($metaExpectedCalls)->method('getFieldNames');

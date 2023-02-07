@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -26,7 +27,7 @@ class ConnectionFactoryTest extends TestCase
         $this->factory = new ConnectionFactory();
     }
 
-    /** @test */
+    #[Test]
     public function properServiceFallbackOccursWhenInvoked(): void
     {
         $connection = $this->createMock(Connection::class);

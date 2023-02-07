@@ -6,6 +6,8 @@ namespace ShlinkioTest\Shlink\Common\Paginator\Util;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Paginator\Util\PagerfantaUtilsTrait;
 
@@ -15,10 +17,7 @@ class PagerfantaUtilsTraitTest extends TestCase
 {
     use PagerfantaUtilsTrait;
 
-    /**
-     * @test
-     * @dataProvider providePaginatorAdapters
-     */
+    #[Test, DataProvider('providePaginatorAdapters')]
     public function paginatorIsSerializedAsExpected(array $expectedSerialization, Pagerfanta $paginator): void
     {
         $result = $this->serializePaginator($paginator);
@@ -84,10 +83,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider provideDataProps
-     */
+    #[Test, DataProvider('provideDataProps')]
     public function paginatorIsSerializedWithExpectedDataProp(string $prop): void
     {
         $result = $this->serializePaginator(new Pagerfanta(new ArrayAdapter([])), null, $prop);
@@ -103,10 +99,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         yield 'something' => ['something'];
     }
 
-    /**
-     * @test
-     * @dataProvider providePaginatorsToFormat
-     */
+    #[Test, DataProvider('providePaginatorsToFormat')]
     public function pageMessageIsProperlyFormatted(
         string $expectedMessage,
         string $pattern,

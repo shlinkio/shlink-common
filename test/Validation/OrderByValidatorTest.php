@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\OrderByValidator;
 use stdClass;
@@ -17,10 +19,7 @@ class OrderByValidatorTest extends TestCase
         $this->validator = new OrderByValidator(['foo', 'bar', 'somethingElse']);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInvalidValues
-     */
+    #[Test, DataProvider('provideInvalidValues')]
     public function expectedErrorIsReturnedIfValueIsNotValid(mixed $value, array $expectedErrors): void
     {
         self::assertFalse($this->validator->isValid($value));
@@ -41,10 +40,7 @@ class OrderByValidatorTest extends TestCase
         yield [['foo', 'bar'], ['INVALID_ORDER_DIR' => 'Resolved order direction has to be one of ["ASC", "DESC"].']];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidValues
-     */
+    #[Test, DataProvider('provideValidValues')]
     public function successIsReturnedIfValueIsValid(array $value): void
     {
         self::assertTrue($this->validator->isValid($value));

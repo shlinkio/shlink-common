@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Logger\Exception;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
 
 class InvalidLoggerExceptionTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideNames
-     */
+    #[Test, DataProvider('provideNames')]
     public function fromInvalidNameBuildsExpectedException(string $name, string $expectedMessage): void
     {
         $e = InvalidLoggerException::fromInvalidName($name);
@@ -38,10 +37,7 @@ class InvalidLoggerExceptionTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider provideTypes
-     */
+    #[Test, DataProvider('provideTypes')]
     public function fromInvalidTypeBuildsExpectedException(string $type, string $expectedMessage): void
     {
         $e = InvalidLoggerException::fromInvalidType($type);

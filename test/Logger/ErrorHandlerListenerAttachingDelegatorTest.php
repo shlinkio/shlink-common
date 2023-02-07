@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Logger;
 
 use Laminas\Stratigility\Middleware\ErrorHandler;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -23,10 +25,7 @@ class ErrorHandlerListenerAttachingDelegatorTest extends TestCase
         $this->delegator = new ErrorHandlerListenerAttachingDelegator();
     }
 
-    /**
-     * @test
-     * @dataProvider provideConfig
-     */
+    #[Test, DataProvider('provideConfig')]
     public function attachesAllRegisteredListeners(int $expectedCalls, array $config): void
     {
         $listener = function (): void {

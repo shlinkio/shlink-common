@@ -11,6 +11,8 @@ use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use stdClass;
@@ -30,7 +32,7 @@ class ChronosDateTimeTypeTest extends TestCase
         $this->type = Type::getType(ChronosDateTimeType::CHRONOS_DATETIME); // @phpstan-ignore-line
     }
 
-    /** @test */
+    #[Test]
     public function nameIsReturned(): void
     {
         self::assertEquals(ChronosDateTimeType::CHRONOS_DATETIME, $this->type->getName());
@@ -38,9 +40,8 @@ class ChronosDateTimeTypeTest extends TestCase
 
     /**
      * @param class-string<Chronos>|null $expected
-     * @test
-     * @dataProvider provideValues
      */
+    #[Test, DataProvider('provideValues')]
     public function valueIsConverted(?string $value, ?string $expected): void
     {
         $platform = $this->createMock(AbstractPlatform::class);
@@ -62,10 +63,7 @@ class ChronosDateTimeTypeTest extends TestCase
         yield 'numeric date' => ['2017-01-01', Chronos::class];
     }
 
-    /**
-     * @test
-     * @dataProvider providePhpValues
-     */
+    #[Test, DataProvider('providePhpValues')]
     public function valueIsConvertedToDatabaseFormat(?DateTimeInterface $value, ?string $expected): void
     {
         $platform = $this->createMock(AbstractPlatform::class);
@@ -82,7 +80,7 @@ class ChronosDateTimeTypeTest extends TestCase
         yield 'DateTime date' => [new DateTime('2017-03-01'), '2017-03-01'];
     }
 
-    /** @test */
+    #[Test]
     public function exceptionIsThrownIfInvalidValueIsParsedToDatabase(): void
     {
         $this->expectException(ConversionException::class);

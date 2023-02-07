@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 use ReflectionObject;
@@ -48,10 +50,7 @@ class EntityManagerFactoryTest extends TestCase
         $this->factory = new EntityManagerFactory();
     }
 
-    /**
-     * @test
-     * @dataProvider provideConfig
-     */
+    #[Test, DataProvider('provideConfig')]
     public function serviceIsCreated(
         array $config,
         int $expectedAutoGenerateProxies,

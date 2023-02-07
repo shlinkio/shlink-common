@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Predis\ClientInterface as PredisClient;
@@ -26,9 +28,8 @@ class CacheFactoryTest extends TestCase
 
     /**
      * @param class-string<AdapterInterface> $expectedAdapterClass
-     * @test
-     * @dataProvider provideCacheConfig
      */
+    #[Test, DataProvider('provideCacheConfig')]
     public function expectedCacheAdapterIsReturned(
         array $config,
         string $expectedAdapterClass,

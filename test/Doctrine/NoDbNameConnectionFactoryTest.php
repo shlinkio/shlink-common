@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -28,7 +29,7 @@ class NoDbNameConnectionFactoryTest extends TestCase
         $this->factory = new NoDbNameConnectionFactory();
     }
 
-    /** @test */
+    #[Test]
     public function newConnectionIsCreatedRemovingDbNameFromOriginalConnectionParams(): void
     {
         $params = [

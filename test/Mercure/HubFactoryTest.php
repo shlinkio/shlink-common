@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -24,10 +26,7 @@ class HubFactoryTest extends TestCase
         $this->factory = new HubFactory();
     }
 
-    /**
-     * @test
-     * @dataProvider provideInvalidConfigs
-     */
+    #[Test, DataProvider('provideInvalidConfigs')]
     public function throwsExceptionWhenNoHubUrlIsConfigured(array $config): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn($config);
@@ -56,10 +55,7 @@ class HubFactoryTest extends TestCase
         ]]];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidConfigs
-     */
+    #[Test, DataProvider('provideValidConfigs')]
     public function returnsExpectedObjectIfProperConfigIsFound(array $config, string $expectedHubUrl): void
     {
         $this->container->expects($this->exactly(2))->method('get')->willReturnMap([

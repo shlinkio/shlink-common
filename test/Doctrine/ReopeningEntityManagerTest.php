@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 
 class ReopeningEntityManagerTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideWrapped
-     */
+    #[Test, DataProvider('provideWrapped')]
     public function wrappedEntityManagerIsOnlyRecreatedWhenCurrentOneIsClosed(
         callable $wrappedEntityManagerCreator,
         bool $shouldRecreate,

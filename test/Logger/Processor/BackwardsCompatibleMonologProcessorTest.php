@@ -8,6 +8,7 @@ use Cake\Chronos\Chronos;
 use Closure;
 use Monolog\Level;
 use Monolog\LogRecord;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Logger\Processor\BackwardsCompatibleMonologProcessor;
 
@@ -22,7 +23,7 @@ class BackwardsCompatibleMonologProcessorTest extends TestCase
         $this->processor = new BackwardsCompatibleMonologProcessor(Closure::fromCallable(id(...)));
     }
 
-    /** @test */
+    #[Test]
     public function argumentAndResultAreParsed(): void
     {
         $record = new LogRecord(Chronos::now(), '', Level::Info, 'The log message');

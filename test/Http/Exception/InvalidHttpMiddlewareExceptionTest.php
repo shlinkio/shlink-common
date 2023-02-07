@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Http\Exception;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Http\Exception\InvalidHttpMiddlewareException;
 use stdClass;
 
 class InvalidHttpMiddlewareExceptionTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideMessages
-     */
+    #[Test, DataProvider('provideMessages')]
     public function exceptionIsCreatedAsExpected(mixed $middleware, string $expectedMessage): void
     {
         $e = InvalidHttpMiddlewareException::fromMiddleware($middleware);

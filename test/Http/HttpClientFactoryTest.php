@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Http;
 
 use GuzzleHttp\HandlerStack;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
@@ -30,10 +32,7 @@ class HttpClientFactoryTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    /**
-     * @test
-     * @dataProvider provideConfig
-     */
+    #[Test, DataProvider('provideConfig')]
     public function properlyCreatesAFactoryWithExpectedNumberOfMiddlewares(
         array $config,
         int $expectedMiddlewaresAmount,
@@ -89,10 +88,7 @@ class HttpClientFactoryTest extends TestCase
         ], 4, new InvokedCount(3)];
     }
 
-    /**
-     * @test
-     * @dataProvider provideInvalidMiddlewares
-     */
+    #[Test, DataProvider('provideInvalidMiddlewares')]
     public function exceptionIsThrownWhenNonCallableStaticMiddlewaresAreProvided(mixed $middleware): void
     {
 
@@ -105,10 +101,7 @@ class HttpClientFactoryTest extends TestCase
         ($this->factory)($this->container);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInvalidMiddlewares
-     */
+    #[Test, DataProvider('provideInvalidMiddlewares')]
     public function exceptionIsThrownWhenNonCallableServiceMiddlewaresAreProvided(mixed $middleware): void
     {
         $this->container->expects($this->exactly(2))->method('get')->willReturnMap([

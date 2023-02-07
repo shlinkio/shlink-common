@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Validation;
 
 use Laminas\Validator\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\HostAndPortValidator;
 use stdClass;
@@ -15,10 +17,7 @@ use function sprintf;
 
 class HostAndPortValidatorTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideInvalidValues
-     */
+    #[Test, DataProvider('provideInvalidValues')]
     public function failsToValidateWhenProvidedDataIsInvalid(string $value, string $expectedError): void
     {
         $validator = new HostAndPortValidator();
@@ -42,10 +41,7 @@ class HostAndPortValidatorTest extends TestCase
         yield ['example.com:-2000', 'The port part of the value is not valid. Must be a number between 1 and 65535'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidValues
-     */
+    #[Test, DataProvider('provideValidValues')]
     public function succeedsWhenProvidingValidValues(string $value): void
     {
         $validator = new HostAndPortValidator();
@@ -62,10 +58,7 @@ class HostAndPortValidatorTest extends TestCase
         yield ['example.com:65535'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideIncompatibleValues
-     */
+    #[Test, DataProvider('provideIncompatibleValues')]
     public function throwsExceptionWhenProvidedValuesIsNotString(mixed $value, string $expectedExceptionMessage): void
     {
         $validator = new HostAndPortValidator();

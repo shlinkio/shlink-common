@@ -13,6 +13,8 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -31,7 +33,7 @@ class LoggerFactoryTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    /** @test */
+    #[Test]
     public function anExceptionIsThrownWhenRequestedLoggerDoesNotHaveConfig(): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn(['logger' => []]);
@@ -45,10 +47,7 @@ class LoggerFactoryTest extends TestCase
         LoggerFactory::foo($this->container); // @phpstan-ignore-line
     }
 
-    /**
-     * @test
-     * @dataProvider provideConfigWithInvalidType
-     */
+    #[Test, DataProvider('provideConfigWithInvalidType')]
     public function anExceptionIsThrownWhenConfiguredTypeIsInvalid(array $config): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
@@ -69,9 +68,8 @@ class LoggerFactoryTest extends TestCase
 
     /**
      * @param class-string<ProcessableHandlerInterface> $expectedHandler
-     * @test
-     * @dataProvider provideTypes
      */
+    #[Test, DataProvider('provideTypes')]
     public function expectedHandlerIsCreated(array $config, string $expectedHandler, callable $assertConfig): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
@@ -129,10 +127,7 @@ class LoggerFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider provideExtraProcessors
-     */
+    #[Test, DataProvider('provideExtraProcessors')]
     public function extraProcessorsAreAdded(array $config, int $expectedAmountOfProcessors): void
     {
         $this->container->expects($this->exactly($expectedAmountOfProcessors + 1))->method('get')->willReturnCallback(
@@ -156,10 +151,7 @@ class LoggerFactoryTest extends TestCase
         yield [['processors' => ['one', 'two', 'three']], 3];
     }
 
-    /**
-     * @test
-     * @dataProvider provideLevelConfig
-     */
+    #[Test, DataProvider('provideLevelConfig')]
     public function expectedLevelIsSetBasedOnConfig(array $config, Level $expectedLevel): void
     {
         $this->container->method('get')->with('config')->willReturn(['logger' => [

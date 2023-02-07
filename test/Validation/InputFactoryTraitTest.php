@@ -7,6 +7,8 @@ namespace ShlinkioTest\Shlink\Common\Validation;
 use Laminas\Filter;
 use Laminas\InputFilter\Input;
 use Laminas\Validator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Validation\ExcludingValidatorChain;
@@ -21,10 +23,7 @@ class InputFactoryTraitTest extends TestCase
 {
     use InputFactoryTrait;
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function basicInputIsCreatedWithDefaultFilters(array $args, bool $required): void
     {
         $input = $this->createInput(...$args);
@@ -36,10 +35,7 @@ class InputFactoryTraitTest extends TestCase
         self::assertContains(Filter\StringTrim::class, $filters);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function arrayInputIsCreatedWithDefaultFilters(array $args, bool $required): void
     {
         $input = $this->createArrayInput(...$args);
@@ -51,10 +47,7 @@ class InputFactoryTraitTest extends TestCase
         self::assertContains(Filter\StringTrim::class, $filters);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function booleanInputIsCreatedAsExpected(array $args, bool $required): void
     {
         $input = $this->createBooleanInput(...$args);
@@ -84,10 +77,7 @@ class InputFactoryTraitTest extends TestCase
         ]), $notEmptyValidator->getType());
     }
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function dateInputIsCreatedAsExpected(array $args, bool $required): void
     {
         $input = $this->createDateInput(...$args);
@@ -113,10 +103,7 @@ class InputFactoryTraitTest extends TestCase
         self::assertInstanceOf(Validator\Date::class, $validators[1]);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function numericInputIsCreatedAsExpected(array $args, bool $required): void
     {
         $input = $this->createNumericInput(...$args);
@@ -132,10 +119,7 @@ class InputFactoryTraitTest extends TestCase
         self::assertInstanceOf(Validator\GreaterThan::class, $validators[1]['instance']);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInputArgs
-     */
+    #[Test, DataProvider('provideInputArgs')]
     public function tagsInputIsCreatedAsExpected(array $args, bool $required): void
     {
         $input = $this->createTagsInput(...$args);
@@ -158,7 +142,7 @@ class InputFactoryTraitTest extends TestCase
         yield [['foo'], true];
     }
 
-    /** @test */
+    #[Test]
     public function orderByInputIsCreatedAsExpected(): void
     {
         $input = $this->createOrderByInput('orderBy', ['foo', 'bar', 'somethingElse']);

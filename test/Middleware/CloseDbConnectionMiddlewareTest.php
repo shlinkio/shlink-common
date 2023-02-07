@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Middleware;
 use Doctrine\DBAL\Connection;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -30,7 +31,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         $this->middleware = new CloseDbConnectionMiddleware($this->em);
     }
 
-    /** @test */
+    #[Test]
     public function connectionIsClosedWhenMiddlewareIsProcessed(): void
     {
         $req = new ServerRequest();
@@ -46,7 +47,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
         self::assertSame($result, $resp);
     }
 
-    /** @test */
+    #[Test]
     public function connectionIsClosedEvenIfExceptionIsThrownOnInnerMiddlewares(): void
     {
         $req = new ServerRequest();

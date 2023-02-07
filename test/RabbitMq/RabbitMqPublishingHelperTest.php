@@ -9,6 +9,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
@@ -31,7 +32,7 @@ class RabbitMqPublishingHelperTest extends TestCase
         $this->helper = new RabbitMqPublishingHelper($this->connection);
     }
 
-    /** @test */
+    #[Test]
     public function expectedChannelsAreNotified(): void
     {
         $channel = 'foobar';
@@ -53,7 +54,7 @@ class RabbitMqPublishingHelperTest extends TestCase
         $this->helper->publishUpdate(Update::forTopicAndPayload($channel, $payload));
     }
 
-    /** @test */
+    #[Test]
     public function connectionIsClosedEvenInCaseOfError(): void
     {
         $channel = 'foobar';

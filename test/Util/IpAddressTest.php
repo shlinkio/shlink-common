@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Util;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
@@ -14,10 +16,7 @@ use function trim;
 
 class IpAddressTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideInvalidAddresses
-     */
+    #[Test, DataProvider('provideInvalidAddresses')]
     public function exceptionIsThrownWhenTryingToParseInvalidIp(string $invalidAddress): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -36,10 +35,7 @@ class IpAddressTest extends TestCase
         yield ['1.1.1.1.1.1'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidAddresses
-     */
+    #[Test, DataProvider('provideValidAddresses')]
     public function validAddressesAreProperlyParsed(
         string $validAddress,
         string $firstOctet,
@@ -56,10 +52,7 @@ class IpAddressTest extends TestCase
         self::assertEquals(trim($validAddress), (string) $address);
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidAddresses
-     */
+    #[Test, DataProvider('provideValidAddresses')]
     public function addressesRemoveLastOctetWhenAnonymized(
         string $validAddress,
         string $firstOctet,

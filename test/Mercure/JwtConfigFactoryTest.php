@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -22,10 +24,7 @@ class JwtConfigFactoryTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    /**
-     * @test
-     * @dataProvider provideInvalidConfigs
-     */
+    #[Test, DataProvider('provideInvalidConfigs')]
     public function throwsExceptionWhenProperConfigCouldNotBeFound(array $config): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn($config);
@@ -53,7 +52,7 @@ class JwtConfigFactoryTest extends TestCase
         ]]];
     }
 
-    /** @test */
+    #[Test]
     public function returnsExpectedObjectWhenProperConfigIsFound(): void
     {
         $secret = 'the _super_secure_secret';

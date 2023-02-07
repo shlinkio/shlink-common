@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Validation;
 
 use Laminas\Validator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\ExcludingValidatorChain;
 
 class ExcludingValidatorChainTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideValidatorsLists
-     */
+    #[Test, DataProvider('provideValidatorsLists')]
     public function validationPassesAsSoonAsOneWrappedValidatorPasses(
         array $validators,
         mixed $value,
@@ -53,7 +52,7 @@ class ExcludingValidatorChainTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function messagesFromAllNonPassingValidatorsAreWrappedUntilOnePasses(): void
     {
         $chain = new ExcludingValidatorChain(

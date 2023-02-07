@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Paginator;
 
 use Pagerfanta\Adapter\AdapterInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Paginator\Paginator;
@@ -22,9 +24,8 @@ class PaginatorTest extends TestCase
 
     /**
      * @param -1|int<1, max> $maxPage
-     * @test
-     * @dataProvider providePositiveNumbers
      */
+    #[Test, DataProvider('providePositiveNumbers')]
     public function setMaxBehavesAsUsualWhenPositiveNumberIsProvided(int $maxPage): void
     {
         $this->adapter->expects($this->never())->method('getNbResults');
@@ -41,9 +42,8 @@ class PaginatorTest extends TestCase
 
     /**
      * @param -1|int<1, max> $maxPage
-     * @test
-     * @dataProvider provideNonPositiveNumbers
      */
+    #[Test, DataProvider('provideNonPositiveNumbers')]
     public function setMaxFallsBackToAdapterWhenNonPositiveNumberIsProvided(int $maxPage): void
     {
         $expected = 35;
@@ -59,10 +59,7 @@ class PaginatorTest extends TestCase
         return [[-3], [-25], [0], [-1]];
     }
 
-    /**
-     * @test
-     * @dataProvider provideEmptyAdapterResults
-     */
+    #[Test, DataProvider('provideEmptyAdapterResults')]
     public function getMaxReturnsOneWhenAdapterReturnsEmpty(int $adapterNbResults): void
     {
         $this->adapter->expects($this->once())->method('getNbResults')->willReturn($adapterNbResults);

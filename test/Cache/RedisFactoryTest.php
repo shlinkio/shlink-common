@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Predis\Connection\Cluster\ClusterInterface;
@@ -30,9 +32,8 @@ class RedisFactoryTest extends TestCase
     /**
      * @param class-string<ClusterInterface> $expectedCluster
      * @param class-string<ReplicationInterface> $expectedReplication
-     * @test
-     * @dataProvider provideRedisConfig
      */
+    #[Test, DataProvider('provideRedisConfig')]
     public function createsRedisClientBasedOnCacheConfig(
         ?array $config,
         string $expectedCluster,
@@ -95,7 +96,7 @@ class RedisFactoryTest extends TestCase
         ], PredisCluster::class, SentinelReplication::class];
     }
 
-    /** @test */
+    #[Test]
     public function exceptionIsThrownIfServerUriHasInvalidFormat(): void
     {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
@@ -112,10 +113,7 @@ class RedisFactoryTest extends TestCase
         ($this->factory)($this->container);
     }
 
-    /**
-     * @test
-     * @dataProvider provideServersWithCredentials
-     */
+    #[Test, DataProvider('provideServersWithCredentials')]
     public function providedCredentialsArePassedToConnection(
         string $server,
         ?string $expectedUsername,

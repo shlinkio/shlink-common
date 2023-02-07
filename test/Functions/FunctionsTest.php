@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Functions;
 
 use Cake\Chronos\Chronos;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 use function Shlinkio\Shlink\Common\buildDateRange;
 
 class FunctionsTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideDates
-     */
+    #[Test, DataProvider('provideDates')]
     public function expectedDateRangeIsBuilt(?Chronos $startDate, ?Chronos $endDate, bool $expectedIsAllTime): void
     {
         $dateRange = buildDateRange($startDate, $endDate);

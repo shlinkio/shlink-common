@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
 use Laminas\Diactoros\ServerRequestFactory;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -25,7 +26,7 @@ class ContentLengthMiddlewareTest extends TestCase
         $this->handler = $this->createMock(RequestHandlerInterface::class);
     }
 
-    /** @test */
+    #[Test]
     public function responseIsReturnedAsIsWhenIsSwoole(): void
     {
         $this->isSwoole = true;
@@ -40,7 +41,7 @@ class ContentLengthMiddlewareTest extends TestCase
         self::assertSame($respMock, $result);
     }
 
-    /** @test */
+    #[Test]
     public function responseIsReturnedAsIsWhenItAlreadyHasContentLength(): void
     {
         $respMock = $this->createMock(ResponseInterface::class);
@@ -54,7 +55,7 @@ class ContentLengthMiddlewareTest extends TestCase
         self::assertSame($respMock, $result);
     }
 
-    /** @test */
+    #[Test]
     public function responseIsReturnedAsIsWhenBodySizeIsNull(): void
     {
         $respMock = $this->createMock(ResponseInterface::class);
@@ -71,7 +72,7 @@ class ContentLengthMiddlewareTest extends TestCase
         self::assertSame($respMock, $result);
     }
 
-    /** @test */
+    #[Test]
     public function responseIsReturnedWithNewHeaderWhenBodySizeIsNotNull(): void
     {
         $respMock = $this->createMock(ResponseInterface::class);
