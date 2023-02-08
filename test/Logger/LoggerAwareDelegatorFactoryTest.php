@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Logger;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -24,10 +26,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         $this->delegator = new LoggerAwareDelegatorFactory();
     }
 
-    /**
-     * @test
-     * @dataProvider provideInstances
-     */
+    #[Test, DataProvider('provideInstances')]
     public function injectsLoggerOnInstanceWhenImplementingLoggerAware(
         object $instance,
         bool $hasLogger,
@@ -47,7 +46,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
         self::assertSame($instance, $result);
     }
 
-    public function provideInstances(): iterable
+    public static function provideInstances(): iterable
     {
         $loggerAware = new class implements Log\LoggerAwareInterface {
             public function setLogger(LoggerInterface $logger): void

@@ -7,6 +7,8 @@ namespace ShlinkioTest\Shlink\Common\Logger\Processor;
 use Cake\Chronos\Chronos;
 use Monolog\Level;
 use Monolog\LogRecord;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Logger\Processor\ExceptionWithNewLineProcessor;
 
@@ -21,17 +23,14 @@ class ExceptionWithNewLineProcessorTest extends TestCase
         $this->processor = new ExceptionWithNewLineProcessor();
     }
 
-    /** @test */
+    #[Test]
     public function keepsRecordAsIsWhenNoPlaceholderExists(): void
     {
         $record = $this->createLogRecordWithMessage('Foo bar');
         self::assertSame($record, ($this->processor)($record));
     }
 
-    /**
-     * @test
-     * @dataProvider providePlaceholderRecords
-     */
+    #[Test, DataProvider('providePlaceholderRecords')]
     public function properlyReplacesExceptionPlaceholderAddingNewLine(string $message, string $expected): void
     {
         $record = $this->createLogRecordWithMessage($message);
@@ -41,7 +40,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
         self::assertEquals($expected, $result->message);
     }
 
-    public function providePlaceholderRecords(): iterable
+    public static function providePlaceholderRecords(): iterable
     {
         yield ['Hello World with placeholder {e}', 'Hello World with placeholder ' . PHP_EOL . '{e}'];
         yield ['{e} Shlink', PHP_EOL . '{e} Shlink'];

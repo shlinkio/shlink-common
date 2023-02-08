@@ -33,12 +33,15 @@ class ChronosDateTimeType extends DateTimeImmutableType
     }
 
     /**
+     * @param T $value
+     * @return (T is null ? null : string)
+     * @template T
      * @throws ConversionException
      */
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
-        if (null === $value) {
-            return $value;
+        if ($value === null) {
+            return null;
         }
 
         if ($value instanceof DateTimeInterface) {

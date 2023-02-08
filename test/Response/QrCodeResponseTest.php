@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Response;
 
 use Endroid\QrCode\Builder\Builder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Response\QrCodeResponse;
 
 class QrCodeResponseTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function providedQrCodeIsSetAsBody(): void
     {
         $qrCode = Builder::create()->data('Hello')->build();

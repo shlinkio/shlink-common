@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\OrderByFilter;
 use stdClass;
@@ -17,16 +19,13 @@ class OrderByFilterTest extends TestCase
         $this->filter = new OrderByFilter();
     }
 
-    /**
-     * @test
-     * @dataProvider provideValuesToFilter
-     */
+    #[Test, DataProvider('provideValuesToFilter')]
     public function filterReturnsExpectedValue(mixed $value, array $expectedResult): void
     {
         self::assertEquals($expectedResult, $this->filter->filter($value));
     }
 
-    public function provideValuesToFilter(): iterable
+    public static function provideValuesToFilter(): iterable
     {
         $defaultValue = [null, null];
 

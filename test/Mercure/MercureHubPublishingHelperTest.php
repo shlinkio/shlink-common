@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\MercureHubPublishingHelper;
@@ -22,7 +23,7 @@ class MercureHubPublishingHelperTest extends TestCase
         $this->helper = new MercureHubPublishingHelper($this->hub);
     }
 
-    /** @test */
+    #[Test]
     public function updatesAreForwardedToMercure(): void
     {
         $this->hub->expects($this->once())->method('publish')->with(

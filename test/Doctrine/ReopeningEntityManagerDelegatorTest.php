@@ -6,13 +6,14 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManagerDelegator;
 
 class ReopeningEntityManagerDelegatorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function decoratesEntityManagerFromCallback(): void
     {
         $em = $this->createMock(EntityManagerInterface::class);

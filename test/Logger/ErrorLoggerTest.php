@@ -7,6 +7,8 @@ namespace ShlinkioTest\Shlink\Common\Logger;
 use Exception;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -24,10 +26,7 @@ class ErrorLoggerTest extends TestCase
         $this->errorLogger = new ErrorLogger($this->logger);
     }
 
-    /**
-     * @test
-     * @dataProvider provideStatusCodes
-     */
+    #[Test, DataProvider('provideStatusCodes')]
     public function delegatesIntoInternalLoggerWhenInvoked(int $status, string $expectedLevel): void
     {
         $e = new Exception('Something wrong');
@@ -36,7 +35,7 @@ class ErrorLoggerTest extends TestCase
         ($this->errorLogger)($e, new ServerRequest(), (new Response())->withStatus($status));
     }
 
-    public function provideStatusCodes(): iterable
+    public static function provideStatusCodes(): iterable
     {
         yield 'status 500' => [500, LogLevel::ERROR];
         yield 'status 503' => [503, LogLevel::ERROR];

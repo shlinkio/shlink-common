@@ -6,6 +6,8 @@ namespace ShlinkioTest\Shlink\Common\Paginator\Util;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Paginator\Util\PagerfantaUtilsTrait;
 
@@ -15,17 +17,14 @@ class PagerfantaUtilsTraitTest extends TestCase
 {
     use PagerfantaUtilsTrait;
 
-    /**
-     * @test
-     * @dataProvider providePaginatorAdapters
-     */
+    #[Test, DataProvider('providePaginatorAdapters')]
     public function paginatorIsSerializedAsExpected(array $expectedSerialization, Pagerfanta $paginator): void
     {
         $result = $this->serializePaginator($paginator);
         self::assertEquals($expectedSerialization, $result);
     }
 
-    public function providePaginatorAdapters(): iterable
+    public static function providePaginatorAdapters(): iterable
     {
         yield 'empty' => [
             [
@@ -84,10 +83,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider provideDataProps
-     */
+    #[Test, DataProvider('provideDataProps')]
     public function paginatorIsSerializedWithExpectedDataProp(string $prop): void
     {
         $result = $this->serializePaginator(new Pagerfanta(new ArrayAdapter([])), null, $prop);
@@ -96,17 +92,14 @@ class PagerfantaUtilsTraitTest extends TestCase
         self::assertArrayHasKey($prop, $result);
     }
 
-    public function provideDataProps(): iterable
+    public static function provideDataProps(): iterable
     {
         yield 'foo' => ['foo'];
         yield 'bar' => ['bar'];
         yield 'something' => ['something'];
     }
 
-    /**
-     * @test
-     * @dataProvider providePaginatorsToFormat
-     */
+    #[Test, DataProvider('providePaginatorsToFormat')]
     public function pageMessageIsProperlyFormatted(
         string $expectedMessage,
         string $pattern,
@@ -115,7 +108,7 @@ class PagerfantaUtilsTraitTest extends TestCase
         self::assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
     }
 
-    public function providePaginatorsToFormat(): iterable
+    public static function providePaginatorsToFormat(): iterable
     {
         yield [
             'Page "5" out of "10"',

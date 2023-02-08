@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Util;
 
 use Cake\Chronos\Chronos;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Util\DateRange;
 
 class DateRangeTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function defaultConstructorSetDatesToNull(): void
     {
         $range = DateRange::allTime();
@@ -20,7 +21,7 @@ class DateRangeTest extends TestCase
         self::assertTrue($range->isAllTime());
     }
 
-    /** @test */
+    #[Test]
     public function providedDatesAreSet(): void
     {
         $startDate = Chronos::now()->subDays(3);
@@ -32,7 +33,7 @@ class DateRangeTest extends TestCase
         self::assertFalse($range->isAllTime());
     }
 
-    /** @test */
+    #[Test]
     public function isCreatedWithStartDate(): void
     {
         $startDate = Chronos::now();
@@ -43,7 +44,7 @@ class DateRangeTest extends TestCase
         self::assertSame($startDate, $range->startDate);
     }
 
-    /** @test */
+    #[Test]
     public function isCreatedWithEndDate(): void
     {
         $endDate = Chronos::now();

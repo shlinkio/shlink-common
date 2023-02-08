@@ -8,6 +8,8 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -40,9 +42,8 @@ class EntityRepositoryFactoryTest extends TestCase
 
     /**
      * @param class-string<object> $repoClass
-     * @test
-     * @dataProvider provideValidRepoNames
      */
+    #[Test, DataProvider('provideValidRepoNames')]
     public function createsRequestedRepositoryClass(string $repoClass): void
     {
         $this->em->expects($this->once())->method('getClassMetadata')->with(stdClass::class)->willReturn(
@@ -54,13 +55,13 @@ class EntityRepositoryFactoryTest extends TestCase
         self::assertInstanceOf($repoClass, $repoInstance);
     }
 
-    public function provideValidRepoNames(): iterable
+    public static function provideValidRepoNames(): iterable
     {
         yield [MockRepository::class];
         yield [ExtendedMockRepository::class];
     }
 
-    /** @test */
+    #[Test]
     public function throwsExceptionWhenInvalidRepoIsRequested(): void
     {
         $this->em->expects($this->never())->method('getClassMetadata');

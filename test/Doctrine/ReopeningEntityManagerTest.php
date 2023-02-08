@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Doctrine\ReopeningEntityManager;
 
 class ReopeningEntityManagerTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideWrapped
-     */
+    #[Test, DataProvider('provideWrapped')]
     public function wrappedEntityManagerIsOnlyRecreatedWhenCurrentOneIsClosed(
-        EntityManagerInterface $wrapped,
+        callable $wrappedEntityManagerCreator,
         bool $shouldRecreate,
     ): void {
+        $wrapped = $wrappedEntityManagerCreator($this);
         $factoryCalls = 0;
         $reopeningEm = new ReopeningEntityManager(static function () use ($wrapped, &$factoryCalls) {
             $factoryCalls++;
@@ -29,10 +29,10 @@ class ReopeningEntityManagerTest extends TestCase
         self::assertEquals($shouldRecreate, $factoryCalls === 2);
     }
 
-    public function provideWrapped(): iterable
+    public static function provideWrapped(): iterable
     {
-        $createEmMock = function (bool $isOpen): EntityManagerInterface {
-            $em = $this->createMock(EntityManagerInterface::class);
+        $createEmMock = static fn (bool $isOpen) => function (TestCase $test) use ($isOpen): EntityManagerInterface {
+            $em = $test->createMock(EntityManagerInterface::class);
             $em->method('isOpen')->willReturn($isOpen);
 
             return $em;

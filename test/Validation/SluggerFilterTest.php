@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Validation;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\SluggerFilter;
@@ -22,10 +24,7 @@ class SluggerFilterTest extends TestCase
         $this->filter = new SluggerFilter($this->slugger);
     }
 
-    /**
-     * @test
-     * @dataProvider provideValuesToFilter
-     */
+    #[Test, DataProvider('provideValuesToFilter')]
     public function providedValueIsFilteredAsExpected(?string $providedValue, ?string $expectedValue): void
     {
         $this->slugger->expects($this->exactly($expectedValue !== null ? 1 : 0))->method('slug')->with(
@@ -37,24 +36,21 @@ class SluggerFilterTest extends TestCase
         self::assertEquals($expectedValue, $result);
     }
 
-    public function provideValuesToFilter(): iterable
+    public static function provideValuesToFilter(): iterable
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', 'slug'];
         yield 'not empty string' => ['foo', 'slug'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValuesToFilterWithCasing
-     */
+    #[Test, DataProvider('provideValuesToFilterWithCasing')]
     public function internalSluggerKeepsCasing(string $providedValue, string $expectedValue): void
     {
         $filter = new SluggerFilter();
         self::assertEquals($expectedValue, $filter->filter($providedValue));
     }
 
-    public function provideValuesToFilterWithCasing(): iterable
+    public static function provideValuesToFilterWithCasing(): iterable
     {
         yield ['FoO baR', 'FoO-baR'];
         yield ['  FoO/bar', 'FoO-bar'];

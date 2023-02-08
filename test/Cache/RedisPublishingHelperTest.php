@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Predis\ClientInterface;
@@ -21,7 +22,7 @@ class RedisPublishingHelperTest extends TestCase
         $this->helper = new RedisPublishingHelper($this->predis);
     }
 
-    /** @test */
+    #[Test]
     public function publishingIsForwardedToRedisClient(): void
     {
         $this->predis->expects($this->once())->method('__call')->with('publish', ['foo', '{"bar":"baz"}']);

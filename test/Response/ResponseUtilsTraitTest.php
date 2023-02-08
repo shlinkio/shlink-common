@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Response;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Response\ResponseUtilsTrait;
 
@@ -11,10 +13,7 @@ class ResponseUtilsTraitTest extends TestCase
 {
     use ResponseUtilsTrait;
 
-    /**
-     * @test
-     * @dataProvider provideFiles
-     */
+    #[Test, DataProvider('provideFiles')]
     public function expectedBinaryResponsesAreGenerated(
         string $expectedType,
         string $expectedLength,
@@ -26,13 +25,13 @@ class ResponseUtilsTraitTest extends TestCase
         self::assertStringContainsString($expectedLength, $resp->getHeaderLine('Content-Length'));
     }
 
-    public function provideFiles(): iterable
+    public static function provideFiles(): iterable
     {
         yield ['image/png', '2433', __DIR__ . '/../../test-resources/shlink-logo.png'];
         yield ['text/plain', '20', __DIR__ . '/../../test-resources/text-file.txt'];
     }
 
-    /** @test */
+    #[Test]
     public function binaryResponsesIncludeExtraHeaders(): void
     {
         $resp = $this->generateBinaryResponse(__DIR__ . '/../../test-resources/shlink-logo.png', [

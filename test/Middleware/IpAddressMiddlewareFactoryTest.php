@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
 use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Middleware\IpAddressMiddlewareFactory;
@@ -18,10 +20,7 @@ class IpAddressMiddlewareFactoryTest extends TestCase
         $this->factory = new IpAddressMiddlewareFactory();
     }
 
-    /**
-     * @test
-     * @dataProvider provideConfigs
-     */
+    #[Test, DataProvider('provideConfigs')]
     public function returnedInstanceIsProperlyConfigured(array $config, array $expectedHeadersToInspect): void
     {
         $instance = ($this->factory)(new ServiceManager(['services' => [
@@ -44,7 +43,7 @@ class IpAddressMiddlewareFactoryTest extends TestCase
         self::assertEquals($expectedHeadersToInspect, $headersToInspect->getValue($instance));
     }
 
-    public function provideConfigs(): iterable
+    public static function provideConfigs(): iterable
     {
         $defaultHeadersToInspect = [
             'Forwarded',

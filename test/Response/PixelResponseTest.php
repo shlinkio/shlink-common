@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Response;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Response\PixelResponse;
 
@@ -16,7 +17,7 @@ class PixelResponseTest extends TestCase
         $this->resp = new PixelResponse();
     }
 
-    /** @test */
+    #[Test]
     public function responseHasGifTypeAndIsNotEmpty(): void
     {
         self::assertEquals('image/gif', $this->resp->getHeaderLine('Content-Type'));

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Validation;
 
 use Laminas\Validator\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Validation\HostAndPortValidator;
 use stdClass;
@@ -15,10 +17,7 @@ use function sprintf;
 
 class HostAndPortValidatorTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider provideInvalidValues
-     */
+    #[Test, DataProvider('provideInvalidValues')]
     public function failsToValidateWhenProvidedDataIsInvalid(string $value, string $expectedError): void
     {
         $validator = new HostAndPortValidator();
@@ -27,7 +26,7 @@ class HostAndPortValidatorTest extends TestCase
         self::assertContains($expectedError, array_values($validator->getMessages()));
     }
 
-    public function provideInvalidValues(): iterable
+    public static function provideInvalidValues(): iterable
     {
         yield ['foo:bar:baz', 'Provided value, once split using the ":" separator, returned more than 2 parts'];
         yield ['foo:bar:baz:foo', 'Provided value, once split using the ":" separator, returned more than 2 parts'];
@@ -42,17 +41,14 @@ class HostAndPortValidatorTest extends TestCase
         yield ['example.com:-2000', 'The port part of the value is not valid. Must be a number between 1 and 65535'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidValues
-     */
+    #[Test, DataProvider('provideValidValues')]
     public function succeedsWhenProvidingValidValues(string $value): void
     {
         $validator = new HostAndPortValidator();
         self::assertTrue($validator->isValid($value));
     }
 
-    public function provideValidValues(): iterable
+    public static function provideValidValues(): iterable
     {
         yield ['localhost'];
         yield ['localhost:3000'];
@@ -62,10 +58,7 @@ class HostAndPortValidatorTest extends TestCase
         yield ['example.com:65535'];
     }
 
-    /**
-     * @test
-     * @dataProvider provideIncompatibleValues
-     */
+    #[Test, DataProvider('provideIncompatibleValues')]
     public function throwsExceptionWhenProvidedValuesIsNotString(mixed $value, string $expectedExceptionMessage): void
     {
         $validator = new HostAndPortValidator();
@@ -76,7 +69,7 @@ class HostAndPortValidatorTest extends TestCase
         $validator->isValid($value);
     }
 
-    public function provideIncompatibleValues(): iterable
+    public static function provideIncompatibleValues(): iterable
     {
         yield [new stdClass(), sprintf('Expected value to be a string. %s provided', stdClass::class)];
         yield [1, sprintf('Expected value to be a string. %s provided', gettype(1))];
