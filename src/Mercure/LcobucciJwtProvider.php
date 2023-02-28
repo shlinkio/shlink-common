@@ -14,23 +14,35 @@ class LcobucciJwtProvider implements JwtProviderInterface
     {
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getJwt(): string
     {
         return $this->buildPublishToken();
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function buildPublishToken(): string
     {
         $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
         return $this->buildToken(['publish' => ['*']], $expiresAt);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function buildSubscriptionToken(?DateTimeImmutable $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
         return $this->buildToken(['subscribe' => ['*']], $expiresAt);
     }
 
+    /**
+     * @return non-empty-string
+     */
     private function buildToken(array $mercureClaim, DateTimeImmutable $expiresAt): string
     {
         $now = $this->roundDateToTheSecond(Chronos::now());

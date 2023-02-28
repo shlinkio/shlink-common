@@ -6,6 +6,8 @@ namespace ShlinkioTest\Shlink\Common\Mercure;
 
 use Cake\Chronos\Chronos;
 use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\UnencryptedToken;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,9 +20,40 @@ class LcobucciJwtProviderTest extends TestCase
 
     public function setUp(): void
     {
-        $this->jwtConfig = Configuration::forUnsecuredSigner();
+        $this->jwtConfig = Configuration::forSymmetricSigner(
+            new class implements Signer {
+                public function algorithmId(): string
+                {
+                    return 'none';
+                }
+
+                public function sign(string $payload, Key $key): string
+                {
+                    return 'test_shlink';
+                }
+
+                public function verify(string $expected, string $payload, Key $key): bool
+                {
+                    return $expected === 'test_shlink';
+                }
+            },
+            new class implements Key {
+                public function contents(): string
+                {
+                    return 'empty';
+                }
+
+                public function passphrase(): string
+                {
+                    return 'empty';
+                }
+            },
+        );
     }
 
+    /**
+     * @param non-empty-string $expectedIssuer
+     */
     #[Test, DataProvider('provideMercureConfigs')]
     public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
     {

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* [#120](https://github.com/shlinkio/shlink-common/issues/120) Add support for `lcobucci/jwt` 5.0.
 
 ### Changed
 * Updated to PHPUnit 10
