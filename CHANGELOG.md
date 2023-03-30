@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [5.4.0] - 2023-03-30
 ### Added
 * [#120](https://github.com/shlinkio/shlink-common/issues/120) Add support for `lcobucci/jwt` 5.0.
 
