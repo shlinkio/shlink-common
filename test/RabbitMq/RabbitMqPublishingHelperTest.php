@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
 use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 
-use function Shlinkio\Shlink\Common\json_encode;
+use function Shlinkio\Shlink\Json\json_encode;
 
 class RabbitMqPublishingHelperTest extends TestCase
 {

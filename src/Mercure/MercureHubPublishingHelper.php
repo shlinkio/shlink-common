@@ -10,7 +10,7 @@ use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update as MercureUpdate;
 use Throwable;
 
-use function Shlinkio\Shlink\Common\json_encode;
+use function Shlinkio\Shlink\Json\json_encode;
 
 class MercureHubPublishingHelper implements PublishingHelperInterface
 {

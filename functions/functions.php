@@ -10,19 +10,19 @@ use Shlinkio\Shlink\Common\Util\DateRange;
 
 use function array_pad;
 use function explode;
-use function json_decode as spl_json_decode;
-use function json_encode as spl_json_encode;
+use function Shlinkio\Shlink\Json\json_decode as shlink_json_decode;
+use function Shlinkio\Shlink\Json\json_encode as shlink_json_encode;
 
-use const JSON_THROW_ON_ERROR;
-
+/** @deprecated Use the same function from shlinkio/shlink-json */
 function json_decode(string $json): array
 {
-    return spl_json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+    return shlink_json_decode($json);
 }
 
+/** @deprecated Use the same function from shlinkio/shlink-json */
 function json_encode(array|JsonSerializable $payload): string
 {
-    return spl_json_encode($payload, JSON_THROW_ON_ERROR);
+    return shlink_json_encode($payload);
 }
 
 function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange

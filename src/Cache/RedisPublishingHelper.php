@@ -9,7 +9,7 @@ use Shlinkio\Shlink\Common\UpdatePublishing\PublishingHelperInterface;
 use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 use Throwable;
 
-use function Shlinkio\Shlink\Common\json_encode;
+use function Shlinkio\Shlink\Json\json_encode;
 
 class RedisPublishingHelper implements PublishingHelperInterface
 {
