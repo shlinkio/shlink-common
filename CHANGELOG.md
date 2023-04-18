@@ -6,13 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Added `shlinkio/shlink-json` dependency.
 
 ### Changed
 * Update to PHPUnit 10.1
 
 ### Deprecated
-* *Nothing*
+* Deprecated `json_encode` and `json_decode` functions.
 
 ### Removed
 * *Nothing*
