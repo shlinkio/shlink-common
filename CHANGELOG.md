@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Changed
 * Update to PHPUnit 10.1
+* Make sure RabbitMQ connections are created lazy.
 
 ### Deprecated
 * Deprecated `json_encode` and `json_decode` functions.

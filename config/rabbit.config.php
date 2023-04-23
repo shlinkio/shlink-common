@@ -6,7 +6,9 @@ namespace Shlinkio\Shlink\Common;
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Proxy\LazyServiceFactory;
+use PhpAmqpLib\Connection\AMQPConnectionConfig;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
 
 return [
@@ -15,7 +17,21 @@ return [
 
     'dependencies' => [
         'factories' => [
-            AMQPStreamConnection::class => ConfigAbstractFactory::class,
+            AMQPConnectionConfig::class => static function () {
+                $config = new AMQPConnectionConfig();
+                // Make sure we do not try to connect until the first time we need to access the server
+                $config->setIsLazy(true);
+
+                return $config;
+            },
+            AMQPStreamConnection::class => static fn (ContainerInterface $c) => new AMQPStreamConnection(
+                host: $c->get('config.rabbitmq.host'),
+                port: $c->get('config.rabbitmq.port'),
+                user: $c->get('config.rabbitmq.user'),
+                password: $c->get('config.rabbitmq.password'),
+                vhost: $c->get('config.rabbitmq.vhost'),
+                config: $c->get(AMQPConnectionConfig::class),
+            ),
             RabbitMqPublishingHelper::class => ConfigAbstractFactory::class,
         ],
         'delegators' => [
@@ -31,14 +47,6 @@ return [
     ],
 
     ConfigAbstractFactory::class => [
-        AMQPStreamConnection::class => [
-            'config.rabbitmq.host',
-            'config.rabbitmq.port',
-            'config.rabbitmq.user',
-            'config.rabbitmq.password',
-            'config.rabbitmq.vhost',
-        ],
-
         RabbitMqPublishingHelper::class => [AMQPStreamConnection::class],
     ],
 
