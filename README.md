@@ -237,6 +237,7 @@ return [
             'type' => LoggerType::STREAM->value,
             'level' => Level::Alert->value,
             'line_format' => '[%datetime%] %level_name% - %message%',
+            'add_new_line' => false,
         ],
     ],
 
@@ -255,7 +256,9 @@ Every logger can have these config options:
 * `type`: Any value from the `LoggerType` enum, which will make different handlers to be injected in the logger instance.
 * `level`: Any value from monolog's `Level` enum, which determines the minimum level of the generated logs. Defaults to `Level::Info` if not provided.
 * `line_format`: The format of the line logs to generate.
+* `add_new_line`: Whether to add an extra empty line on every log. Defaults to `true`.
 * `processors`: An optional list of extra processors to inject in the generated logger. The values in the array must be service names.
+* `destination`: Where to send logs. It defaults to `php:stdout` for stream logs, and `data/log/shlink_log.log` for file logs.
 
 ### Other logger utils
 
@@ -267,6 +270,7 @@ This module provides some other logger-related utilities:
 * `ErrorHandlerListenerAttachingDelegator`: A ServiceManager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
 * `BackwardsCompatibleMonologProcessor`: It lets you wrap monolog 2 processors with `callable(array): array` signature to make them compatible with monolog 3 and its new `callable(LogRecord): LogRecord` signature.
 * `BackwardsCompatibleMonologProcessorDelegator`: Can be used to decorate any monolog 2 processor registered in a ServiceManager and use it with monolog 3.
+* `AccessLogMiddleware`: A PSR-15 middleware which logs requests. It expects a PSR-3 logger service to be registered under `AccessLogMiddleware::LOGGER_SERVICE_NAME`.
 
 ## HTTP Client
 
