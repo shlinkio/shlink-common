@@ -19,6 +19,7 @@ return [
 
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
             Middleware\ContentLengthMiddleware::class => ConfigAbstractFactory::class,
+            Middleware\AccessLogMiddleware::class => ConfigAbstractFactory::class,
             IpAddress::class => Middleware\IpAddressMiddlewareFactory::class,
 
             Logger\ErrorLogger::class => ConfigAbstractFactory::class,
@@ -28,6 +29,7 @@ return [
     ConfigAbstractFactory::class => [
         Middleware\CloseDbConnectionMiddleware::class => ['em'],
         Middleware\ContentLengthMiddleware::class => [SwooleInstalledFactory::SWOOLE_INSTALLED],
+        Middleware\AccessLogMiddleware::class => [Middleware\AccessLogMiddleware::LOGGER_SERVICE_NAME],
         Logger\ErrorLogger::class => [LoggerInterface::class],
     ],
 

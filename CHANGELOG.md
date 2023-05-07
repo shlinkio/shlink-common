@@ -6,14 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* Added `shlinkio/shlink-json` dependency.
+* Add `shlinkio/shlink-json` dependency.
+* Add `AccessLogMiddleware` and improve `LoggerFactory` options.
 
 ### Changed
 * Update to PHPUnit 10.1
 * Make sure RabbitMQ connections are created lazy.
 
 ### Deprecated
-* Deprecated `json_encode` and `json_decode` functions.
+* Deprecate `json_encode` and `json_decode` functions.
 
 ### Removed
 * *Nothing*

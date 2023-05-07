@@ -52,9 +52,20 @@ class LoggerFactory
             ? new RotatingFileHandler($destination ?? 'data/log/shlink_log.log', 30, $level, true, 0666)
             : new StreamHandler($destination ?? 'php://stdout', $level);
 
-        $handler->setFormatter(new LineFormatter(($loggerConfig['line_format'] ?? null) . PHP_EOL, null, true));
+        $handler->setFormatter(self::buildLineFormatter($loggerConfig));
 
         return $handler;
+    }
+
+    private static function buildLineFormatter(array $loggerConfig): LineFormatter
+    {
+        $lineFormat = $loggerConfig['line_format'] ?? '';
+        $addNewLine = $loggerConfig['add_new_line'] ?? true;
+        if ($addNewLine) {
+            $lineFormat = $lineFormat . PHP_EOL;
+        }
+
+        return new LineFormatter($lineFormat, null, true);
     }
 
     private static function resolveProcessors(array $loggerConfig, ContainerInterface $container): array
