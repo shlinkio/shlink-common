@@ -4,14 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [5.5.0] - 2023-05-23
 ### Added
 * Add `shlinkio/shlink-json` dependency.
 * Add `AccessLogMiddleware` and improve `LoggerFactory` options.
 
 ### Changed
 * Update to PHPUnit 10.1
+* Update to Infection 0.27
 * Make sure RabbitMQ connections are created lazy.
+* Use Guzzle's `CurlHanddler` instead of `CurlMultiHandler` to avoid 100% CPU usage due to infinite `while` loop.
 
 ### Deprecated
 * Deprecate `json_encode` and `json_decode` functions.

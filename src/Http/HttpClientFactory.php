@@ -15,7 +15,7 @@ class HttpClientFactory
 {
     public function __invoke(ContainerInterface $container): GuzzleHttp\Client
     {
-        $handler = GuzzleHttp\HandlerStack::create();
+        $handler = GuzzleHttp\HandlerStack::create(new GuzzleHttp\Handler\CurlHandler());
         [$requestMiddlewares, $responseMiddlewares] = $this->getRegisteredMiddlewares($container);
 
         foreach ($requestMiddlewares as $middleware) {
