@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
@@ -26,11 +27,19 @@ class AccessLogMiddleware implements MiddlewareInterface
         $this->logger->info(sprintf(
             '%s %s %s %s',
             $request->getMethod(),
-            $request->getUri()->getPath(),
+            $this->requestUri($request->getUri()),
             $response->getStatusCode(),
             $response->getHeaderLine('Content-Length'),
         ));
 
         return $response;
+    }
+
+    private function requestUri(UriInterface $uri): string
+    {
+        $query = $uri->getQuery();
+        $path = $uri->getPath();
+
+        return $query === '' ? $path : sprintf('%s?%s', $path, $query);
     }
 }

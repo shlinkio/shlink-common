@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [5.5.1] - 2023-05-28
+### Added
+* *Nothing*
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* [#125](https://github.com/shlinkio/shlink-common/issues/125) Make sure `AccessLogMiddleware` logs request's query string.
+
+
 ## [5.5.0] - 2023-05-23
 ### Added
 * Add `shlinkio/shlink-json` dependency.
