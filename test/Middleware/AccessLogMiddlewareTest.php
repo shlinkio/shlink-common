@@ -59,5 +59,10 @@ class AccessLogMiddlewareTest extends TestCase
             new Response('php://memory', 204, ['Content-Length' => 0]),
             'DELETE /foo 204 0',
         ];
+        yield [
+            ServerRequestFactory::fromGlobals()->withMethod('POST')->withUri(new Uri('/foo?some=thing&foo=bar')),
+            new Response('php://memory', 200, ['Content-Length' => 587]),
+            'POST /foo?some=thing&foo=bar 200 587',
+        ];
     }
 }
