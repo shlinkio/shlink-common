@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Exception\MercureException;
 use Shlinkio\Shlink\Common\Mercure\JwtConfigFactory;
+use Shlinkio\Shlink\Common\Mercure\MercureOptions;
 
 class JwtConfigFactoryTest extends TestCase
 {
@@ -25,9 +26,9 @@ class JwtConfigFactoryTest extends TestCase
     }
 
     #[Test, DataProvider('provideInvalidConfigs')]
-    public function throwsExceptionWhenProperConfigCouldNotBeFound(array $config): void
+    public function throwsExceptionWhenProperConfigCouldNotBeFound(MercureOptions $options): void
     {
-        $this->container->expects($this->once())->method('get')->with('config')->willReturn($config);
+        $this->container->expects($this->once())->method('get')->with(MercureOptions::class)->willReturn($options);
 
         $this->expectException(MercureException::class);
         $this->expectExceptionMessage(
@@ -39,17 +40,8 @@ class JwtConfigFactoryTest extends TestCase
 
     public static function provideInvalidConfigs(): iterable
     {
-        yield 'empty config' => [[]];
-        yield 'empty mercure config' => [['mercure' => []]];
-        yield 'null jwt secret' => [['mercure' => [
-            'jwt_secret' => null,
-        ]]];
-        yield 'empty jwt secret' => [['mercure' => [
-            'jwt_secret' => '',
-        ]]];
-        yield 'non-string' => [['mercure' => [
-            'jwt_secret' => ['foo', 'bar'],
-        ]]];
+        yield 'empty config' => [new MercureOptions()];
+        yield 'empty jwt secret' => [new MercureOptions(jwtSecret: '')];
     }
 
     #[Test]
@@ -57,9 +49,9 @@ class JwtConfigFactoryTest extends TestCase
     {
         $secret = 'the _super_secure_secret';
 
-        $this->container->expects($this->once())->method('get')->with('config')->willReturn(['mercure' => [
-            'jwt_secret' => $secret,
-        ]]);
+        $this->container->expects($this->once())->method('get')->with(MercureOptions::class)->willReturn(
+            new MercureOptions(jwtSecret: $secret),
+        );
 
         $jwtConfig = ($this->factory)($this->container);
 
