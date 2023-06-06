@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Mercure;
 
+use function trim;
+
 class MercureOptions
 {
     /**
@@ -15,5 +17,10 @@ class MercureOptions
         public readonly ?string $jwtSecret = null,
         public readonly string $jwtIssuer = 'Shlink',
     ) {
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->publicHubUrl !== null && trim($this->publicHubUrl) !== '';
     }
 }
