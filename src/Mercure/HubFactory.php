@@ -14,8 +14,8 @@ class HubFactory
 {
     public function __invoke(ContainerInterface $container): Hub
     {
-        $mercureConfig = $container->get('config')['mercure'] ?? [];
-        $mercureHub = $mercureConfig['internal_hub_url'] ?? $mercureConfig['public_hub_url'] ?? null;
+        $mercureOptions = $container->get(MercureOptions::class);
+        $mercureHub = $mercureOptions->internalHubUrl ?? $mercureOptions->publicHubUrl ?? null;
         if ($mercureHub === null) {
             throw MercureException::missingHubUrl();
         }

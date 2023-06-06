@@ -13,6 +13,7 @@ use ReflectionObject;
 use Shlinkio\Shlink\Common\Exception\MercureException;
 use Shlinkio\Shlink\Common\Mercure\HubFactory;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
+use Shlinkio\Shlink\Common\Mercure\MercureOptions;
 use Symfony\Component\Mercure\Jwt\TokenProviderInterface;
 
 class HubFactoryTest extends TestCase
@@ -27,9 +28,9 @@ class HubFactoryTest extends TestCase
     }
 
     #[Test, DataProvider('provideInvalidConfigs')]
-    public function throwsExceptionWhenNoHubUrlIsConfigured(array $config): void
+    public function throwsExceptionWhenNoHubUrlIsConfigured(MercureOptions $options): void
     {
-        $this->container->expects($this->once())->method('get')->with('config')->willReturn($config);
+        $this->container->expects($this->once())->method('get')->with(MercureOptions::class)->willReturn($options);
 
         $this->expectException(MercureException::class);
         $this->expectExceptionMessage(
@@ -41,25 +42,15 @@ class HubFactoryTest extends TestCase
 
     public static function provideInvalidConfigs(): iterable
     {
-        yield 'empty config' => [[]];
-        yield 'empty mercure' => [['mercure' => []]];
-        yield 'empty public url' => [['mercure' => [
-            'public_hub_url' => null,
-        ]]];
-        yield 'empty internal url' => [['mercure' => [
-            'internal_hub_url' => null,
-        ]]];
-        yield 'both urls empty' => [['mercure' => [
-            'internal_hub_url' => null,
-            'public_hub_url' => null,
-        ]]];
+        yield 'default options' => [new MercureOptions()];
+        yield 'urls explicitly empty' => [new MercureOptions(publicHubUrl: null, internalHubUrl: null)];
     }
 
     #[Test, DataProvider('provideValidConfigs')]
-    public function returnsExpectedObjectIfProperConfigIsFound(array $config, string $expectedHubUrl): void
+    public function returnsExpectedObjectIfProperConfigIsFound(MercureOptions $options, string $expectedHubUrl): void
     {
         $this->container->expects($this->exactly(2))->method('get')->willReturnMap([
-            ['config', $config],
+            [MercureOptions::class, $options],
             [LcobucciJwtProvider::class, $this->createMock(TokenProviderInterface::class)],
         ]);
 
@@ -74,11 +65,7 @@ class HubFactoryTest extends TestCase
 
     public static function provideValidConfigs(): iterable
     {
-        yield 'with internal url' => [['mercure' => [
-            'internal_hub_url' => $url = 'http://foo.com',
-        ]], $url];
-        yield 'with public url' => [['mercure' => [
-            'public_hub_url' => $url = 'http://bar.com',
-        ]], $url];
+        yield 'with internal url' => [new MercureOptions(internalHubUrl: $url = 'http://foo.com'), $url];
+        yield 'with public url' => [new MercureOptions(publicHubUrl: $url = 'http://bar.com'), $url];
     }
 }

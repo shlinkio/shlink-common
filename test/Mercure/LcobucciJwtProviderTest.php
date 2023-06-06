@@ -13,6 +13,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
+use Shlinkio\Shlink\Common\Mercure\MercureOptions;
 
 class LcobucciJwtProviderTest extends TestCase
 {
@@ -55,11 +56,11 @@ class LcobucciJwtProviderTest extends TestCase
      * @param non-empty-string $expectedIssuer
      */
     #[Test, DataProvider('provideMercureConfigs')]
-    public function expectedPublishTokenIsCreated(array $mercureConfig, string $expectedIssuer): void
+    public function expectedPublishTokenIsCreated(MercureOptions $mercureOptions, string $expectedIssuer): void
     {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig->parser()->parse(
-            (new LcobucciJwtProvider($this->jwtConfig, $mercureConfig))->getJwt(),
+            (new LcobucciJwtProvider($this->jwtConfig, $mercureOptions))->getJwt(),
         );
 
         self::assertTrue($token->hasBeenIssuedBy($expectedIssuer));
@@ -69,8 +70,8 @@ class LcobucciJwtProviderTest extends TestCase
 
     public static function provideMercureConfigs(): iterable
     {
-        yield 'without issuer' => [[], 'Shlink'];
-        yield 'with issuer' => [['jwt_issuer' => $issuer = 'foobar'], $issuer];
+        yield 'without issuer' => [new MercureOptions(), 'Shlink'];
+        yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer];
     }
 
     #[Test, DataProvider('provideExpirationDates')]
@@ -78,7 +79,7 @@ class LcobucciJwtProviderTest extends TestCase
     {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig->parser()->parse(
-            (new LcobucciJwtProvider($this->jwtConfig, []))->buildSubscriptionToken($expiresAt),
+            (new LcobucciJwtProvider($this->jwtConfig, new MercureOptions()))->buildSubscriptionToken($expiresAt),
         );
 
         self::assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));

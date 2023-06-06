@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common;
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Lcobucci\JWT\Configuration;
+use Shlinkio\Shlink\Config\Factory\ValinorConfigFactory;
 use Symfony\Component\Mercure\Hub;
 
 return [
@@ -18,11 +19,12 @@ return [
             Mercure\LcobucciJwtProvider::class => ConfigAbstractFactory::class,
             Hub::class => Mercure\HubFactory::class,
             Mercure\MercureHubPublishingHelper::class => ConfigAbstractFactory::class,
+            Mercure\MercureOptions::class => [ValinorConfigFactory::class, 'config.mercure'],
         ],
     ],
 
     ConfigAbstractFactory::class => [
-        Mercure\LcobucciJwtProvider::class => [Configuration::class, 'config.mercure'],
+        Mercure\LcobucciJwtProvider::class => [Configuration::class, Mercure\MercureOptions::class],
         Mercure\MercureHubPublishingHelper::class => [Hub::class],
     ],
 

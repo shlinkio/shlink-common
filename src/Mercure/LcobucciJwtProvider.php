@@ -10,8 +10,10 @@ use Lcobucci\JWT\Configuration;
 
 class LcobucciJwtProvider implements JwtProviderInterface
 {
-    public function __construct(private Configuration $jwtConfig, private array $mercureConfig)
-    {
+    public function __construct(
+        private readonly Configuration $jwtConfig,
+        private readonly MercureOptions $mercureOptions,
+    ) {
     }
 
     /**
@@ -49,7 +51,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
 
         return $this->jwtConfig
             ->builder()
-            ->issuedBy($this->mercureConfig['jwt_issuer'] ?? 'Shlink')
+            ->issuedBy($this->mercureOptions->jwtIssuer)
             ->issuedAt($now)
             ->expiresAt($expiresAt)
             ->withClaim('mercure', $mercureClaim)
