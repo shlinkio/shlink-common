@@ -403,3 +403,4 @@ $helper->publishUpdate(Update::forTopicAndPayload('some_queue', ['foo' => 'bar']
 * `Paginator`: An object extending `Pagerfanta`, that makes it behave as laminas' Paginator object on regards to be able to set `-1` as the max results and get all the results in that case. It requires that you install `pagerfanta/core`.
 * `DateRange`: An immutable value object wrapping two `Chronos` date objects that can be used to represent a time period between two dates.
 * `IpAddress`: An immutable value object representing an IP address that can be copied into an anonymized instance which removes the last octet.
+* `NamespacedStore`: A `symfony/lock` store that can wrap another store instance but making sure keys are prefixed with a namespace and namespace separator.
