@@ -25,7 +25,7 @@ class AccessLogMiddlewareTest extends TestCase
     public function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);
-        $this->middleware = new AccessLogMiddleware($this->logger);
+        $this->middleware = new AccessLogMiddleware($this->logger, ['/do-not-log-this']);
     }
 
     #[Test, DataProvider('provideMessages')]
@@ -64,5 +64,24 @@ class AccessLogMiddlewareTest extends TestCase
             new Response('php://memory', 200, ['Content-Length' => 587]),
             'POST /foo?some=thing&foo=bar 200 587',
         ];
+    }
+
+    #[Test, DataProvider('provideIgnoredEndpoints')]
+    public function nothingIsLoggedForIgnoredEndpoints(string $path): void
+    {
+        $req = ServerRequestFactory::fromGlobals()->withUri(new Uri($path));
+
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())->method('handle')->with($req)->willReturn(new Response());
+
+        $this->logger->expects($this->never())->method('info');
+
+        $this->middleware->process($req, $handler);
+    }
+
+    public static function provideIgnoredEndpoints(): iterable
+    {
+        yield 'full endpoint' => ['/do-not-log-this'];
+        yield 'endpoint ending with' => ['/ends-with/do-not-log-this'];
     }
 }
