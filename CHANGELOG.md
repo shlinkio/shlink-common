@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Add support for Chronos 3.0
+* Allow disabling access logs for requests to some paths
 
 ### Changed
 * *Nothing*
