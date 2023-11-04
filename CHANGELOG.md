@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Added
 * Add support for Chronos 3.0
 * Allow disabling access logs for requests to some paths
+* Add support for PHP 8.3
 
 ### Changed
 * *Nothing*
@@ -16,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* Drop support for PHP 8.1
 
 ### Fixed
 * *Nothing*
