@@ -16,6 +16,7 @@ use function is_string;
 use function parse_url;
 use function sprintf;
 use function trim;
+use function urldecode;
 
 class RedisFactory
 {
@@ -54,10 +55,10 @@ class RedisFactory
         }
 
         if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
-            $parsedServer['password'] = $parsedServer['user'];
+            $parsedServer['password'] = urldecode($parsedServer['user']);
         } elseif (isset($parsedServer['user'], $parsedServer['pass'])) {
-            $parsedServer['username'] = $parsedServer['user'];
-            $parsedServer['password'] = $parsedServer['pass'];
+            $parsedServer['username'] = urldecode($parsedServer['user']);
+            $parsedServer['password'] = urldecode($parsedServer['pass']);
         }
 
         unset($parsedServer['user'], $parsedServer['pass']);
