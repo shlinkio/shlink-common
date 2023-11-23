@@ -57,7 +57,7 @@ return [
                 'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/management/security/)
                 'tcp://password@6.6.6.6:6379', // Same as above, but it's deprecated, as it's not a standard URI
             ],
-            'sentinel_service' => 'theservice' // Optional.
+            'sentinel_service' => 'theservice', // Optional.
             'decode_credentials' => true // Optional. Defaults to false
         ],
     ],
