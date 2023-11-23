@@ -115,14 +115,12 @@ class RedisFactoryTest extends TestCase
 
     #[Test, DataProvider('provideServersWithCredentials')]
     public function providedCredentialsArePassedToConnection(
-        string $server,
+        array $redisConfig,
         ?string $expectedUsername,
         ?string $expectedPassword,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
-            'cache' => [
-                'redis' => ['servers' => [$server]],
-            ],
+            'cache' => ['redis' => $redisConfig],
         ]);
 
         $client = ($this->factory)($this->container);
@@ -134,8 +132,28 @@ class RedisFactoryTest extends TestCase
 
     public static function provideServersWithCredentials(): iterable
     {
-        yield 'no credentials' => ['tcp://1.1.1.1:6379', null, null];
-        yield 'password only' => ['tcp://foo:bar@1.1.1.1:6379', 'foo', 'bar'];
-        yield 'username and password' => ['tcp://foo@1.1.1.1:6379', null, 'foo'];
+        yield 'no credentials' => [[
+            'servers' => ['tcp://1.1.1.1:6379'],
+        ], null, null];
+        yield 'username and password' => [[
+            'servers' => ['tcp://foo:bar@1.1.1.1:6379'],
+        ], 'foo', 'bar'];
+        yield 'password only' => [[
+            'servers' => ['tcp://:baz@1.1.1.1:6379'],
+        ], null, 'baz'];
+        yield 'password only (deprecated)' => [[
+            'servers' => ['tcp://foo@1.1.1.1:6379'],
+        ], null, 'foo'];
+        yield 'URL-encoded' => [[
+            'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
+        ], 'user%3Aname', 'pass%40word'];
+        yield 'URL-encoded, no request decode' => [[
+            'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
+            'decode_credentials' => false,
+        ], 'user%3Aname', 'pass%40word'];
+        yield 'URL-encoded, request decode' => [[
+            'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
+            'decode_credentials' => true,
+        ], 'user:name', 'pass@word'];
     }
 }

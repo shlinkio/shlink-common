@@ -53,8 +53,12 @@ return [
                 'tcp://1.1.1.1:6379',
                 'tcp://2.2.2.2:6379',
                 'tcp://3.3.3.3:6379',
+                'tcp://user:password@4.4.4.4:6379', // Redis ACL (https://redis.io/docs/management/security/acl/)
+                'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/management/security/)
+                'tcp://password@6.6.6.6:6379', // Same as above, but it's deprecated, as it's not a standard URI
             ],
             'sentinel_service' => 'theservice' // Optional.
+            'decode_credentials' => true // Optional. Defaults to false
         ],
     ],
 
@@ -67,6 +71,7 @@ You can allow caching to be done on a redis instance, redis cluster or redis sen
 
 * `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
 * `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
+* `decode_credentials`: Indicates if server credentials (if present) should be URL decoded before passing to redis connection. Otherwise, they are passed verbatim.
 
 > **Note**
 > The entries in `servers` support credentials in the form of `tcp://password@my-server:6379` or `tcp://username:password@my-server:6379`.
