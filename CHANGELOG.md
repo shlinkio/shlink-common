@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Add support for Chronos 3.0
 * Allow disabling access logs for requests to some paths
 * Add support for PHP 8.3
+* [#134](https://github.com/shlinkio/shlink-common/issues/134) Support redis server URIs with URL-encoded credentials.
 
 ### Changed
 * *Nothing*

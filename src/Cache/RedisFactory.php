@@ -11,11 +11,13 @@ use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 use function array_map;
 use function count;
 use function explode;
+use function Functional\id;
 use function is_array;
 use function is_string;
 use function parse_url;
 use function sprintf;
 use function trim;
+use function urldecode;
 
 class RedisFactory
 {
@@ -33,13 +35,18 @@ class RedisFactory
     private function resolveServers(array $redisConfig): array
     {
         $servers = $redisConfig['servers'] ?? [];
-        $servers = array_map($this->normalizeServer(...), is_string($servers) ? explode(',', $servers) : $servers);
+        $decodeCredentials = $redisConfig['decode_credentials'] ?? false;
+
+        $servers = array_map(
+            fn (string $server) => $this->normalizeServer($server, $decodeCredentials),
+            is_string($servers) ? explode(',', $servers) : $servers,
+        );
 
         // If there's only one server, we return it as is. If an array is provided, predis expects cluster config
         return count($servers) === 1 ? $servers[0] : $servers;
     }
 
-    private function normalizeServer(string $server): array
+    private function normalizeServer(string $server, bool $decodeCredentials): array
     {
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
@@ -53,11 +60,18 @@ class RedisFactory
             return $parsedServer;
         }
 
+        // Apply URL decoding only if explicitly requested, for BC. Next major version will always do it
+        $credentialsCallback = $decodeCredentials ? urldecode(...) : id(...);
+
         if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
-            $parsedServer['password'] = $parsedServer['user'];
+            // For historical reasons, we support URLs in the form of `tcp://redis_password@redis_host:1234`, but this
+            // is deprecated
+            $parsedServer['password'] = $credentialsCallback($parsedServer['user']);
         } elseif (isset($parsedServer['user'], $parsedServer['pass'])) {
-            $parsedServer['username'] = $parsedServer['user'];
-            $parsedServer['password'] = $parsedServer['pass'];
+            if ($parsedServer['user'] !== '') {
+                $parsedServer['username'] = $credentialsCallback($parsedServer['user']);
+            }
+            $parsedServer['password'] = $credentialsCallback($parsedServer['pass']);
         }
 
         unset($parsedServer['user'], $parsedServer['pass']);
