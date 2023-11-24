@@ -76,6 +76,16 @@ class RedisFactory
 
         unset($parsedServer['user'], $parsedServer['pass']);
 
+        // Set SSL config if schema indicates encryption should be used
+        if ($parsedServer['scheme'] === 'tls' || $parsedServer['scheme'] === 'rediss') {
+            $parsedServer['ssl'] = [
+                // Allow self-signed certificates
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ];
+        }
+
         return $parsedServer;
     }
 
