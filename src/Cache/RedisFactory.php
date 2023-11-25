@@ -57,6 +57,12 @@ class RedisFactory
             ));
         }
 
+        // Set SSL options if schema indicates encryption should be used
+        $scheme = $parsedServer['scheme'] ?? null;
+        if ($scheme === 'tls' || $scheme === 'rediss') {
+            $parsedServer['ssl'] = SSL::OPTIONS;
+        }
+
         if (! isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
             return $parsedServer;
         }
@@ -76,12 +82,6 @@ class RedisFactory
         }
 
         unset($parsedServer['user'], $parsedServer['pass']);
-
-        // Set SSL options if schema indicates encryption should be used
-        $scheme = $parsedServer['scheme'] ?? null;
-        if ($scheme === 'tls' || $scheme === 'rediss') {
-            $parsedServer['ssl'] = SSL::OPTIONS;
-        }
 
         return $parsedServer;
     }

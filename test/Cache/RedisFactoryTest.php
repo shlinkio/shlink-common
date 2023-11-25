@@ -17,6 +17,7 @@ use Predis\Connection\Replication\SentinelReplication;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Cache\RedisFactory;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
+use Shlinkio\Shlink\Common\Util\SSL;
 
 class RedisFactoryTest extends TestCase
 {
@@ -118,6 +119,7 @@ class RedisFactoryTest extends TestCase
         array $redisConfig,
         ?string $expectedUsername,
         ?string $expectedPassword,
+        ?array $expectedSslOptions,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => ['redis' => $redisConfig],
@@ -128,32 +130,39 @@ class RedisFactoryTest extends TestCase
 
         self::assertEquals($expectedUsername, $conn->getParameters()->username); // @phpstan-ignore-line
         self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
+        self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl); // @phpstan-ignore-line
     }
 
     public static function provideServersWithCredentials(): iterable
     {
         yield 'no credentials' => [[
             'servers' => ['tcp://1.1.1.1:6379'],
-        ], null, null];
+        ], null, null, null];
         yield 'username and password' => [[
             'servers' => ['tcp://foo:bar@1.1.1.1:6379'],
-        ], 'foo', 'bar'];
+        ], 'foo', 'bar', null];
         yield 'password only' => [[
             'servers' => ['tcp://:baz@1.1.1.1:6379'],
-        ], null, 'baz'];
+        ], null, 'baz', null];
         yield 'password only (deprecated)' => [[
             'servers' => ['tcp://foo@1.1.1.1:6379'],
-        ], null, 'foo'];
+        ], null, 'foo', null];
         yield 'URL-encoded' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-        ], 'user%3Aname', 'pass%40word'];
+        ], 'user%3Aname', 'pass%40word', null];
         yield 'URL-encoded, no request decode' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
             'decode_credentials' => false,
-        ], 'user%3Aname', 'pass%40word'];
+        ], 'user%3Aname', 'pass%40word', null];
         yield 'URL-encoded, request decode' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
             'decode_credentials' => true,
-        ], 'user:name', 'pass@word'];
+        ], 'user:name', 'pass@word', null];
+        yield 'tls encryption' => [[
+            'servers' => ['tls://1.1.1.1:6379'],
+        ], null, null, SSL::OPTIONS];
+        yield 'rediss encryption' => [[
+            'servers' => ['rediss://1.1.1.1:6379'],
+        ], null, null, SSL::OPTIONS];
     }
 }
