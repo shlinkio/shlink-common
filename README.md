@@ -56,8 +56,9 @@ return [
                 'tcp://user:password@4.4.4.4:6379', // Redis ACL (https://redis.io/docs/management/security/acl/)
                 'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/management/security/)
                 'tcp://password@6.6.6.6:6379', // Same as above, but it's deprecated, as it's not a standard URI
+                'tls://server_with_encryption:6379',
             ],
-            'sentinel_service' => 'theservice', // Optional.
+            'sentinel_service' => 'the_service', // Optional.
             'decode_credentials' => true // Optional. Defaults to false
         ],
     ],
@@ -382,6 +383,9 @@ return [
 
         // The vHost
         'vhost' => '/',
+
+        // Tells if connection should be encrypted. Defaults to false if not provided
+        'use_ssl' => true,
     ],
 
 ];

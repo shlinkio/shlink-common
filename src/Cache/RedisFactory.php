@@ -7,6 +7,7 @@ namespace Shlinkio\Shlink\Common\Cache;
 use Predis\Client as PredisClient;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
+use Shlinkio\Shlink\Common\Util\SSL;
 
 use function array_map;
 use function count;
@@ -51,9 +52,15 @@ class RedisFactory
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
             throw new InvalidArgumentException(sprintf(
-                'Provided server "%s" is not a valid URL with format schema://[[username:]password@]host:port',
+                'Provided server "%s" is not a valid URL with format schema://[[username]:password@]host:port',
                 $server,
             ));
+        }
+
+        // Set SSL options if schema indicates encryption should be used
+        $scheme = $parsedServer['scheme'] ?? null;
+        if ($scheme === 'tls' || $scheme === 'rediss') {
+            $parsedServer['ssl'] = SSL::OPTIONS;
         }
 
         if (! isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
