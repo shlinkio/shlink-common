@@ -11,6 +11,7 @@ use PhpAmqpLib\Connection\AMQPSSLConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\RabbitMq\RabbitMqPublishingHelper;
+use Shlinkio\Shlink\Common\Util\SSL;
 
 return [
 
@@ -38,7 +39,7 @@ return [
                         user: $c->get('config.rabbitmq.user'),
                         password: $c->get('config.rabbitmq.password'),
                         vhost: $c->get('config.rabbitmq.vhost'),
-                        ssl_options: $c->get('config.ssl_options'),
+                        ssl_options: SSL::OPTIONS,
                         config: $connectionConfig,
                     )
                     : new AMQPStreamConnection(

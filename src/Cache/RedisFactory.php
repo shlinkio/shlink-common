@@ -7,6 +7,7 @@ namespace Shlinkio\Shlink\Common\Cache;
 use Predis\Client as PredisClient;
 use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
+use Shlinkio\Shlink\Common\Util\SSL;
 
 use function array_map;
 use function count;
@@ -25,22 +26,20 @@ class RedisFactory
 
     public function __invoke(ContainerInterface $container): PredisClient
     {
-        $config = $container->get('config') ?? [];
-        $servers = $this->resolveServers($config);
-        $options = $this->resolveOptions($config['cache']['redis'] ?? [], $servers);
+        $redisConfig = $container->get('config')['cache']['redis'] ?? [];
+        $servers = $this->resolveServers($redisConfig);
+        $options = $this->resolveOptions($redisConfig, $servers);
 
         return new ShlinkPredisClient($servers, $options);
     }
 
-    private function resolveServers(array $config): array
+    private function resolveServers(array $redisConfig): array
     {
-        $redisConfig = $config['cache']['redis'] ?? [];
-        $sslOptions = $config['ssl_options'] ?? [];
         $servers = $redisConfig['servers'] ?? [];
         $decodeCredentials = $redisConfig['decode_credentials'] ?? false;
 
         $servers = array_map(
-            fn (string $server) => $this->normalizeServer($server, $decodeCredentials, $sslOptions),
+            fn (string $server) => $this->normalizeServer($server, $decodeCredentials),
             is_string($servers) ? explode(',', $servers) : $servers,
         );
 
@@ -48,7 +47,7 @@ class RedisFactory
         return count($servers) === 1 ? $servers[0] : $servers;
     }
 
-    private function normalizeServer(string $server, bool $decodeCredentials, array $sslOptions): array
+    private function normalizeServer(string $server, bool $decodeCredentials): array
     {
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
@@ -79,8 +78,9 @@ class RedisFactory
         unset($parsedServer['user'], $parsedServer['pass']);
 
         // Set SSL options if schema indicates encryption should be used
-        if ($parsedServer['scheme'] === 'tls' || $parsedServer['scheme'] === 'rediss') {
-            $parsedServer['ssl'] = $sslOptions;
+        $scheme = $parsedServer['scheme'] ?? null;
+        if ($scheme === 'tls' || $scheme === 'rediss') {
+            $parsedServer['ssl'] = SSL::OPTIONS;
         }
 
         return $parsedServer;
