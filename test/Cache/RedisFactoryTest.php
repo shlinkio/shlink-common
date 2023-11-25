@@ -107,7 +107,7 @@ class RedisFactoryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Provided server "//" is not a valid URL with format schema://[[username:]password@]host:port',
+            'Provided server "//" is not a valid URL with format schema://[[username]:password@]host:port',
         );
 
         ($this->factory)($this->container);

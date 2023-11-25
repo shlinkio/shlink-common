@@ -52,7 +52,7 @@ class RedisFactory
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
             throw new InvalidArgumentException(sprintf(
-                'Provided server "%s" is not a valid URL with format schema://[[username:]password@]host:port',
+                'Provided server "%s" is not a valid URL with format schema://[[username]:password@]host:port',
                 $server,
             ));
         }
