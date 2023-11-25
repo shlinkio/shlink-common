@@ -25,20 +25,22 @@ class RedisFactory
 
     public function __invoke(ContainerInterface $container): PredisClient
     {
-        $redisConfig = $container->get('config')['cache']['redis'] ?? [];
-        $servers = $this->resolveServers($redisConfig);
-        $options = $this->resolveOptions($redisConfig, $servers);
+        $config = $container->get('config') ?? [];
+        $servers = $this->resolveServers($config);
+        $options = $this->resolveOptions($config['cache']['redis'] ?? [], $servers);
 
         return new ShlinkPredisClient($servers, $options);
     }
 
-    private function resolveServers(array $redisConfig): array
+    private function resolveServers(array $config): array
     {
+        $redisConfig = $config['cache']['redis'] ?? [];
+        $sslOptions = $config['ssl_options'] ?? [];
         $servers = $redisConfig['servers'] ?? [];
         $decodeCredentials = $redisConfig['decode_credentials'] ?? false;
 
         $servers = array_map(
-            fn (string $server) => $this->normalizeServer($server, $decodeCredentials),
+            fn (string $server) => $this->normalizeServer($server, $decodeCredentials, $sslOptions),
             is_string($servers) ? explode(',', $servers) : $servers,
         );
 
@@ -46,7 +48,7 @@ class RedisFactory
         return count($servers) === 1 ? $servers[0] : $servers;
     }
 
-    private function normalizeServer(string $server, bool $decodeCredentials): array
+    private function normalizeServer(string $server, bool $decodeCredentials, array $sslOptions): array
     {
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
@@ -76,14 +78,9 @@ class RedisFactory
 
         unset($parsedServer['user'], $parsedServer['pass']);
 
-        // Set SSL config if schema indicates encryption should be used
+        // Set SSL options if schema indicates encryption should be used
         if ($parsedServer['scheme'] === 'tls' || $parsedServer['scheme'] === 'rediss') {
-            $parsedServer['ssl'] = [
-                // Allow self-signed certificates
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ];
+            $parsedServer['ssl'] = $sslOptions;
         }
 
         return $parsedServer;

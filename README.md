@@ -383,6 +383,9 @@ return [
 
         // The vHost
         'vhost' => '/',
+
+        // Tells if connection should be encrypted. Defaults to false if not provided
+        'use_ssl' => true,
     ],
 
 ];
