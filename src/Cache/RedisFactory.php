@@ -12,7 +12,6 @@ use Shlinkio\Shlink\Common\Util\SSL;
 use function array_map;
 use function count;
 use function explode;
-use function Functional\id;
 use function is_array;
 use function is_string;
 use function parse_url;
@@ -67,8 +66,8 @@ class RedisFactory
             return $parsedServer;
         }
 
-        // Apply URL decoding only if explicitly requested, for BC. Next major version will always do it
-        $credentialsCallback = $decodeCredentials ? urldecode(...) : id(...);
+        // Deprecated. Apply URL decoding only if explicitly requested, for BC. Next major version will always do it
+        $credentialsCallback = static fn (string $val) => ($decodeCredentials ? urldecode($val) : $val);
 
         if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
             // For historical reasons, we support URLs in the form of `tcp://redis_password@redis_host:1234`, but this

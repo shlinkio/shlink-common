@@ -22,8 +22,6 @@ use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
 use Shlinkio\Shlink\Common\Logger\LoggerFactory;
 use Shlinkio\Shlink\Common\Logger\LoggerType;
 
-use function Functional\id;
-
 class LoggerFactoryTest extends TestCase
 {
     private MockObject & ContainerInterface $container;
@@ -130,8 +128,9 @@ class LoggerFactoryTest extends TestCase
     #[Test, DataProvider('provideExtraProcessors')]
     public function extraProcessorsAreAdded(array $config, int $expectedAmountOfProcessors): void
     {
+        $id = static fn (mixed $v) => $v;
         $this->container->expects($this->exactly($expectedAmountOfProcessors + 1))->method('get')->willReturnCallback(
-            fn (string $serviceName) => $serviceName !== 'config' ? id(...) : ['logger' => [
+            fn (string $serviceName) => $serviceName !== 'config' ? $id : ['logger' => [
                 'foo' => ['type' => LoggerType::STREAM->value, ...$config],
             ]],
         );

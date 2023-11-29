@@ -7,7 +7,7 @@ namespace Shlinkio\Shlink\Common\Validation;
 use Laminas\Validator\AbstractValidator;
 
 use function count;
-use function Functional\contains;
+use function in_array;
 use function is_array;
 
 class OrderByValidator extends AbstractValidator
@@ -27,7 +27,7 @@ class OrderByValidator extends AbstractValidator
     /**
      * @param string[] $validFields
      */
-    public function __construct(private array $validFields)
+    public function __construct(private readonly array $validFields)
     {
         parent::__construct([]);
     }
@@ -40,12 +40,12 @@ class OrderByValidator extends AbstractValidator
         }
 
         [$field, $dir] = $value;
-        if ($field !== null && ! contains($this->validFields, $field)) {
+        if ($field !== null && ! in_array($field, $this->validFields, strict: true)) {
             $this->error(self::INVALID_ORDER_FIELD);
             return false;
         }
 
-        if ($dir !== null && ! contains(self::VALID_ORDER_DIRS, $dir)) {
+        if ($dir !== null && ! in_array($dir, self::VALID_ORDER_DIRS, strict: true)) {
             $this->error(self::INVALID_ORDER_DIR);
             return false;
         }

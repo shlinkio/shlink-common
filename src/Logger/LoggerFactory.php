@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
 
-use function Functional\map;
+use function array_map;
 
 use const PHP_EOL;
 
@@ -74,7 +74,7 @@ class LoggerFactory
         return [
             new Processor\ExceptionWithNewLineProcessor(),
             new PsrLogMessageProcessor(),
-            ...map($extraProcessors, static fn (string $value) => $container->get($value)),
+            ...array_map(static fn (string $value) => $container->get($value), $extraProcessors),
         ];
     }
 }

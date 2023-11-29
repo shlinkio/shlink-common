@@ -15,8 +15,6 @@ use Shlinkio\Shlink\Common\Cache\CacheFactory;
 use Symfony\Component\Cache\Adapter;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
-use function Functional\const_function;
-
 class CacheFactoryTest extends TestCase
 {
     private MockObject & ContainerInterface $container;
@@ -54,8 +52,8 @@ class CacheFactoryTest extends TestCase
 
     public static function provideCacheConfig(): iterable
     {
-        $withApcu = const_function(true);
-        $withoutApcu = const_function(false);
+        $withApcu = static fn () => true;
+        $withoutApcu = static fn () => false;
 
         yield 'debug true and apcu enabled' => [['debug' => true], Adapter\ArrayAdapter::class, $withApcu];
         yield 'debug true and apcu disabled' => [['debug' => true], Adapter\ArrayAdapter::class, $withoutApcu];
