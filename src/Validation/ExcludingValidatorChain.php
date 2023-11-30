@@ -7,8 +7,10 @@ namespace Shlinkio\Shlink\Common\Validation;
 use Laminas\Validator;
 
 use function array_replace_recursive;
-use function Functional\some;
 
+/**
+ * A validator chain which is considered valid as soon as one of its validators is valid
+ */
 class ExcludingValidatorChain implements Validator\ValidatorInterface
 {
     private array $validators;
@@ -21,18 +23,17 @@ class ExcludingValidatorChain implements Validator\ValidatorInterface
 
     public function isValid(mixed $value): bool
     {
-        return some(
-            $this->validators,
-            function (Validator\ValidatorInterface $validator) use ($value): bool {
-                if ($validator->isValid($value)) {
-                    return true;
-                }
+        foreach ($this->validators as $validator) {
+            if ($validator->isValid($value)) {
+                return true;
+            }
 
-                $messages = $validator->getMessages();
-                $this->messages = array_replace_recursive($this->messages, $messages);
-                return false;
-            },
-        );
+            // Aggregate error messages from validators that failed until one succeeds
+            $messages = $validator->getMessages();
+            $this->messages = array_replace_recursive($this->messages, $messages);
+        }
+
+        return false;
     }
 
     public function __invoke(mixed $value): bool

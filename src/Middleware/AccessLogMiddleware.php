@@ -10,7 +10,6 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
-use function Functional\some;
 use function sprintf;
 use function str_ends_with;
 
@@ -18,7 +17,7 @@ class AccessLogMiddleware implements MiddlewareInterface
 {
     public const LOGGER_SERVICE_NAME = self::class . '/Logger';
 
-    public function __construct(private readonly LoggerInterface $logger, private readonly array $ignoreList = [])
+    public function __construct(private readonly LoggerInterface $logger, private readonly array $ignoredPrefixes = [])
     {
     }
 
@@ -29,8 +28,10 @@ class AccessLogMiddleware implements MiddlewareInterface
         $query = $request->getUri()->getQuery();
 
         // Do not log requests for ignored endpoints
-        if (some($this->ignoreList, fn (string $ignored) => str_ends_with($path, $ignored))) {
-            return $response;
+        foreach ($this->ignoredPrefixes as $prefix) {
+            if (str_ends_with($path, $prefix)) {
+                return $response;
+            }
         }
 
         $this->logger->info(sprintf(

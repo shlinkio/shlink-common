@@ -9,7 +9,10 @@ use Monolog\Level;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
-use function Functional\select_keys;
+use function array_filter;
+use function in_array;
+
+use const ARRAY_FILTER_USE_KEY;
 
 class BackwardsCompatibleMonologProcessor implements ProcessorInterface
 {
@@ -25,11 +28,17 @@ class BackwardsCompatibleMonologProcessor implements ProcessorInterface
 
     public function __invoke(LogRecord $record): LogRecord
     {
-        $recordAsArray = select_keys(
+        // Clean-up unknown keys from the legacy processor
+        $recordAsArray = array_filter(
             ($this->legacyProcessor)($record->toArray()),
-            ['message', 'context', 'level', 'channel', 'datetime', 'extra'],
+            static fn (string $key) => in_array(
+                $key,
+                ['message', 'context', 'level', 'channel', 'datetime', 'extra'],
+                strict: true,
+            ),
+            ARRAY_FILTER_USE_KEY,
         );
-        if ($recordAsArray['level']) {
+        if (isset($recordAsArray['level'])) {
             $recordAsArray['level'] = Level::tryFrom($recordAsArray['level']);
         }
 

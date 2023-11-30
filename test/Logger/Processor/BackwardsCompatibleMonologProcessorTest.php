@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Logger\Processor;
 
 use Cake\Chronos\Chronos;
-use Closure;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Logger\Processor\BackwardsCompatibleMonologProcessor;
-
-use function Functional\id;
 
 class BackwardsCompatibleMonologProcessorTest extends TestCase
 {
@@ -20,7 +17,7 @@ class BackwardsCompatibleMonologProcessorTest extends TestCase
 
     public function setUp(): void
     {
-        $this->processor = new BackwardsCompatibleMonologProcessor(Closure::fromCallable(id(...)));
+        $this->processor = new BackwardsCompatibleMonologProcessor(static fn (array $v) => $v);
     }
 
     #[Test]

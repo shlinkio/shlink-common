@@ -7,7 +7,7 @@ namespace Shlinkio\Shlink\Common\Logger\Exception;
 use Shlinkio\Shlink\Common\Exception\InvalidArgumentException;
 use Shlinkio\Shlink\Common\Logger\LoggerType;
 
-use function Functional\map;
+use function array_map;
 use function implode;
 use function sprintf;
 
@@ -27,7 +27,7 @@ class InvalidLoggerException extends InvalidArgumentException
         return new self(sprintf(
             'Provided logger type "%s" is not valid. Expected one of ["%s"]',
             $type,
-            implode('", "', map(LoggerType::cases(), static fn (LoggerType $type) => $type->value)),
+            implode('", "', array_map(static fn (LoggerType $type) => $type->value, LoggerType::cases())),
         ));
     }
 }

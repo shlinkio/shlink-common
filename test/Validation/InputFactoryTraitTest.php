@@ -16,8 +16,10 @@ use Shlinkio\Shlink\Common\Validation\InputFactoryTrait;
 use Shlinkio\Shlink\Common\Validation\OrderByFilter;
 use Shlinkio\Shlink\Common\Validation\OrderByValidator;
 
-use function Functional\map;
+use function array_map;
 use function get_class;
+use function gettype;
+use function is_object;
 
 class InputFactoryTraitTest extends TestCase
 {
@@ -159,9 +161,9 @@ class InputFactoryTraitTest extends TestCase
 
     private function getFiltersFromInput(Input $input): array
     {
-        return map(
+        return array_map(
+            static fn (mixed $filter): string => is_object($filter) ? get_class($filter) : gettype($filter),
             $input->getFilterChain()->getFilters()->toArray(),
-            fn (Filter\FilterInterface $filter): string => get_class($filter),
         );
     }
 }

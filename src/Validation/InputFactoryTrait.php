@@ -10,7 +10,7 @@ use Laminas\InputFilter\ArrayInput;
 use Laminas\InputFilter\Input;
 use Laminas\Validator;
 
-use function Functional\map;
+use function array_map;
 use function is_numeric;
 
 trait InputFactoryTrait
@@ -47,9 +47,9 @@ trait InputFactoryTrait
         array $formats = [DateTime::ATOM, 'Y-m-d'],
     ): Input {
         $input = $this->createInput($name, $required);
-        $input->getValidatorChain()->attach(new ExcludingValidatorChain(...map(
-            $formats,
+        $input->getValidatorChain()->attach(new ExcludingValidatorChain(...array_map(
             fn (string $format) => new Validator\Date(['format' => $format]),
+            $formats,
         )));
         return $input;
     }
