@@ -9,6 +9,7 @@ use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
+use Doctrine\DBAL\Types\Exception\InvalidType;
 
 class ChronosDateTimeType extends DateTimeImmutableType
 {
@@ -48,10 +49,6 @@ class ChronosDateTimeType extends DateTimeImmutableType
             return $value->format($platform->getDateTimeFormatString());
         }
 
-        throw ConversionException::conversionFailedInvalidType(
-            $value,
-            $this->getName(),
-            ['null', DateTimeInterface::class],
-        );
+        throw InvalidType::new($value, $this->getName(), ['null', DateTimeInterface::class]);
     }
 }
