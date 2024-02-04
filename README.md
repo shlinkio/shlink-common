@@ -133,6 +133,10 @@ This module provides a set of useful middlewares, all registered as services in 
     ];
     ```
 
+* `RequestIdMiddleware`: Sets a `request-id` attribute to current request, by reading the `X-Request-Id` header or falling back to an auto-generated UUID v4.
+
+    It also implements monolog's `ProcessorInterface` to set the request ID as `extra.request-id`.
+
 ## Doctrine integration
 
 Some doctrine-related services are provided, that can be customized via configuration:
@@ -227,6 +231,7 @@ The `LoggerFactory` class is capable of creating `Monolog\Logger` instances wrap
 declare(strict_types=1);
 
 use Monolog\Level;
+use Shlinkio\Shlink\Common\Middleware\RequestIdMiddleware;
 use Shlinkio\Shlink\Common\Logger\LoggerFactory;
 use Shlinkio\Shlink\Common\Logger\LoggerType;
 
@@ -236,7 +241,7 @@ return [
         'Shlink' => [
             'type' => LoggerType::FILE->value,
             'level' => Level::Info->value,
-            'processors' => [MyRequestIdProcessor::class],
+            'processors' => [RequestIdMiddleware::class],
             'line_format' => '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%',
         ],
         'Access' => [
@@ -275,7 +280,6 @@ This module provides some other logger-related utilities:
 * `ErrorLogger`: A callable which expects a `Psr\Log\LoggerInterface` to be injected and uses it to log a `Throwable` when invoked. It will log 5xx errors with error level and 4xx errors with debug level.
 * `ErrorHandlerListenerAttachingDelegator`: A ServiceManager delegator factory that registers all the services configured under `error_handler.listeners` as listeners for a stratigility `ErrorHandler` or a `ProblemDetailsMiddleware`.
 * `BackwardsCompatibleMonologProcessor`: It lets you wrap monolog 2 processors with `callable(array): array` signature to make them compatible with monolog 3 and its new `callable(LogRecord): LogRecord` signature.
-* `BackwardsCompatibleMonologProcessorDelegator`: Can be used to decorate any monolog 2 processor registered in a ServiceManager and use it with monolog 3.
 * `AccessLogMiddleware`: A PSR-15 middleware which logs requests. It expects a PSR-3 logger service to be registered under `AccessLogMiddleware::LOGGER_SERVICE_NAME`.
 
 ## HTTP Client
