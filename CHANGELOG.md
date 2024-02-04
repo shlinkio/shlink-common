@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Add new `RequestIdMiddleware`.
 
 ### Changed
 * Update dependencies
@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* Remove `BackwardsCompatibleMonologProcessorDelegator`.
 
 ### Fixed
 * *Nothing*
