@@ -29,6 +29,7 @@
         "php-amqplib/php-amqplib": "^3.6",
         "predis/predis": "^2.2",
         "psr/http-server-middleware": "^1.0",
+        "ramsey/uuid": "^4.7",
         "shlinkio/shlink-config": "^2.5",
         "shlinkio/shlink-json": "^1.1",
         "symfony/cache": "^7.0 || ^6.4",

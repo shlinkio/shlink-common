@@ -17,6 +17,7 @@ return [
         'factories' => [
             Filesystem::class => InvokableFactory::class,
 
+            Middleware\RequestIdMiddleware::class => InvokableFactory::class,
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
             Middleware\ContentLengthMiddleware::class => ConfigAbstractFactory::class,
             Middleware\AccessLogMiddleware::class => ConfigAbstractFactory::class,
