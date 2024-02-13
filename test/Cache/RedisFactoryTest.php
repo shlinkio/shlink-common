@@ -144,19 +144,11 @@ class RedisFactoryTest extends TestCase
         yield 'password only' => [[
             'servers' => ['tcp://:baz@1.1.1.1:6379'],
         ], null, 'baz', null];
-        yield 'password only (deprecated)' => [[
+        yield 'username only' => [[
             'servers' => ['tcp://foo@1.1.1.1:6379'],
-        ], null, 'foo', null];
+        ], 'foo', null, null];
         yield 'URL-encoded' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-        ], 'user%3Aname', 'pass%40word', null];
-        yield 'URL-encoded, no request decode' => [[
-            'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-            'decode_credentials' => false,
-        ], 'user%3Aname', 'pass%40word', null];
-        yield 'URL-encoded, request decode' => [[
-            'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-            'decode_credentials' => true,
         ], 'user:name', 'pass@word', null];
         yield 'tls encryption' => [[
             'servers' => ['tls://1.1.1.1:6379'],
