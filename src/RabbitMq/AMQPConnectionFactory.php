@@ -37,7 +37,7 @@ class AMQPConnectionFactory
                 // We have to pass the config as the ssl_protocol to avoid an internal deprecation warning
                 // When the ssl_protocol is a config instance, it is internally set as config.
                 // See https://github.com/php-amqplib/php-amqplib/blob/b4ade54ebe4685873f6316f9a05fc2c77a9e28f9/PhpAmqpLib/Connection/AMQPStreamConnection.php#L48-L55
-                ssl_protocol: $connectionConfig, // @phpstan-ignore-line
+                ssl_protocol: $connectionConfig,
             );
     }
 

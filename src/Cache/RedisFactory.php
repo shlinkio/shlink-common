@@ -35,10 +35,9 @@ class RedisFactory
     private function resolveServers(array $redisConfig): array
     {
         $servers = $redisConfig['servers'] ?? [];
-        $decodeCredentials = $redisConfig['decode_credentials'] ?? false;
 
         $servers = array_map(
-            fn (string $server) => $this->normalizeServer($server, $decodeCredentials),
+            fn (string $server) => $this->normalizeServer($server),
             is_string($servers) ? explode(',', $servers) : $servers,
         );
 
@@ -46,7 +45,7 @@ class RedisFactory
         return count($servers) === 1 ? $servers[0] : $servers;
     }
 
-    private function normalizeServer(string $server, bool $decodeCredentials): array
+    private function normalizeServer(string $server): array
     {
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
@@ -62,25 +61,17 @@ class RedisFactory
             $parsedServer['ssl'] = SSL::OPTIONS;
         }
 
-        if (! isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
-            return $parsedServer;
-        }
-
-        // Deprecated. Apply URL decoding only if explicitly requested, for BC. Next major version will always do it
-        $credentialsCallback = static fn (string $val) => ($decodeCredentials ? urldecode($val) : $val);
-
-        if (isset($parsedServer['user']) && ! isset($parsedServer['pass'])) {
-            // For historical reasons, we support URLs in the form of `tcp://redis_password@redis_host:1234`, but this
-            // is deprecated
-            $parsedServer['password'] = $credentialsCallback($parsedServer['user']);
-        } elseif (isset($parsedServer['user'], $parsedServer['pass'])) {
-            if ($parsedServer['user'] !== '') {
-                $parsedServer['username'] = $credentialsCallback($parsedServer['user']);
-            }
-            $parsedServer['password'] = $credentialsCallback($parsedServer['pass']);
-        }
-
+        // Set credentials if set
+        $user = $parsedServer['user'] ?? null;
+        $pass = $parsedServer['pass'] ?? null;
         unset($parsedServer['user'], $parsedServer['pass']);
+
+        if ($user !== null && $user !== '') {
+            $parsedServer['username'] = urldecode($user);
+        }
+        if ($pass !== null) {
+            $parsedServer['password'] = urldecode($pass);
+        }
 
         return $parsedServer;
     }
