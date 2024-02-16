@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Remove support for redis URIs with just a password in place of the username (like `tcp://password@1.2.3.4`).
 * Remove support for non-URL-encoded credentials in redis URIs.
 * Remove `json_decode` and `json_encode` functions.
+* Remove support for openswoole.
 
 ### Fixed
 * *Nothing*

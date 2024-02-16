@@ -100,7 +100,7 @@ This module provides a set of useful middlewares, all registered as services in 
 
     Should be an early middleware in the pipeline. It makes use of the EntityManager that ensure the database connection is closed at the end of the request.
 
-    It should be used when serving an app with a non-blocking IO server (like Swoole or ReactPHP), which persist services between requests.
+    It should be used when serving an app with a non-blocking IO server (like RoadRunner or FrankenPHP), which persist services between requests.
 
 * `IpAddress` (from [akrabat/ip-address-middleware](https://github.com/akrabat/ip-address-middleware) package):
 
