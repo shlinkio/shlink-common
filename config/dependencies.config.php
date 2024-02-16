@@ -8,7 +8,6 @@ use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Psr\Log\LoggerInterface;
 use RKA\Middleware\IpAddress;
-use Shlinkio\Shlink\Config\Factory\SwooleInstalledFactory;
 use Symfony\Component\Filesystem\Filesystem;
 
 return [
@@ -19,7 +18,7 @@ return [
 
             Middleware\RequestIdMiddleware::class => InvokableFactory::class,
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
-            Middleware\ContentLengthMiddleware::class => ConfigAbstractFactory::class,
+            Middleware\ContentLengthMiddleware::class => InvokableFactory::class,
             Middleware\AccessLogMiddleware::class => ConfigAbstractFactory::class,
             IpAddress::class => Middleware\IpAddressMiddlewareFactory::class,
 
@@ -29,7 +28,6 @@ return [
 
     ConfigAbstractFactory::class => [
         Middleware\CloseDbConnectionMiddleware::class => ['em'],
-        Middleware\ContentLengthMiddleware::class => [SwooleInstalledFactory::SWOOLE_INSTALLED],
         Middleware\AccessLogMiddleware::class => [Middleware\AccessLogMiddleware::LOGGER_SERVICE_NAME],
         Logger\ErrorLogger::class => [LoggerInterface::class],
     ],

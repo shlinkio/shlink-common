@@ -16,29 +16,12 @@ use Shlinkio\Shlink\Common\Middleware\ContentLengthMiddleware;
 class ContentLengthMiddlewareTest extends TestCase
 {
     private ContentLengthMiddleware $middleware;
-    private bool $isSwoole;
     private MockObject & RequestHandlerInterface $handler;
 
     public function setUp(): void
     {
-        $this->isSwoole = false;
-        $this->middleware = new ContentLengthMiddleware(fn () => $this->isSwoole);
+        $this->middleware = new ContentLengthMiddleware();
         $this->handler = $this->createMock(RequestHandlerInterface::class);
-    }
-
-    #[Test]
-    public function responseIsReturnedAsIsWhenIsSwoole(): void
-    {
-        $this->isSwoole = true;
-        $respMock = $this->createMock(ResponseInterface::class);
-        $respMock->expects($this->never())->method('hasHeader')->with('Content-Length');
-        $respMock->expects($this->never())->method('getBody');
-        $request = ServerRequestFactory::fromGlobals();
-        $this->handler->expects($this->once())->method('handle')->with($request)->willReturn($respMock);
-
-        $result = $this->middleware->process($request, $this->handler);
-
-        self::assertSame($respMock, $result);
     }
 
     #[Test]
