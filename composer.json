@@ -30,7 +30,7 @@
         "predis/predis": "^2.2",
         "psr/http-server-middleware": "^1.0",
         "ramsey/uuid": "^4.7",
-        "shlinkio/shlink-config": "^2.5",
+        "shlinkio/shlink-config": "^3.0 || ^2.5",
         "shlinkio/shlink-json": "^1.1",
         "symfony/cache": "^7.0 || ^6.4",
         "symfony/lock": "^7.0 || ^6.4",
