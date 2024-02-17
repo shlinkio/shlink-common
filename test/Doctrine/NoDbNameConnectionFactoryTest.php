@@ -41,7 +41,6 @@ class NoDbNameConnectionFactoryTest extends TestCase
         $this->originalConn->expects($this->once())->method('getParams')->willReturn($params);
         $this->originalConn->expects($this->once())->method('getDriver')->willReturn($this->createMock(Driver::class));
         $this->originalConn->expects($this->once())->method('getConfiguration')->willReturn(new Configuration());
-        $this->em->expects($this->once())->method('getEventManager')->willReturn(null);
         $this->em->expects($this->once())->method('getConnection')->willReturn($this->originalConn);
         $this->container->expects($this->once())->method('get')->with(EntityManager::class)->willReturn($this->em);
 
