@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ## [Unreleased]
 ### Added
 * Add new `RequestIdMiddleware`.
+* Add support for Doctrine ORM 3.0.0
 
 ### Changed
 * Update dependencies
@@ -20,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Remove support for non-URL-encoded credentials in redis URIs.
 * Remove `json_decode` and `json_encode` functions.
 * Remove support for openswoole.
+* Drop support for Doctrine ORM 2.x
 
 ### Fixed
 * *Nothing*
