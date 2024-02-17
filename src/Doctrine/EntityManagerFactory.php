@@ -65,9 +65,6 @@ class EntityManagerFactory
         $config->setProxyNamespace('DoctrineProxies');
         $config->setAutoGenerateProxyClasses($isDev);
 
-        // Changes the "engine" used to build entity proxies, to one where public readonly props can be used
-        $config->setLazyGhostObjectEnabled(true);
-
         return $config;
     }
 
