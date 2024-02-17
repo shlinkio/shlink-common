@@ -47,7 +47,7 @@ class EntityRepositoryFactoryTest extends TestCase
     public function createsRequestedRepositoryClass(string $repoClass): void
     {
         $this->em->expects($this->once())->method('getClassMetadata')->with(stdClass::class)->willReturn(
-            $this->createMock(ClassMetadata::class),
+            new ClassMetadata(stdClass::class),
         );
 
         $repoInstance = EntityRepositoryFactory::{stdClass::class}($this->container, $repoClass);

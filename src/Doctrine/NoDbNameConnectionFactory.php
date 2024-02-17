@@ -19,6 +19,6 @@ class NoDbNameConnectionFactory
         $params = $conn->getParams();
         unset($params['dbname']);
 
-        return new Connection($params, $conn->getDriver(), $conn->getConfiguration(), $em->getEventManager());
+        return new Connection($params, $conn->getDriver(), $conn->getConfiguration());
     }
 }
