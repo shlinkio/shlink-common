@@ -17,7 +17,7 @@
         "akrabat/ip-address-middleware": "^2.1",
         "cakephp/chronos": "^3.0.2",
         "doctrine/orm": "^3.0",
-        "endroid/qr-code": "^4.8",
+        "endroid/qr-code": "^5.0 || ^4.8",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^7.8",
         "laminas/laminas-config": "^3.9",

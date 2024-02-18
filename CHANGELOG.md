@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Added
 * Add new `RequestIdMiddleware`.
 * Add support for Doctrine ORM 3.0.0
+* Add support for `endroid/qr-code` 5.0
 
 ### Changed
 * Update dependencies
