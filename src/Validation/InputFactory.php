@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Validation;
 
-use DateTime;
+use DateTimeInterface;
 use Laminas\Filter;
 use Laminas\InputFilter\ArrayInput;
 use Laminas\InputFilter\Input;
@@ -13,9 +13,9 @@ use Laminas\Validator;
 use function array_map;
 use function is_numeric;
 
-trait InputFactoryTrait
+final class InputFactory
 {
-    private function createInput(string $name, bool $required = true): Input
+    public static function basic(string $name, bool $required = false): Input
     {
         $input = new Input($name);
         $input->setRequired($required)
@@ -24,9 +24,9 @@ trait InputFactoryTrait
         return $input;
     }
 
-    private function createBooleanInput(string $name, bool $required = true): Input
+    public static function boolean(string $name, bool $required = false): Input
     {
-        $input = $this->createInput($name, $required);
+        $input = self::basic($name, $required);
         $input->getFilterChain()->attach(new Filter\Boolean([
             'type' => Filter\Boolean::TYPE_PHP | Filter\Boolean::TYPE_FALSE_STRING,
         ]));
@@ -41,12 +41,12 @@ trait InputFactoryTrait
         return $input;
     }
 
-    private function createDateInput(
+    public static function date(
         string $name,
-        bool $required = true,
-        array $formats = [DateTime::ATOM, 'Y-m-d'],
+        array $formats = [DateTimeInterface::ATOM, 'Y-m-d'],
+        bool $required = false,
     ): Input {
-        $input = $this->createInput($name, $required);
+        $input = self::basic($name, $required);
         $input->getValidatorChain()->attach(new ExcludingValidatorChain(...array_map(
             fn (string $format) => new Validator\Date(['format' => $format]),
             $formats,
@@ -54,16 +54,16 @@ trait InputFactoryTrait
         return $input;
     }
 
-    private function createNumericInput(string $name, bool $required = true, ?int $min = 1): Input
+    public static function numeric(string $name, ?int $min = 1, bool $required = false): Input
     {
-        $input = $this->createInput($name, $required);
+        $input = self::basic($name, $required);
         $input->getValidatorChain()->attach(new Validator\Callback(fn ($value) => is_numeric($value)))
                                    ->attach(new Validator\GreaterThan(['min' => $min, 'inclusive' => true]));
 
         return $input;
     }
 
-    private function createArrayInput(string $name, bool $required = true): ArrayInput
+    public static function array(string $name, bool $required = false): ArrayInput
     {
         $input = new ArrayInput($name);
         $input->setRequired($required)
@@ -72,9 +72,9 @@ trait InputFactoryTrait
         return $input;
     }
 
-    private function createTagsInput(string $name, bool $required = true): ArrayInput
+    public static function tags(string $name, bool $required = false): ArrayInput
     {
-        $tags = $this->createArrayInput($name, $required);
+        $tags = self::array($name, $required);
         $tags->getFilterChain()->attach(new Filter\StringToLower())
                                ->attach(new Filter\PregReplace(['pattern' => '/ /', 'replacement' => '-']));
 
@@ -84,9 +84,9 @@ trait InputFactoryTrait
     /**
      * @param string[] $validFields
      */
-    private function createOrderByInput(string $name, array $validFields, bool $required = false): Input
+    public static function orderBy(string $name, array $validFields, bool $required = false): Input
     {
-        $input = $this->createInput($name, $required);
+        $input = self::basic($name, $required);
         $input->getFilterChain()->attach(new OrderByFilter());
         $input->getValidatorChain()->attach(new OrderByValidator($validFields));
 
