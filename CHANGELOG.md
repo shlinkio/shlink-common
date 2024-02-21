@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Changed
 * Update dependencies
 * Update to PHPUnit 11
+* Inputs created with `InputFactory` are now not required by default. Also, the `required` param is now always the last one.
 
 ### Deprecated
 * *Nothing*
@@ -25,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Remove support for openswoole.
 * Remove support for Doctrine ORM 2.x
 * Remove dependency on injection and mutation tests.
+* Remove `InputFactoryTrait` in favor of `InputFactory` class with static factory methods.
 
 ### Fixed
 * *Nothing*
