@@ -8,14 +8,11 @@ use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Psr\Log\LoggerInterface;
 use RKA\Middleware\IpAddress;
-use Symfony\Component\Filesystem\Filesystem;
 
 return [
 
     'dependencies' => [
         'factories' => [
-            Filesystem::class => InvokableFactory::class,
-
             Middleware\RequestIdMiddleware::class => InvokableFactory::class,
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
             Middleware\ContentLengthMiddleware::class => InvokableFactory::class,

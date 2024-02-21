@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Changed
 * Update dependencies
+* Update to PHPUnit 11
 
 ### Deprecated
 * *Nothing*
@@ -22,7 +23,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Remove support for non-URL-encoded credentials in redis URIs.
 * Remove `json_decode` and `json_encode` functions.
 * Remove support for openswoole.
-* Drop support for Doctrine ORM 2.x
+* Remove support for Doctrine ORM 2.x
+* Remove dependency on injection and mutation tests.
 
 ### Fixed
 * *Nothing*

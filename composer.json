@@ -41,13 +41,12 @@
     },
     "require-dev": {
         "devster/ubench": "^2.1",
-        "infection/infection": "^0.27.7",
         "laminas/laminas-stratigility": "^3.11",
         "mezzio/mezzio-problem-details": "^1.12",
         "pagerfanta/core": "^3.8",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
-        "phpunit/phpunit": "^10.4",
+        "phpunit/phpunit": "^11.0",
         "psr/simple-cache": "^3.0 || ^2.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.3.0",
@@ -75,43 +74,28 @@
         "ci": [
             "@cs",
             "@stan",
-            "@test:ci",
-            "@infect:ci"
+            "@test:ci"
         ],
         "cs": "phpcs",
         "cs:fix": "phpcbf",
         "stan": "phpstan analyse src test config functions --level=8",
         "test": "phpunit --order-by=random --testdox --colors=always",
-        "test:ci": "@test --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml",
-        "test:pretty": "@test --coverage-html build/coverage-html",
-        "infect": "infection --threads=4 --min-msi=85 --log-verbosity=default --only-covered",
-        "infect:ci": "@infect --coverage=build --skip-initial-tests",
-        "infect:show": "@infect --show-mutations",
-        "infect:show:ci": "@infect:ci --show-mutations",
-        "infect:test": [
-            "@test:ci",
-            "@infect:show:ci"
-        ]
+        "test:ci": "@test --coverage-clover=build/clover.xml",
+        "test:pretty": "@test --coverage-html=build/coverage-html"
     },
     "scripts-descriptions": {
-        "ci": "<fg=blue;options=bold>Alias for \"cs\", \"stan\", \"test:ci\" and \"infect:ci\"</>",
+        "ci": "<fg=blue;options=bold>Alias for \"cs\", \"stan\" and \"test:ci\"</>",
         "cs": "<fg=blue;options=bold>Checks coding styles</>",
         "cs:fix": "<fg=blue;options=bold>Fixes coding styles, when possible</>",
         "stan": "<fg=blue;options=bold>Inspects code with phpstan</>",
         "test": "<fg=blue;options=bold>Runs unit tests with no coverage reports</>",
         "test:ci": "<fg=blue;options=bold>Runs unit tests generating coverage reports and logs</>",
-        "test:pretty": "<fg=blue;options=bold>Runs unit tests generating coverage reports in html</>",
-        "infect": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing</>",
-        "infect:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs</>",
-        "infect:show": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing and shows applied mutators</>",
-        "infect:show:ci": "<fg=blue;options=bold>Checks unit tests quality applying mutation testing with existing reports and logs and shows applied mutators</>",
-        "infect:test": "<fg=blue;options=bold>Alias for \"test:ci\" and \"infect:show:ci\"</>"
+        "test:pretty": "<fg=blue;options=bold>Runs unit tests generating coverage reports in html</>"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "infection/extension-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }
