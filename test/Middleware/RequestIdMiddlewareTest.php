@@ -51,6 +51,23 @@ class RequestIdMiddlewareTest extends TestCase
     }
 
     #[Test]
+    public function currentRequestIdCanBeRead(): void
+    {
+        self::assertEquals('-', $this->middleware->currentRequestId());
+        $request = ServerRequestFactory::fromGlobals();
+        $this->middleware->process($request, $this->handler);
+        self::assertNotEquals('-', $this->middleware->currentRequestId());
+    }
+
+    #[Test]
+    public function currentRequestIdCanBeSet(): void
+    {
+        self::assertEquals('-', $this->middleware->currentRequestId());
+        $this->middleware->setCurrentRequestId('foobar');
+        self::assertEquals('foobar', $this->middleware->currentRequestId());
+    }
+
+    #[Test]
     public function defaultRequestIdIsSetForLogs(): void
     {
         $result = ($this->middleware)($this->defaultLogRecord());
