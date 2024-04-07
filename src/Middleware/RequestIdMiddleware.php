@@ -39,4 +39,19 @@ class RequestIdMiddleware implements MiddlewareInterface, ProcessorInterface
         $record->extra[self::ATTRIBUTE] = $this->currentRequestId;
         return $record;
     }
+
+    // The getter and setter defined here are used to forward a request ID generated at the beginning of a request, to
+    // every job scheduled during that request,
+    //  * With the getter we read the value and pass it serialized with the rest of the job's payload.
+    //  * With the setter we set it at the beginning of the job, into that job's RequestIdMiddleware instance.
+
+    public function setCurrentRequestId(string $requestId): void
+    {
+        $this->currentRequestId = $requestId;
+    }
+
+    public function currentRequestId(): string
+    {
+        return $this->currentRequestId;
+    }
 }
