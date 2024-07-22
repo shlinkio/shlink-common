@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common;
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Proxy\LazyServiceFactory;
+use PhpAmqpLib\Connection\AMQPConnectionConfig;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 return [
@@ -17,6 +18,7 @@ return [
     'dependencies' => [
         'factories' => [
             AMQPStreamConnection::class => RabbitMq\AMQPConnectionFactory::class,
+            AMQPConnectionConfig::class => RabbitMq\AMQPConfigFactory::class,
             RabbitMq\RabbitMqPublishingHelper::class => ConfigAbstractFactory::class,
         ],
         'delegators' => [
