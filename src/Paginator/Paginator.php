@@ -8,6 +8,10 @@ use Pagerfanta\Pagerfanta;
 
 use function max;
 
+/**
+ * @template T
+ * @extends Pagerfanta<T>
+ */
 class Paginator extends Pagerfanta
 {
     public const ALL_ITEMS = -1;

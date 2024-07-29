@@ -21,6 +21,7 @@
         <exclude>
             <file>./src/Entity/AbstractEntity.php</file>
             <file>./src/Cache/ShlinkPredisClient.php</file>
+            <file>./src/Paginator/Util/PagerfantaUtilsTrait.php</file>
         </exclude>
     </source>
 </phpunit>

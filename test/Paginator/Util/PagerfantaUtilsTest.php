@@ -9,18 +9,22 @@ use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Shlinkio\Shlink\Common\Paginator\Util\PagerfantaUtilsTrait;
+use Shlinkio\Shlink\Common\Paginator\Util\PagerfantaUtils;
 
 use function range;
 
-class PagerfantaUtilsTraitTest extends TestCase
+/**
+ * @template T
+ */
+class PagerfantaUtilsTest extends TestCase
 {
-    use PagerfantaUtilsTrait;
-
+    /**
+     * @param Pagerfanta<T> $paginator
+     */
     #[Test, DataProvider('providePaginatorAdapters')]
     public function paginatorIsSerializedAsExpected(array $expectedSerialization, Pagerfanta $paginator): void
     {
-        $result = $this->serializePaginator($paginator);
+        $result = PagerfantaUtils::serializePaginator($paginator);
         self::assertEquals($expectedSerialization, $result);
     }
 
@@ -86,7 +90,7 @@ class PagerfantaUtilsTraitTest extends TestCase
     #[Test, DataProvider('provideDataProps')]
     public function paginatorIsSerializedWithExpectedDataProp(string $prop): void
     {
-        $result = $this->serializePaginator(new Pagerfanta(new ArrayAdapter([])), null, $prop);
+        $result = PagerfantaUtils::serializePaginator(new Pagerfanta(new ArrayAdapter([])), dataProp: $prop);
 
         self::assertArrayNotHasKey('data', $result);
         self::assertArrayHasKey($prop, $result);
@@ -99,13 +103,27 @@ class PagerfantaUtilsTraitTest extends TestCase
         yield 'something' => ['something'];
     }
 
+    #[Test]
+    public function paginatorIsSerializedWithProvidedCallback(): void
+    {
+        ['data' => $data] = PagerfantaUtils::serializePaginator(
+            new Pagerfanta(new ArrayAdapter(range(1, 10))),
+            static fn (int $value) => $value * 2,
+        );
+
+        self::assertEquals([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], $data);
+    }
+
+    /**
+     * @param Pagerfanta<T> $paginator
+     */
     #[Test, DataProvider('providePaginatorsToFormat')]
     public function pageMessageIsProperlyFormatted(
         string $expectedMessage,
         string $pattern,
         Pagerfanta $paginator,
     ): void {
-        self::assertEquals($expectedMessage, $this->formatCurrentPageMessage($paginator, $pattern));
+        self::assertEquals($expectedMessage, PagerfantaUtils::formatCurrentPageMessage($paginator, $pattern));
     }
 
     public static function providePaginatorsToFormat(): iterable

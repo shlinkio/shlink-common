@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Rest;
 
+/** @deprecated */
 interface DataTransformerInterface
 {
     /**
