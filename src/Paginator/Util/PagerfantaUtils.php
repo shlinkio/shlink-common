@@ -6,7 +6,6 @@ namespace Shlinkio\Shlink\Common\Paginator\Util;
 
 use Laminas\Stdlib\ArrayUtils;
 use Pagerfanta\Pagerfanta;
-use Shlinkio\Shlink\Common\Rest\DataTransformerInterface;
 
 use function array_map;
 use function count;
@@ -19,16 +18,17 @@ final class PagerfantaUtils
 {
     /**
      * @param Pagerfanta<T> $paginator
+     * @param null|callable(T): mixed $serializer
      */
     public static function serializePaginator(
         Pagerfanta $paginator,
-        ?DataTransformerInterface $transformer = null,
+        ?callable $serializer = null,
         string $dataProp = 'data',
     ): array {
         $currentPageItems = ArrayUtils::iteratorToArray($paginator->getCurrentPageResults());
 
         return [
-            $dataProp => self::serializeItems($currentPageItems, $transformer),
+            $dataProp => self::serializeItems($currentPageItems, $serializer),
             'pagination' => [
                 'currentPage' => $paginator->getCurrentPage(),
                 'pagesCount' => $paginator->getNbPages(),
@@ -39,9 +39,13 @@ final class PagerfantaUtils
         ];
     }
 
-    private static function serializeItems(array $items, ?DataTransformerInterface $transformer = null): array
+    /**
+     * @param T[] $items
+     * @param null|callable(T): array $serializer
+     */
+    private static function serializeItems(array $items, ?callable $serializer = null): array
     {
-        return $transformer === null ? $items : array_map([$transformer, 'transform'], $items);
+        return $serializer === null ? $items : array_map($serializer, $items);
     }
 
     /**

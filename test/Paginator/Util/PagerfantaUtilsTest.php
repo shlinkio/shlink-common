@@ -90,7 +90,7 @@ class PagerfantaUtilsTest extends TestCase
     #[Test, DataProvider('provideDataProps')]
     public function paginatorIsSerializedWithExpectedDataProp(string $prop): void
     {
-        $result = PagerfantaUtils::serializePaginator(new Pagerfanta(new ArrayAdapter([])), null, $prop);
+        $result = PagerfantaUtils::serializePaginator(new Pagerfanta(new ArrayAdapter([])), dataProp: $prop);
 
         self::assertArrayNotHasKey('data', $result);
         self::assertArrayHasKey($prop, $result);
@@ -101,6 +101,17 @@ class PagerfantaUtilsTest extends TestCase
         yield 'foo' => ['foo'];
         yield 'bar' => ['bar'];
         yield 'something' => ['something'];
+    }
+
+    #[Test]
+    public function paginatorIsSerializedWithProvidedCallback(): void
+    {
+        ['data' => $data] = PagerfantaUtils::serializePaginator(
+            new Pagerfanta(new ArrayAdapter(range(1, 10))),
+            static fn (int $value) => $value * 2,
+        );
+
+        self::assertEquals([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], $data);
     }
 
     /**
