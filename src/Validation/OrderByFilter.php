@@ -9,6 +9,9 @@ use Laminas\Filter\AbstractFilter;
 use function is_string;
 use function Shlinkio\Shlink\Common\parseOrderBy;
 
+/**
+ * @extends AbstractFilter<array{}>
+ */
 class OrderByFilter extends AbstractFilter
 {
     /**

@@ -11,9 +11,14 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Paginator\Paginator;
 
+/**
+ * @template T
+ */
 class PaginatorTest extends TestCase
 {
+    /** @var Paginator<T> */
     private Paginator $paginator;
+    /** @var MockObject & AdapterInterface<T> */
     private MockObject & AdapterInterface $adapter;
 
     protected function setUp(): void

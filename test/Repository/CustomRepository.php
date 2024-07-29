@@ -6,6 +6,9 @@ namespace ShlinkioTest\Shlink\Common\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * @extends EntityRepository<object>
+ */
 class CustomRepository extends EntityRepository
 {
 }
