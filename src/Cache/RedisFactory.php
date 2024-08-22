@@ -50,8 +50,9 @@ class RedisFactory
         $parsedServer = parse_url(trim($server));
         if (! is_array($parsedServer)) {
             throw new InvalidArgumentException(sprintf(
-                'Provided server "%s" is not a valid URL with format schema://[[username]:password@]host:port',
+                'Provided server "%s" is not a valid URL with format %s',
                 $server,
+                'schema://[[username]:password@]host:port[/database]',
             ));
         }
 
@@ -71,6 +72,14 @@ class RedisFactory
         }
         if ($pass !== null) {
             $parsedServer['password'] = urldecode($pass);
+        }
+
+        $database = $parsedServer['path'] ?? null;
+        unset($parsedServer['path']);
+
+        if ($database !== null) {
+            // TODO For the next major version, validate this is an integer and throw an exception otherwise
+            $parsedServer['database'] = (int) trim($database, '/');
         }
 
         return $parsedServer;
