@@ -157,4 +157,29 @@ class RedisFactoryTest extends TestCase
             'servers' => ['rediss://1.1.1.1:6379'],
         ], null, null, SSL::OPTIONS];
     }
+
+    #[Test, DataProvider('provideServersWithDatabases')]
+    public function databaseConfigurationIsApplied(
+        array $redisConfig,
+        ?int $expectedDatabase,
+    ): void {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'cache' => ['redis' => $redisConfig],
+        ]);
+
+        $client = ($this->factory)($this->container);
+        $conn = $client->getConnection();
+
+        self::assertEquals($expectedDatabase, $conn->getParameters()->database); // @phpstan-ignore-line
+    }
+
+    public static function provideServersWithDatabases(): iterable
+    {
+        yield 'no database' => [[
+            'servers' => ['tcp://1.1.1.1:6379'],
+        ], null];
+        yield 'database' => [[
+            'servers' => ['tcp://1.1.1.1:6379/5'],
+        ], 5];
+    }
 }
