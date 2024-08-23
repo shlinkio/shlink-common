@@ -34,7 +34,7 @@ The last two adapters will use the namespace defined in `cache.namespace` config
 
 The three of them will allow setting a default lifetime for those entries which do not explicitly define one, picking it up from `cache.default_lifetime`.
 
- ```php
+```php
 <?php
 
 declare(strict_types=1);
@@ -52,7 +52,7 @@ return [
                 // These should be valid URIs. Make sure credentials are URL-encoded
                 'tcp://1.1.1.1:6379',
                 'tcp://2.2.2.2:6379',
-                'tcp://3.3.3.3:6379',
+                'tcp://3.3.3.3:6379/3', // Define a database index to use (https://redis.io/docs/commands/select/)
                 'tcp://user:pass%40word@4.4.4.4:6379', // Redis ACL (https://redis.io/docs/management/security/acl/)
                 'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/management/security/)
                 'tls://server_with_encryption:6379',
