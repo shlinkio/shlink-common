@@ -17,6 +17,7 @@
     <source>
         <include>
             <directory>./src</directory>
+            <directory>./functions</directory>
         </include>
         <exclude>
             <file>./src/Entity/AbstractEntity.php</file>
