@@ -14,7 +14,7 @@ class QrCodeResponseTest extends TestCase
     #[Test]
     public function providedQrCodeIsSetAsBody(): void
     {
-        $qrCode = Builder::create()->data('Hello')->build();
+        $qrCode = (new Builder(data: 'Hello'))->build();
         $resp = new QrCodeResponse($qrCode);
 
         self::assertEquals($qrCode->getMimeType(), $resp->getHeaderLine('Content-Type'));

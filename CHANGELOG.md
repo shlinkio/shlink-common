@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Add support for `endroid/qr-code` 6.0
 
 ### Changed
 * Switch to xdebug for code coverage reports, as pcov is not marking functions as covered
