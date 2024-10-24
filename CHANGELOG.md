@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Changed
 * Switch to xdebug for code coverage reports, as pcov is not marking functions as covered
+* Remove references to `ValinorConfigFactory` from `shlinkio/shlink-config`.
 
 ### Deprecated
 * *Nothing*

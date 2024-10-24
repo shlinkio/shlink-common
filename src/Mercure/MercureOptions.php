@@ -6,16 +6,16 @@ namespace Shlinkio\Shlink\Common\Mercure;
 
 use function trim;
 
-class MercureOptions
+readonly class MercureOptions
 {
     /**
      * @param non-empty-string $jwtIssuer
      */
     public function __construct(
-        public readonly ?string $publicHubUrl = null,
-        public readonly ?string $internalHubUrl = null,
-        public readonly ?string $jwtSecret = null,
-        public readonly string $jwtIssuer = 'Shlink',
+        public ?string $publicHubUrl = null,
+        public ?string $internalHubUrl = null,
+        public ?string $jwtSecret = null,
+        public string $jwtIssuer = 'Shlink',
     ) {
     }
 
