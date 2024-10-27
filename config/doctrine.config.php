@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 
 return [
@@ -19,6 +20,7 @@ return [
 
     'dependencies' => [
         'factories' => [
+            Configuration::class => Doctrine\ConfigurationFactory::class,
             EntityManager::class => Doctrine\EntityManagerFactory::class,
             Connection::class => Doctrine\ConnectionFactory::class,
             Doctrine\NoDbNameConnectionFactory::SERVICE_NAME => Doctrine\NoDbNameConnectionFactory::class,

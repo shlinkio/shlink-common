@@ -5,28 +5,22 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
 use Doctrine\DBAL\Driver\PDO\SQLite\Driver as SQLiteDriver;
-use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Events;
-use Doctrine\Persistence\Mapping\Driver\PHPDriver;
+use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Psr\Cache\CacheItemPoolInterface;
 use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\EntityManagerFactory;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use ShlinkioTest\Shlink\Common\Repository\CustomRepository;
 use stdClass;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
-use function array_filter;
 use function array_merge;
 use function array_merge_recursive;
 use function count;
-
-use const ARRAY_FILTER_USE_KEY;
 
 class EntityManagerFactoryTest extends TestCase
 {
@@ -34,49 +28,29 @@ class EntityManagerFactoryTest extends TestCase
 
     public function setUp(): void
     {
-        if (Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
-            $typeRegistry = Type::getTypeRegistry();
-            $ref = new ReflectionObject($typeRegistry);
-            $instancesProp = $ref->getProperty('instances');
-            $instancesProp->setAccessible(true);
-            $withoutChronosType = array_filter(
-                $typeRegistry->getMap(),
-                fn (string $key): bool => $key !== ChronosDateTimeType::CHRONOS_DATETIME,
-                ARRAY_FILTER_USE_KEY,
-            );
-            $instancesProp->setValue($typeRegistry, $withoutChronosType);
-        }
-
         $this->factory = new EntityManagerFactory();
     }
 
     #[Test, DataProvider('provideConfig')]
     public function serviceIsCreated(
         array $config,
-        int $expectedAutoGenerateProxies,
-        string $expectedDefaultRepo,
         int $expectedListeners,
     ): void {
+        $ormConfig = new Configuration();
+        $ormConfig->setMetadataDriverImpl($this->createMock(MappingDriver::class));
+        $ormConfig->setProxyDir(__DIR__);
+        $ormConfig->setProxyNamespace('DoctrineProxies');
+
         $sm = new ServiceManager(['services' => [
             'config' => $config,
             'foo_listener' => new stdClass(),
             'bar_listener' => new stdClass(),
             'baz_listener' => new stdClass(),
-            CacheItemPoolInterface::class => new ArrayAdapter(),
+            Configuration::class => $ormConfig,
         ]]);
 
-        self::assertFalse(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
         $em = ($this->factory)($sm);
-
-        self::assertTrue(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
-        self::assertEquals($expectedAutoGenerateProxies, $em->getConfiguration()->getAutoGenerateProxyClasses());
-        self::assertEquals(__DIR__, $em->getConfiguration()->getProxyDir());
         self::assertInstanceOf(SQLiteDriver::class, $em->getConnection()->getDriver());
-        self::assertEquals($expectedDefaultRepo, $em->getConfiguration()->getDefaultRepositoryClassName());
-
-        /** @var PHPDriver $metaDriver */
-        $metaDriver = $em->getConfiguration()->getMetadataDriverImpl();
-        self::assertEquals([__FILE__], $metaDriver->getLocator()->getPaths());
 
         $events = $em->getEventManager();
         $ref = new ReflectionObject($events);
@@ -109,20 +83,18 @@ class EntityManagerFactoryTest extends TestCase
             ],
         ];
 
-        yield [array_merge($baseConfig, ['debug' => true]), 1, EntityRepository::class, 0];
-        yield [array_merge($baseConfig, ['debug' => '1']), 1, EntityRepository::class, 0];
-        yield [array_merge($baseConfig, ['debug' => 'true']), 1, EntityRepository::class, 0];
-        yield [array_merge($baseConfig, ['debug' => false]), 0, EntityRepository::class, 0];
-        yield [array_merge($baseConfig, ['debug' => null]), 0, EntityRepository::class, 0];
-        yield [array_merge($baseConfig, ['debug' => null]), 0, EntityRepository::class, 0];
+        yield [array_merge($baseConfig, ['debug' => true]), 0];
+        yield [array_merge($baseConfig, ['debug' => '1']), 0];
+        yield [array_merge($baseConfig, ['debug' => 'true']), 0];
+        yield [array_merge($baseConfig, ['debug' => false]), 0];
+        yield [array_merge($baseConfig, ['debug' => null]), 0];
+        yield [array_merge($baseConfig, ['debug' => null]), 0];
         yield [
             array_merge_recursive($baseConfig, [
                 'entity_manager' => [
                     'orm' => ['default_repository_classname' => CustomRepository::class],
                 ],
             ]),
-            0,
-            CustomRepository::class,
             0,
         ];
         yield [
@@ -136,8 +108,6 @@ class EntityManagerFactoryTest extends TestCase
                     ],
                 ],
             ]),
-            0,
-            EntityRepository::class,
             5,
         ];
     }
