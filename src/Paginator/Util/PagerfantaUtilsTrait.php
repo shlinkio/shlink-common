@@ -18,7 +18,7 @@ trait PagerfantaUtilsTrait
      */
     private function serializePaginator(
         Pagerfanta $paginator,
-        ?DataTransformerInterface $transformer = null,
+        DataTransformerInterface|null $transformer = null,
         string $dataProp = 'data',
     ): array {
         $serializer = $transformer !== null ? fn ($value) => $transformer->transform($value) : null;

@@ -10,7 +10,7 @@ use Shlinkio\Shlink\Common\Util\DateRange;
 use function array_pad;
 use function explode;
 
-function buildDateRange(?Chronos $startDate, ?Chronos $endDate): DateRange
+function buildDateRange(Chronos|null $startDate, Chronos|null $endDate): DateRange
 {
     return match (true) {
         $startDate !== null && $endDate !== null => DateRange::between($startDate, $endDate),

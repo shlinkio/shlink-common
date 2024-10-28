@@ -22,7 +22,7 @@ final class PagerfantaUtils
      */
     public static function serializePaginator(
         Pagerfanta $paginator,
-        ?callable $serializer = null,
+        callable|null $serializer = null,
         string $dataProp = 'data',
     ): array {
         $currentPageItems = ArrayUtils::iteratorToArray($paginator->getCurrentPageResults());
@@ -43,7 +43,7 @@ final class PagerfantaUtils
      * @param T[] $items
      * @param null|callable(T): array $serializer
      */
-    private static function serializeItems(array $items, ?callable $serializer = null): array
+    private static function serializeItems(array $items, callable|null $serializer = null): array
     {
         return $serializer === null ? $items : array_map($serializer, $items);
     }

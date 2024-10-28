@@ -12,7 +12,7 @@ use Shlinkio\Shlink\Common\Mercure\MercureOptions;
 class MercureOptionsTest extends TestCase
 {
     #[Test, DataProvider('providePublicHubUrls')]
-    public function isEnabledOnlyWHenPublicUrlExists(?string $publicHubUrl, bool $expectedIsEnabled): void
+    public function isEnabledOnlyWHenPublicUrlExists(string|null $publicHubUrl, bool $expectedIsEnabled): void
     {
         $options = new MercureOptions(publicHubUrl: $publicHubUrl);
         self::assertEquals($options->isEnabled(), $expectedIsEnabled);

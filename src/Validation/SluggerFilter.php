@@ -14,7 +14,7 @@ class SluggerFilter implements FilterInterface
 {
     private Slugger\SluggerInterface $slugger;
 
-    public function __construct(?Slugger\SluggerInterface $slugger = null)
+    public function __construct(Slugger\SluggerInterface|null $slugger = null)
     {
         $this->slugger = $slugger ?? new Slugger\AsciiSlugger();
     }

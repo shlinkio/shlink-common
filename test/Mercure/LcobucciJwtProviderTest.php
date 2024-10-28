@@ -75,7 +75,7 @@ class LcobucciJwtProviderTest extends TestCase
     }
 
     #[Test, DataProvider('provideExpirationDates')]
-    public function expectedSubscriptionTokenIsCreated(?Chronos $expiresAt, Chronos $expectedExpiresAt): void
+    public function expectedSubscriptionTokenIsCreated(Chronos|null $expiresAt, Chronos $expectedExpiresAt): void
     {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig->parser()->parse(

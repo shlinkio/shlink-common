@@ -36,7 +36,7 @@ class HostAndPortValidator extends AbstractValidator
     private ValidatorInterface $hostValidator;
     private ValidatorInterface $portValidator;
 
-    public function __construct(?array $options = null)
+    public function __construct(array|null $options = null)
     {
         parent::__construct($options);
 

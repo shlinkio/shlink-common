@@ -18,7 +18,7 @@ class NamespacedStore implements SharedLockStoreInterface
 {
     public function __construct(
         private readonly SharedLockStoreInterface $wrappedStore,
-        private readonly ?string $namespace = null,
+        private readonly string|null $namespace = null,
         /** Some stores may not allow default separator value. Make sure you provide the appropriate one */
         private readonly string $namespaceSeparator = ':',
     ) {

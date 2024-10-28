@@ -23,7 +23,7 @@ class NamespacedStoreTest extends TestCase
 
     #[Test, DataProvider('provideKeysAndNamespaces')]
     public function keyIsReturnedVerbatimWhenNoNamespacesIsProvided(
-        ?string $namespace,
+        string|null $namespace,
         Key $key,
         string $expectedResource,
     ): void {

@@ -12,9 +12,9 @@ readonly class MercureOptions
      * @param non-empty-string $jwtIssuer
      */
     public function __construct(
-        public ?string $publicHubUrl = null,
-        public ?string $internalHubUrl = null,
-        public ?string $jwtSecret = null,
+        public string|null $publicHubUrl = null,
+        public string|null $internalHubUrl = null,
+        public string|null $jwtSecret = null,
         public string $jwtIssuer = 'Shlink',
     ) {
     }

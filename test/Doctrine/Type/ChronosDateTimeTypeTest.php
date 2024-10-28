@@ -42,7 +42,7 @@ class ChronosDateTimeTypeTest extends TestCase
      * @param class-string<Chronos>|null $expected
      */
     #[Test, DataProvider('provideValues')]
-    public function valueIsConverted(?string $value, ?string $expected): void
+    public function valueIsConverted(string|null $value, string|null $expected): void
     {
         $platform = $this->createMock(AbstractPlatform::class);
         $platform->method('getDateTimeFormatString')->willReturn('Y-m-d H:i:s');
@@ -64,7 +64,7 @@ class ChronosDateTimeTypeTest extends TestCase
     }
 
     #[Test, DataProvider('providePhpValues')]
-    public function valueIsConvertedToDatabaseFormat(?DateTimeInterface $value, ?string $expected): void
+    public function valueIsConvertedToDatabaseFormat(DateTimeInterface|null $value, string|null $expected): void
     {
         $platform = $this->createMock(AbstractPlatform::class);
         $platform->method('getDateTimeFormatString')->willReturn('Y-m-d');
