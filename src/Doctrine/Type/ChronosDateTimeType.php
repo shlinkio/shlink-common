@@ -23,7 +23,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
     /**
      * @throws ConversionException
      */
-    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?Chronos
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): Chronos|null
     {
         if ($value === null) {
             return null;
@@ -39,7 +39,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
      * @template T
      * @throws ConversionException
      */
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string|null
     {
         if ($value === null) {
             return null;

@@ -36,7 +36,7 @@ class RedisFactoryTest extends TestCase
      */
     #[Test, DataProvider('provideRedisConfig')]
     public function createsRedisClientBasedOnCacheConfig(
-        ?array $config,
+        array|null $config,
         string $expectedCluster,
         string $expectedReplication,
     ): void {
@@ -117,9 +117,9 @@ class RedisFactoryTest extends TestCase
     #[Test, DataProvider('provideServersWithCredentials')]
     public function providedCredentialsArePassedToConnection(
         array $redisConfig,
-        ?string $expectedUsername,
-        ?string $expectedPassword,
-        ?array $expectedSslOptions,
+        string|null $expectedUsername,
+        string|null $expectedPassword,
+        array|null $expectedSslOptions,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => ['redis' => $redisConfig],
@@ -161,7 +161,7 @@ class RedisFactoryTest extends TestCase
     #[Test, DataProvider('provideServersWithDatabases')]
     public function databaseConfigurationIsApplied(
         array $redisConfig,
-        ?int $expectedDatabase,
+        int|null $expectedDatabase,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => ['redis' => $redisConfig],

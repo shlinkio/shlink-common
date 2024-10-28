@@ -6,9 +6,9 @@ namespace Shlinkio\Shlink\Common\Util;
 
 use Cake\Chronos\Chronos;
 
-final class DateRange
+final readonly class DateRange
 {
-    private function __construct(public readonly ?Chronos $startDate = null, public readonly ?Chronos $endDate = null)
+    private function __construct(public Chronos|null $startDate = null, public Chronos|null $endDate = null)
     {
     }
 

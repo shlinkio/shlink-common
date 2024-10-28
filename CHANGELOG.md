@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Changed
 * Extract configuration-related code from `EntityManagerFactory` into `ConfigurationFactory`.
+* Update to shlinkio coding standard 2.4.
 
 ### Deprecated
 * *Nothing*

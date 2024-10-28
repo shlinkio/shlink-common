@@ -54,7 +54,7 @@ final class InputFactory
         return $input;
     }
 
-    public static function numeric(string $name, ?int $min = 1, bool $required = false): Input
+    public static function numeric(string $name, int|null $min = 1, bool $required = false): Input
     {
         $input = self::basic($name, $required);
         $input->getValidatorChain()->attach(new Validator\Callback(fn ($value) => is_numeric($value)))

@@ -14,8 +14,11 @@ use function Shlinkio\Shlink\Common\buildDateRange;
 class FunctionsTest extends TestCase
 {
     #[Test, DataProvider('provideDates')]
-    public function expectedDateRangeIsBuilt(?Chronos $startDate, ?Chronos $endDate, bool $expectedIsAllTime): void
-    {
+    public function expectedDateRangeIsBuilt(
+        Chronos|null $startDate,
+        Chronos|null $endDate,
+        bool $expectedIsAllTime,
+    ): void {
         $dateRange = buildDateRange($startDate, $endDate);
 
         self::assertEquals($expectedIsAllTime, $dateRange->isAllTime());

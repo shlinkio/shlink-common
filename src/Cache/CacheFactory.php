@@ -16,7 +16,7 @@ class CacheFactory
 {
     private Closure $apcuEnabled;
 
-    public function __construct(?callable $apcuEnabled = null)
+    public function __construct(callable|null $apcuEnabled = null)
     {
         $this->apcuEnabled = Closure::fromCallable($apcuEnabled ?? static fn () => extension_loaded('apcu'));
     }

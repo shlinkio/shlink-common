@@ -17,5 +17,5 @@ interface JwtProviderInterface extends TokenProviderInterface
     /**
      * @return non-empty-string
      */
-    public function buildSubscriptionToken(?DateTimeImmutable $expiresAt = null): string;
+    public function buildSubscriptionToken(DateTimeImmutable|null $expiresAt = null): string;
 }

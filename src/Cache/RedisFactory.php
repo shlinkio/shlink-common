@@ -85,7 +85,7 @@ class RedisFactory
         return $parsedServer;
     }
 
-    private function resolveOptions(array $redisConfig, array $servers): ?array
+    private function resolveOptions(array $redisConfig, array $servers): array|null
     {
         $sentinelService = $redisConfig['sentinel_service'] ?? null;
         if ($sentinelService !== null) {

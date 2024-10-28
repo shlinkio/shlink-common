@@ -36,7 +36,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     /**
      * @return non-empty-string
      */
-    public function buildSubscriptionToken(?DateTimeImmutable $expiresAt = null): string
+    public function buildSubscriptionToken(DateTimeImmutable|null $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
         return $this->buildToken(['subscribe' => ['*']], $expiresAt);

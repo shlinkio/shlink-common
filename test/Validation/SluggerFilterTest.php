@@ -25,7 +25,7 @@ class SluggerFilterTest extends TestCase
     }
 
     #[Test, DataProvider('provideValuesToFilter')]
-    public function providedValueIsFilteredAsExpected(?string $providedValue, ?string $expectedValue): void
+    public function providedValueIsFilteredAsExpected(string|null $providedValue, string|null $expectedValue): void
     {
         $this->slugger->expects($this->exactly($expectedValue !== null ? 1 : 0))->method('slug')->with(
             $providedValue,
