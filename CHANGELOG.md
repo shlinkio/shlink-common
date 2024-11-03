@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [6.5.0] - 2024-11-03
 ### Added
 * *Nothing*
 
@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Fixed
-* *Nothing*
+* Fix calls to `SCAN` commands to redis >=7.4 when cursor is `null`.
 
 
 ## [6.4.0] - 2024-10-27
