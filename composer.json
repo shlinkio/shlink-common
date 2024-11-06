@@ -32,7 +32,7 @@
         "ramsey/uuid": "^4.7",
         "shlinkio/shlink-config": "^3.3",
         "shlinkio/shlink-json": "^1.2",
-        "symfony/cache": "^7.1",
+        "symfony/cache": "^7.1.7",
         "symfony/lock": "^7.1",
         "symfony/mercure": "^0.6",
         "symfony/string": "^7.1",
