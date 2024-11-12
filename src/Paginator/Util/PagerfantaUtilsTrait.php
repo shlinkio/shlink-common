@@ -9,6 +9,7 @@ use Shlinkio\Shlink\Common\Rest\DataTransformerInterface;
 
 /**
  * @deprecated Use PagerfantaUtils instead
+ * @phpstan-ignore trait.unused
  */
 trait PagerfantaUtilsTrait
 {

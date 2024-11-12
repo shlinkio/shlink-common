@@ -10,12 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Changed
 * Remove predis scan workaround by requiring `symfony/cache` 7.1.7, which fixes it.
+* Updated to phpstan 2.0
 
 ### Deprecated
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* Drop support for `endroid/qr-code` 5.0
 
 ### Fixed
 * *Nothing*

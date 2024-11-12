@@ -20,6 +20,7 @@ class Paginator extends Pagerfanta
 
     /**
      * @param positive-int|self::ALL_ITEMS $maxPerPage
+     * @return Paginator<T>
      */
     public function setMaxPerPage(int $maxPerPage): self
     {

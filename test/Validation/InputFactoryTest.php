@@ -61,7 +61,6 @@ class InputFactoryTest extends TestCase
         self::assertContains(Filter\StringTrim::class, $filters);
         self::assertContains(Filter\Boolean::class, $filters);
 
-        /** @var Validator\NotEmpty $notEmptyValidator */
         $notEmptyValidator = $validators[0]['instance'];
         $calculateTypeValue = (fn (array $type) => $this->calculateTypeValue($type))->bindTo( // @phpstan-ignore-line
             $notEmptyValidator,
@@ -90,7 +89,6 @@ class InputFactoryTest extends TestCase
         self::assertContains(Filter\StripTags::class, $filters);
         self::assertContains(Filter\StringTrim::class, $filters);
 
-        /** @var ExcludingValidatorChain $excludingValidator */
         $excludingValidator = $validators[0]['instance'];
         self::assertInstanceOf(ExcludingValidatorChain::class, $excludingValidator);
 
