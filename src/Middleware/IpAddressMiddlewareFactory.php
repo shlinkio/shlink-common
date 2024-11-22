@@ -7,6 +7,9 @@ namespace Shlinkio\Shlink\Common\Middleware;
 use Psr\Container\ContainerInterface;
 use RKA\Middleware\IpAddress;
 
+/**
+ * @deprecated Use akrabat/ip-address-middleware built-in factory instead
+ */
 class IpAddressMiddlewareFactory
 {
     public const REQUEST_ATTR = 'remote_address';

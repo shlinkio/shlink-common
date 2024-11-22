@@ -14,19 +14,18 @@
     "require": {
         "php": "^8.2",
         "ext-fileinfo": "*",
-        "akrabat/ip-address-middleware": "^2.3",
         "cakephp/chronos": "^3.1",
-        "doctrine/orm": "^3.2",
+        "doctrine/orm": "^3.3",
         "endroid/qr-code": "^6.0",
         "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^7.9",
-        "laminas/laminas-diactoros": "^3.3",
-        "laminas/laminas-inputfilter": "^2.30",
-        "laminas/laminas-servicemanager": "^3.22",
-        "lcobucci/jwt": "^5.3",
-        "monolog/monolog": "^3.7",
+        "laminas/laminas-diactoros": "^3.5",
+        "laminas/laminas-inputfilter": "^2.31",
+        "laminas/laminas-servicemanager": "^3.23",
+        "lcobucci/jwt": "^5.4",
+        "monolog/monolog": "^3.8",
         "php-amqplib/php-amqplib": "^3.7",
-        "predis/predis": "^2.2",
+        "predis/predis": "^2.3",
         "psr/http-server-middleware": "^1.0",
         "ramsey/uuid": "^4.7",
         "shlinkio/shlink-config": "^3.3",
@@ -39,13 +38,14 @@
         "symfony/var-exporter": "^7.1"
     },
     "require-dev": {
+        "akrabat/ip-address-middleware": "^2.3",
         "devster/ubench": "^2.1",
-        "laminas/laminas-stratigility": "^3.12",
-        "mezzio/mezzio-problem-details": "^1.14",
+        "laminas/laminas-stratigility": "^3.13",
+        "mezzio/mezzio-problem-details": "^1.15",
         "pagerfanta/core": "^3.8",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/phpunit": "^11.3",
+        "phpunit/phpunit": "^11.4",
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.4.0",
@@ -54,7 +54,8 @@
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
         "laminas/laminas-stratigility": "To log ErrorHandler errors using the ErrorLogger",
-        "pagerfanta/core": "To use the PagerfantaUtilsTrait"
+        "pagerfanta/core": "To use the PagerfantaUtilsTrait",
+        "akrabat/ip-address-middleware": "To use IpAddressMiddlewareFactory"
     },
     "autoload": {
         "psr-4": {

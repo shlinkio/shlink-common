@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Updated to phpstan 2.0
 
 ### Deprecated
-* *Nothing*
+* Deprecated `IpAddressMiddlewareFactory`. Use `akrabat/ip-address-middleware` built-in factory instead.
 
 ### Removed
 * Drop support for `endroid/qr-code` 5.0
