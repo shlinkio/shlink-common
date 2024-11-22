@@ -7,7 +7,6 @@ namespace Shlinkio\Shlink\Common;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Psr\Log\LoggerInterface;
-use RKA\Middleware\IpAddress;
 
 return [
 
@@ -17,7 +16,6 @@ return [
             Middleware\CloseDbConnectionMiddleware::class => ConfigAbstractFactory::class,
             Middleware\ContentLengthMiddleware::class => InvokableFactory::class,
             Middleware\AccessLogMiddleware::class => ConfigAbstractFactory::class,
-            IpAddress::class => Middleware\IpAddressMiddlewareFactory::class,
 
             Logger\ErrorLogger::class => ConfigAbstractFactory::class,
         ],
