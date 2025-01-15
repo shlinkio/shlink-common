@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-fileinfo": "*",
         "cakephp/chronos": "^3.1",
         "doctrine/orm": "^3.3",
@@ -30,15 +30,15 @@
         "ramsey/uuid": "^4.7",
         "shlinkio/shlink-config": "^3.3",
         "shlinkio/shlink-json": "^1.2",
-        "symfony/cache": "^7.1.7",
-        "symfony/lock": "^7.1",
+        "symfony/cache": "^7.2",
+        "symfony/lock": "^7.2",
         "symfony/mercure": "^0.6",
-        "symfony/string": "^7.1",
+        "symfony/string": "^7.2",
         "symfony/translation-contracts": "^3.5",
-        "symfony/var-exporter": "^7.1"
+        "symfony/var-exporter": "^7.2"
     },
     "require-dev": {
-        "akrabat/ip-address-middleware": "^2.3",
+        "akrabat/ip-address-middleware": "^2.6",
         "devster/ubench": "^2.1",
         "laminas/laminas-stratigility": "^3.13",
         "mezzio/mezzio-problem-details": "^1.15",
@@ -49,13 +49,12 @@
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.4.0",
-        "symfony/var-dumper": "^7.1"
+        "symfony/var-dumper": "^7.2"
     },
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
         "laminas/laminas-stratigility": "To log ErrorHandler errors using the ErrorLogger",
-        "pagerfanta/core": "To use the PagerfantaUtilsTrait",
-        "akrabat/ip-address-middleware": "To use IpAddressMiddlewareFactory"
+        "pagerfanta/core": "To use the PagerfantaUtilsTrait"
     },
     "autoload": {
         "psr-4": {
