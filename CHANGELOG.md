@@ -4,18 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [7.0.0] - 2025-01-25
 ### Added
 * *Nothing*
 
 ### Changed
-* *Nothing*
+* Update shlink-config to v4.0
 
 ### Deprecated
 * *Nothing*
 
 ### Removed
 * Drop support for PHP 8.2
+* Remove deprecated `IpAddressMiddlewareFactory`.
+* Remove deprecated `PagerfantaUtilsTrait`.
+* Remove deprecated `DataTransformerInterface`.
 
 ### Fixed
 * *Nothing*

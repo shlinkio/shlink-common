@@ -28,7 +28,7 @@
         "predis/predis": "^2.3",
         "psr/http-server-middleware": "^1.0",
         "ramsey/uuid": "^4.7",
-        "shlinkio/shlink-config": "^3.3",
+        "shlinkio/shlink-config": "^4.0",
         "shlinkio/shlink-json": "^1.2",
         "symfony/cache": "^7.2",
         "symfony/lock": "^7.2",
