@@ -10,6 +10,7 @@ use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Stream;
 use Psr\Http\Message\StreamInterface;
 
+/** @deprecated */
 class QrCodeResponse extends Response
 {
     use Response\InjectContentTypeTrait;
