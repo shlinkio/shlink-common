@@ -323,6 +323,11 @@ declare(strict_types=1);
 return [
 
     'mercure' => [
+        // Whether the integration with mercure is enabled or not.
+        // If not explicitly set, the integration is considered enabled if a public URL is set, but next major version
+        // will change the default to false.
+        'enabled' => true,
+
         // A URL publicly available in which the mercure hub can be reached.
         'public_hub_url' => null,
 

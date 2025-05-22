@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\MercureOptions;
 
 class MercureOptionsTest extends TestCase
 {
-    #[Test, DataProvider('providePublicHubUrls')]
-    public function isEnabledOnlyWHenPublicUrlExists(string|null $publicHubUrl, bool $expectedIsEnabled): void
+    #[Test]
+    #[TestWith([true])]
+    #[TestWith([false])]
+    public function isEnabledOnlyWHenPublicUrlExists(bool $isEnabled): void
     {
-        $options = new MercureOptions(publicHubUrl: $publicHubUrl);
-        self::assertEquals($options->isEnabled(), $expectedIsEnabled);
-    }
+        $options = new MercureOptions(enabled: $isEnabled);
 
-    public static function providePublicHubUrls(): iterable
-    {
-        yield 'null public hub URL' => [null, false];
-        yield 'empty public hub URL' => ['', false];
-        yield 'pseudo-empty public hub URL' => ['   ', false];
-        yield 'non-empty public hub URL' => ['foo', true];
+        self::assertEquals($options->enabled, $isEnabled);
+        self::assertEquals($options->isEnabled(), $isEnabled);
     }
 }

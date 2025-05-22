@@ -13,9 +13,9 @@ use Throwable;
 
 use function Shlinkio\Shlink\Json\json_encode;
 
-class RabbitMqPublishingHelper implements PublishingHelperInterface
+readonly class RabbitMqPublishingHelper implements PublishingHelperInterface
 {
-    public function __construct(private readonly AMQPStreamConnection $connection)
+    public function __construct(private AMQPStreamConnection $connection)
     {
     }
 
