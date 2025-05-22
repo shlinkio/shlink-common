@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Add `mercure.enabled` option to allow an easier way to determine if mercure integration is enabled.
+
+    For BC, it still checks if the public hub URL is set.
 
 ### Changed
 * *Nothing*

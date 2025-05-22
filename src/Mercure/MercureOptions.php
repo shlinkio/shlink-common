@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Mercure;
 
-use function trim;
-
 readonly class MercureOptions
 {
     /**
      * @param non-empty-string $jwtIssuer
      */
     public function __construct(
+        public bool $enabled = false,
         public string|null $publicHubUrl = null,
         public string|null $internalHubUrl = null,
         public string|null $jwtSecret = null,
@@ -19,8 +18,9 @@ readonly class MercureOptions
     ) {
     }
 
+    /** @deprecated Use `enabled` prop directly instead */
     public function isEnabled(): bool
     {
-        return $this->publicHubUrl !== null && trim($this->publicHubUrl) !== '';
+        return $this->enabled;
     }
 }

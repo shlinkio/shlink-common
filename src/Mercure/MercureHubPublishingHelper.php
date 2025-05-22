@@ -12,9 +12,9 @@ use Throwable;
 
 use function Shlinkio\Shlink\Json\json_encode;
 
-class MercureHubPublishingHelper implements PublishingHelperInterface
+readonly class MercureHubPublishingHelper implements PublishingHelperInterface
 {
-    public function __construct(private readonly HubInterface $mercure)
+    public function __construct(private HubInterface $mercure)
     {
     }
 
