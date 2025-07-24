@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
     For BC, it still checks if the public hub URL is set.
 
+* Add support for JSON-formatted logs in the `LoggerFactory`.
+
 ### Changed
 * *Nothing*
 

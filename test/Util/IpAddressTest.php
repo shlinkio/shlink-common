@@ -58,6 +58,7 @@ class IpAddressTest extends TestCase
         string $firstOctet,
         string $secondOctet,
         string $thirdOctet,
+        mixed $_, // Data provider sends one more arg. This prevents PHPUnit to warn
     ): void {
         $anonymizedAddress = IpAddress::fromString($validAddress)->getAnonymizedCopy();
 
