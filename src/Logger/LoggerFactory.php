@@ -65,7 +65,7 @@ class LoggerFactory
             $lineFormat = $lineFormat . PHP_EOL;
         }
 
-        return new LineFormatter($lineFormat, null, true);
+        return new LineFormatter($lineFormat, allowInlineLineBreaks: true);
     }
 
     private static function resolveProcessors(array $loggerConfig, ContainerInterface $container): array
