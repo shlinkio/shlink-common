@@ -239,13 +239,19 @@ return [
             'type' => LoggerType::FILE->value,
             'level' => Level::Info->value,
             'processors' => [RequestIdMiddleware::class],
-            'line_format' => '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%',
+            'formatter' => [
+                'type' => 'console', // 'console' or 'json'. Defaults to 'console'
+                // If 'console' type is defined, you can define the line format
+                'line_format' => '[%datetime%] [%extra.request_id%] %channel%.%level_name% - %message%',
+            ],
         ],
         'Access' => [
             'type' => LoggerType::STREAM->value,
             'level' => Level::Alert->value,
-            'line_format' => '[%datetime%] %level_name% - %message%',
-            'add_new_line' => false,
+            'formatter' => [
+                'line_format' => '[%datetime%] %level_name% - %message%',
+                'add_new_line' => false,
+            ],
         ],
     ],
 

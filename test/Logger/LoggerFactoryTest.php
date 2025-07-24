@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Logger;
 
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\JsonFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\FormattableHandlerInterface;
@@ -15,6 +17,7 @@ use Monolog\Logger;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -172,5 +175,52 @@ class LoggerFactoryTest extends TestCase
         yield 'invalid level' => [['level' => 30000], Level::Info];
         yield 'valid level' => [['level' => Level::Debug->value], Level::Debug];
         yield 'another valid level' => [['level' => Level::Emergency->value], Level::Emergency];
+    }
+
+    /**
+     * @param class-string<FormatterInterface> $expectedFormatter
+     */
+    #[Test]
+    #[TestWith([[
+        'formatter' => ['type' => 'json'],
+    ], JsonFormatter::class], 'explicit JSON formatter')]
+    #[TestWith([[
+        'formatter' => ['type' => 'console'],
+    ], LineFormatter::class], 'explicit console formatter')]
+    #[TestWith([['formatter' => []], LineFormatter::class], 'default with "formatter" config')]
+    #[TestWith([[], LineFormatter::class], 'default without "formatter" config')]
+    public function expectedFormatterIsCreated(array $config, string $expectedFormatter): void
+    {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'logger' => [
+                'foo' => ['type' => LoggerType::STREAM->value, ...$config],
+            ],
+        ]);
+
+        /** @var Logger $logger */
+        $logger = LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        $formatter = $logger->getHandlers()[0]->getFormatter(); // @phpstan-ignore-line
+
+        self::assertInstanceOf($expectedFormatter, $formatter);
+    }
+
+    #[Test]
+    public function exceptionIsThrownIfInvalidFormatterIsConfigured(): void
+    {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'logger' => [
+                'foo' => [
+                    'type' => LoggerType::STREAM->value,
+                    'formatter' => ['type' => 'invalid'],
+                ],
+            ],
+        ]);
+
+        $this->expectException(InvalidLoggerException::class);
+        $this->expectExceptionMessage(
+            'Provided formatter type "invalid" is not valid. Expected one of ["console", "json"]',
+        );
+
+        LoggerFactory::foo($this->container); // @phpstan-ignore-line
     }
 }

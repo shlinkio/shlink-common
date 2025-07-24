@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Logger;
 
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\JsonFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\RotatingFileHandler;
@@ -16,6 +18,7 @@ use Psr\Log\LoggerInterface;
 use Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException;
 
 use function array_map;
+use function in_array;
 
 use const PHP_EOL;
 
@@ -52,15 +55,26 @@ class LoggerFactory
             ? new RotatingFileHandler($destination ?? 'data/log/shlink_log.log', 30, $level, true, 0666)
             : new StreamHandler($destination ?? 'php://stdout', $level);
 
-        $handler->setFormatter(self::buildLineFormatter($loggerConfig));
+        $handler->setFormatter(self::buildFormatter($loggerConfig));
 
         return $handler;
     }
 
-    private static function buildLineFormatter(array $loggerConfig): LineFormatter
+    private static function buildFormatter(array $loggerConfig): FormatterInterface
     {
-        $lineFormat = $loggerConfig['line_format'] ?? '';
-        $addNewLine = $loggerConfig['add_new_line'] ?? true;
+        $formatterType = $loggerConfig['formatter']['type'] ?? 'console';
+        if (! in_array($formatterType, ['console', 'json'], strict: true)) {
+            throw InvalidLoggerException::fromInvalidFormatterType((string) $formatterType);
+        }
+
+        $formatterConfig = $loggerConfig['formatter'] ?? $loggerConfig;
+        $addNewLine = $formatterConfig['add_new_line'] ?? true;
+
+        if ($formatterType === 'json') {
+            return new JsonFormatter(appendNewline: $addNewLine);
+        }
+
+        $lineFormat = $formatterConfig['line_format'] ?? '';
         if ($addNewLine) {
             $lineFormat = $lineFormat . PHP_EOL;
         }

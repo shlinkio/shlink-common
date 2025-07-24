@@ -30,4 +30,12 @@ class InvalidLoggerException extends InvalidArgumentException
             implode('", "', array_map(static fn (LoggerType $type) => $type->value, LoggerType::cases())),
         ));
     }
+
+    public static function fromInvalidFormatterType(string $type): self
+    {
+        return new self(sprintf(
+            'Provided formatter type "%s" is not valid. Expected one of ["console", "json"]',
+            $type,
+        ));
+    }
 }
