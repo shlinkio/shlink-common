@@ -30,7 +30,7 @@
         "shlinkio/shlink-config": "^4.0",
         "shlinkio/shlink-json": "^1.2",
         "symfony/cache": "^7.3",
-        "symfony/lock": "^7.1.6",
+        "symfony/lock": "^7.3.2",
         "symfony/mercure": "^0.6",
         "symfony/string": "^7.3",
         "symfony/translation-contracts": "^3.6",
