@@ -33,8 +33,8 @@ readonly class RabbitMqPublishingHelper implements PublishingHelperInterface
 
             // Declare an exchange and a queue that will persist server restarts
             $exchange = $queue = $update->topic; // We use the same name for the exchange and the queue
-            $channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
-            $channel->queue_declare($queue, false, true, false, false);
+            $channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, durable: true, auto_delete: false);
+            $channel->queue_declare($queue, durable: true, auto_delete: false);
 
             // Bind the exchange and the queue together, and publish the message
             $channel->queue_bind($queue, $exchange);
