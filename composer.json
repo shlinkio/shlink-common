@@ -45,10 +45,10 @@
         "pagerfanta/core": "^3.8",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/phpunit": "^12.2",
+        "phpunit/phpunit": "^12.4",
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
-        "shlinkio/php-coding-standard": "~2.4.0",
+        "shlinkio/php-coding-standard": "~2.5.0",
         "symfony/var-dumper": "^7.3"
     },
     "suggest": {
