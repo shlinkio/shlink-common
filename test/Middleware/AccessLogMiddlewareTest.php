@@ -51,17 +51,17 @@ class AccessLogMiddlewareTest extends TestCase
         ];
         yield [
             ServerRequestFactory::fromGlobals()->withMethod('PATCH')->withUri(new Uri('/something')),
-            new Response('php://memory', 400, ['Content-Length' => 300]),
+            (new Response('php://memory', 400))->withHeader('Content-Length', '300'),
             'PATCH /something 400 300',
         ];
         yield [
             ServerRequestFactory::fromGlobals()->withMethod('DELETE')->withUri(new Uri('/foo')),
-            new Response('php://memory', 204, ['Content-Length' => 0]),
+            (new Response('php://memory', 204))->withHeader('Content-Length', '0'),
             'DELETE /foo 204 0',
         ];
         yield [
             ServerRequestFactory::fromGlobals()->withMethod('POST')->withUri(new Uri('/foo?some=thing&foo=bar')),
-            new Response('php://memory', 200, ['Content-Length' => 587]),
+            (new Response('php://memory', 200))->withHeader('Content-Length', '587'),
             'POST /foo?some=thing&foo=bar 200 587',
         ];
     }
