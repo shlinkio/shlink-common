@@ -88,13 +88,28 @@ class RedisFactory
     private function resolveOptions(array $redisConfig, array $servers): array|null
     {
         $sentinelService = $redisConfig['sentinel_service'] ?? null;
-        if ($sentinelService !== null) {
-            return [
-                'replication' => 'sentinel',
-                'service' => $sentinelService,
-            ];
+        if ($sentinelService === null) {
+            return ! isset($servers[0]) ? null : ['cluster' => 'redis'];
         }
 
-        return ! isset($servers[0]) ? null : ['cluster' => 'redis'];
+        $password = $redisConfig['password'] ?? null;
+        $baseSentinelConfig = [
+            'replication' => 'sentinel',
+            'service' => $sentinelService,
+        ];
+
+        if ($password === null) {
+            return $baseSentinelConfig;
+        }
+
+        return [
+            ...$baseSentinelConfig,
+            'parameters' => [
+                // When using sentinel mode, since the list of servers is the list of sentinels, we need an alternative
+                // way to provide credentials for the redis instances
+                'username' => $redisConfig['username'] ?? null,
+                'password' => $password,
+            ],
+        ];
     }
 }

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Add support for redis credentials when using redis sentinels.
 
 ### Changed
 * Update requirement of `symfony/lock` to `^7.3.2`, now that issues with redis cluster have been solved upstream.

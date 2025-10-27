@@ -57,7 +57,9 @@ return [
                 'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/management/security/)
                 'tls://server_with_encryption:6379',
             ],
-            'sentinel_service' => 'the_service', // Optional.
+            'sentinel_service' => 'my_master', // Optional.
+            'username' => 'user', // Optional. Ignored if no `sentinel_service` is set.
+            'password' => 'my_password', // Optional. Ignored if no `sentinel_service` is set.
         ],
     ],
 
@@ -69,10 +71,9 @@ return [
 You can allow caching to be done on a redis instance, redis cluster or redis sentinels, by defining some options under `cache.redis` config.
 
 * `servers`: A list of redis servers. If one is provided, it will be treated as a single instance, and otherwise, a cluster will be assumed.
-* `sentinel_service`: Lets you enable sentinel mode. When provided, the servers will be treated as sentinel instances.
-
-> **Note**
-> The entries in `servers` support credentials in the form of `tcp://password@my-server:6379` or `tcp://username:password@my-server:6379`.
+* `sentinel_service`: Lets you enable sentinel mode by providing the master/service name. When provided, the servers will be treated as sentinel instances, not the redis cluster instances.
+* `username`: When `sentinel_service` is set, it lets you define the username for the redis cluster instances when using ACL. For non-sentinel contexts, you should provide the username as part of the server URL directly.
+* `password`: When `sentinel_service` is set, it lets you define the password for the redis cluster instances. For non-sentinel contexts, you should provide the password as part of the server URL directly.
 
 ### Redis publishing helper
 
