@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* Add support for Symfony 8.0.
+* Enable native lazy objects in doctrine.
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Drop support for PHP 8.3.
+
+### Fixed
+* *Nothing*
+
+
 ## [7.2.0] - 2025-11-01
 ### Added
 * Add support for redis credentials when using redis sentinels.

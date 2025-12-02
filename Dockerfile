@@ -1,6 +1,6 @@
 FROM composer:2
 
-ENV APCU_VERSION 5.1.24
+ENV APCU_VERSION 5.1.27
 
 RUN apk add --no-cache libpng-dev libpng libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev linux-headers
 RUN docker-php-ext-install gd sockets

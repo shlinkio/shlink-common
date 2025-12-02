@@ -31,6 +31,7 @@ class ConfigurationFactory
         $config->setProxyDir($ormConfig['proxies_dir'] ?? '');
         $config->setProxyNamespace('DoctrineProxies');
         $config->setAutoGenerateProxyClasses($isDevMode);
+        $config->enableNativeLazyObjects(true);
         $config->setMetadataDriverImpl(
             new EnhancedPHPDriver($ormConfig['entities_mappings'] ?? [], $emConfig, $funcStyle),
         );
