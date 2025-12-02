@@ -40,6 +40,7 @@ class EntityManagerFactoryTest extends TestCase
         $ormConfig->setMetadataDriverImpl($this->createMock(MappingDriver::class));
         $ormConfig->setProxyDir(__DIR__);
         $ormConfig->setProxyNamespace('DoctrineProxies');
+        $ormConfig->enableNativeLazyObjects(true);
 
         $sm = new ServiceManager(['services' => [
             'config' => $config,

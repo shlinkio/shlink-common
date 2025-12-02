@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "ext-fileinfo": "*",
         "cakephp/chronos": "^3.2",
         "doctrine/orm": "^3.5",
@@ -29,12 +29,11 @@
         "ramsey/uuid": "^4.9",
         "shlinkio/shlink-config": "^4.0",
         "shlinkio/shlink-json": "^1.2",
-        "symfony/cache": "^7.3",
-        "symfony/lock": "^7.3.2",
-        "symfony/mercure": "^0.6",
-        "symfony/string": "^7.3",
-        "symfony/translation-contracts": "^3.6",
-        "symfony/var-exporter": "^7.3"
+        "symfony/cache": "^8.0 || ^7.4",
+        "symfony/lock": "^8.0 || ^7.4",
+        "symfony/mercure": "^0.7 || ^0.6",
+        "symfony/string": "^8.0 || ^7.4",
+        "symfony/translation-contracts": "^3.6"
     },
     "require-dev": {
         "akrabat/ip-address-middleware": "^2.6",
@@ -49,7 +48,7 @@
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.5.0",
-        "symfony/var-dumper": "^7.3"
+        "symfony/var-dumper": "^8.0"
     },
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
