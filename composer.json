@@ -38,13 +38,12 @@
     "require-dev": {
         "akrabat/ip-address-middleware": "^2.6",
         "devster/ubench": "^2.1",
-        "endroid/qr-code": "^6.0.7",
         "laminas/laminas-stratigility": "^4.3",
-        "mezzio/mezzio-problem-details": "^1.15",
+        "mezzio/mezzio-problem-details": "^1.18",
         "pagerfanta/core": "^3.8",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/phpunit": "^12.4",
+        "phpunit/phpunit": "^12.5",
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.5.0",
@@ -53,8 +52,7 @@
     "suggest": {
         "mezzio/mezzio-problem-details": "To log ProblemDetailsMiddleware errors using the ErrorLogger",
         "laminas/laminas-stratigility": "To log ErrorHandler errors using the ErrorLogger",
-        "pagerfanta/core": "To use the PagerfantaUtilsTrait",
-        "endroid/qr-code": "To use QrCodeResponse"
+        "pagerfanta/core": "To use the PagerfantaUtilsTrait"
     },
     "autoload": {
         "psr-4": {

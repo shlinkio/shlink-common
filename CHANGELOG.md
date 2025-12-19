@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ### Removed
 * Drop support for PHP 8.3.
+* Remove deprecated `QrCodeResponse`.
 
 ### Fixed
 * *Nothing*
