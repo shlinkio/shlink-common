@@ -61,6 +61,7 @@ class RabbitMqPublishingHelperTest extends TestCase
         $payload = ['some' => 'thing'];
         $expectedError = new Exception('Error!');
 
+        $this->channel->expects($this->never())->method('exchange_declare');
         $this->connection->expects($this->once())->method('channel')->willThrowException($expectedError);
         $this->connection->expects($this->once())->method('close');
 

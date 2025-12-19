@@ -10,19 +10,20 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver;
 use stdClass;
 
 class EnhancedPHPDriverTest extends TestCase
 {
-    private MockObject & FileLocator $loader;
+    private Stub & FileLocator $loader;
     /** @var MockObject & ClassMetadata<stdClass> */
     private MockObject & ClassMetadata $meta;
 
     public function setUp(): void
     {
-        $this->loader = $this->createMock(FileLocator::class);
+        $this->loader = $this->createStub(FileLocator::class);
         $this->loader->method('findMappingFile')->willReturn(
             __DIR__ . '/../../../test-resources/mapping/fake.mapping.php',
         );

@@ -5,8 +5,10 @@
     bootstrap="./vendor/autoload.php"
     colors="true"
     cacheDirectory="build/.phpunit.cache"
+    displayDetailsOnPhpunitNotices="true"
     displayDetailsOnTestsThatTriggerWarnings="true"
     displayDetailsOnTestsThatTriggerDeprecations="true"
+    displayDetailsOnTestsThatTriggerNotices="true"
 >
     <testsuites>
         <testsuite name="Common">
