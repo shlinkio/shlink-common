@@ -32,7 +32,7 @@ class ReopeningEntityManagerTest extends TestCase
     public static function provideWrapped(): iterable
     {
         $createEmMock = static fn (bool $isOpen) => function (TestCase $test) use ($isOpen): EntityManagerInterface {
-            $em = $test->createMock(EntityManagerInterface::class);
+            $em = $test->createStub(EntityManagerInterface::class);
             $em->method('isOpen')->willReturn($isOpen);
 
             return $em;

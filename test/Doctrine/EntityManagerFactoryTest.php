@@ -37,7 +37,7 @@ class EntityManagerFactoryTest extends TestCase
         int $expectedListeners,
     ): void {
         $ormConfig = new Configuration();
-        $ormConfig->setMetadataDriverImpl($this->createMock(MappingDriver::class));
+        $ormConfig->setMetadataDriverImpl($this->createStub(MappingDriver::class));
         $ormConfig->setProxyDir(__DIR__);
         $ormConfig->setProxyNamespace('DoctrineProxies');
         $ormConfig->enableNativeLazyObjects(true);

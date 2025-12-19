@@ -10,7 +10,7 @@ use Laminas\Diactoros\ServerRequestFactory;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
 use Shlinkio\Shlink\Common\Middleware\RequestIdMiddleware;
@@ -18,13 +18,13 @@ use Shlinkio\Shlink\Common\Middleware\RequestIdMiddleware;
 class RequestIdMiddlewareTest extends TestCase
 {
     private RequestIdMiddleware $middleware;
-    private MockObject & RequestHandlerInterface $handler;
+    private Stub & RequestHandlerInterface $handler;
 
     public function setUp(): void
     {
         $this->middleware = new RequestIdMiddleware();
 
-        $this->handler = $this->createMock(RequestHandlerInterface::class);
+        $this->handler = $this->createStub(RequestHandlerInterface::class);
         $this->handler->method('handle')->willReturn(new Response());
     }
 

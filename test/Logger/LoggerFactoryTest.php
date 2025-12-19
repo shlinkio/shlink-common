@@ -156,7 +156,7 @@ class LoggerFactoryTest extends TestCase
     #[Test, DataProvider('provideLevelConfig')]
     public function expectedLevelIsSetBasedOnConfig(array $config, Level $expectedLevel): void
     {
-        $this->container->method('get')->willReturn(['logger' => [
+        $this->container->expects($this->once())->method('get')->willReturn(['logger' => [
             'bar' => ['type' => LoggerType::STREAM->value, ...$config],
         ]]);
 

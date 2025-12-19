@@ -44,7 +44,7 @@ class ChronosDateTimeTypeTest extends TestCase
     #[Test, DataProvider('provideValues')]
     public function valueIsConverted(string|null $value, string|null $expected): void
     {
-        $platform = $this->createMock(AbstractPlatform::class);
+        $platform = $this->createStub(AbstractPlatform::class);
         $platform->method('getDateTimeFormatString')->willReturn('Y-m-d H:i:s');
 
         $result = $this->type->convertToPHPValue($value, $platform);
@@ -66,7 +66,7 @@ class ChronosDateTimeTypeTest extends TestCase
     #[Test, DataProvider('providePhpValues')]
     public function valueIsConvertedToDatabaseFormat(DateTimeInterface|null $value, string|null $expected): void
     {
-        $platform = $this->createMock(AbstractPlatform::class);
+        $platform = $this->createStub(AbstractPlatform::class);
         $platform->method('getDateTimeFormatString')->willReturn('Y-m-d');
 
         self::assertEquals($expected, $this->type->convertToDatabaseValue($value, $platform));
@@ -84,6 +84,6 @@ class ChronosDateTimeTypeTest extends TestCase
     public function exceptionIsThrownIfInvalidValueIsParsedToDatabase(): void
     {
         $this->expectException(ConversionException::class);
-        $this->type->convertToDatabaseValue(new stdClass(), $this->createMock(AbstractPlatform::class));
+        $this->type->convertToDatabaseValue(new stdClass(), $this->createStub(AbstractPlatform::class));
     }
 }

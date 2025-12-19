@@ -51,7 +51,7 @@ class HubFactoryTest extends TestCase
     {
         $this->container->expects($this->exactly(2))->method('get')->willReturnMap([
             [MercureOptions::class, $options],
-            [LcobucciJwtProvider::class, $this->createMock(TokenProviderInterface::class)],
+            [LcobucciJwtProvider::class, $this->createStub(TokenProviderInterface::class)],
         ]);
 
         $hub = ($this->factory)($this->container);

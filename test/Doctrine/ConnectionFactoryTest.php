@@ -30,7 +30,7 @@ class ConnectionFactoryTest extends TestCase
     #[Test]
     public function properServiceFallbackOccursWhenInvoked(): void
     {
-        $connection = $this->createMock(Connection::class);
+        $connection = $this->createStub(Connection::class);
         $this->em->expects($this->once())->method('getConnection')->willReturn($connection);
         $this->container->expects($this->once())->method('get')->with(EntityManager::class)->willReturn($this->em);
 

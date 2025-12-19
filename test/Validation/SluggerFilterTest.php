@@ -46,7 +46,9 @@ class SluggerFilterTest extends TestCase
     #[Test, DataProvider('provideValuesToFilterWithCasing')]
     public function internalSluggerKeepsCasing(string $providedValue, string $expectedValue): void
     {
+        $this->slugger->expects($this->never())->method('slug');
         $filter = new SluggerFilter();
+
         self::assertEquals($expectedValue, $filter->filter($providedValue));
     }
 

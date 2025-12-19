@@ -35,7 +35,7 @@ class CacheFactoryTest extends TestCase
     ): void {
         $factory = new CacheFactory($apcuEnabled);
 
-        $predis = $this->createMock(PredisClient::class);
+        $predis = $this->createStub(PredisClient::class);
         $predis->method('getOptions')->willReturn(new Options(['exceptions' => false]));
 
         $this->container->expects($this->exactly($expectedAdapterClass === Adapter\RedisAdapter::class ? 2 : 1))

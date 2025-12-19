@@ -16,7 +16,7 @@ class ReopeningEntityManagerDelegatorTest extends TestCase
     #[Test]
     public function decoratesEntityManagerFromCallback(): void
     {
-        $em = $this->createMock(EntityManagerInterface::class);
+        $em = $this->createStub(EntityManagerInterface::class);
         $result = (new ReopeningEntityManagerDelegator())(new ServiceManager(), '', fn () => $em);
 
         $ref = new ReflectionObject($result);
