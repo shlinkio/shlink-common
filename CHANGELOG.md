@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Added
 * Add support for Symfony 8.0.
 * Enable native lazy objects in doctrine.
+* Add support to connect to redis via unix socket.
 
 ### Changed
 * *Nothing*
@@ -18,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 ### Removed
 * Drop support for PHP 8.3.
 * Remove deprecated `QrCodeResponse`.
+* Remove support to provide database index in redis connections via path. Use `?database=3` instead.
 
 ### Fixed
 * *Nothing*

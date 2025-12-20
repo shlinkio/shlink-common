@@ -127,9 +127,10 @@ class RedisFactoryTest extends TestCase
     #[Test, DataProvider('provideServersWithCredentials')]
     public function providedCredentialsArePassedToConnection(
         array $redisConfig,
-        string|null $expectedUsername,
-        string|null $expectedPassword,
-        array|null $expectedSslOptions,
+        string|null $expectedUsername = null,
+        string|null $expectedPassword = null,
+        array|null $expectedSslOptions = null,
+        string|null $expectedPath = null,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => ['redis' => $redisConfig],
@@ -141,31 +142,35 @@ class RedisFactoryTest extends TestCase
         self::assertEquals($expectedUsername, $conn->getParameters()->username); // @phpstan-ignore-line
         self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
         self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl); // @phpstan-ignore-line
+        self::assertEquals($expectedPath, $conn->getParameters()->path); // @phpstan-ignore-line
     }
 
     public static function provideServersWithCredentials(): iterable
     {
         yield 'no credentials' => [[
             'servers' => ['tcp://1.1.1.1:6379'],
-        ], null, null, null];
+        ]];
         yield 'username and password' => [[
             'servers' => ['tcp://foo:bar@1.1.1.1:6379'],
-        ], 'foo', 'bar', null];
+        ], 'expectedUsername' => 'foo', 'expectedPassword' => 'bar'];
         yield 'password only' => [[
             'servers' => ['tcp://:baz@1.1.1.1:6379'],
-        ], null, 'baz', null];
+        ], 'expectedPassword' => 'baz'];
         yield 'username only' => [[
             'servers' => ['tcp://foo@1.1.1.1:6379'],
-        ], 'foo', null, null];
+        ], 'expectedUsername' => 'foo'];
         yield 'URL-encoded' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-        ], 'user:name', 'pass@word', null];
+        ], 'expectedUsername' => 'user:name', 'expectedPassword' => 'pass@word'];
         yield 'tls encryption' => [[
             'servers' => ['tls://1.1.1.1:6379'],
-        ], null, null, SSL::OPTIONS];
+        ], 'expectedSslOptions' => SSL::OPTIONS];
         yield 'rediss encryption' => [[
             'servers' => ['rediss://1.1.1.1:6379'],
-        ], null, null, SSL::OPTIONS];
+        ], 'expectedSslOptions' => SSL::OPTIONS];
+        yield 'unix socket' => [[
+            'servers' => ['unix:/path/to/redis.sock'],
+        ], 'expectedPath' => '/path/to/redis.sock'];
     }
 
     #[Test, DataProvider('provideServersWithDatabases')]
@@ -189,8 +194,25 @@ class RedisFactoryTest extends TestCase
             'servers' => ['tcp://1.1.1.1:6379'],
         ], null];
         yield 'database' => [[
-            'servers' => ['tcp://1.1.1.1:6379/5'],
+            'servers' => ['tcp://1.1.1.1:6379?database=5'],
         ], 5];
+    }
+
+    #[Test]
+    #[TestWith(['foo'])]
+    #[TestWith(['1.2'])]
+    public function exceptionIsThrownIfDatabaseIsNotAnInt(string $database): void
+    {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'cache' => ['redis' => [
+                'servers' => ['tcp://1.1.1.1:6379?database=' . $database],
+            ]],
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The redis database index should be an integer, ' . $database . ' provided');
+
+        ($this->factory)($this->container);
     }
 
     #[Test]

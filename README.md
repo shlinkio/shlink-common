@@ -52,10 +52,12 @@ return [
                 // These should be valid URIs. Make sure credentials are URL-encoded
                 'tcp://1.1.1.1:6379',
                 'tcp://2.2.2.2:6379',
-                'tcp://3.3.3.3:6379/3', // Define a database index to use (https://redis.io/docs/commands/select/)
+                'tcp://3.3.3.3:6379?database=3', // Define a database index (https://redis.io/docs/commands/select/)
                 'tcp://user:pass%40word@4.4.4.4:6379', // Redis ACL (https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/)
                 'tcp://:password@5.5.5.5:6379', // Redis security (https://redis.io/docs/latest/operate/oss_and_stack/management/security/)
                 'tls://server_with_encryption:6379',
+                'unix://localhost/run/redis/redis-server.sock', // Connect via unix socket
+                'unix://localhost/run/redis/redis-server.sock?database=2', // Connect via unix socket and define database index
             ],
             'sentinel_service' => 'my_master', // Optional.
             'username' => 'user', // Optional. Ignored if no `sentinel_service` is set.

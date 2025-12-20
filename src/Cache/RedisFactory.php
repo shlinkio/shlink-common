@@ -12,16 +12,20 @@ use Shlinkio\Shlink\Common\Util\SSL;
 use function array_map;
 use function count;
 use function explode;
+use function filter_var;
 use function is_array;
 use function is_string;
+use function parse_str;
 use function parse_url;
 use function sprintf;
 use function trim;
 use function urldecode;
 
+use const FILTER_VALIDATE_INT;
+
 class RedisFactory
 {
-    public const SERVICE_NAME = 'Shlinkio\Shlink\Common\Cache\RedisClient';
+    public const string SERVICE_NAME = 'Shlinkio\Shlink\Common\Cache\RedisClient';
 
     public function __invoke(ContainerInterface $container): PredisClient
     {
@@ -74,15 +78,44 @@ class RedisFactory
             $parsedServer['password'] = urldecode($pass);
         }
 
-        $database = $parsedServer['path'] ?? null;
-        unset($parsedServer['path']);
-
+        $database = $this->resolveDatabaseIndex($parsedServer);
         if ($database !== null) {
-            // TODO For the next major version, validate this is an integer and throw an exception otherwise
-            $parsedServer['database'] = (int) trim($database, '/');
+            $parsedServer['database'] = $database;
+        }
+
+        unset($parsedServer['query']);
+        if ($scheme !== 'unix') {
+            // Unset both path and query for non-socket connections
+            unset($parsedServer['path']);
         }
 
         return $parsedServer;
+    }
+
+    private function resolveDatabaseIndex(array $parsedServer): int|null
+    {
+        $rawQuery = $parsedServer['query'] ?? null;
+
+        /** @var array{'database'?: string} $parsedQuery */
+        $parsedQuery = [];
+        if ($rawQuery !== null) {
+            parse_str($rawQuery, $parsedQuery);
+        }
+        $rawDatabase = $parsedQuery['database'] ?? null;
+
+        if ($rawDatabase === null) {
+            return null;
+        }
+
+        $intDatabase = filter_var($rawDatabase, FILTER_VALIDATE_INT);
+        if ($intDatabase === false) {
+            throw new InvalidArgumentException(
+                // @phpstan-ignore argument.type
+                sprintf('The redis database index should be an integer, %s provided', $rawDatabase),
+            );
+        }
+
+        return $intDatabase;
     }
 
     private function resolveOptions(array $redisConfig, array $servers): array|null
