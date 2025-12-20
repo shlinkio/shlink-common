@@ -127,9 +127,9 @@ class RedisFactoryTest extends TestCase
     #[Test, DataProvider('provideServersWithCredentials')]
     public function providedCredentialsArePassedToConnection(
         array $redisConfig,
-        string|null $expectedUsername,
-        string|null $expectedPassword,
-        array|null $expectedSslOptions,
+        string|null $expectedUsername = null,
+        string|null $expectedPassword = null,
+        array|null $expectedSslOptions = null,
         string|null $expectedPath = null,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
@@ -149,28 +149,28 @@ class RedisFactoryTest extends TestCase
     {
         yield 'no credentials' => [[
             'servers' => ['tcp://1.1.1.1:6379'],
-        ], null, null, null];
+        ]];
         yield 'username and password' => [[
             'servers' => ['tcp://foo:bar@1.1.1.1:6379'],
-        ], 'foo', 'bar', null];
+        ], 'expectedUsername' => 'foo', 'expectedPassword' => 'bar'];
         yield 'password only' => [[
             'servers' => ['tcp://:baz@1.1.1.1:6379'],
-        ], null, 'baz', null];
+        ], 'expectedPassword' => 'baz'];
         yield 'username only' => [[
             'servers' => ['tcp://foo@1.1.1.1:6379'],
-        ], 'foo', null, null];
+        ], 'expectedUsername' => 'foo'];
         yield 'URL-encoded' => [[
             'servers' => ['tcp://user%3Aname:pass%40word@1.1.1.1:6379'],
-        ], 'user:name', 'pass@word', null];
+        ], 'expectedUsername' => 'user:name', 'expectedPassword' => 'pass@word'];
         yield 'tls encryption' => [[
             'servers' => ['tls://1.1.1.1:6379'],
-        ], null, null, SSL::OPTIONS];
+        ], 'expectedSslOptions' => SSL::OPTIONS];
         yield 'rediss encryption' => [[
             'servers' => ['rediss://1.1.1.1:6379'],
-        ], null, null, SSL::OPTIONS];
+        ], 'expectedSslOptions' => SSL::OPTIONS];
         yield 'unix socket' => [[
             'servers' => ['unix:/path/to/redis.sock'],
-        ], null, null, null, '/path/to/redis.sock'];
+        ], 'expectedPath' => '/path/to/redis.sock'];
     }
 
     #[Test, DataProvider('provideServersWithDatabases')]
