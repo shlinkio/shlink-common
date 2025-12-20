@@ -130,6 +130,7 @@ class RedisFactoryTest extends TestCase
         string|null $expectedUsername,
         string|null $expectedPassword,
         array|null $expectedSslOptions,
+        string|null $expectedPath = null,
     ): void {
         $this->container->expects($this->once())->method('get')->with('config')->willReturn([
             'cache' => ['redis' => $redisConfig],
@@ -141,6 +142,7 @@ class RedisFactoryTest extends TestCase
         self::assertEquals($expectedUsername, $conn->getParameters()->username); // @phpstan-ignore-line
         self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
         self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl); // @phpstan-ignore-line
+        self::assertEquals($expectedPath, $conn->getParameters()->path); // @phpstan-ignore-line
     }
 
     public static function provideServersWithCredentials(): iterable
@@ -166,6 +168,9 @@ class RedisFactoryTest extends TestCase
         yield 'rediss encryption' => [[
             'servers' => ['rediss://1.1.1.1:6379'],
         ], null, null, SSL::OPTIONS];
+        yield 'unix socket' => [[
+            'servers' => ['unix:/path/to/redis.sock'],
+        ], null, null, null, '/path/to/redis.sock'];
     }
 
     #[Test, DataProvider('provideServersWithDatabases')]
@@ -189,8 +194,25 @@ class RedisFactoryTest extends TestCase
             'servers' => ['tcp://1.1.1.1:6379'],
         ], null];
         yield 'database' => [[
-            'servers' => ['tcp://1.1.1.1:6379/5'],
+            'servers' => ['tcp://1.1.1.1:6379?database=5'],
         ], 5];
+    }
+
+    #[Test]
+    #[TestWith(['foo'])]
+    #[TestWith(['1.2'])]
+    public function exceptionIsThrownIfDatabaseIsNotAnInt(string $database): void
+    {
+        $this->container->expects($this->once())->method('get')->with('config')->willReturn([
+            'cache' => ['redis' => [
+                'servers' => ['tcp://1.1.1.1:6379?database=' . $database],
+            ]],
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The redis database index should be an integer, ' . $database . ' provided');
+
+        ($this->factory)($this->container);
     }
 
     #[Test]
