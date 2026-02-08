@@ -58,7 +58,6 @@ class HubFactoryTest extends TestCase
 
         $ref = new ReflectionObject($hub);
         $prop = $ref->getProperty('url');
-        $prop->setAccessible(true);
 
         self::assertEquals($expectedHubUrl . '/.well-known/mercure', $prop->getValue($hub));
     }

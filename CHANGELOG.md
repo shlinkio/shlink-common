@@ -4,14 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [8.0.0] - 2026-02-08
 ### Added
 * Add support for Symfony 8.0.
 * Enable native lazy objects in doctrine.
 * Add support to connect to redis via unix socket.
 
 ### Changed
-* *Nothing*
+* Update to PHPUnit 13
 
 ### Deprecated
 * *Nothing*
@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Drop support for PHP 8.3.
 * Remove deprecated `QrCodeResponse`.
 * Remove support to provide database index in redis connections via path. Use `?database=3` instead.
+* Drop support for Symfony 7.
 
 ### Fixed
 * *Nothing*

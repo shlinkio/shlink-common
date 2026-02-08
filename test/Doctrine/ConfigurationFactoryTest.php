@@ -34,7 +34,6 @@ class ConfigurationFactoryTest extends TestCase
             $typeRegistry = Type::getTypeRegistry();
             $ref = new ReflectionObject($typeRegistry);
             $instancesProp = $ref->getProperty('instances');
-            $instancesProp->setAccessible(true);
             $withoutChronosType = array_filter(
                 $typeRegistry->getMap(),
                 fn (string $key): bool => $key !== ChronosDateTimeType::CHRONOS_DATETIME,
