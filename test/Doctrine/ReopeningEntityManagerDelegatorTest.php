@@ -21,7 +21,6 @@ class ReopeningEntityManagerDelegatorTest extends TestCase
 
         $ref = new ReflectionObject($result);
         $prop = $ref->getProperty('wrapped');
-        $prop->setAccessible(true);
 
         self::assertSame($em, $prop->getValue($result));
     }

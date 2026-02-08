@@ -238,7 +238,6 @@ class RedisFactoryTest extends TestCase
         $conn = $client->getConnection();
         $ref = new ReflectionObject($conn);
         $connFactoryRef = $ref->getProperty('connectionFactory');
-        $connFactoryRef->setAccessible(true);
         /** @var Factory $connFactory */
         $connFactory = $connFactoryRef->getValue($conn);
         $defaultParams = $connFactory->getDefaultParameters();

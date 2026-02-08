@@ -29,10 +29,10 @@
         "ramsey/uuid": "^4.9",
         "shlinkio/shlink-config": "^4.0",
         "shlinkio/shlink-json": "^1.2",
-        "symfony/cache": "^8.0 || ^7.4",
-        "symfony/lock": "^8.0 || ^7.4",
-        "symfony/mercure": "^0.7 || ^0.6",
-        "symfony/string": "^8.0 || ^7.4",
+        "symfony/cache": "^8.0",
+        "symfony/lock": "^8.0",
+        "symfony/mercure": "^0.7",
+        "symfony/string": "^8.0",
         "symfony/translation-contracts": "^3.6"
     },
     "require-dev": {
@@ -43,7 +43,7 @@
         "pagerfanta/core": "^3.8",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/phpunit": "^12.5",
+        "phpunit/phpunit": "^13.0",
         "psr/simple-cache": "^3.0",
         "roave/security-advisories": "dev-master",
         "shlinkio/php-coding-standard": "~2.5.0",

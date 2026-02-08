@@ -94,7 +94,6 @@ class InputFactoryTest extends TestCase
 
         $ref = new ReflectionObject($excludingValidator);
         $prop = $ref->getProperty('validators');
-        $prop->setAccessible(true);
         $validators = $prop->getValue($excludingValidator);
         self::assertCount(2, $validators);
         self::assertInstanceOf(Validator\Date::class, $validators[0]);

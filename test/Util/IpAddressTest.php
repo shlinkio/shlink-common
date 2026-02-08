@@ -83,7 +83,6 @@ class IpAddressTest extends TestCase
     {
         $ref = new ReflectionObject($address);
         $prop = $ref->getProperty($propName);
-        $prop->setAccessible(true);
 
         return $prop->getValue($address);
     }
