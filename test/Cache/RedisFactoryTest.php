@@ -139,10 +139,10 @@ class RedisFactoryTest extends TestCase
         $client = ($this->factory)($this->container);
         $conn = $client->getConnection();
 
-        self::assertEquals($expectedUsername, $conn->getParameters()->username); // @phpstan-ignore-line
-        self::assertEquals($expectedPassword, $conn->getParameters()->password); // @phpstan-ignore-line
+        self::assertEquals($expectedUsername, $conn->getParameters()->username);
+        self::assertEquals($expectedPassword, $conn->getParameters()->password);
         self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl); // @phpstan-ignore-line
-        self::assertEquals($expectedPath, $conn->getParameters()->path); // @phpstan-ignore-line
+        self::assertEquals($expectedPath, $conn->getParameters()->path);
     }
 
     public static function provideServersWithCredentials(): iterable
@@ -155,7 +155,7 @@ class RedisFactoryTest extends TestCase
         ], 'expectedUsername' => 'foo', 'expectedPassword' => 'bar'];
         yield 'password only' => [[
             'servers' => ['tcp://:baz@1.1.1.1:6379'],
-        ], 'expectedPassword' => 'baz'];
+        ], 'expectedPassword' => 'baz', 'expectedUsername' => 'default'];
         yield 'username only' => [[
             'servers' => ['tcp://foo@1.1.1.1:6379'],
         ], 'expectedUsername' => 'foo'];
@@ -185,7 +185,7 @@ class RedisFactoryTest extends TestCase
         $client = ($this->factory)($this->container);
         $conn = $client->getConnection();
 
-        self::assertEquals($expectedDatabase, $conn->getParameters()->database); // @phpstan-ignore-line
+        self::assertEquals($expectedDatabase, $conn->getParameters()->database);
     }
 
     public static function provideServersWithDatabases(): iterable
