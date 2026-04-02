@@ -20,6 +20,7 @@ use function is_object;
 use function is_string;
 use function sprintf;
 
+/** @deprecated */
 class HostAndPortValidator extends AbstractValidator
 {
     private const INVALID_AMOUNT_OF_PARTS = 'INVALID_AMOUNT_OF_PARTS';

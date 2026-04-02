@@ -10,6 +10,7 @@ use function count;
 use function in_array;
 use function is_array;
 
+/** @deprecated */
 class OrderByValidator extends AbstractValidator
 {
     public const VALID_ORDER_DIRS = ['ASC', 'DESC'];

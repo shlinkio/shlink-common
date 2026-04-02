@@ -10,6 +10,7 @@ use function array_replace_recursive;
 
 /**
  * A validator chain which is considered valid as soon as one of its validators is valid
+ * @deprecated
  */
 class ExcludingValidatorChain implements Validator\ValidatorInterface
 {

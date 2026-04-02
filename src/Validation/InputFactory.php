@@ -13,6 +13,7 @@ use Laminas\Validator;
 use function array_map;
 use function is_numeric;
 
+/** @deprecated */
 final class InputFactory
 {
     public static function basic(string $name, bool $required = false): Input
