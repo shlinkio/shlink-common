@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* Deprecate all classes that use `laminas/laminas-inputfilter`, `laminas/laminas-filter` and `laminas/laminas-validtor` packages.
+  The dependency on `laminas/laminas-inputfilter` is now only suggested.
+
+### Removed
+* Drop support for predis 2
+
+### Fixed
+* *Nothing*
+
+
 ## [8.1.0] - 2026-03-08
 ### Added
 * Add support for predis 3

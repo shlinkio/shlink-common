@@ -10,6 +10,7 @@ use Symfony\Component\String\Slugger;
 
 use function is_string;
 
+/** @deprecated */
 class SluggerFilter implements FilterInterface
 {
     private Slugger\SluggerInterface $slugger;

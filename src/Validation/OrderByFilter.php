@@ -11,6 +11,7 @@ use function Shlinkio\Shlink\Common\parseOrderBy;
 
 /**
  * @extends AbstractFilter<array{}>
+ * @deprecated
  */
 class OrderByFilter extends AbstractFilter
 {
