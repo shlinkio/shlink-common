@@ -27,6 +27,6 @@ class MapperBuilderDelegatorFactory
             ->registerConstructor(fn (string $date): Chronos => normalizeDate($date))
 
             // Trim strings and strip tags
-            ->registerConverter(fn (string $value, callable $next) => $next(trim(strip_tags($value))));
+            ->registerConverter(fn (string $value, callable $next): string => $next(trim(strip_tags($value))));
     }
 }
