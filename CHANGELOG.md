@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* Register a delegator for `CuyZ\Valinor\MapperBuilder` that decorates it with some sensible defaults already used anywhere else in Shlink.
 
 ### Changed
 * *Nothing*

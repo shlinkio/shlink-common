@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common;
 
+use CuyZ\Valinor\MapperBuilder;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Psr\Log\LoggerInterface;
@@ -18,6 +19,12 @@ return [
             Middleware\AccessLogMiddleware::class => ConfigAbstractFactory::class,
 
             Logger\ErrorLogger::class => ConfigAbstractFactory::class,
+        ],
+
+        'delegators' => [
+            MapperBuilder::class => [
+                ObjectMapper\MapperBuilderDelegatorFactory::class,
+            ],
         ],
     ],
 
