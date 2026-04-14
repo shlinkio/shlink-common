@@ -47,6 +47,8 @@ class HostAndPortConverterTest extends TestCase
     #[TestWith(['example.com:65535'])]
     #[TestWith(['subdomain.example.com'])]
     #[TestWith(['subdomain.example.com:8080'])]
+    #[TestWith(['s.test'])]
+    #[TestWith(['domain.local'])]
     public function passesValidValuesToNextVerbatim(string $value): void
     {
         $calledArg = null;
