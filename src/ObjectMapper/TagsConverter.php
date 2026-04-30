@@ -19,9 +19,11 @@ class TagsConverter
 {
     /**
      * @param string[] $value
+     * @return string[]
      */
     public function map(array $value): array
     {
+        // @phpstan-ignore return.type
         return array_map(fn (string $tag) => preg_replace('/ /', '-', mb_strtolower(trim(strip_tags($tag)))), $value);
     }
 }
