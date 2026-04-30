@@ -26,7 +26,10 @@ class MapperBuilderDelegatorFactory
             ->infer(DateTimeInterface::class, fn () => Chronos::class)
             ->registerConstructor(fn (string $date): Chronos => normalizeDate($date))
 
-            // Trim strings and strip tags
-            ->registerConverter(fn (string $value, callable $next): string => $next(trim(strip_tags($value))));
+            // Trim and strip tags on strings
+            ->registerConverter(
+                fn (string $value, callable $next): string => $next(trim(strip_tags($value))),
+                priority: -9999, // This should always be called first
+            );
     }
 }
