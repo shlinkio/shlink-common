@@ -13,7 +13,7 @@ use function preg_match;
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_PARAMETER)]
 final readonly class LooseUriConverter
 {
-    private const string LOOSE_URI_MATCHER = '/(.+)\:(.+)/i'; // Matches anything starting with a schema
+    private const string LOOSE_URI_MATCHER = '/(.+):(.+)/i'; // Matches anything starting with a schema
 
     public function map(string $value): string
     {
