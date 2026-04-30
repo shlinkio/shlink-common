@@ -23,12 +23,12 @@ class HostAndPortConverterTest extends TestCase
     #[TestWith(['foo:bar:baz', 'Provided value, once split using the ":" separator, returned more than 2 parts'])]
     #[TestWith(['not a host name', 'The host part of the value is not valid. It must be a hostname or IP address'])]
     #[TestWith([
-        '192.168.1.1:80000',
+        'example.com:80000',
         'The port part of the value is not valid. It must be a number between 1 and 65535',
     ])]
-    #[TestWith(['192.168.1.1:foo', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
-    #[TestWith(['192.168.1.1:-8', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
-    #[TestWith(['192.168.1.1:0', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
+    #[TestWith(['example.com:foo', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
+    #[TestWith(['example.com:-8', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
+    #[TestWith(['example.com:0', 'The port part of the value is not valid. It must be a number between 1 and 65535'])]
     public function throwsWhenValueIsInvalid(string $value, string $expectedError): void
     {
         $this->expectException(MappingError::class);
@@ -39,8 +39,6 @@ class HostAndPortConverterTest extends TestCase
 
     #[Test]
     #[TestWith(['localhost'])]
-    #[TestWith(['192.168.1.3'])]
-    #[TestWith(['192.168.1.3:8080'])]
     #[TestWith(['example.com'])]
     #[TestWith(['example.com:8080'])]
     #[TestWith(['example.com:1'])]

@@ -44,7 +44,7 @@ final class HostAndPortConverter
             return false;
         }
 
-        return $host === 'localhost' || v::ip()->validate($host) || v::domain(tldCheck: false)->validate($host);
+        return $host === 'localhost' || v::domain(tldCheck: false)->validate($host);
     }
 
     private function portIsValid(string|null $port): bool
