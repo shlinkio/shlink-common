@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [8.2.0] - 2026-05-04
 ### Added
 * Register a delegator for `CuyZ\Valinor\MapperBuilder` that decorates it with some sensible defaults already used anywhere else in Shlink.
+* Add multiple valinor property converters for common tasks previously handled via input filters.
 
 ### Changed
 * *Nothing*
