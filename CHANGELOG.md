@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* Add support for `laminas/laminas-servicemanager` 4.
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* Remove all validation-related classes using `laminas/laminas-inputfilter` package.
+
+### Fixed
+* *Nothing*
+
+
 ## [8.2.0] - 2026-05-04
 ### Added
 * Register a delegator for `CuyZ\Valinor\MapperBuilder` that decorates it with some sensible defaults already used anywhere else in Shlink.
