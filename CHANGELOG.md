@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * Add support for `laminas/laminas-servicemanager` 4.
 
 ### Changed
-* *Nothing*
+* `TagsConverter` now removes duplicate entries.
 
 ### Deprecated
 * *Nothing*
