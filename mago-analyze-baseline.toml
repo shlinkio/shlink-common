@@ -1,0 +1,625 @@
+variant = "loose"
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `bool`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `trim`: expected `string`, but found `nonnull`."
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `null|string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #3 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `null|string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #4 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `null|string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #5 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `non-empty-string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "config/mercure.config.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Cache/CacheFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Symfony\Component\Cache\Adapter\ApcuAdapter::__construct`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Cache/CacheFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `Symfony\Component\Cache\Adapter\RedisAdapter::__construct`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Cache/CacheFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 3
+
+[[issues]]
+file = "src/Cache/CacheFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Cache/CacheFactory.php"
+code = "mixed-operand"
+message = "Casting `mixed` to `bool`."
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Cache\RedisFactory::resolveOptions`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Cache\RedisFactory::resolveServers`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `parse_str`: expected `string`, but found `nonnull`."
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #2 of `array_map`: expected `array<('K.array_map() extends array-key), string>`, but found `nonnull`."
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 3
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 2
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #2 of `sprintf`: expected `Stringable|null|scalar`, but possibly received `array<array-key, array<array-key, mixed>|string>|string`."
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "redundant-comparison"
+message = "Redundant `!==` comparison: left-hand side is always not identical to right-hand side."
+count = 1
+
+[[issues]]
+file = "src/Cache/RedisFactory.php"
+code = "redundant-logical-operation"
+message = "Redundant `&&` operation: left operand is evaluated and right operand is always truthy."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `nonnull`, which is not iterable."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\DBAL\Types\Type::addType`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\DBAL\Types\Type::hasType`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\ORM\Configuration::setDefaultRepositoryClassName`: expected `class-string<Doctrine\ORM\EntityRepository<object>>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\ORM\Configuration::setProxyDir`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Doctrine\ConfigurationFactory::registerTypes`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `Doctrine\DBAL\Types\Type::addType`: expected `Doctrine\DBAL\Types\Type|class-string<Doctrine\DBAL\Types\Type>`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver::__construct`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #3 of `Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver::__construct`: expected `bool`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 4
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 4
+
+[[issues]]
+file = "src/Doctrine/ConfigurationFactory.php"
+code = "mixed-operand"
+message = "Casting `mixed` to `bool`."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "less-specific-argument"
+message = 'Argument type mismatch for argument #1 of `Doctrine\Common\EventManager::addEventListener`: expected `array<array-key, string>|string`, but provided type `array-key` is less specific.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-argument"
+message = '''Invalid argument type for argument #1 of `Doctrine\DBAL\DriverManager::getConnection`: expected `array{'application_name'?: string, 'charset'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'host'?: string, 'keepReplica'?: bool, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'port'?: int, 'primary'?: array{'application_name'?: string, 'charset'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'host'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'port'?: int, 'serverVersion'?: string, 'sessionMode'?: int, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}, 'replica'?: array<array-key, array{'application_name'?: string, 'charset'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'host'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'port'?: int, 'serverVersion'?: string, 'sessionMode'?: int, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}>, 'serverVersion'?: string, 'sessionMode'?: int, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}`, but found `nonnull`.'''
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Psr\Container\ContainerInterface::get`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Doctrine\EntityManagerFactory::registerListeners`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `Doctrine\Common\EventManager::addEventListener`: expected `object`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 3
+
+[[issues]]
+file = "src/Doctrine/EntityManagerFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 2
+
+[[issues]]
+file = "src/Doctrine/EntityRepositoryFactory.php"
+code = "possibly-invalid-argument"
+message = '''Possible argument type mismatch for argument #1 of `Doctrine\ORM\EntityManager::getClassMetadata`: expected `class-string<'T.doctrine\persistence\objectmanager::getclassmetadata() extends object>`, but possibly received `string`.'''
+count = 1
+
+[[issues]]
+file = "src/Doctrine/EntityRepositoryFactory.php"
+code = "unknown-class-instantiation"
+message = "Cannot determine the concrete class for instantiation."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/Mapping/EnhancedPHPDriver.php"
+code = "extend-final-class"
+message = 'Class `Shlinkio\Shlink\Common\Doctrine\Mapping\EnhancedPHPDriver` cannot extend final class `Doctrine\Persistence\Mapping\Driver\PHPDriver`'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/Mapping/EnhancedPHPDriver.php"
+code = "invalid-callable"
+message = "Expression of type `mixed` cannot be called as a function or method."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/Mapping/EnhancedPHPDriver.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\Persistence\Mapping\Driver\PHPDriver::__construct`: expected `Doctrine\Persistence\Mapping\Driver\FileLocator|array<int, string>|string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/Mapping/EnhancedPHPDriver.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ReopeningEntityManager.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Doctrine\ORM\Decorator\EntityManagerDecorator::__construct`: expected `Doctrine\ORM\EntityManagerInterface`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/ReopeningEntityManager.php"
+code = "mixed-property-type-coercion"
+message = 'A value with a less specific type `mixed` is being assigned to property `$wrapped` (Doctrine\ORM\EntityManagerInterface).'
+count = 1
+
+[[issues]]
+file = "src/Doctrine/Type/ChronosDateTimeType.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `Cake\Chronos\Chronos::instance` is possibly `null`, but parameter type `DateTimeInterface` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Http/HttpClientFactory.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
+count = 2
+
+[[issues]]
+file = "src/Http/HttpClientFactory.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #1 of `GuzzleHttp\HandlerStack::push`: expected `(callable((callable(...mixed): mixed)): (callable(...mixed): mixed))`, but provided type `(callable(...mixed=): mixed)` is less specific.'
+count = 2
+
+[[issues]]
+file = "src/Http/HttpClientFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 5
+
+[[issues]]
+file = "src/Http/HttpClientFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Lock/NamespacedStore.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `Shlinkio\Shlink\Common\Lock\NamespacedStore::namespaceKey`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `nonnull`, which is not iterable."
+count = 1
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Laminas\Stratigility\Middleware\ErrorHandler::attachListener`: expected `(callable(...mixed=): mixed)`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Mezzio\ProblemDetails\ProblemDetailsMiddleware::attachListener`: expected `(callable(Throwable, Psr\Http\Message\RequestInterface, Psr\Http\Message\ResponseInterface): void)`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Psr\Container\ContainerInterface::get`: expected `string`, but found `mixed`.'
+count = 2
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Logger/ErrorHandlerListenerAttachingDelegator.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerAwareDelegatorFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #3 of `Monolog\Logger::__construct`: expected `array<array-key, (callable(Monolog\LogRecord): Monolog\LogRecord)|Monolog\Processor\ProcessorInterface>`, but provided type `array<array-key, mixed>` is less specific.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Monolog\Formatter\JsonFormatter::__construct`: expected `bool`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Monolog\Formatter\LineFormatter::__construct`: expected `null|string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Monolog\Handler\RotatingFileHandler::__construct`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Monolog\Handler\StreamHandler::__construct`: expected `resource|string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Monolog\Level::tryFrom`: expected `int`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Logger\Exception\InvalidLoggerException::fromInvalidType`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Logger\LoggerFactory::buildHandler`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Logger\LoggerFactory::resolveProcessors`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Logger\LoggerType::tryFrom`: expected `string`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #2 of `array_map`: expected `array<('K.array_map() extends array-key), string>`, but found `nonnull`."
+count = 1
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 2
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 6
+
+[[issues]]
+file = "src/Logger/LoggerFactory.php"
+code = "mixed-operand"
+message = "Invalid left operand: type `nonnull` cannot be reliably used in string concatenation."
+count = 1
+
+[[issues]]
+file = "src/Middleware/AccessLogMiddleware.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #2 of `str_ends_with`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Middleware/AccessLogMiddleware.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `CuyZ\Valinor\MapperBuilder::registerConstructor`: expected `(pure-callable(...mixed): mixed)|class-string`, but found `(closure(string): Cake\Chronos\Chronos)`.'
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `CuyZ\Valinor\MapperBuilder::registerConverter`: expected `(pure-callable(...mixed): mixed)|class-string`, but found `(closure(string, (callable(...mixed=): mixed)): mixed)`.'
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
+code = "invalid-argument"
+message = '''Invalid argument type for argument #2 of `CuyZ\Valinor\MapperBuilder::infer`: expected `(pure-callable(...mixed): mixed)`, but found `(closure(): class-string('Cake\Chronos\Chronos'))`.'''
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
+code = "mixed-return-statement"
+message = "Could not infer a precise return type for function `{closure:src/ObjectMapper/MapperBuilderDelegatorFactory.php:29:17}`. Saw type `mixed`."
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/MappingError.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `Shlinkio\Shlink\Common\ObjectMapper\MappingError::body`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/ObjectMapper/TagsConverter.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `Shlinkio\Shlink\Common\ObjectMapper\TagsConverter::map`: expected `array<array-key, string>`, but found `array<array-key, null|string>`.'
+count = 1
+
+[[issues]]
+file = "src/Paginator/Paginator.php"
+code = "incompatible-parameter-type"
+message = 'Parameter `$maxPerPage` of `Shlinkio\Shlink\Common\Paginator\Paginator::setmaxperpage()` expects type `int(-1)|positive-int` but parent `Pagerfanta\Pagerfanta::setmaxperpage()` expects type `int`'
+count = 1
+
+[[issues]]
+file = "src/Paginator/Util/PagerfantaUtils.php"
+code = "less-specific-nested-argument-type"
+message = '''Argument type mismatch for argument #2 of `Shlinkio\Shlink\Common\Paginator\Util\PagerfantaUtils::serializeItems`: expected `(callable(('T.shlinkio\shlink\common\paginator\util\pagerfantautils extends mixed)): array<array-key, mixed>)|null`, but provided type `(callable(('T.shlinkio\shlink\common\paginator\util\pagerfantautils extends mixed)): mixed)|null` is less specific.'''
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setHost`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setIsSecure`: expected `bool`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setPassword`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setPort`: expected `int`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setUser`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpAmqpLib\Connection\AMQPConnectionConfig::setVhost`: expected `string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `nonnull`."
+count = 5
+
+[[issues]]
+file = "src/RabbitMq/AMQPConfigFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Response/PixelResponse.php"
+code = "less-specific-argument"
+message = '''Argument type mismatch for argument #3 of `Laminas\Diactoros\Response::__construct`: expected `array<non-empty-string, array<array-key, string>|string>`, but provided type `array{'content-type': string('image/gif'), ...}` is less specific.'''
+count = 1
+
+[[issues]]
+file = "src/Response/PixelResponse.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of method `Laminas\Diactoros\Stream::write` is possibly `false`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Response/ResponseUtilsTrait.php"
+code = "less-specific-argument"
+message = 'Argument type mismatch for argument #3 of `Laminas\Diactoros\Response::__construct`: expected `array<non-empty-string, array<array-key, string>|string>`, but provided type `array<array-key, mixed>` is less specific.'
+count = 1
+
+[[issues]]
+file = "test/Cache/RedisFactoryTest.php"
+code = "non-documented-property"
+message = 'Ambiguous property access: $ssl on class `Predis\Connection\ParametersInterface`.'
+count = 1
+
+[[issues]]
+file = "test/Doctrine/EntityManagerFactoryTest.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
+count = 1
+
+[[issues]]
+file = "test/Doctrine/ReopeningEntityManagerTest.php"
+code = "redundant-comparison"
+message = "Redundant `===` comparison: left-hand side is never identical to right-hand side."
+count = 1
+
+[[issues]]
+file = "test/Lock/NamespacedStoreTest.php"
+code = "too-few-arguments"
+message = 'Too few arguments provided for method `Shlinkio\Shlink\Common\Lock\NamespacedStore::putOffExpiration`.'
+count = 1
+
+[[issues]]
+file = "test/Mercure/MercureOptionsTest.php"
+code = "deprecated-method"
+message = 'Call to deprecated method: `Shlinkio\Shlink\Common\Mercure\MercureOptions::isEnabled`.'
+count = 1
+
+[[issues]]
+file = "test/ObjectMapper/HostAndPortConverterTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `Shlinkio\Shlink\Common\ObjectMapper\HostAndPortConverter::map`: expected `(callable(mixed): string)`, but provided type `(closure(mixed): mixed)` is less specific.'
+count = 1
+
+[[issues]]
+file = "test/ObjectMapper/TagsConverterTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #1 of `Shlinkio\Shlink\Common\ObjectMapper\TagsConverter::map`: expected `array<array-key, string>`, but provided type `array<array-key, mixed>` is less specific.'
+count = 1

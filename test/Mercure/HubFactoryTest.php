@@ -33,7 +33,7 @@ class HubFactoryTest extends TestCase
         $this->container->expects($this->once())->method('get')->with(MercureOptions::class)->willReturn($options);
 
         $this->expectException(MercureException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIs(
             'You have to provide mercure hub URL under mercure.internal_hub_url or mercure.public_hub_url',
         );
 

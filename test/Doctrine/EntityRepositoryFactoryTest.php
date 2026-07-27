@@ -44,7 +44,7 @@ class EntityRepositoryFactoryTest extends TestCase
     }
 
     /**
-     * @param class-string<object> $repoClass
+     * @param class-string<MockRepository> $repoClass
      */
     #[Test, DataProvider('provideValidRepoNames')]
     public function createsRequestedRepositoryClass(string $repoClass): void
@@ -75,7 +75,7 @@ class EntityRepositoryFactoryTest extends TestCase
         $this->em->expects($this->never())->method('getClassMetadata');
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessageIs(sprintf(
             '"%s" cannot create an instance of "%s", as it is neither an instance of or extends from "%s"',
             EntityRepositoryFactory::class,
             stdClass::class,

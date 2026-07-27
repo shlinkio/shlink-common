@@ -20,7 +20,7 @@ class IpAddressTest extends TestCase
     public function exceptionIsThrownWhenTryingToParseInvalidIp(string $invalidAddress): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Provided IP "%s" is invalid', $invalidAddress));
+        $this->expectExceptionMessageIs(sprintf('Provided IP "%s" is invalid', $invalidAddress));
 
         IpAddress::fromString($invalidAddress);
     }

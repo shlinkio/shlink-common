@@ -32,7 +32,7 @@ class HostAndPortConverterTest extends TestCase
     public function throwsWhenValueIsInvalid(string $value, string $expectedError): void
     {
         $this->expectException(MappingError::class);
-        $this->expectExceptionMessage($expectedError);
+        $this->expectExceptionMessageIs($expectedError);
 
         $this->converter->map($value, static fn () => '');
     }

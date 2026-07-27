@@ -40,7 +40,7 @@ class LoggerFactoryTest extends TestCase
         $this->container->expects($this->once())->method('get')->with('config')->willReturn(['logger' => []]);
 
         $this->expectException(InvalidLoggerException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIs(
             'Provided logger with name "foo" is not valid. Make sure to provide a value defined under the "logger" '
             . 'config key.',
         );
@@ -60,7 +60,7 @@ class LoggerFactoryTest extends TestCase
             ]);
 
         $this->expectException(InvalidLoggerException::class);
-        $this->expectExceptionMessage('Expected one of ["file", "stream"]');
+        $this->expectExceptionMessageIsOrContains('Expected one of ["file", "stream"]');
 
         LoggerFactory::foo($this->container); // @phpstan-ignore-line
     }
@@ -230,8 +230,10 @@ class LoggerFactoryTest extends TestCase
             ]);
 
         /** @var Logger $logger */
-        $logger = LoggerFactory::foo($this->container); // @phpstan-ignore-line
-        $formatter = $logger->getHandlers()[0]->getFormatter(); // @phpstan-ignore-line
+        // @mago-ignore
+        $logger = LoggerFactory::foo($this->container);
+        // @mago-expect analysis:non-existent-method
+        $formatter = $logger->getHandlers()[0]->getFormatter();
 
         self::assertInstanceOf($expectedFormatter, $formatter);
     }
@@ -253,7 +255,7 @@ class LoggerFactoryTest extends TestCase
             ]);
 
         $this->expectException(InvalidLoggerException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIs(
             'Provided formatter type "invalid" is not valid. Expected one of ["console", "json"]',
         );
 

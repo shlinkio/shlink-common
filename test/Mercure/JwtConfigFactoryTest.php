@@ -31,7 +31,7 @@ class JwtConfigFactoryTest extends TestCase
         $this->container->expects($this->once())->method('get')->with(MercureOptions::class)->willReturn($options);
 
         $this->expectException(MercureException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIs(
             'You have to provide a non-empty secret key for the JWT generation, under mercure.jwt_secret',
         );
 
