@@ -25,7 +25,7 @@ class LooseUriConverterTest extends TestCase
     public function throwsWhenInvalidValueIsProvided(string $value): void
     {
         $this->expectException(MappingError::class);
-        $this->expectExceptionMessage('Provided value does not match a loose URI pattern');
+        $this->expectExceptionMessageIs('Provided value does not match a loose URI pattern');
 
         $this->converter->map($value);
     }

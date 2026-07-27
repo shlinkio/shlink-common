@@ -27,7 +27,8 @@ function buildDateRange(Chronos|null $startDate, Chronos|null $endDate): DateRan
  */
 function parseOrderBy(string $orderBy): array
 {
-    return array_pad(explode('-', $orderBy), 2, null); // @phpstan-ignore-line
+    // @mago-expect analysis:invalid-return-statement
+    return array_pad(explode('-', $orderBy), 2, null);
 }
 
 /**

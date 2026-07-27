@@ -177,7 +177,7 @@ class RedisFactoryTest extends TestCase
             ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'Provided server "//" is not a valid URL with format schema://[[username]:password@]host:port',
         );
 
@@ -314,7 +314,7 @@ class RedisFactoryTest extends TestCase
             ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The redis database index should be an integer, ' . $database . ' provided');
+        $this->expectExceptionMessageIs('The redis database index should be an integer, ' . $database . ' provided');
 
         ($this->factory)($this->container);
     }

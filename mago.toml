@@ -8,7 +8,7 @@ extends = "vendor/shlinkio/shlink-mago-config/mago.toml"
 [source]
 workspace = "."
 paths = ["config", "functions", "src", "test"]
-excludes = ["vendor"]
+includes = ["vendor"]
 
 [source.glob]
 literal-separator = true
@@ -18,3 +18,13 @@ no-literal-password = { exclude = ["test"] }
 no-empty-catch-clause = { exclude = ["test"] }
 no-empty-loop = { exclude = ["test"] }
 ambiguous-function-call = { exclude = ["functions"] }
+
+[analyzer]
+baseline = "mago-analyze-baseline.toml"
+ignore = [
+    { code = "non-documented-method", in = "test/" },
+    { code = "mixed-assignment", in = "test/" },
+    { code = "mixed-argument", in = "test/" },
+    { code = "string-member-selector", in = "test/" },
+    { code = "property-type-coercion", in = "test/" },
+]

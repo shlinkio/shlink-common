@@ -18,7 +18,7 @@ use stdClass;
 class EnhancedPHPDriverTest extends TestCase
 {
     private Stub&FileLocator $loader;
-    /** @var MockObject & ClassMetadata<stdClass> */
+    /** @var MockObject&ClassMetadata<stdClass> */
     private MockObject&ClassMetadata $meta;
 
     public function setUp(): void
