@@ -32,7 +32,6 @@ class TagsConverter
      */
     public function map(array $value): array
     {
-        // @phpstan-ignore return.type
         return array_unique(
             array_map(static fn (string $tag) => preg_replace(
                 '/ /',

@@ -9,4 +9,3 @@ Dockerfile export-ignore
 indocker export-ignore
 mago.toml export-ignore
 phpunit.xml.dist export-ignore
-phpstan.neon export-ignore

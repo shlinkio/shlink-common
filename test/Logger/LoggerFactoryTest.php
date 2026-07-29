@@ -45,7 +45,7 @@ class LoggerFactoryTest extends TestCase
             . 'config key.',
         );
 
-        LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        LoggerFactory::foo($this->container);
     }
 
     #[Test, DataProvider('provideConfigWithInvalidType')]
@@ -62,7 +62,7 @@ class LoggerFactoryTest extends TestCase
         $this->expectException(InvalidLoggerException::class);
         $this->expectExceptionMessageIsOrContains('Expected one of ["file", "stream"]');
 
-        LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        LoggerFactory::foo($this->container);
     }
 
     public static function provideConfigWithInvalidType(): iterable
@@ -86,7 +86,7 @@ class LoggerFactoryTest extends TestCase
             ]);
 
         /** @var Logger $logger */
-        $logger = LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        $logger = LoggerFactory::foo($this->container);
         $handlers = $logger->getHandlers();
 
         self::assertCount(1, $handlers);
@@ -156,7 +156,7 @@ class LoggerFactoryTest extends TestCase
             );
 
         /** @var Logger $logger */
-        $logger = LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        $logger = LoggerFactory::foo($this->container);
         $processors = $logger->getProcessors();
 
         self::assertCount($expectedAmountOfProcessors + 2, $processors);
@@ -183,7 +183,7 @@ class LoggerFactoryTest extends TestCase
             ]);
 
         /** @var Logger $logger */
-        $logger = LoggerFactory::bar($this->container); // @phpstan-ignore-line
+        $logger = LoggerFactory::bar($this->container);
         $handlers = $logger->getHandlers();
 
         self::assertNotEmpty($handlers);
@@ -259,6 +259,6 @@ class LoggerFactoryTest extends TestCase
             'Provided formatter type "invalid" is not valid. Expected one of ["console", "json"]',
         );
 
-        LoggerFactory::foo($this->container); // @phpstan-ignore-line
+        LoggerFactory::foo($this->container);
     }
 }
