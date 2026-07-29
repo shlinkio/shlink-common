@@ -6,7 +6,6 @@ namespace Shlinkio\Shlink\Common\Doctrine\Mapping;
 
 use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 
-/** @phpstan-ignore class.extendsFinalByPhpDoc */
 class EnhancedPHPDriver extends PHPDriver
 {
     public function __construct( // phpcs:ignore

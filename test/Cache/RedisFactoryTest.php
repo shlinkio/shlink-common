@@ -205,7 +205,7 @@ class RedisFactoryTest extends TestCase
 
         self::assertEquals($expectedUsername, $conn->getParameters()->username);
         self::assertEquals($expectedPassword, $conn->getParameters()->password);
-        self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl); // @phpstan-ignore-line
+        self::assertEquals($expectedSslOptions, $conn->getParameters()->ssl);
         self::assertEquals($expectedPath, $conn->getParameters()->path);
     }
 

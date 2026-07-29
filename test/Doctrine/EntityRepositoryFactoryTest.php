@@ -57,7 +57,6 @@ class EntityRepositoryFactoryTest extends TestCase
                 new ClassMetadata(stdClass::class),
             );
 
-        // @phpstan-ignore staticMethod.notFound
         $repoInstance = EntityRepositoryFactory::{stdClass::class}($this->container, $repoClass);
 
         self::assertInstanceOf($repoClass, $repoInstance);
@@ -82,7 +81,6 @@ class EntityRepositoryFactoryTest extends TestCase
             MockRepository::class,
         ));
 
-        // @phpstan-ignore staticMethod.notFound
         EntityRepositoryFactory::{stdClass::class}($this->container, stdClass::class);
     }
 }

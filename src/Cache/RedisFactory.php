@@ -110,7 +110,6 @@ class RedisFactory
         $intDatabase = filter_var($rawDatabase, FILTER_VALIDATE_INT);
         if ($intDatabase === false) {
             throw new InvalidArgumentException(
-                // @phpstan-ignore argument.type
                 sprintf('The redis database index should be an integer, %s provided', $rawDatabase),
             );
         }
