@@ -8,7 +8,7 @@ use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 
 class EnhancedPHPDriver extends PHPDriver
 {
-    public function __construct( // phpcs:ignore
+    public function __construct(
         $locator,
         private readonly array $emConfig,
         private readonly bool $loadMappingsUsingFunctionalStyle = false,
