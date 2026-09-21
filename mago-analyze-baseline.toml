@@ -207,7 +207,7 @@ count = 1
 [[issues]]
 file = "src/Doctrine/EntityManagerFactory.php"
 code = "less-specific-argument"
-message = 'Argument type mismatch for argument #1 of `Doctrine\Common\EventManager::addEventListener`: expected `array<array-key, string>|string`, but provided type `array-key` is less specific.'
+message = 'Argument type mismatch for argument #1 of `Doctrine\Common\EventListenerRegistry::addEventListener`: expected `array<array-key, string>|string`, but provided type `array-key` is less specific.'
 count = 1
 
 [[issues]]
@@ -231,7 +231,7 @@ count = 1
 [[issues]]
 file = "src/Doctrine/EntityManagerFactory.php"
 code = "mixed-argument"
-message = 'Invalid argument type for argument #2 of `Doctrine\Common\EventManager::addEventListener`: expected `object`, but found `mixed`.'
+message = 'Invalid argument type for argument #2 of `Doctrine\Common\EventListenerRegistry::addEventListener`: expected `object`, but found `mixed`.'
 count = 1
 
 [[issues]]
