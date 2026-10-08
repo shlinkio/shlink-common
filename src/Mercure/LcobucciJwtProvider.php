@@ -8,9 +8,13 @@ use Cake\Chronos\Chronos;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
 
-readonly class LcobucciJwtProvider implements JwtProviderInterface
+// IMPORTANT! This class cannot be readonly, as it's proxied and that makes it crash
+class LcobucciJwtProvider implements JwtProviderInterface
 {
-    public function __construct(private Configuration $jwtConfig, private MercureOptions $mercureOptions) {}
+    public function __construct(
+        private readonly Configuration $jwtConfig,
+        private readonly MercureOptions $mercureOptions,
+    ) {}
 
     /**
      * @return non-empty-string
