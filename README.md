@@ -348,6 +348,10 @@ return [
 
         // Optional. The issuer for generated JWTs. Will fall back to "Shlink".
         'jwt_issuer' => 'Shlink',
+        
+        // Optional. The mercure hub version, which will determine how to publish and the format of generated JWTs.
+        // 'v0' or 'v1'. Defaults to 'v0'
+        'version' => 'v1',
     ],
 
 ];
