@@ -14,6 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
 use Shlinkio\Shlink\Common\Mercure\MercureOptions;
+use Shlinkio\Shlink\Common\Mercure\MercureVersion;
 
 class LcobucciJwtProviderTest extends TestCase
 {
@@ -56,8 +57,11 @@ class LcobucciJwtProviderTest extends TestCase
      * @param non-empty-string $expectedIssuer
      */
     #[Test, DataProvider('provideMercureConfigs')]
-    public function expectedPublishTokenIsCreated(MercureOptions $mercureOptions, string $expectedIssuer): void
-    {
+    public function expectedPublishTokenIsCreated(
+        MercureOptions $mercureOptions,
+        string $expectedIssuer,
+        string|array $expectedClaim,
+    ): void {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig
             ->parser()
@@ -67,32 +71,43 @@ class LcobucciJwtProviderTest extends TestCase
 
         self::assertTrue($token->hasBeenIssuedBy($expectedIssuer));
         self::assertTrue($token->isExpired(Chronos::now()->addMinutes(10)->addSeconds(5)));
-        self::assertEquals(['publish' => ['*']], $token->claims()->get('mercure'));
+        self::assertEquals(['publish' => [$expectedClaim]], $token->claims()->get('mercure'));
     }
 
     public static function provideMercureConfigs(): iterable
     {
-        yield 'without issuer' => [new MercureOptions(), 'Shlink'];
-        yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer];
+        yield 'without issuer' => [new MercureOptions(), 'Shlink', '*'];
+        yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer, '*'];
+        yield 'without v1' => [new MercureOptions(version: MercureVersion::v1), 'Shlink', ['match' => '*']];
     }
 
     #[Test, DataProvider('provideExpirationDates')]
-    public function expectedSubscriptionTokenIsCreated(Chronos|null $expiresAt, Chronos $expectedExpiresAt): void
-    {
+    public function expectedSubscriptionTokenIsCreated(
+        Chronos|null $expiresAt,
+        Chronos $expectedExpiresAt,
+        MercureOptions $mercureOptions,
+        string|array $expectedClaim,
+    ): void {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig
             ->parser()
             ->parse(
-                new LcobucciJwtProvider($this->jwtConfig, new MercureOptions())->buildSubscriptionToken($expiresAt),
+                new LcobucciJwtProvider($this->jwtConfig, $mercureOptions)->buildSubscriptionToken($expiresAt),
             );
 
         self::assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));
-        self::assertEquals(['subscribe' => ['*']], $token->claims()->get('mercure'));
+        self::assertEquals(['subscribe' => [$expectedClaim]], $token->claims()->get('mercure'));
     }
 
     public static function provideExpirationDates(): iterable
     {
-        yield 'default expiration' => [null, Chronos::now()->addDays(3)];
-        yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires];
+        yield 'default expiration' => [null, Chronos::now()->addDays(3), new MercureOptions(), '*'];
+        yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires, new MercureOptions(), '*'];
+        yield 'version 1' => [
+            $expires = Chronos::now()->addMonths(5),
+            $expires,
+            new MercureOptions(version: MercureVersion::v1),
+            ['match' => '*'],
+        ];
     }
 }

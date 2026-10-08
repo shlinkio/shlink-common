@@ -8,12 +8,9 @@ use Cake\Chronos\Chronos;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
 
-class LcobucciJwtProvider implements JwtProviderInterface
+readonly class LcobucciJwtProvider implements JwtProviderInterface
 {
-    public function __construct(
-        private readonly Configuration $jwtConfig,
-        private readonly MercureOptions $mercureOptions,
-    ) {}
+    public function __construct(private Configuration $jwtConfig, private MercureOptions $mercureOptions) {}
 
     /**
      * @return non-empty-string
@@ -29,7 +26,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     public function buildPublishToken(): string
     {
         $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
-        return $this->buildToken(['publish' => ['*']], $expiresAt);
+        return $this->buildToken(['publish' => [$this->buildTokenMatch()]], $expiresAt);
     }
 
     /**
@@ -38,7 +35,15 @@ class LcobucciJwtProvider implements JwtProviderInterface
     public function buildSubscriptionToken(DateTimeImmutable|null $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
-        return $this->buildToken(['subscribe' => ['*']], $expiresAt);
+        return $this->buildToken(['subscribe' => [$this->buildTokenMatch()]], $expiresAt);
+    }
+
+    /**
+     * @return array{match: '*'}|'*'
+     */
+    private function buildTokenMatch(): array|string
+    {
+        return $this->mercureOptions->version === MercureVersion::v0 ? '*' : ['match' => '*'];
     }
 
     /**

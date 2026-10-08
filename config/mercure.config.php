@@ -7,6 +7,7 @@ namespace Shlinkio\Shlink\Common;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Lcobucci\JWT\Configuration;
 use Psr\Container\ContainerInterface;
+use Shlinkio\Shlink\Common\Mercure\MercureVersion;
 use Symfony\Component\Mercure\Hub;
 
 use function trim;
@@ -32,6 +33,9 @@ return [
                     internalHubUrl: $config['internal_hub_url'] ?? $config['public_hub_url'] ?? null,
                     jwtSecret: $config['jwt_secret'] ?? null,
                     jwtIssuer: $config['jwt_issuer'] ?? 'Shlink',
+                    version: isset($config['version']) && is_string($config['version'])
+                        ? MercureVersion::from($config['version'])
+                        : MercureVersion::v0,
                 );
             },
         ],

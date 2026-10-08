@@ -15,6 +15,7 @@ readonly class MercureOptions
         public string|null $internalHubUrl = null,
         public string|null $jwtSecret = null,
         public string $jwtIssuer = 'Shlink',
+        public MercureVersion $version = MercureVersion::v0,
     ) {}
 
     /** @deprecated Use `enabled` prop directly instead */
