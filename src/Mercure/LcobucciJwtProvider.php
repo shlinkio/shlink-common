@@ -8,6 +8,8 @@ use Cake\Chronos\Chronos;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
 
+use function sprintf;
+
 // IMPORTANT! This class cannot be readonly, as it's proxied and that makes it crash
 class LcobucciJwtProvider implements JwtProviderInterface
 {
@@ -30,7 +32,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     public function buildPublishToken(): string
     {
         $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
-        return $this->buildToken(['publish' => [$this->buildTokenMatch()]], $expiresAt);
+        return $this->buildToken('publish', $expiresAt);
     }
 
     /**
@@ -39,30 +41,42 @@ class LcobucciJwtProvider implements JwtProviderInterface
     public function buildSubscriptionToken(DateTimeImmutable|null $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
-        return $this->buildToken(['subscribe' => [$this->buildTokenMatch()]], $expiresAt);
+        return $this->buildToken('subscribe', $expiresAt);
     }
 
     /**
-     * @return array{match: '*'}|'*'
-     */
-    private function buildTokenMatch(): array|string
-    {
-        return $this->mercureOptions->version === MercureVersion::v0 ? '*' : ['match' => '*'];
-    }
-
-    /**
+     * @param 'publish'|'subscribe' $action
      * @return non-empty-string
      */
-    private function buildToken(array $mercureClaim, DateTimeImmutable $expiresAt): string
+    private function buildToken(string $action, DateTimeImmutable $expiresAt): string
     {
-        $now = $this->roundDateToTheSecond(Chronos::now());
-
-        return $this->jwtConfig
+        $isLegacyVersion = $this->mercureOptions->version === MercureVersion::v0;
+        $jwtBuilder = $this->jwtConfig
             ->builder()
             ->issuedBy($this->mercureOptions->jwtIssuer)
-            ->issuedAt($now)
+            ->issuedAt($this->roundDateToTheSecond(Chronos::now()))
             ->expiresAt($expiresAt)
-            ->withClaim('mercure', $mercureClaim)
+            ->withClaim('mercure', [
+                $action => [$isLegacyVersion ? '*' : ['match' => '*']],
+            ]);
+
+        if (!$isLegacyVersion) {
+            $jwtBuilder = $jwtBuilder
+                ->withHeader('typ', 'at+jwt')
+                ->permittedFor(sprintf(
+                    '%s/.well-known/mercure',
+                    $action === 'publish' ? $this->mercureOptions->internalHubUrl : $this->mercureOptions->publicHubUrl,
+                ))
+                ->withClaim('authorization_details', [
+                    [
+                        'type' => 'https://mercure.rocks/authorization-detail',
+                        'actions' => [$action],
+                        'topics' => [['match' => '*']],
+                    ],
+                ]);
+        }
+
+        return $jwtBuilder
             ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey())
             ->toString();
     }

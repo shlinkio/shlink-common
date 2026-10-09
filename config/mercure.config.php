@@ -10,6 +10,7 @@ use Psr\Container\ContainerInterface;
 use Shlinkio\Shlink\Common\Mercure\MercureVersion;
 use Symfony\Component\Mercure\Hub;
 
+use function is_string;
 use function trim;
 
 return [
