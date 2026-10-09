@@ -11,6 +11,7 @@ use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\UnencryptedToken;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Mercure\LcobucciJwtProvider;
 use Shlinkio\Shlink\Common\Mercure\MercureOptions;
@@ -78,7 +79,7 @@ class LcobucciJwtProviderTest extends TestCase
     {
         yield 'without issuer' => [new MercureOptions(), 'Shlink', '*'];
         yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer, '*'];
-        yield 'without v1' => [new MercureOptions(version: MercureVersion::v1), 'Shlink', ['match' => '*']];
+        yield 'with version 1' => [new MercureOptions(version: MercureVersion::v1), 'Shlink', ['match' => '*']];
     }
 
     #[Test, DataProvider('provideExpirationDates')]
@@ -109,5 +110,31 @@ class LcobucciJwtProviderTest extends TestCase
             new MercureOptions(version: MercureVersion::v1),
             ['match' => '*'],
         ];
+    }
+
+    #[Test]
+    #[TestWith([MercureVersion::v0])]
+    #[TestWith([MercureVersion::v1])]
+    public function extraHeadersAndClaimsAreAddedForVersionOne(MercureVersion $version): void
+    {
+        /** @var UnencryptedToken $token */
+        $token = $this->jwtConfig
+            ->parser()
+            ->parse(
+                new LcobucciJwtProvider(
+                    $this->jwtConfig,
+                    new MercureOptions(version: $version),
+                )->buildSubscriptionToken(),
+            );
+
+        if ($version === MercureVersion::v0) {
+            self::assertEquals('JWT', $token->headers()->get('typ'));
+            self::assertFalse($token->claims()->has('aud'));
+            self::assertFalse($token->claims()->has('authorization_details'));
+        } else {
+            self::assertEquals('at+jwt', $token->headers()->get('typ'));
+            self::assertTrue($token->claims()->has('aud'));
+            self::assertTrue($token->claims()->has('authorization_details'));
+        }
     }
 }
