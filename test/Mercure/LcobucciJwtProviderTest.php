@@ -58,11 +58,8 @@ class LcobucciJwtProviderTest extends TestCase
      * @param non-empty-string $expectedIssuer
      */
     #[Test, DataProvider('provideMercureConfigs')]
-    public function expectedPublishTokenIsCreated(
-        MercureOptions $mercureOptions,
-        string $expectedIssuer,
-        string|array $expectedClaim,
-    ): void {
+    public function expectedPublishTokenIsCreated(MercureOptions $mercureOptions, string $expectedIssuer): void
+    {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig
             ->parser()
@@ -72,44 +69,33 @@ class LcobucciJwtProviderTest extends TestCase
 
         self::assertTrue($token->hasBeenIssuedBy($expectedIssuer));
         self::assertTrue($token->isExpired(Chronos::now()->addMinutes(10)->addSeconds(5)));
-        self::assertEquals(['publish' => [$expectedClaim]], $token->claims()->get('mercure'));
     }
 
     public static function provideMercureConfigs(): iterable
     {
-        yield 'without issuer' => [new MercureOptions(), 'Shlink', '*'];
-        yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer, '*'];
-        yield 'with version 1' => [new MercureOptions(version: MercureVersion::v1), 'Shlink', ['match' => '*']];
+        yield 'without issuer' => [new MercureOptions(), 'Shlink'];
+        yield 'with issuer' => [new MercureOptions(jwtIssuer: $issuer = 'foobar'), $issuer];
     }
 
     #[Test, DataProvider('provideExpirationDates')]
-    public function expectedSubscriptionTokenIsCreated(
+    public function expectedExpirationIsSetInSubscriptionToken(
         Chronos|null $expiresAt,
         Chronos $expectedExpiresAt,
-        MercureOptions $mercureOptions,
-        string|array $expectedClaim,
     ): void {
         /** @var UnencryptedToken $token */
         $token = $this->jwtConfig
             ->parser()
             ->parse(
-                new LcobucciJwtProvider($this->jwtConfig, $mercureOptions)->buildSubscriptionToken($expiresAt),
+                new LcobucciJwtProvider($this->jwtConfig, new MercureOptions())->buildSubscriptionToken($expiresAt),
             );
 
         self::assertTrue($token->isExpired($expectedExpiresAt->addSeconds(5)));
-        self::assertEquals(['subscribe' => [$expectedClaim]], $token->claims()->get('mercure'));
     }
 
     public static function provideExpirationDates(): iterable
     {
-        yield 'default expiration' => [null, Chronos::now()->addDays(3), new MercureOptions(), '*'];
-        yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires, new MercureOptions(), '*'];
-        yield 'version 1' => [
-            $expires = Chronos::now()->addMonths(5),
-            $expires,
-            new MercureOptions(version: MercureVersion::v1),
-            ['match' => '*'],
-        ];
+        yield 'default expiration' => [null, Chronos::now()->addDays(3)];
+        yield 'explicit expiration' => [$expires = Chronos::now()->addMonths(5), $expires];
     }
 
     #[Test]
@@ -126,15 +112,18 @@ class LcobucciJwtProviderTest extends TestCase
                     new MercureOptions(version: $version),
                 )->buildSubscriptionToken(),
             );
+        $claims = $token->claims();
 
         if ($version === MercureVersion::v0) {
             self::assertEquals('JWT', $token->headers()->get('typ'));
-            self::assertFalse($token->claims()->has('aud'));
-            self::assertFalse($token->claims()->has('authorization_details'));
+            self::assertFalse($claims->has('aud'));
+            self::assertFalse($claims->has('authorization_details'));
+            self::assertTrue($claims->has('mercure'));
         } else {
             self::assertEquals('at+jwt', $token->headers()->get('typ'));
-            self::assertTrue($token->claims()->has('aud'));
-            self::assertTrue($token->claims()->has('authorization_details'));
+            self::assertTrue($claims->has('aud'));
+            self::assertTrue($claims->has('authorization_details'));
+            self::assertFalse($claims->has('mercure'));
         }
     }
 }
