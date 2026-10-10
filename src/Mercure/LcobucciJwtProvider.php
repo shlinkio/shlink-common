@@ -50,18 +50,15 @@ class LcobucciJwtProvider implements JwtProviderInterface
      */
     private function buildToken(string $action, DateTimeImmutable $expiresAt): string
     {
-        $isLegacyVersion = $this->mercureOptions->version === MercureVersion::v0;
         $jwtBuilder = $this->jwtConfig
             ->builder()
             ->issuedBy($this->mercureOptions->jwtIssuer)
             ->issuedAt($this->roundDateToTheSecond(Chronos::now()))
-            ->expiresAt($expiresAt)
-            ->withClaim('mercure', [
-                $action => [$isLegacyVersion ? '*' : ['match' => '*']],
-            ]);
+            ->expiresAt($expiresAt);
 
-        if (!$isLegacyVersion) {
-            $jwtBuilder = $jwtBuilder
+        $jwtBuilder = $this->mercureOptions->version === MercureVersion::v0
+            ? $jwtBuilder->withClaim('mercure', [$action => ['*']])
+            : $jwtBuilder
                 ->withHeader('typ', 'at+jwt')
                 ->permittedFor(sprintf(
                     '%s/.well-known/mercure',
@@ -74,7 +71,6 @@ class LcobucciJwtProvider implements JwtProviderInterface
                         'topics' => [['match' => '*']],
                     ],
                 ]);
-        }
 
         return $jwtBuilder
             ->getToken($this->jwtConfig->signer(), $this->jwtConfig->signingKey())
