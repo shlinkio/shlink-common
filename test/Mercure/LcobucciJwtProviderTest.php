@@ -99,8 +99,8 @@ class LcobucciJwtProviderTest extends TestCase
     }
 
     #[Test]
-    #[TestWith([MercureVersion::v0])]
-    #[TestWith([MercureVersion::v1])]
+    #[TestWith([MercureVersion::LEGACY])]
+    #[TestWith([MercureVersion::STABLE])]
     public function extraHeadersAndClaimsAreAddedForVersionOne(MercureVersion $version): void
     {
         /** @var UnencryptedToken $token */
@@ -114,7 +114,7 @@ class LcobucciJwtProviderTest extends TestCase
             );
         $claims = $token->claims();
 
-        if ($version === MercureVersion::v0) {
+        if ($version === MercureVersion::LEGACY) {
             self::assertEquals('JWT', $token->headers()->get('typ'));
             self::assertFalse($claims->has('aud'));
             self::assertFalse($claims->has('authorization_details'));
