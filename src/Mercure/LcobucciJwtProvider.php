@@ -56,7 +56,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
             ->issuedAt($this->roundDateToTheSecond(Chronos::now()))
             ->expiresAt($expiresAt);
 
-        $jwtBuilder = $this->mercureOptions->version === MercureVersion::v0
+        $jwtBuilder = $this->mercureOptions->version === MercureVersion::LEGACY
             ? $jwtBuilder->withClaim('mercure', [$action => ['*']])
             : $jwtBuilder
                 ->withHeader('typ', 'at+jwt')

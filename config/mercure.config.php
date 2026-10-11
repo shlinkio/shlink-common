@@ -28,7 +28,7 @@ return [
                     enabled: $config['enabled']
                     // Fallback to the previous mechanism to check if mercure was enabled, if the "enabled" key is
                     // not present.
-                    // This fallback is deprecated.
+                    // This fallback is DEPRECATED.
                     ?? isset($config['public_hub_url']) && trim($config['public_hub_url']) !== '',
                     publicHubUrl: $config['public_hub_url'] ?? null,
                     internalHubUrl: $config['internal_hub_url'] ?? $config['public_hub_url'] ?? null,
@@ -36,7 +36,8 @@ return [
                     jwtIssuer: $config['jwt_issuer'] ?? 'Shlink',
                     version: isset($config['version']) && is_string($config['version'])
                         ? MercureVersion::from($config['version'])
-                        : MercureVersion::v0,
+                        : MercureVersion::LEGACY,
+                    authCookieName: $config['auth_cookie_name'] ?? null,
                 );
             },
         ],
