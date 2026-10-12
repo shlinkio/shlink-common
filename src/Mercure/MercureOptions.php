@@ -6,8 +6,6 @@ namespace Shlinkio\Shlink\Common\Mercure;
 
 readonly class MercureOptions
 {
-    public string $authCookieName;
-
     /**
      * @param non-empty-string $jwtIssuer
      */
@@ -18,14 +16,7 @@ readonly class MercureOptions
         public string|null $jwtSecret = null,
         public string $jwtIssuer = 'Shlink',
         public MercureVersion $version = MercureVersion::LEGACY,
-        string|null $authCookieName = null,
-    ) {
-        $this->authCookieName =
-            $authCookieName
-            // These are mercure default cookie names for legacy and stable versions.
-            // See https://mercure.rocks/docs/UPGRADE#what-changed-at-a-glance
-            ?? ($this->version === MercureVersion::LEGACY ? 'mercureAuthorization' : '__Secure-mercure_access_token');
-    }
+    ) {}
 
     /** @deprecated Use `enabled` prop directly instead */
     public function isEnabled(): bool

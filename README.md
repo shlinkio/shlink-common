@@ -352,12 +352,6 @@ return [
         // Optional. The mercure hub version, which will determine how to publish and the format of generated JWTs.
         // 'legacy' (for version <=0.x) or 'stable' (for version >=1.0). Defaults to 'legacy'
         'version' => 'legacy',
-        
-        // Optional. The cookie name that was configured in the Mercure Hub for the auth token.
-        // This is used so that it can be exposed to other systems that need to integrate with the Mercure Hub.
-        // Defaults to '__Secure-mercure_access_token' if the version is 'stable', and 'mercureAuthorization' if the
-        // version is 'legacy'
-        'auth_cookie_name' => '__Secure-mercure_access_token'
     ],
 
 ];
