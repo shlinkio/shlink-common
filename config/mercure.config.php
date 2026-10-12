@@ -37,7 +37,6 @@ return [
                     version: isset($config['version']) && is_string($config['version'])
                         ? MercureVersion::from($config['version'])
                         : MercureVersion::LEGACY,
-                    authCookieName: $config['auth_cookie_name'] ?? null,
                 );
             },
         ],
