@@ -6,7 +6,7 @@ namespace Shlinkio\Shlink\Common\ObjectMapper;
 
 use Attribute;
 use CuyZ\Valinor\Mapper\AsConverter;
-use Respect\Validation\Validator as v;
+use Respect\Validation\ValidatorBuilder as v;
 
 use function array_pad;
 use function count;
@@ -44,7 +44,7 @@ final class HostAndPortConverter
             return false;
         }
 
-        return $host === 'localhost' || v::domain(tldCheck: false)->validate($host);
+        return $host === 'localhost' || v::domain(tldCheck: false)->isValid($host);
     }
 
     private function portIsValid(string|null $port): bool
