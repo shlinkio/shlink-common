@@ -11,6 +11,7 @@ use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\TypeRegistry;
 use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,18 +21,13 @@ use stdClass;
 
 class ChronosDateTimeTypeTest extends TestCase
 {
-    private ChronosDateTimeType $type;
+    private Type&ChronosDateTimeType $type;
 
     #[Override]
     protected function setUp(): void
     {
-        if (!Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
-            Type::addType(ChronosDateTimeType::CHRONOS_DATETIME, ChronosDateTimeType::class);
-        } else {
-            Type::overrideType(ChronosDateTimeType::CHRONOS_DATETIME, ChronosDateTimeType::class);
-        }
-
-        $this->type = Type::getType(ChronosDateTimeType::CHRONOS_DATETIME);
+        $typeRegistry = new TypeRegistry([ChronosDateTimeType::CHRONOS_DATETIME => ChronosDateTimeType::class]);
+        $this->type = $typeRegistry->get(ChronosDateTimeType::CHRONOS_DATETIME);
     }
 
     #[Test]

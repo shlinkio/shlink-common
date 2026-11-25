@@ -14,7 +14,7 @@ use Override;
 
 class ChronosDateTimeType extends DateTimeImmutableType
 {
-    public const CHRONOS_DATETIME = 'chronos_datetime';
+    public const string CHRONOS_DATETIME = 'chronos_datetime';
 
     public function getName(): string
     {

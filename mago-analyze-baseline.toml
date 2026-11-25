@@ -38,12 +38,6 @@ count = 1
 
 [[issues]]
 file = "config/mercure.config.php"
-code = "mixed-argument"
-message = 'Invalid argument type for argument #7 of `Shlinkio\Shlink\Common\Mercure\MercureOptions::__construct`: expected `null|string`, but found `mixed`.'
-count = 1
-
-[[issues]]
-file = "config/mercure.config.php"
 code = "mixed-assignment"
 message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
 count = 1
@@ -121,33 +115,9 @@ message = "Possible argument type mismatch for argument #2 of `sprintf`: expecte
 count = 1
 
 [[issues]]
-file = "src/Cache/RedisFactory.php"
-code = "redundant-comparison"
-message = "Redundant `!==` comparison: left-hand side is always not identical to right-hand side."
-count = 1
-
-[[issues]]
-file = "src/Cache/RedisFactory.php"
-code = "redundant-logical-operation"
-message = "Redundant `&&` operation: left operand is evaluated and right operand is always truthy."
-count = 1
-
-[[issues]]
-file = "src/Doctrine/ConfigurationFactory.php"
-code = "invalid-iterator"
-message = "The expression provided to `foreach` is not iterable. It resolved to type `nonnull`, which is not iterable."
-count = 1
-
-[[issues]]
 file = "src/Doctrine/ConfigurationFactory.php"
 code = "mixed-argument"
-message = 'Invalid argument type for argument #1 of `Doctrine\DBAL\Types\Type::addType`: expected `string`, but found `mixed`.'
-count = 1
-
-[[issues]]
-file = "src/Doctrine/ConfigurationFactory.php"
-code = "mixed-argument"
-message = 'Invalid argument type for argument #1 of `Doctrine\DBAL\Types\Type::hasType`: expected `string`, but found `mixed`.'
+message = 'Invalid argument type for argument #1 of `Doctrine\DBAL\Types\TypeRegistry::__construct`: expected `Symfony\Contracts\Service\ServiceProviderInterface<Doctrine\DBAL\Types\Type>|array<string, Doctrine\DBAL\Types\Type|class-string<Doctrine\DBAL\Types\Type>>`, but found `nonnull`.'
 count = 1
 
 [[issues]]
@@ -160,18 +130,6 @@ count = 1
 file = "src/Doctrine/ConfigurationFactory.php"
 code = "mixed-argument"
 message = 'Invalid argument type for argument #1 of `Doctrine\ORM\Configuration::setProxyDir`: expected `string`, but found `nonnull`.'
-count = 1
-
-[[issues]]
-file = "src/Doctrine/ConfigurationFactory.php"
-code = "mixed-argument"
-message = 'Invalid argument type for argument #1 of `Shlinkio\Shlink\Common\Doctrine\ConfigurationFactory::registerTypes`: expected `array<array-key, mixed>`, but found `nonnull`.'
-count = 1
-
-[[issues]]
-file = "src/Doctrine/ConfigurationFactory.php"
-code = "mixed-argument"
-message = 'Invalid argument type for argument #2 of `Doctrine\DBAL\Types\Type::addType`: expected `Doctrine\DBAL\Types\Type|class-string<Doctrine\DBAL\Types\Type>`, but found `mixed`.'
 count = 1
 
 [[issues]]
@@ -190,13 +148,13 @@ count = 1
 file = "src/Doctrine/ConfigurationFactory.php"
 code = "mixed-assignment"
 message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
-count = 4
+count = 2
 
 [[issues]]
 file = "src/Doctrine/ConfigurationFactory.php"
 code = "mixed-assignment"
 message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
-count = 4
+count = 3
 
 [[issues]]
 file = "src/Doctrine/ConfigurationFactory.php"
@@ -219,7 +177,7 @@ count = 1
 [[issues]]
 file = "src/Doctrine/EntityManagerFactory.php"
 code = "mixed-argument"
-message = '''Invalid argument type for argument #1 of `Doctrine\DBAL\DriverManager::getConnection`: expected `array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'keepReplica'?: bool, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'primary'?: array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}, 'replica'?: array<array-key, array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}>, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'sid'?: string, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}`, but found `nonnull`.'''
+message = '''Invalid argument type for argument #1 of `Doctrine\DBAL\DriverManager::getConnection`: expected `array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'keepReplica'?: bool, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'primary'?: array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}, 'replica'?: non-empty-array<array-key, array{'application_name'?: string, 'charset'?: string, 'connectstring'?: string, 'dbname'?: string, 'defaultTableOptions'?: array<string, mixed>, 'driver'?: string('ibm_db2')|string('mysqli')|string('oci8')|string('pdo_mysql')|string('pdo_oci')|string('pdo_pgsql')|string('pdo_sqlite')|string('pdo_sqlsrv')|string('pgsql')|string('sqlite3')|string('sqlsrv'), 'driverClass'?: class-string<Doctrine\DBAL\Driver>, 'driverOptions'?: array<array-key, mixed>, 'gssencmode'?: string, 'host'?: string, 'instancename'?: string, 'memory'?: bool, 'password'?: string, 'path'?: string, 'persistent'?: bool, 'pooled'?: bool, 'port'?: int, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}>, 'serverVersion'?: string, 'service'?: bool, 'servicename'?: string, 'sessionMode'?: int, 'sid'?: string, 'ssl_ca'?: string, 'ssl_capath'?: string, 'ssl_cert'?: string, 'ssl_cipher'?: string, 'ssl_key'?: string, 'sslcert'?: string, 'sslcrl'?: string, 'sslkey'?: string, 'sslmode'?: string, 'sslrootcert'?: string, 'unix_socket'?: string, 'user'?: string, 'wrapperClass'?: class-string<Doctrine\DBAL\Connection>}`, but found `nonnull`.'''
 count = 1
 
 [[issues]]
@@ -254,14 +212,8 @@ count = 2
 
 [[issues]]
 file = "src/Doctrine/EntityRepositoryFactory.php"
-code = "possibly-invalid-argument"
-message = '''Possible argument type mismatch for argument #1 of `Doctrine\ORM\EntityManager::getClassMetadata`: expected `class-string<'T.doctrine\persistence\objectmanager::getclassmetadata() extends object>`, but possibly received `string`.'''
-count = 1
-
-[[issues]]
-file = "src/Doctrine/EntityRepositoryFactory.php"
-code = "unknown-class-instantiation"
-message = "Cannot determine the concrete class for instantiation."
+code = "unsafe-instantiation"
+message = 'Unsafe `new $class_name`: constructor of `Doctrine\ORM\EntityRepository` is not final and its signature might change in child classes, potentially leading to runtime errors.'
 count = 1
 
 [[issues]]
@@ -483,7 +435,7 @@ count = 1
 [[issues]]
 file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
 code = "invalid-argument"
-message = 'Invalid argument type for argument #1 of `CuyZ\Valinor\MapperBuilder::registerConverter`: expected `(pure-callable(...mixed): mixed)|class-string`, but found `(closure(string, (callable(...mixed=): mixed)): mixed)`.'
+message = 'Invalid argument type for argument #1 of `CuyZ\Valinor\MapperBuilder::registerConverter`: expected `(pure-callable(...mixed): mixed)|class-string`, but found `(closure(string, (callable(...mixed=): mixed)): string)`.'
 count = 1
 
 [[issues]]
@@ -496,12 +448,6 @@ count = 1
 file = "src/ObjectMapper/MapperBuilderDelegatorFactory.php"
 code = "mixed-return-statement"
 message = "Could not infer a precise return type for function `{closure:src/ObjectMapper/MapperBuilderDelegatorFactory.php:29:17}`. Saw type `mixed`."
-count = 1
-
-[[issues]]
-file = "src/ObjectMapper/MappingError.php"
-code = "mixed-return-statement"
-message = 'Could not infer a precise return type for function `Shlinkio\Shlink\Common\ObjectMapper\MappingError::body`. Saw type `mixed`.'
 count = 1
 
 [[issues]]
@@ -598,12 +544,6 @@ count = 1
 file = "test/Doctrine/EntityManagerFactoryTest.php"
 code = "invalid-iterator"
 message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
-count = 1
-
-[[issues]]
-file = "test/Doctrine/ReopeningEntityManagerTest.php"
-code = "redundant-comparison"
-message = "Redundant `===` comparison: left-hand side is never identical to right-hand side."
 count = 1
 
 [[issues]]

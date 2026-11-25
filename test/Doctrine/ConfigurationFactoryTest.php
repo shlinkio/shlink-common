@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Doctrine;
 
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 use Laminas\ServiceManager\ServiceManager;
@@ -13,18 +12,13 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
-use ReflectionObject;
 use Shlinkio\Shlink\Common\Doctrine\ConfigurationFactory;
 use Shlinkio\Shlink\Common\Doctrine\Type\ChronosDateTimeType;
 use ShlinkioTest\Shlink\Common\Repository\CustomRepository;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
-use function array_filter;
 use function array_merge;
 use function array_merge_recursive;
-use function iterator_to_array;
-
-use const ARRAY_FILTER_USE_KEY;
 
 class ConfigurationFactoryTest extends TestCase
 {
@@ -33,18 +27,6 @@ class ConfigurationFactoryTest extends TestCase
     #[Override]
     public function setUp(): void
     {
-        if (Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
-            $typeRegistry = Type::getTypeRegistry();
-            $ref = new ReflectionObject($typeRegistry);
-            $instancesProp = $ref->getProperty('instances');
-            $withoutChronosType = array_filter(
-                iterator_to_array($typeRegistry->getIterator()),
-                static fn (string $key): bool => $key !== ChronosDateTimeType::CHRONOS_DATETIME,
-                ARRAY_FILTER_USE_KEY,
-            );
-            $instancesProp->setValue($typeRegistry, $withoutChronosType);
-        }
-
         $this->factory = new ConfigurationFactory();
     }
 
@@ -59,10 +41,9 @@ class ConfigurationFactoryTest extends TestCase
             CacheItemPoolInterface::class => new ArrayAdapter(),
         ]]);
 
-        self::assertFalse(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
         $config = ($this->factory)($sm);
 
-        self::assertTrue(Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME));
+        self::assertTrue($config->getTypeProvider()->has(ChronosDateTimeType::CHRONOS_DATETIME));
         self::assertEquals($expectedAutoGenerateProxies, $config->getAutoGenerateProxyClasses());
         self::assertEquals(__DIR__, $config->getProxyDir());
         self::assertEquals($expectedDefaultRepo, $config->getDefaultRepositoryClassName());
