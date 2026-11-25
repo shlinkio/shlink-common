@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Paginator;
 
+use Override;
 use Pagerfanta\Pagerfanta;
 
 use function max;
@@ -22,6 +23,7 @@ class Paginator extends Pagerfanta
      * @param positive-int|self::ALL_ITEMS $maxPerPage
      * @return Paginator<T>
      */
+    #[Override]
     public function setMaxPerPage(int $maxPerPage): self
     {
         $this->returnAllItems = $maxPerPage < 1;
@@ -32,6 +34,7 @@ class Paginator extends Pagerfanta
         return $this;
     }
 
+    #[Override]
     public function getMaxPerPage(): int
     {
         if (!$this->returnAllItems) {

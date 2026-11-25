@@ -8,6 +8,7 @@ use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
 use Doctrine\ORM\EntityManager;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +22,7 @@ class NoDbNameConnectionFactoryTest extends TestCase
     private MockObject&ContainerInterface $container;
     private MockObject&EntityManager $em;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->originalConn = $this->createMock(Connection::class);

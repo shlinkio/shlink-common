@@ -8,6 +8,7 @@ use Cake\Chronos\Chronos;
 use CuyZ\Valinor\Mapper\TreeMapper;
 use CuyZ\Valinor\MapperBuilder;
 use DateTimeInterface;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -17,6 +18,7 @@ class MapperBuilderDelegatorFactoryTest extends TestCase
 {
     private TreeMapper $mapper;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->mapper = new MapperBuilderDelegatorFactory()(

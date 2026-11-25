@@ -10,6 +10,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Doctrine\DBAL\Types\Exception\InvalidType;
+use Override;
 
 class ChronosDateTimeType extends DateTimeImmutableType
 {
@@ -23,6 +24,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
     /**
      * @throws ConversionException
      */
+    #[Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): Chronos|null
     {
         if ($value === null) {
@@ -39,6 +41,7 @@ class ChronosDateTimeType extends DateTimeImmutableType
      * @template T
      * @throws ConversionException
      */
+    #[Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string|null
     {
         if ($value === null) {

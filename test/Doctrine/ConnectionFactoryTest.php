@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +20,7 @@ class ConnectionFactoryTest extends TestCase
     private MockObject&EntityManagerInterface $em;
     private MockObject&ContainerInterface $container;
 
+    #[Override]
     public function setUp(): void
     {
         $this->em = $this->createMock(EntityManagerInterface::class);

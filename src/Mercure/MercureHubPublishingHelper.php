@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Mercure;
 
+use Override;
 use Shlinkio\Shlink\Common\UpdatePublishing\PublishingHelperInterface;
 use Shlinkio\Shlink\Common\UpdatePublishing\Update;
 use Symfony\Component\Mercure\HubInterface;
@@ -19,6 +20,7 @@ readonly class MercureHubPublishingHelper implements PublishingHelperInterface
     /**
      * @throws Throwable
      */
+    #[Override]
     public function publishUpdate(Update $update): void
     {
         $this->mercure->publish(new MercureUpdate($update->topic, json_encode($update->payload)));

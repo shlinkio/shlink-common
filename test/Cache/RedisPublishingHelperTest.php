@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Cache;
 
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +17,7 @@ class RedisPublishingHelperTest extends TestCase
     private RedisPublishingHelper $helper;
     private MockObject&ClientInterface $predis;
 
+    #[Override]
     public function setUp(): void
     {
         $this->predis = $this->createMock(ClientInterface::class);

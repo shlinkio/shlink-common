@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ObjectMapper;
 
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +15,7 @@ class LooseUriConverterTest extends TestCase
 {
     private LooseUriConverter $converter;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->converter = new LooseUriConverter();

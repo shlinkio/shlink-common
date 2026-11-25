@@ -9,6 +9,7 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Laminas\ServiceManager\ServiceManager;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +27,7 @@ class EntityManagerFactoryTest extends TestCase
 {
     private EntityManagerFactory $factory;
 
+    #[Override]
     public function setUp(): void
     {
         $this->factory = new EntityManagerFactory();

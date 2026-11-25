@@ -9,6 +9,7 @@ use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\UnencryptedToken;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -21,31 +22,37 @@ class LcobucciJwtProviderTest extends TestCase
 {
     private Configuration $jwtConfig;
 
+    #[Override]
     public function setUp(): void
     {
         $this->jwtConfig = Configuration::forSymmetricSigner(
             new class implements Signer {
+                #[Override]
                 public function algorithmId(): string
                 {
                     return 'none';
                 }
 
+                #[Override]
                 public function sign(string $payload, Key $key): string
                 {
                     return 'test_shlink';
                 }
 
+                #[Override]
                 public function verify(string $expected, string $payload, Key $key): bool
                 {
                     return $expected === 'test_shlink';
                 }
             },
             new class implements Key {
+                #[Override]
                 public function contents(): string
                 {
                     return 'empty';
                 }
 
+                #[Override]
                 public function passphrase(): string
                 {
                     return 'empty';

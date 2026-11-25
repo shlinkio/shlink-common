@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Paginator;
 
+use Override;
 use Pagerfanta\Adapter\AdapterInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -21,6 +22,7 @@ class PaginatorTest extends TestCase
     /** @var MockObject & AdapterInterface<T> */
     private MockObject&AdapterInterface $adapter;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->adapter = $this->createMock(AdapterInterface::class);

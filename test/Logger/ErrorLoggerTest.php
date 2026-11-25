@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Logger;
 use Exception;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -20,6 +21,7 @@ class ErrorLoggerTest extends TestCase
     private ErrorLogger $errorLogger;
     private MockObject&LoggerInterface $logger;
 
+    #[Override]
     public function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\RabbitMq;
 
+use Override;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -20,6 +21,7 @@ readonly class RabbitMqPublishingHelper implements PublishingHelperInterface
     /**
      * @throws Throwable
      */
+    #[Override]
     public function publishUpdate(Update $update): void
     {
         if (!$this->connection->isConnected()) {

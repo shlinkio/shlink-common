@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Lock;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -16,6 +17,7 @@ class NamespacedStoreTest extends TestCase
 {
     private MockObject&SharedLockStoreInterface $wrappedStore;
 
+    #[Override]
     public function setUp(): void
     {
         $this->wrappedStore = $this->createMock(SharedLockStoreInterface::class);

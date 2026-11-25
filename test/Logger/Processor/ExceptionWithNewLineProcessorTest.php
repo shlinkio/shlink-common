@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Logger\Processor;
 use Cake\Chronos\Chronos;
 use Monolog\Level;
 use Monolog\LogRecord;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -18,6 +19,7 @@ class ExceptionWithNewLineProcessorTest extends TestCase
 {
     private ExceptionWithNewLineProcessor $processor;
 
+    #[Override]
     public function setUp(): void
     {
         $this->processor = new ExceptionWithNewLineProcessor();

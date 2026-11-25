@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Cache;
 
+use Override;
 use Predis\ClientInterface as PredisClient;
 use Shlinkio\Shlink\Common\UpdatePublishing\PublishingHelperInterface;
 use Shlinkio\Shlink\Common\UpdatePublishing\Update;
@@ -18,6 +19,7 @@ readonly class RedisPublishingHelper implements PublishingHelperInterface
     /**
      * @throws Throwable
      */
+    #[Override]
     public function publishUpdate(Update $update): void
     {
         $this->predis->publish($update->topic, json_encode($update->payload));

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Logger;
 
+use Override;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,6 +21,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
     private LoggerAwareDelegatorFactory $delegator;
     private MockObject&ContainerInterface $container;
 
+    #[Override]
     public function setUp(): void
     {
         $this->container = $this->createMock(ContainerInterface::class);
@@ -57,6 +59,7 @@ class LoggerAwareDelegatorFactoryTest extends TestCase
     public static function provideInstances(): iterable
     {
         $loggerAware = new class implements Log\LoggerAwareInterface {
+            #[Override]
             public function setLogger(LoggerInterface $logger): void
             {
                 Assert::assertInstanceOf(Log\NullLogger::class, $logger);

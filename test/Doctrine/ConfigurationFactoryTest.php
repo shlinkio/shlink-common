@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\Mapping\Driver\PHPDriver;
 use Laminas\ServiceManager\ServiceManager;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +22,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function array_filter;
 use function array_merge;
 use function array_merge_recursive;
+use function iterator_to_array;
 
 use const ARRAY_FILTER_USE_KEY;
 
@@ -28,6 +30,7 @@ class ConfigurationFactoryTest extends TestCase
 {
     private ConfigurationFactory $factory;
 
+    #[Override]
     public function setUp(): void
     {
         if (Type::hasType(ChronosDateTimeType::CHRONOS_DATETIME)) {
@@ -35,7 +38,7 @@ class ConfigurationFactoryTest extends TestCase
             $ref = new ReflectionObject($typeRegistry);
             $instancesProp = $ref->getProperty('instances');
             $withoutChronosType = array_filter(
-                $typeRegistry->getMap(),
+                iterator_to_array($typeRegistry->getIterator()),
                 static fn (string $key): bool => $key !== ChronosDateTimeType::CHRONOS_DATETIME,
                 ARRAY_FILTER_USE_KEY,
             );

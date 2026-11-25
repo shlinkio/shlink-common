@@ -7,6 +7,7 @@ namespace Shlinkio\Shlink\Common\Mercure;
 use Cake\Chronos\Chronos;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
+use Override;
 
 use function sprintf;
 
@@ -21,6 +22,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     /**
      * @return non-empty-string
      */
+    #[Override]
     public function getJwt(): string
     {
         return $this->buildPublishToken();
@@ -29,6 +31,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     /**
      * @return non-empty-string
      */
+    #[Override]
     public function buildPublishToken(): string
     {
         $expiresAt = $this->roundDateToTheSecond(Chronos::now()->addMinutes(10));
@@ -38,6 +41,7 @@ class LcobucciJwtProvider implements JwtProviderInterface
     /**
      * @return non-empty-string
      */
+    #[Override]
     public function buildSubscriptionToken(DateTimeImmutable|null $expiresAt = null): string
     {
         $expiresAt = $this->roundDateToTheSecond($expiresAt ?? Chronos::now()->addDays(3));
