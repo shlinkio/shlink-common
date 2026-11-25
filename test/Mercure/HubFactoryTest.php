@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Mercure;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -21,6 +22,7 @@ class HubFactoryTest extends TestCase
     private HubFactory $factory;
     private MockObject&ContainerInterface $container;
 
+    #[Override]
     public function setUp(): void
     {
         $this->container = $this->createMock(ContainerInterface::class);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\Response;
 
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Shlinkio\Shlink\Common\Response\PixelResponse;
@@ -12,6 +13,7 @@ class PixelResponseTest extends TestCase
 {
     private PixelResponse $resp;
 
+    #[Override]
     public function setUp(): void
     {
         $this->resp = new PixelResponse();

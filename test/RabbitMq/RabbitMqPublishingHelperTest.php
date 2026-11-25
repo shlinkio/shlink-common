@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\RabbitMq;
 
 use Exception;
+use Override;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
@@ -23,6 +24,7 @@ class RabbitMqPublishingHelperTest extends TestCase
     private MockObject&AMQPStreamConnection $connection;
     private MockObject&AMQPChannel $channel;
 
+    #[Override]
     public function setUp(): void
     {
         $this->channel = $this->createMock(AMQPChannel::class);

@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common\Middleware;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -20,6 +21,7 @@ class RequestIdMiddleware implements MiddlewareInterface, ProcessorInterface
     /** Holds the value for current request, in order to use it for every generated log entry */
     private string $currentRequestId = '-';
 
+    #[Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $this->currentRequestId = $request->hasHeader(self::HEADER)
@@ -33,6 +35,7 @@ class RequestIdMiddleware implements MiddlewareInterface, ProcessorInterface
         return $handler->handle($requestWithAttribute)->withHeader(self::HEADER, $this->currentRequestId);
     }
 
+    #[Override]
     public function __invoke(LogRecord $record): LogRecord
     {
         // Overwrite request ID with currently set value, as it changes on every request

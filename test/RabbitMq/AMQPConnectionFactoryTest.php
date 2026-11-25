@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\RabbitMq;
 
+use Override;
 use PhpAmqpLib\Connection\AMQPConnectionConfig;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -16,6 +17,7 @@ class AMQPConnectionFactoryTest extends TestCase
     private AMQPConnectionFactory $factory;
     private MockObject&ContainerInterface $container;
 
+    #[Override]
     public function setUp(): void
     {
         $this->factory = new AMQPConnectionFactory();

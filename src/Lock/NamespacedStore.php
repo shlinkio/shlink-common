@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Lock;
 
 use Closure;
+use Override;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\SharedLockStoreInterface;
 
@@ -23,26 +24,31 @@ class NamespacedStore implements SharedLockStoreInterface
         private readonly string $namespaceSeparator = ':',
     ) {}
 
+    #[Override]
     public function save(Key $key): void
     {
         $this->wrappedStore->save($this->namespaceKey($key));
     }
 
+    #[Override]
     public function delete(Key $key): void
     {
         $this->wrappedStore->delete($this->namespaceKey($key));
     }
 
+    #[Override]
     public function exists(Key $key): bool
     {
         return $this->wrappedStore->exists($this->namespaceKey($key));
     }
 
+    #[Override]
     public function putOffExpiration(Key $key, float $ttl): void
     {
         $this->wrappedStore->putOffExpiration($this->namespaceKey($key), $ttl);
     }
 
+    #[Override]
     public function saveRead(Key $key): void
     {
         $this->wrappedStore->saveRead($this->namespaceKey($key));

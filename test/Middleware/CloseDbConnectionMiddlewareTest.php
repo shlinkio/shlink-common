@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Middleware;
 use Doctrine\DBAL\Connection;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -22,6 +23,7 @@ class CloseDbConnectionMiddlewareTest extends TestCase
     private MockObject&ReopeningEntityManagerInterface $em;
     private MockObject&Connection $conn;
 
+    #[Override]
     public function setUp(): void
     {
         $this->handler = $this->createMock(RequestHandlerInterface::class);

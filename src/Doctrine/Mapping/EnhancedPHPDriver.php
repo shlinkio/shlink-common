@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shlinkio\Shlink\Common\Doctrine\Mapping;
 
 use Doctrine\Persistence\Mapping\Driver\PHPDriver;
+use Override;
 
 class EnhancedPHPDriver extends PHPDriver
 {
@@ -16,6 +17,7 @@ class EnhancedPHPDriver extends PHPDriver
         parent::__construct($locator);
     }
 
+    #[Override]
     protected function loadMappingFile($file): array // phpcs:ignore
     {
         $metadata = $this->metadata;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Http;
 
 use GuzzleHttp\HandlerStack;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,6 +27,7 @@ class HttpClientFactoryTest extends TestCase
     private HttpClientFactory $factory;
     private MockObject&ContainerInterface $container;
 
+    #[Override]
     public function setUp(): void
     {
         $this->factory = new HttpClientFactory();

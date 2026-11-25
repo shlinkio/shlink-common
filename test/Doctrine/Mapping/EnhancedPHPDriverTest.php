@@ -6,6 +6,7 @@ namespace ShlinkioTest\Shlink\Common\Doctrine\Mapping;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\FileLocator;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -21,6 +22,7 @@ class EnhancedPHPDriverTest extends TestCase
     /** @var MockObject&ClassMetadata<stdClass> */
     private MockObject&ClassMetadata $meta;
 
+    #[Override]
     public function setUp(): void
     {
         $this->loader = $this->createStub(FileLocator::class);

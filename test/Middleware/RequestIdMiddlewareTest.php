@@ -9,6 +9,7 @@ use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
 use Monolog\Level;
 use Monolog\LogRecord;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -20,6 +21,7 @@ class RequestIdMiddlewareTest extends TestCase
     private RequestIdMiddleware $middleware;
     private Stub&RequestHandlerInterface $handler;
 
+    #[Override]
     public function setUp(): void
     {
         $this->middleware = new RequestIdMiddleware();

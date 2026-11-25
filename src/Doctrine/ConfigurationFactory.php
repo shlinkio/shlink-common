@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shlinkio\Shlink\Common\Doctrine;
 
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\TypeRegistry;
 use Doctrine\ORM\Configuration;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
@@ -22,8 +22,6 @@ class ConfigurationFactory
         $funcStyle = $ormConfig['load_mappings_using_functional_style'] ?? false;
         $defaultRepo = $ormConfig['default_repository_classname'] ?? null;
 
-        $this->registerTypes($ormConfig);
-
         $config = new Configuration();
         $config->setMetadataCache($cache);
         $config->setQueryCache($cache);
@@ -35,22 +33,12 @@ class ConfigurationFactory
         $config->setMetadataDriverImpl(
             new EnhancedPHPDriver($ormConfig['entities_mappings'] ?? [], $emConfig, $funcStyle),
         );
+        $config->setTypeProvider(new TypeRegistry($ormConfig['types'] ?? []));
 
         if ($defaultRepo !== null) {
             $config->setDefaultRepositoryClassName($defaultRepo);
         }
 
         return $config;
-    }
-
-    private function registerTypes(array $ormConfig): void
-    {
-        $types = $ormConfig['types'] ?? [];
-
-        foreach ($types as $name => $className) {
-            if (!Type::hasType($name)) {
-                Type::addType($name, $className);
-            }
-        }
     }
 }

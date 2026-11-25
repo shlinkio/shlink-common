@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ObjectMapper;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +18,7 @@ class SubstringConverterTest extends TestCase
 {
     private SubstringConverter $converter;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->converter = new SubstringConverter(512);

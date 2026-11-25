@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShlinkioTest\Shlink\Common\ObjectMapper;
 
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
@@ -13,6 +14,7 @@ class TagsConverterTest extends TestCase
 {
     private TagsConverter $converter;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->converter = new TagsConverter();

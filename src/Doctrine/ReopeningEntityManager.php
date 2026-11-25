@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common\Doctrine;
 
 use Closure;
 use Doctrine\ORM\Decorator\EntityManagerDecorator;
+use Override;
 
 /**
  * @final
@@ -20,6 +21,7 @@ class ReopeningEntityManager extends EntityManagerDecorator implements Reopening
         $this->createEm = Closure::fromCallable($createEm);
     }
 
+    #[Override]
     public function open(): void
     {
         if (!$this->wrapped->isOpen()) {

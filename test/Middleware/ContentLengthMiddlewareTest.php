@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShlinkioTest\Shlink\Common\Middleware;
 
 use Laminas\Diactoros\ServerRequestFactory;
+use Override;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -18,6 +19,7 @@ class ContentLengthMiddlewareTest extends TestCase
     private ContentLengthMiddleware $middleware;
     private MockObject&RequestHandlerInterface $handler;
 
+    #[Override]
     public function setUp(): void
     {
         $this->middleware = new ContentLengthMiddleware();

@@ -7,6 +7,7 @@ namespace ShlinkioTest\Shlink\Common\Middleware;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\Diactoros\Uri;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,6 +23,7 @@ class AccessLogMiddlewareTest extends TestCase
     private AccessLogMiddleware $middleware;
     private MockObject&LoggerInterface $logger;
 
+    #[Override]
     public function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);

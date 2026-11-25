@@ -8,6 +8,7 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,6 +27,7 @@ class EntityRepositoryFactoryTest extends TestCase
     private MockObject&ContainerInterface $container;
     private MockObject&EntityManagerInterface $em;
 
+    #[Override]
     public function setUp(): void
     {
         $configuration = $this->createMock(Configuration::class);

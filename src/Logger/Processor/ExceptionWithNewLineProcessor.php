@@ -6,6 +6,7 @@ namespace Shlinkio\Shlink\Common\Logger\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
+use Override;
 
 use function str_contains;
 use function str_replace;
@@ -16,6 +17,7 @@ final class ExceptionWithNewLineProcessor implements ProcessorInterface
 {
     private const EXCEPTION_PLACEHOLDER = '{e}';
 
+    #[Override]
     public function __invoke(LogRecord $record): LogRecord
     {
         $message = $record->message;
