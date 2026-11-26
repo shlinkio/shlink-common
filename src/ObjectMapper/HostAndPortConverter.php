@@ -48,8 +48,9 @@ final class HostAndPortConverter
         }
 
         // Workaround to support respect/validation v2 and v3 simultaneously
-        // @mago-ignore analysis:mixed-assignment
+        // @mago-ignore analysis:mixed-assignment,analysis:non-existent-class-like
         $domain = class_exists(ValidatorBuilder::class)
+            // @mago-ignore analysis:non-existent-method
             ? ValidatorBuilder::domain(tldCheck: false)
             // @mago-ignore analysis:static-access-on-interface
             : Validator::domain(tldCheck: false);
