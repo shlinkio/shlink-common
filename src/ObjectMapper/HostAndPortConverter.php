@@ -6,11 +6,14 @@ namespace Shlinkio\Shlink\Common\ObjectMapper;
 
 use Attribute;
 use CuyZ\Valinor\Mapper\AsConverter;
-use Respect\Validation\Validator as v;
+use Respect\Validation\Validator;
+use Respect\Validation\ValidatorBuilder;
 
 use function array_pad;
+use function class_exists;
 use function count;
 use function explode;
+use function method_exists;
 
 #[AsConverter]
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_PARAMETER)]
@@ -44,7 +47,18 @@ final class HostAndPortConverter
             return false;
         }
 
-        return $host === 'localhost' || v::domain(tldCheck: false)->validate($host);
+        // Workaround to support respect/validation v2 and v3 simultaneously
+        // @mago-ignore analysis:mixed-assignment,analysis:non-existent-class-like
+        $domain = class_exists(ValidatorBuilder::class)
+            // @mago-ignore analysis:non-existent-method
+            ? ValidatorBuilder::domain(tldCheck: false)
+            // @mago-ignore analysis:static-access-on-interface
+            : Validator::domain(tldCheck: false);
+        // @mago-ignore analysis:mixed-method-access,analysis:mixed-argument
+        $isValid = method_exists($domain, 'isValid') ? $domain->isValid(...) : $domain->validate(...);
+
+        // @mago-ignore analysis:mixed-operand
+        return $host === 'localhost' || $isValid($host);
     }
 
     private function portIsValid(string|null $port): bool
